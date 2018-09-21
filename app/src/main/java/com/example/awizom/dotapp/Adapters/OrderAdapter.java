@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.awizom.dotapp.Models.DataOrder;
@@ -43,69 +44,48 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         DataOrder order = orderList.get(position);
 
-     /*   holder. textViewPartyName.setText("PartyName\n"+order.getPartyName());
-        holder. textViewLocation.setText("Location\n"+order.getLocation());
-        holder.textViewPINo.setText("PINo \n"+Integer.toString( order.getPINo()));
-        holder. textViewworkOrderNo.setText("WorkOrderNo \n"+Integer.toString(  order.getWorkOrderNo()));
-        holder.textViewThick.setText("Thick\n"+Double.toString( order.getGlassSpecificationThick()));
-        holder. textViewColor.setText("Color\n"+ order.getGlassSpecificationColor());
-        holder. textViewBTD.setText("BTD\n"+order.getGlassSpecificationBTD());
-        holder.textViewSizeIn.setText("SizeIn\n"+order.getSizeIn());
-        holder. textViewActualSize.setText("ActualSize\n"+order.getActualSize());
-        holder. textViewHole.setText("Hole\n"+order.getHole());
-        holder. textViewCut.setText("Cut\n"+order.getCut());
-        holder. textViewQty.setText("Qty\n"+Integer.toString( order.getQty()));
-        holder. textViewAreaInSQM.setText("AreaInSQM\n"+Double.toString(order.getAreaInSQM()));
-        holder. textViewOrderDate.setText("OrderDate\n"+order.getOrderDate());
-        holder. textViewWeight.setText("Waight\n"+Double.toString(order.getGWaight()));
-        holder. textViewRemark.setText("Remark\n"+order.getRemark());
-        if(order.getDrawing().trim().length()==0)
+        holder. TextViewCustomerName.setText("Customer Name"+order.getCustomerName());
+        holder. textViewMobile.setText("Mobile"+order.getMobile());
+        holder.textViewOrderDate.setText("Order Date"+ order.getOrderDate());
+        holder. textViewAdvance.setText("Advance"+Double.toString(order.getAdvance()));
+        holder. textHandOverTo.setText("H O T"+ order.getHandOverTo());
+        holder. textTelorName.setText("Telor Name"+order.getTelorName());
+        holder.textReceivedBy.setText("Rec By"+order.getReceivedBy());
+
+       /*if(order.getDrawing().trim().length()==0)
             Glide.with(mCtx).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA0vf_EXkL0RKmM5718bM1M7742qvMsRCEwvoLbOeiBTACc4kJYA").into(holder.imageView);
         else
-            Glide.with(mCtx).load(order.getDrawing()).into(holder.imageView);
+            Glide.with(mCtx).load(order.getDrawing()).into(holder.imageView);*/
+        //OP,MR,RFT,disp,reject,linerdept;
 
-        //cut,grind,fab,temp,disp,reject,linerdept;
-        if(order.isDEPTDREJECT())
+        if(order.isCancel())
         {
             holder.linerdept.setBackgroundColor(Color.RED);
 
         }
-        else {
-            if (order.isDEPTCUT()) {
-                holder.cut.setBackgroundColor(Color.GREEN );
+        else
+            {
+            if (order.isOrderPlaced()) {
+                holder.OP.setBackgroundColor(Color.GREEN);
+                holder.MR.setBackgroundColor(Color.parseColor("#00BFFF"));
             }
-            if (order.isDEPTGRIND()) {
-                holder.grind.setBackgroundColor(Color.GREEN);
+            if (order.isMaterialReceived()) {
+
+                holder.MR.setBackgroundColor(Color.GREEN );
+                holder.RFT.setBackgroundColor(Color.parseColor("#00BFFF"));
             }
-            if (order.isDEPTFAB()) {
-                holder.fab.setBackgroundColor(Color.GREEN);
+            if (order.isReceivedFromTalor()) {
+                holder.RFT.setBackgroundColor(Color.GREEN);
+                holder.disp.setBackgroundColor(Color.parseColor("#00BFFF"));
             }
-            if (order.isDEPTTEMP()) {
-                holder.temp.setBackgroundColor(Color.GREEN);
-            }
-            if (order.isDEPTDISP()) {
+
+            if (order.isDispatch()) {
                 holder.disp.setBackgroundColor(Color.GREEN);
             }
 
         }
-        if(order.getRemark().equals("RFG"))
-        {
-            holder.grind.setBackgroundColor(Color.parseColor("#00BFFF"));
-        }
-        else if (order.getRemark().equals("RFF")) {
-            holder.fab.setBackgroundColor(Color.parseColor("#00BFFF"));
-        }
-        else if (order.getRemark().equals("RFT")) {
-            holder.temp.setBackgroundColor(Color.parseColor("#00BFFF"));
-        }
-        else if (order.getRemark().equals("RFD")) {
-            holder.disp.setBackgroundColor(Color.parseColor("#00BFFF"));
-        }
 
-        else if (order.getRemark().trim().length()==0) {
-            holder.cut.setBackgroundColor(Color.parseColor("#00BFFF"));
-        }
-*/
+
     }
 
     @Override
@@ -117,12 +97,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         AlertDialog.Builder alert;
         String id,dept,deptcolname,status;
-        TextView textViewWorkingDate, textViewPartyName, textViewLocation,textViewPINo,textViewworkOrderNo,textViewThick
-                ,textViewColor,textViewBTD,textViewSizeIn,textViewActualSize,textViewHole,
-                textViewCut,textViewQty,textViewAreaInSQM,textViewOrderDate,textViewWeight,textViewRemark;
-        Button button,buttonCut,buttonGrind,buttonFab,buttonTemp,buttonDisp,buttonReject;
+        Spinner spinner;
+        TextView TextViewCustomerName, textViewMobile, textViewAddOrder,textViewAddStatus
+                ,textViewOrderDate,textViewAdvance,textViewAddRoom,
+                textHandOverTo,textTelorName,textReceivedBy;
 
-        LinearLayout cut,grind,fab,temp,disp,reject,linerdept;
+        Button button,buttonOP,buttonMR,buttonRFT,buttonDisp,buttonReject;
+
+        LinearLayout OP,MR,RFT,disp,reject,linerdept;
         private Context mCtx;
         //we are storing all the products in a list
         private List<DataOrder> orderList;
@@ -135,32 +117,40 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-           /* textViewPartyName = itemView.findViewById(R.id.textViewPartyName);
+            TextViewCustomerName = itemView.findViewById(R.id.TextViewCustomerName);
+            textViewMobile = itemView.findViewById(R.id.textViewMobile);
+            textViewAddOrder = itemView.findViewById(R.id.textViewAddOrder);
+            textViewAddStatus = itemView.findViewById(R.id.textViewAddStatus);
+            textViewOrderDate = itemView.findViewById(R.id.textViewOrderDate);
+            textViewAdvance = itemView.findViewById(R.id.textViewAdvance);
+            textViewAddRoom = itemView.findViewById(R.id.textViewAddRoom);
+            textHandOverTo = itemView.findViewById(R.id.textHandOverTo);
+            textTelorName = itemView.findViewById(R.id.textTelorName);
+            textReceivedBy = itemView.findViewById(R.id.textReceivedBy);
 
 
-            cut = itemView.findViewById(R.id.OP);
-            grind = itemView.findViewById(R.id.MR);
-            fab = itemView.findViewById(R.id.fab);
-            temp = itemView.findViewById(R.id.temp);
+
+
+            OP = itemView.findViewById(R.id.OP);
+            MR = itemView.findViewById(R.id.MR);
+            RFT = itemView.findViewById(R.id.RFT);
+
             disp = itemView.findViewById(R.id.disp);
             reject = itemView.findViewById(R.id.reject);
             linerdept = itemView.findViewById(R.id. linerdept);
 
 
 
-
-            buttonCut=itemView.findViewById(R.id.buttonOP);
-            buttonCut.setOnClickListener(this);
-            buttonGrind=itemView.findViewById(R.id.buttonGrind);
-            buttonGrind.setOnClickListener(this);
-            buttonFab=itemView.findViewById(R.id.buttonFab);
-            buttonFab.setOnClickListener(this);
-            buttonTemp=itemView.findViewById(R.id.buttonTemp);
-            buttonTemp.setOnClickListener(this);
+            buttonOP=itemView.findViewById(R.id.buttonOP);
+            buttonOP.setOnClickListener(this);
+            buttonMR=itemView.findViewById(R.id.buttonMR);
+            buttonMR.setOnClickListener(this);
+            buttonRFT=itemView.findViewById(R.id.buttonRFT);
+            buttonRFT.setOnClickListener(this);
             buttonDisp=itemView.findViewById(R.id.buttonDisp);
             buttonDisp.setOnClickListener(this);
             buttonReject=itemView.findViewById(R.id.buttonReject);
-            buttonReject.setOnClickListener(this);*/
+            buttonReject.setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {

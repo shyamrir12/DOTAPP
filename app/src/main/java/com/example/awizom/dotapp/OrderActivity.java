@@ -59,7 +59,7 @@ public class OrderActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-            String accesstoken = params[0];
+           // String accesstoken = params[0];
             //String clave = params[1];
             //String res = params[2];
             String json = "";
@@ -67,7 +67,7 @@ public class OrderActivity extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL+"GetOrder");
+                builder.url(AppConfig.BASE_URL_API+"GetOrder");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
               //  builder.addHeader("Authorization", "Bearer " + accesstoken);
