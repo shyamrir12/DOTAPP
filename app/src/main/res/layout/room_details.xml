@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/toolbar_view" />
+
+    <RelativeLayout
+        android:id="@+id/header_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/relative_layout_height"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/blue">
+
+        <TextView
+            android:id="@+id/center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:id="@+id/customer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="45dp"
+            android:text="Costumer Name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/room_text_size" />
+
+        <EditText
+            android:id="@+id/customer_mobile_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="50dp"
+            android:gravity="center_horizontal"
+            android:text="Mobile Number"
+            android:textColor="@color/white"
+            android:textSize="@dimen/room_text_size" />
+
+        <EditText
+            android:id="@+id/s.no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="S.no"
+            android:textSize="@dimen/room_text_size"
+            android:textColor="@color/white"
+            android:layout_below="@+id/customer_name" />
+
+        <EditText
+            android:id="@+id/order"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/customer_name"
+            android:layout_marginStart="75dp"
+            android:text="Order"
+            android:textColor="@color/white"
+            android:textSize="@dimen/room_text_size" />
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/customer_name"
+            android:layout_marginEnd="113dp"
+            android:text="Date"
+            android:textColor="@color/white"
+            android:textSize="@dimen/room_text_size" />
+
+        <EditText
+            android:id="@+id/room_type"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/customer_name"
+            android:text="Hall"
+            android:textColor="@color/white"
+            android:textSize="@dimen/room_text_size" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header_relative">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+    </RelativeLayout>
+
+</RelativeLayout>
