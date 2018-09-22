@@ -9,32 +9,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
-            android:id="@+id/editTextWorkingDate"
+            android:id="@+id/editCustomerName"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="DD/MM/YY"
-            android:inputType="date" />
+            android:hint="CustomerName"
+            />
 
         <EditText
-            android:id="@+id/editTextPartyName"
+            android:id="@+id/editMobile"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Party Name" />
+            android:hint="Mobile" />
 
-        <EditText
-            android:id="@+id/editTextLocation"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="Location" />
-        <EditText
-            android:id="@+id/editTextPINo"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="PINo" />
+
 
     </LinearLayout>
     <LinearLayout
@@ -43,24 +32,13 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editTextworkOrderNo"
+            android:id="@+id/editAddress"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="work Order No" />
+            android:hint="Address" />
 
-        <EditText
-            android:id="@+id/editTextThick"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="Thick" />
-        <EditText
-            android:id="@+id/editTextColor"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="Color" />
+
 
     </LinearLayout>
     <LinearLayout
@@ -69,24 +47,19 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editTextBTD"
+            android:id="@+id/editInteriorName"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="BTD" />
+            android:hint="InteriorName" />
 
         <EditText
-            android:id="@+id/editTextSizeIn"
+            android:id="@+id/editInteriorMobile"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="SizeIn" />
-        <EditText
-            android:id="@+id/editTextActualSize"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="ActualSize" />
+            android:hint="InteriorMobile" />
+
 
     </LinearLayout>
 
