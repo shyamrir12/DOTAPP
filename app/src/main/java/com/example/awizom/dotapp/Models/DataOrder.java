@@ -23,6 +23,15 @@ public class DataOrder {
     public String OrderDate ;
     public int SNO ;
     public String RoomList ;
+    public String ARoomList ;
+
+    public String getARoomList() {
+        return ARoomList;
+    }
+
+    public void setARoomList(String ARoomList) {
+        this.ARoomList = ARoomList;
+    }
 
     public int getCustomerID() {
         return CustomerID;

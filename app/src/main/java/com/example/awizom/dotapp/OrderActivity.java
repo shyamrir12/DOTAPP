@@ -189,6 +189,7 @@ public class OrderActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     getMyOrder();
+
                 }
                 progressDialog.dismiss();
 
