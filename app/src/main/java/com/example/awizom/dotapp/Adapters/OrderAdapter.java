@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -44,13 +45,31 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         DataOrder order = orderList.get(position);
 
-        holder. TextViewCustomerName.setText("Customer Name"+order.getCustomerName());
-        holder. textViewMobile.setText("Mobile"+order.getMobile());
-        holder.textViewOrderDate.setText("Order Date"+ order.getOrderDate());
-        holder. textViewAdvance.setText("Advance"+Double.toString(order.getAdvance()));
-        holder. textHandOverTo.setText("H O T"+ order.getHandOverTo());
-        holder. textTelorName.setText("Telor Name"+order.getTelorName());
-        holder.textReceivedBy.setText("Rec By"+order.getReceivedBy());
+        holder. TextViewCustomerName.setText(order.getCustomerName());
+        holder. textViewMobile.setText(order.getMobile());
+        holder.textViewOrderDate.setText(order.getOrderDate().split("T")[0]);
+        holder. textViewAdvance.setText("Advance "+Double.toString(order.getAdvance()));
+        holder. textHandOverTo.setText("H O T\n"+ order.getHandOverTo());
+        holder. textTelorName.setText("Telor Name\n"+order.getTelorName());
+        holder.textReceivedBy.setText("Rec By\n"+order.getReceivedBy());
+if(order.getRoomList().trim().length()>0)
+{
+
+
+
+    String sampleString = order.getRoomList();
+    String[] items = sampleString.split(",");
+
+
+
+// Application of the Array to the Spinner
+    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx,   android.R.layout.simple_spinner_item, items);
+    spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+    holder.spinner.setAdapter(spinnerArrayAdapter);
+
+
+}
+      //  linerdept,L2,linerstatus;
 
        /*if(order.getDrawing().trim().length()==0)
             Glide.with(mCtx).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA0vf_EXkL0RKmM5718bM1M7742qvMsRCEwvoLbOeiBTACc4kJYA").into(holder.imageView);
@@ -84,7 +103,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             }
 
         }
+        if(order.getOrderStatusID()==0)
+        {
 
+            holder.linerdept.setVisibility(View.GONE);holder.linerstatus.setVisibility(View.GONE);
+
+        }
+        else
+        {  holder.textViewAddStatus.setVisibility(View.GONE);
+
+        }
+        if(order.getOrderID()==0)
+        {
+            holder.L2.setVisibility(View.GONE);
+        }else
+        {
+            holder.textViewAddOrder.setVisibility(View.GONE);
+        }
 
     }
 
@@ -104,7 +139,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         Button button,buttonOP,buttonMR,buttonRFT,buttonDisp,buttonReject;
 
-        LinearLayout OP,MR,RFT,disp,reject,linerdept;
+        LinearLayout OP,MR,RFT,disp,reject,linerdept,L2,linerstatus;
         private Context mCtx;
         //we are storing all the products in a list
         private List<DataOrder> orderList;
@@ -128,7 +163,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             textTelorName = itemView.findViewById(R.id.textTelorName);
             textReceivedBy = itemView.findViewById(R.id.textReceivedBy);
 
-
+            spinner= itemView.findViewById(R.id.spinner);
 
 
             OP = itemView.findViewById(R.id.OP);
@@ -139,7 +174,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             reject = itemView.findViewById(R.id.reject);
             linerdept = itemView.findViewById(R.id. linerdept);
 
-
+            L2=itemView.findViewById(R.id. L2);
+                    linerstatus=itemView.findViewById(R.id. linerstatus);
 
             buttonOP=itemView.findViewById(R.id.buttonOP);
             buttonOP.setOnClickListener(this);
@@ -156,7 +192,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public void onClick(View v) {
             int position=getAdapterPosition();
           DataOrder    order =this.orderList.get(position);
+            if (v.getId() ==textViewAddOrder.getId()) {
 
+            }
+            if (v.getId() ==textViewAddStatus.getId()) {
+
+            }
           /*  if (v.getId() ==textViewPartyName.getId()) {
                 Intent intent=new Intent(mCtx, DrawingActivity.class);
                 intent.putExtra("filename",order.getId());

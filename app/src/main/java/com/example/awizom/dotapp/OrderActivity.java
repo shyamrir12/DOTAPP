@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -33,9 +35,19 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         getSupportActionBar().setTitle("Order");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         addorder=findViewById(R.id.addorder);
         progressDialog = new ProgressDialog(this);
         getMyOrder();
+
+        addorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
     }
     public void getMyOrder()
     {
@@ -43,7 +55,7 @@ public class OrderActivity extends AppCompatActivity {
             //String res="";
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new OrderActivity.GETOrderList().execute();
+            new OrderActivity.GETOrderList().execute("test");
 
             //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
 
@@ -59,7 +71,7 @@ public class OrderActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-           // String accesstoken = params[0];
+            String accesstoken = params[0];
             //String clave = params[1];
             //String res = params[2];
             String json = "";
@@ -67,7 +79,7 @@ public class OrderActivity extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"GetOrder");
+                builder.url(AppConfig.BASE_URL_API+"OrderGet");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
               //  builder.addHeader("Authorization", "Bearer " + accesstoken);
