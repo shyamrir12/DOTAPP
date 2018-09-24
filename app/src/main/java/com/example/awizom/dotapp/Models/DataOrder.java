@@ -24,6 +24,15 @@ public class DataOrder {
     public int SNO ;
     public String RoomList ;
     public String ARoomList ;
+    public String TelorList ;
+
+    public String getTelorList() {
+        return TelorList;
+    }
+
+    public void setTelorList(String telorList) {
+        TelorList = telorList;
+    }
 
     public String getARoomList() {
         return ARoomList;

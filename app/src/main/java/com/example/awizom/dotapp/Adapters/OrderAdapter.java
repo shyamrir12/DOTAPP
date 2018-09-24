@@ -2,6 +2,7 @@ package com.example.awizom.dotapp.Adapters;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,7 +39,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder > {
-
+    int position=0;
     private Context mCtx;
     ProgressDialog progressDialog;
     //we are storing all the products in a list
@@ -68,9 +70,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.textViewMobile.setText(order.getMobile());
         holder.textViewOrderDate.setText(order.getOrderDate().split("T")[0]);
         holder.textViewAdvance.setText("Advance " + Double.toString(order.getAdvance()));
-        holder.textHandOverTo.setText("H O T\n" + order.getHandOverTo());
+        holder.textHandOverTo.setText("Hand Over To\n" + order.getHandOverTo());
         holder.textTelorName.setText("Telor Name\n" + order.getTelorName());
-        holder.textReceivedBy.setText("Rec By\n" + order.getReceivedBy());
+        holder.textReceivedBy.setText("Received By\n" + order.getReceivedBy());
         if (order.getRoomList().trim().length() > 0) {
 
 
@@ -187,6 +189,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             textViewAddOrder.setOnClickListener(this);
             textViewAddStatus.setOnClickListener(this);
             textViewAddRoom.setOnClickListener(this);
+            linerstatus.setOnLongClickListener(this);
             buttonOP = itemView.findViewById(R.id.buttonOP);
             buttonOP.setOnClickListener(this);
             buttonMR = itemView.findViewById(R.id.buttonMR);
@@ -201,7 +204,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
+           position = getAdapterPosition();
             DataOrder order = this.orderList.get(position);
             if (v.getId() == textViewAddOrder.getId()) {
                 try {
@@ -221,7 +224,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     //String res="";
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()));
+                    new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),"0","0","0","0","0","","","");
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -241,67 +244,91 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 intent.putExtra("pino",order.getPINo());
                 intent.putExtra("partyname",order.getPartyName());
                 this.mCtx.startActivity(intent);
+            }*/
+            if (v.getId() == buttonOP.getId()) {
+
+                dept="Order Placed";
+                updateArtist(order);
             }
-            if (v.getId() == buttonCut.getId()) {
-                id=order.getId();
-                dept="CUT Department";
-                deptcolname="deptcut";
-                status="RFG";
-                updateArtist();
+            if (v.getId() == buttonMR.getId()) {
+
+                dept="Material Received";
+                updateArtist(order);
             }
-            if (v.getId() == buttonGrind.getId()) {
-                id=order.getId();
-                dept="GRIND Department";
-                deptcolname="deptgrind";
-                status="RFF";
-                updateArtist();
-            }
-            if (v.getId() == buttonFab.getId()) {
-                id=order.getId();
-                dept="FAB Department";
-                deptcolname="deptfab";
-                status="RFT";
-                updateArtist();
-            }
-            if (v.getId() == buttonTemp.getId()) {
-                id=order.getId();
-                dept="TEMP Department";
-                deptcolname="depttemp";
-                status="RFD";
-                updateArtist();
+
+            if (v.getId() == buttonRFT.getId()) {
+
+                dept="Received From Talor";
+                updateArtist(order);
             }
             if (v.getId() == buttonDisp.getId()) {
-                id=order.getId();
-                dept="DISP Department";
-                deptcolname="deptdisp";
-                status="OC";
-                updateArtist();
+
+                dept="Dispatch";
+                updateArtist(order);
             }
             if (v.getId() == buttonReject.getId()) {
-                id=order.getId();
-                dept="Reject Department";
-                deptcolname="deptdreject";
-                status="Reject";
-                updateArtist();
-            }*/
+                dept="Cancel";
+                updateArtist(order);
 
-            // uploadData.add(new DataWorkOrder("", PartyName, Location, PINo, workOrderNo, GlassSpecificationThick, GlassSpecificationColor, GlassSpecificationBTD, SizeIn, SizeMm, ActualSize, Hole, Cut, Qty, AreaInSQM, OrderDate, 0, Remark));
-            // showUpdateDeleteDialog();
-        }
+            }
 
-        /*  private boolean updateArtist() {
+         }
+
+          private boolean updateArtist(final DataOrder order) {
               alert = new AlertDialog.Builder(mCtx);
               alert.setTitle(dept);
               alert.setMessage("Are you sure you want to change the "+dept+" status to OK?");
               alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                   public void onClick(DialogInterface dialog, int which) {
-                      // continue with delete
-                      //getting the specified artist reference
-                      dataorder = FirebaseDatabase.getInstance().getReference("orders").child(id);
-                      //updating artist
-                      dataorder.child(deptcolname).setValue(true);
-                      dataorder.child("remark").setValue(status);
-                      Toast.makeText(mCtx, dept+" status changed to OK", Toast.LENGTH_LONG).show();
+                      try {
+                          //String res="";
+                          progressDialog.setMessage("loading...");
+                          progressDialog.show();
+                          String OP="false",MR="false",RFT="false",DESP="false",CEN="false";
+                          if(order.isOrderPlaced())
+                              OP="true";
+                          if(order.isMaterialReceived())
+                              MR="true";
+                          if(order.isReceivedFromTalor())
+                              RFT="true";
+                          if(order.isDispatch())
+                              DESP="true";
+                          if(order.isCancel())
+                              CEN="true";
+
+                          if(dept.equals("Order Placed"))
+                          {
+                              new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),"true",MR,RFT,DESP,CEN,order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
+
+                          }
+                          else  if(dept.equals("Material Received"))
+                          {
+                              new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),OP,"true",RFT,DESP,CEN,order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
+
+                          }
+                          else  if(dept.equals("Received From Talor"))
+                          {
+                              new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),OP,MR,"true",DESP,CEN,order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
+                          }
+                          else  if(dept.equals("Dispatch"))
+                          {
+                              new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),OP,MR,RFT,"true",CEN,order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
+
+                          }
+                          else  if(dept.equals("Cancel"))
+                          {
+                              new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),OP,MR,RFT,DESP,"true",order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
+
+                          }
+
+                       } catch (Exception e) {
+                          e.printStackTrace();
+                          progressDialog.dismiss();
+                          Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+                          // System.out.println("Error: " + e);
+                      }
+
+
                   }
               });
               alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -314,20 +341,84 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
               return true;
           }
-  */
         @Override
         public boolean onLongClick(View v) {
 
-            int position = getAdapterPosition();
+            position = getAdapterPosition();
             DataOrder order = this.orderList.get(position);
 
 
-            if (v.getId() == itemView.getId()) {
+            if (v.getId() == linerstatus.getId()) {
 
-                // showUpdateDeleteDialog(order);
+                 showUpdateStatusDialog(order);
             }
             return true;
         }
+
+        private void showUpdateStatusDialog(final DataOrder order) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
+            LayoutInflater inflater = LayoutInflater.from(mCtx);
+            final View dialogView = inflater.inflate(R.layout.orderstatus_layout, null);
+            dialogBuilder.setView(dialogView);
+            final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spinner);
+            String[] items =order.getTelorList().split(",");
+
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+            spinner.setAdapter(spinnerArrayAdapter);
+           final EditText editHandOverTo=(EditText)dialogView.findViewById(R.id.editHandOverTo);
+            final EditText editReceivedBy=(EditText)dialogView.findViewById(R.id.editReceivedBy);
+
+            editHandOverTo.setText(order.getHandOverTo());
+            editReceivedBy.setText(order.getReceivedBy());
+            if(order.getTelorName().trim().length()>0) {
+                int selectionPosition = spinnerArrayAdapter.getPosition(order.getTelorName().toString());
+                spinner.setSelection(selectionPosition);
+            }
+            final Button buttonAdd = (Button) dialogView.findViewById(R.id.buttonAddOrder);
+            final Button buttonCancel = (Button) dialogView.findViewById(R.id.buttonCancel);
+            dialogBuilder.setTitle("Add Order Status");
+            final AlertDialog b = dialogBuilder.create();
+            b.show();
+            buttonAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (String.valueOf(spinner.getSelectedItem()).trim().length()>0) {
+                        try {
+
+                            progressDialog.setMessage("loading...");
+                            progressDialog.show();
+                            new POSTStatus().execute(String.valueOf(order.getOrderID()),String.valueOf(order.isOrderPlaced()),String.valueOf(order.isMaterialReceived()),String.valueOf(order.isReceivedFromTalor()),String.valueOf(order.isDispatch()),String.valueOf(order.isCancel()),editHandOverTo.getText().toString(),spinner.getSelectedItem().toString(),editReceivedBy.getText().toString());
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+                            // System.out.println("Error: " + e);
+                        }
+                        b.dismiss();
+                    }
+                }
+
+
+            });
+
+
+            buttonCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    b.dismiss();
+                    /*
+                     * we will code this method to delete the artist
+                     * */
+
+                }
+            });
+
+        }
+
         private void showUpdateDeleteDialog(final long orderid,String aroomlist) {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
@@ -442,7 +533,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     final Result jsonbodyres = gson.fromJson(result, Result.class);
                     Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                     if (jsonbodyres.getStatus() == true) {
-                        //getMyOrder();
+                        getMyOrder();
                     }
                     progressDialog.dismiss();
 
@@ -459,6 +550,18 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
                 //     InputStream inputStream
                 String orderid = params[0];
+                String OrderPlaced = params[1];
+                String MaterialReceived = params[2];
+                String ReceivedFromTalor = params[3];
+
+                String Dispatch = params[4];
+                String Cancel = params[5];
+                String HandOverTo = params[6];
+                String TelorName = params[7];
+                String ReceivedBy = params[8];
+
+
+
                 String json = "";
                 try {
 
@@ -472,6 +575,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     FormBody.Builder parameters = new FormBody.Builder();
                     parameters.add("OrderID", orderid);
 
+                    parameters.add("OrderPlaced", OrderPlaced);
+                    parameters.add("MaterialReceived", MaterialReceived);
+                    parameters.add("ReceivedFromTalor", ReceivedFromTalor);
+                    parameters.add("Cancel", Cancel);
+                    parameters.add("Dispatch", Dispatch);
+
+                    parameters.add("HandOverTo", HandOverTo);
+                    parameters.add("TelorName", TelorName);
+                    parameters.add("ReceivedBy", ReceivedBy);
 
                     builder.post(parameters.build());
 
@@ -503,7 +615,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     final Result jsonbodyres = gson.fromJson(result, Result.class);
                     Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                     if (jsonbodyres.getStatus() == true) {
-                        //getMyOrder();
+                        getMyOrder();
 
                     }
                     progressDialog.dismiss();
@@ -567,7 +679,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     final Result jsonbodyres = gson.fromJson(result, Result.class);
                     Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                     if (jsonbodyres.getStatus() == true) {
-                        //getMyOrder();
+                        getMyOrder();
+
                     }
                     progressDialog.dismiss();
 
@@ -596,5 +709,75 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public void modifyItem(final int position, final DataOrder model) {
         orderList.set(position, model);
         notifyItemChanged(position);
+
+    }
+
+    public void getMyOrder()
+    {
+        try {
+            //String res="";
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new OrderAdapter.GETOrderList().execute("test");
+
+            //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            // System.out.println("Error: " + e);
+        }
+    }
+    private class GETOrderList extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            //     InputStream inputStream
+            String accesstoken = params[0];
+            //String clave = params[1];
+            //String res = params[2];
+            String json = "";
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API+"OrderGet");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                //  builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                // System.out.println("Error: " + e);
+                Toast.makeText(mCtx,"Error: " + e,Toast.LENGTH_SHORT).show();
+            }
+
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                //progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+
+                //System.out.println(result);
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<DataOrder>>(){}.getType();
+                orderList = new Gson().fromJson(result,listType);
+                modifyItem(  position,orderList.get(0));
+                progressDialog.dismiss();
+
+            }
+
+
+        }
     }
 }
