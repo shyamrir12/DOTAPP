@@ -12,97 +12,131 @@
     <RelativeLayout
         android:id="@+id/header_relative"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/relative_layout_height"
+        android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar"
-        android:background="@color/blue">
+        android:background="@color/blue"
+        android:layout_marginBottom="10dp">
 
-        <TextView
-            android:id="@+id/center"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/customerinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:text=" " />
+
+            <TextView
+                android:id="@+id/customer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="45dp"
+                android:text="Costumer Name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size" />
+
+            <TextView
+                android:id="@+id/customer_mobile_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="50dp"
+                android:gravity="center_horizontal"
+                android:text="Mobile Number"
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/customerinfo2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=" "
-            android:gravity="center_horizontal"
-            android:layout_centerHorizontal="true" />
+            android:layout_below="@+id/customerinfo"
+            android:layout_marginTop="10dp">
 
-        <EditText
-            android:id="@+id/customer_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="45dp"
-            android:text="Costumer Name"
-            android:textColor="@color/white"
-            android:textSize="@dimen/room_text_size" />
+            <TextView
+                android:id="@+id/s.no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:gravity="center_horizontal"
+                android:text="S.no"
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size" />
 
-        <EditText
-            android:id="@+id/customer_mobile_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center"
-            android:layout_marginEnd="50dp"
-            android:gravity="center_horizontal"
-            android:text="Mobile Number"
-            android:textColor="@color/white"
-            android:textSize="@dimen/room_text_size" />
+            <TextView
+                android:id="@+id/order"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/date"
+                android:gravity="center_horizontal"
+                android:text="Order"
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size" />
 
-        <EditText
-            android:id="@+id/s.no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="S.no"
-            android:textSize="@dimen/room_text_size"
-            android:textColor="@color/white"
-            android:layout_below="@+id/customer_name" />
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="113dp"
+                android:gravity="center_horizontal"
+                android:text="Date"
 
-        <EditText
-            android:id="@+id/order"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/customer_name"
-            android:layout_marginStart="75dp"
-            android:text="Order"
-            android:textColor="@color/white"
-            android:textSize="@dimen/room_text_size" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size" />
 
-        <EditText
-            android:id="@+id/date"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/customer_name"
-            android:layout_marginEnd="113dp"
-            android:text="Date"
-            android:textColor="@color/white"
-            android:textSize="@dimen/room_text_size" />
-
-        <EditText
-            android:id="@+id/room_type"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/customer_name"
-            android:text="Hall"
-            android:textColor="@color/white"
-            android:textSize="@dimen/room_text_size" />
-
+            <TextView
+                android:id="@+id/room_type"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:gravity="center_horizontal"
+                android:text="Hall"
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relative_medium"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="250dp"
         android:layout_below="@+id/header_relative">
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </ListView>
-
+            android:layout_height="match_parent" />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative_medium"
+        android:layout_alignParentBottom="true">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/boottom_lyout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

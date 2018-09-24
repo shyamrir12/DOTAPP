@@ -5,13 +5,147 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="@string/room_detail"/>
-    </LinearLayout>
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:id="@+id/lenear1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <EditText
+                android:id="@+id/sNo"
+                android:layout_width="75dp"
+                android:layout_height="40dp"
+                android:hint="S.No"
+                android:textSize="15sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_horizontal"/>
+
+            <EditText
+                android:id="@+id/catlogName"
+                android:layout_width="115dp"
+                android:layout_height="40dp"
+                android:layout_weight="-1"
+                android:hint="CatalogName"
+                android:textSize="15sp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_horizontal"/>
+
+            <EditText
+                android:id="@+id/design"
+                android:layout_width="115dp"
+                android:layout_height="40dp"
+                android:layout_weight="-1"
+                android:hint="Design"
+                android:textSize="15sp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lenear2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lenear1"
+            android:layout_margin="10dp">
+
+            <EditText
+                android:id="@+id/pageNo"
+                android:layout_width="75dp"
+                android:layout_height="40dp"
+                android:hint="Page No"
+                android:textSize="15sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_horizontal"/>
+            <EditText
+                android:id="@+id/price"
+                android:layout_width="115dp"
+                android:layout_height="40dp"
+                android:layout_weight="-1"
+                android:hint="Price"
+                android:textSize="15sp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_horizontal"/>
+
+            <EditText
+                android:id="@+id/price2"
+                android:layout_width="115dp"
+                android:layout_height="40dp"
+                android:layout_weight="-1"
+                android:hint="Price2"
+                android:textSize="15sp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lenear3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lenear2"
+            android:layout_margin="10dp">
+
+            <EditText
+                android:id="@+id/qTy"
+                android:layout_width="75dp"
+                android:layout_height="40dp"
+                android:hint="Qty"
+                android:textSize="15sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_horizontal"/>
+            <EditText
+                android:id="@+id/aQty"
+                android:layout_width="85dp"
+                android:layout_height="40dp"
+                android:layout_weight="-1"
+                android:hint="AQty"
+                android:textSize="15sp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_horizontal"/>
+
+            <EditText
+                android:id="@+id/materialType"
+                android:layout_width="125dp"
+                android:layout_height="40dp"
+                android:layout_weight="-1"
+                android:hint="MaterialType"
+                android:textSize="15sp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lenear4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lenear3"
+            android:layout_margin="5dp">
+
+            <Button
+                android:id="@+id/add"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Add"
+                android:textAllCaps="false"
+                android:layout_weight="-1"
+                android:layout_marginLeft="25dp"/>
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:layout_weight="-1"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
 </ScrollView>
