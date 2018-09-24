@@ -398,7 +398,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             final View dialogView = inflater.inflate(R.layout.orderstatus_layout, null);
             dialogBuilder.setView(dialogView);
             final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spinner);
+
             String[] items =order.getTelorList().split(",");
+
 
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view

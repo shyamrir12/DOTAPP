@@ -257,22 +257,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-//    public void getMyOrder() {
-//        try {
-//            //String res="";
-//            progressDialog.setMessage("loading...");
-//            progressDialog.show();
-//            new RoomDetailsActivity().GETOrderList().execute("test");
-//
-//            //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            progressDialog.dismiss();
-//            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-//            // System.out.println("Error: " + e);
-//        }
-//    }
 
 
     private void showDialog() {
@@ -319,7 +303,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new detailsGET().execute("test");
+            new detailsGET().execute(roomName,orderID);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -332,12 +316,15 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         protected String doInBackground(String... strings) {
-
+            String roomName = strings[0];
+            String orderID = strings[1];
             String json = "";
+
+
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/1/Hall");
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/"+orderID+"/"+roomName);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
 
