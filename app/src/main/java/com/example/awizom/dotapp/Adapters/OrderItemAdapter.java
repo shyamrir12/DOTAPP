@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.R;
+
 import java.util.List;
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderViewHolder> {
@@ -38,20 +40,24 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         CatelogOrderDetailModel order = orderList.get(position);
+        try {
 
-        //holder.textViewPINo.setText("PINo \n"+Integer.toString( order.getPINo()));
-        holder.serialNo.setText(order.getSerialNo());
-        holder.catlogName.setText(order.getCatalogName());
-        holder.design.setText(order.getDesign());
-        holder.pageNo.setText(Integer.toString(order.getPageNo()));
-        holder.price.setText(Integer.toString(order.getPrice()));
+            //holder.textViewPINo.setText("PINo \n"+Integer.toString( order.getPINo()));
+            holder.serialNo.setText(order.getSerialNo());
+            holder.catlogName.setText(order.getCatalogName());
+            holder.design.setText(order.getDesign());
+            holder.pageNo.setText(Integer.toString(order.getPageNo()));
+            holder.price.setText(Integer.toString(order.getPrice()));
 
 
-        holder.OrderItemID.setText(Integer.toString(order.getOrderItemID()));
-        holder.MaterialType.setText(order.getMaterialType());
-        holder.Price2.setText(Integer.toString(order.getPrice2()));
-        holder.Qty.setText(Integer.toString(order.getQty()));
-        holder.AQty.setText(Integer.toString(order.getAQty()));
+            holder.OrderItemID.setText(Integer.toString(order.getOrderItemID()));
+            holder.MaterialType.setText(order.getMaterialType());
+            holder.Price2.setText(Integer.toString(order.getPrice2()));
+            holder.Qty.setText(Integer.toString(order.getQty()));
+            holder.AQty.setText(Integer.toString(order.getAQty()));
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
 
     }
 
@@ -65,8 +71,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
         private final Context mCtx;
         AlertDialog.Builder alert;
-        TextView  catlogName, serialNo, design, pageNo, price;
-        TextView OrderItemID,MaterialType,Price2,Qty,AQty;
+        TextView catlogName, serialNo, design, pageNo, price;
+        TextView OrderItemID, MaterialType, Price2, Qty, AQty;
 
         //we are storing all the products in a list
         private List<CatelogOrderDetailModel> orderList;
@@ -93,7 +99,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             AQty = itemView.findViewById(R.id.aQty);
 
 
-
         }
 
         @Override
@@ -102,6 +107,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             CatelogOrderDetailModel order = this.orderList.get(position);
 
         }
+
         @Override
         public boolean onLongClick(View v) {
 
@@ -113,7 +119,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             }
             return true;
         }
-
 
 
     }

@@ -13,9 +13,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,13 +33,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class RoomDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class RoomDetailsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private TextView customerName, customerMobileNo, customerSno, customerOrder, customerDate, customerhall;
     private ImageButton additionButton;
@@ -51,6 +54,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     OrderItemAdapter adapter;
     private Intent intent;
     private EditText s_no, catlogName, design, pageNo, price, price2, materialType, qty, aQty;
+   // private Spinner unitSpinner;
     private Button addButton, cancelButton;
     private AlertDialog b;
     private String roomName,orderID,customernAME,mobileNumber,orderDate,advance;
@@ -78,7 +82,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         customerName.setText(customernAME);
         customerMobileNo.setText(mobileNumber);
-        customerOrder.setText(orderDate);
+        String date[] = orderDate.split("T",0);
+        customerOrder.setText(date[0]);
         customerhall.setText(roomName);
 
 
@@ -130,12 +135,18 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         String qTy = qty.getText().toString();
         String aqty = aQty.getText().toString();
         String materialtype = materialType.getText().toString();
+       // String unIt =  unit.getText().toString();
+
+//        unitSpinner.setOnItemClickListener(this);
+//        List<String> list = new ArrayList<String>();
+//        list.add("Mtr.");list.add("Role");list.add("Sqft");
+
 
         try {
-            //String res="";
+
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new POSTOrder().execute(snumber,catlogname,desiGn,page_no,priCe,priCe2,qTy,aqty,materialtype);
+            new POSTOrder().execute("0",materialtype,priCe2,qTy,"0","mtr.","0",catlogname,snumber,desiGn,page_no,priCe,"mtr.","0",roomName,orderID);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -146,20 +157,35 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
     private class POSTOrder extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
+         //     InputStream inputStream
+            String orderItemId = params[0];
+            String materialtype = params[1];
+            String priCe2 = params[2];
+            String qTy = params[3];
+            String aqty = params[4];
+            String orderUnit = params[5];
+            String orderRoomId = params[6];
 
-            //     InputStream inputStream
-            String snumber = params[0];
-            String catlogname = params[1];
-            String desiGn = params[2];
-            String page_no = params[3];
-            String priCe = params[4];
-            String priCe2 = params[5];
-            String qTy = params[6];
-            String aqty = params[7];
-            String materialtype = params[8];
+            String catlogname = params[7];
+            String snumber = params[8];
+            String desiGn = params[9];
+            String page_no = params[10];
+            String priCe = params[11];
+            String unit = params[12];
+            String catalogID = params[13];
+            String roomName = params[14];
+            String orderID = params[15];
+
+
+
 
             String json = "";
             try {
@@ -172,15 +198,29 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 //builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
-                parameters.add("SerialNo", snumber);
-                parameters.add("CatalogName", catlogname);
-                parameters.add("Design", desiGn);
-                parameters.add("PageNo", page_no);
-                parameters.add("Price", priCe);
+                parameters.add("OrderItemID", orderItemId);
+                parameters.add("MaterialType",materialtype);
                 parameters.add("Price2", priCe2);
                 parameters.add("Qty", qTy);
                 parameters.add("AQty", aqty);
-                parameters.add("MaterialType",materialtype);
+                parameters.add("OrderUnit", orderUnit);
+                parameters.add("OrderRoomID", orderRoomId);
+
+
+                parameters.add("CatalogName", catlogname);
+                parameters.add("SerialNo", snumber);
+                parameters.add("Design", desiGn);
+                parameters.add("PageNo", page_no);
+                parameters.add("Price", priCe);
+
+                parameters.add("Unit", unit);
+                parameters.add("CatalogID", catalogID);
+
+                parameters.add("RoomName",roomName);
+                parameters.add("OrderID",orderID);
+
+
+
                 builder.post(parameters.build());
 
 
@@ -255,6 +295,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         materialType = dialogView.findViewById(R.id.materialType);
         qty = dialogView.findViewById(R.id.qTy);
         aQty = dialogView.findViewById(R.id.aQty);
+       // unitSpinner = dialogView.findViewById(R.id.unit);
 
         addButton = dialogView.findViewById(R.id.add);
         cancelButton = dialogView.findViewById(R.id.cancelButton);
