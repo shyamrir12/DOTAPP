@@ -53,7 +53,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private EditText s_no, catlogName, design, pageNo, price, price2, materialType, qty, aQty;
     private Button addButton, cancelButton;
     private AlertDialog b;
-    private String id,hallName;
+    private String roomName,orderID,customernAME,mobileNumber,orderDate,advance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +64,23 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
     private void initView() {
 
-//        id=getIntent().getExtras().getString("id","");
-//        hallName=getIntent().getExtras().getString("hall","");
+        roomName=getIntent().getExtras().getString("RoomName","");
+        orderID= String.valueOf(getIntent().getIntExtra("OrderID",0));
+        customernAME=getIntent().getExtras().getString("CustomerName","");
+        mobileNumber=getIntent().getExtras().getString("Mobile","");
+        orderDate=getIntent().getExtras().getString("OrderDate","");
+        advance= String.valueOf(getIntent().getDoubleExtra("Advance",0));
 
         customerName = findViewById(R.id.customer_name);
         customerMobileNo = findViewById(R.id.customer_mobile_no);
         customerOrder = findViewById(R.id.order_date);
         customerhall = findViewById(R.id.room_name);
+
+        customerName.setText(customernAME);
+        customerMobileNo.setText(mobileNumber);
+        customerOrder.setText(orderDate);
+        customerhall.setText(roomName);
+
 
         elight = findViewById(R.id.elight);
         roman = findViewById(R.id.roman);
