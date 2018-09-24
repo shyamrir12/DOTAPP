@@ -219,9 +219,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                       intent.putExtra("RoomName",spinner.getItemAtPosition(position).toString());
                       intent.putExtra("OrderID",morderid);
 
-                      intent.putExtra("CustomerName(",order.getCustomerName().toString());
+                      intent.putExtra("CustomerName",order.getCustomerName());
                       intent.putExtra("Mobile",order.getMobile());
-                      intent.putExtra("OrderDate",order.getOrderDate().split("T").toString());
+                      intent.putExtra("OrderDate",order.getOrderDate());
                       intent.putExtra("Advance",order.getAdvance());
 
                      //  intent.putExtra("order", order);
