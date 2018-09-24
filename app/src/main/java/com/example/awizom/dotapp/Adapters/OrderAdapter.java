@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.awizom.dotapp.Activities.RoomDetailsActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
@@ -29,6 +31,7 @@ import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.security.PrivateKey;
 import java.util.ArrayList;
@@ -78,14 +81,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
 
             String sampleString = order.getRoomList();
+            sampleString="---Select---,"+sampleString;
             String[] items = sampleString.split(",");
 
 
 // Application of the Array to the Spinner
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-            holder.spinner.setAdapter(spinnerArrayAdapter);
 
+
+            holder.spinner.setAdapter(spinnerArrayAdapter);
 
         }
         //  linerdept,L2,linerstatus;
@@ -157,7 +162,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private List<DataOrder> orderList;
 
 
-        public OrderViewHolder(View itemView, Context mCtx, List<DataOrder> orderList) {
+        public OrderViewHolder(View itemView, final Context mCtx, final List<DataOrder> orderList) {
             super(itemView);
             this.mCtx = mCtx;
             this.orderList = orderList;
@@ -201,6 +206,30 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             buttonDisp.setOnClickListener(this);
             buttonReject = itemView.findViewById(R.id.buttonReject);
             buttonReject.setOnClickListener(this);
+          spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+              @Override
+              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                 int aposition = getAdapterPosition();
+                  DataOrder order =orderList.get(aposition);
+                  morderid=order.getOrderID();
+                  if(position>0)
+                  {
+                      Intent intent=new Intent(mCtx, RoomDetailsActivity.class);
+                      intent.putExtra("RoomName",spinner.getItemAtPosition(position).toString());
+                      intent.putExtra("OrderID",morderid);
+                     //  intent.putExtra("order", order);
+                      mCtx.startActivity(intent);
+                  }
+
+                //  Toast.makeText(mCtx,  spinner.getItemAtPosition(position).toString()+morderid, Toast.LENGTH_SHORT).show();
+              }
+
+              @Override
+              public void onNothingSelected(AdapterView<?> parent) {
+
+              }
+          });
         }
 
         @Override

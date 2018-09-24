@@ -288,7 +288,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/1");
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/1/Hall");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
 
