@@ -218,6 +218,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                       Intent intent=new Intent(mCtx, RoomDetailsActivity.class);
                       intent.putExtra("RoomName",spinner.getItemAtPosition(position).toString());
                       intent.putExtra("OrderID",morderid);
+
+                      intent.putExtra("CustomerName(",order.getCustomerName());
+                      intent.putExtra("Mobile",order.getMobile());
+                      intent.putExtra("OrderDate",order.getOrderDate().split("T"));
+                      intent.putExtra("Advance",order.getAdvance());
+
                      //  intent.putExtra("order", order);
                       mCtx.startActivity(intent);
                   }
