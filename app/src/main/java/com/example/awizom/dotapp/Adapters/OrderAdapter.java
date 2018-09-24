@@ -40,6 +40,7 @@ import okhttp3.Request;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder > {
     int position=0;
+    int morderid=0;
     private Context mCtx;
     ProgressDialog progressDialog;
     //we are storing all the products in a list
@@ -206,6 +207,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public void onClick(View v) {
            position = getAdapterPosition();
             DataOrder order = this.orderList.get(position);
+            morderid=order.getOrderID();
             if (v.getId() == textViewAddOrder.getId()) {
                 try {
                     //String res="";
@@ -346,7 +348,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
             position = getAdapterPosition();
             DataOrder order = this.orderList.get(position);
-
+            morderid=order.getOrderID();
 
             if (v.getId() == linerstatus.getId()) {
 
@@ -718,7 +720,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             //String res="";
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new OrderAdapter.GETOrderList().execute("test");
+            new OrderAdapter.GETOrderList().execute(String.valueOf(morderid));
 
             //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
 
@@ -734,7 +736,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-            String accesstoken = params[0];
+           // String accesstoken = params[0];
+            String orderid = params[0];
             //String clave = params[1];
             //String res = params[2];
             String json = "";
@@ -742,7 +745,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderGet");
+                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderid);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 //  builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -770,9 +773,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
                 //System.out.println(result);
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<DataOrder>>(){}.getType();
-                orderList = new Gson().fromJson(result,listType);
-                modifyItem(  position,orderList.get(0));
+                Type getType = new TypeToken<DataOrder>(){}.getType();
+                DataOrder  morder = new Gson().fromJson(result,getType);
+                modifyItem(  position,morder);
                 progressDialog.dismiss();
 
             }
