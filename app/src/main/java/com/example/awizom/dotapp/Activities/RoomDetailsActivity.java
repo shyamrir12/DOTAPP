@@ -69,10 +69,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         customerName = findViewById(R.id.customer_name);
         customerMobileNo = findViewById(R.id.customer_mobile_no);
-        customerSno = findViewById(R.id.s_no);
-        customerOrder = findViewById(R.id.order);
-        customerDate = findViewById(R.id.date);
-        customerhall = findViewById(R.id.room_type);
+        customerOrder = findViewById(R.id.order_date);
+        customerhall = findViewById(R.id.room_name);
 
         elight = findViewById(R.id.elight);
         roman = findViewById(R.id.roman);

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,107 +10,124 @@
         android:layout_alignParentStart="true"
         android:background="@color/blue">
 
-        <EditText
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relative_layout_bottom_height"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/transparent">
+        <LinearLayout
+            android:id="@+id/header_linear1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp">
+        <TextView
             android:id="@+id/elight"
             android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:text="@string/elight"
             android:textSize="@dimen/room_text_size"
             android:textColor="@color/white"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="15dp"/>
 
-        <EditText
+        <TextView
             android:id="@+id/roman"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="105dp"
+            android:layout_weight="-0"
             android:text="Roman"
             android:textSize="@dimen/room_text_size"
             android:textColor="@color/white"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="5dp"/>
 
-        <EditText
+        <TextView
             android:id="@+id/aPlat"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="92dp"
             android:textSize="@dimen/room_text_size"
             android:text="A Plat"
             android:textColor="@color/white"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="5dp"/>
 
-        <EditText
+        <TextView
             android:id="@+id/total"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
             android:textSize="@dimen/room_text_size"
             android:text="Total"
             android:textColor="@color/white"
-            android:gravity="center_horizontal"/>
-
-        <TextView
-            android:id="@+id/elight_value"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="13dp"
             android:gravity="center_horizontal"
-            android:text="0"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:layout_marginLeft="5dp"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/roman_value"
-            android:layout_width="50dp"
+        <LinearLayout
+            android:id="@+id/header_linear2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="126dp"
-            android:gravity="center_horizontal"
-            android:text="1"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:orientation="horizontal"
+            android:layout_below="@+id/header_linear1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp">
 
-        <TextView
-            android:id="@+id/aPlat_value"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="102dp"
-            android:gravity="center_horizontal"
-            android:text="2"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/elight_value"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="elight"
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size"
+                android:layout_marginLeft="15dp"/>
 
-        <TextView
-            android:id="@+id/total_value"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="14dp"
-            android:gravity="center_horizontal"
-            android:text="3"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/roman_value"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="roman"
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size"
+                android:layout_marginLeft="5dp"/>
 
-        <ImageButton
-            android:id="@+id/addButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/button_background_shape"
-            android:src="@drawable/ic_add_white_24dp" />
+            <TextView
+                android:id="@+id/aPlat_value"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="a plot"
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/total_value"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="1223"
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/addButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/button_background_shape"
+                android:src="@drawable/ic_add_white_24dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="5dp"/>
+
+
+        </RelativeLayout>
+    </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
