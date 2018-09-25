@@ -504,8 +504,11 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 Gson gson = new Gson();
                 Type getType = new TypeToken<ElightBottomModel>(){}.getType();
                 morder = new Gson().fromJson(result,getType);
+                if(morder.Elight!=null)
                 elight.setText(morder.Elight.toString());
+                if(morder.Roman!=null)
                 roman.setText(morder.Roman.toString());
+                if(morder.APlat!=null)
                 aPlat.setText(morder.APlat.toString());
                 progressDialog.dismiss();
 

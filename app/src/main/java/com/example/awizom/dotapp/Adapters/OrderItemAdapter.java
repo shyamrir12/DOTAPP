@@ -33,9 +33,9 @@ import okhttp3.Request;
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderViewHolder> {
 
-    Context mCtx;
-    private ProgressDialog progressDialog;
-
+    private Context mCtx;
+    ProgressDialog progressDialog;
+    AlertDialog b;
     //we are storing all the products in a list
     private List<CatelogOrderDetailModel> orderList;
     private CatelogOrderDetailModel catelogOrderDetailModel;
@@ -184,7 +184,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         final Button buttonAdd = (Button) dialogView.findViewById(R.id.add);
         final Button buttonCancel = (Button) dialogView.findViewById(R.id.cancelButton);
         dialogBuilder.setTitle("Edit Order Item");
-        final AlertDialog b = dialogBuilder.create();
+         b = dialogBuilder.create();
         b.show();
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override

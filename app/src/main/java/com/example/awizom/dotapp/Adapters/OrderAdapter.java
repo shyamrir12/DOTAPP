@@ -240,11 +240,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         @Override
         public void onClick(View v) {
-           position = getAdapterPosition();
+            position = getAdapterPosition();
             DataOrder order = this.orderList.get(position);
             morderid=order.getOrderID();
             if (v.getId() == textViewAddOrder.getId()) {
                 try {
+
                     //String res="";
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
@@ -258,6 +259,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             }
             if (v.getId() == textViewAddStatus.getId()) {
                 try {
+
                     //String res="";
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
