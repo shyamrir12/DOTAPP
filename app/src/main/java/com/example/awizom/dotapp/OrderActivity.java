@@ -41,7 +41,6 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     OrderAdapter adapter;
     Button addorder;
 
-
     private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
     private Intent intent;
     @Override
@@ -53,6 +52,8 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         textView.setText("Order List");
         arrow_id_back = findViewById(R.id.arrow_id_back);
         arrow_id_back.setOnClickListener(this);
+        arrow_id_back.setVisibility(View.INVISIBLE);
+
        // getSupportActionBar().setTitle("Order");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);

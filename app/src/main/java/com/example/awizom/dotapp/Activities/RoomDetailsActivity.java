@@ -15,12 +15,17 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.awizom.dotapp.Adapters.OrderAdapter;
 import com.example.awizom.dotapp.Adapters.OrderItemAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
+import com.example.awizom.dotapp.Models.DataOrder;
+import com.example.awizom.dotapp.Models.ElightBottomModel;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.OrderActivity;
 import com.example.awizom.dotapp.R;
@@ -32,17 +37,21 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class RoomDetailsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class RoomDetailsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, View.OnLongClickListener {
 
     private TextView customerName, customerMobileNo, customerSno, customerOrder, customerDate, customerhall;
     private ImageButton additionButton;
     private TextView elight, roman, aPlat;
-    private EditText editElight,editRoman,editAplot;
+
+    private RelativeLayout relative_Layout_press,relativeLayout_edit_dailog,bottom_relative_press1;
     private RecyclerView recyclerView;
+    private EditText editElight,editRoman,editAplot;
+    private Button updateBottom, cancelElight;
 
     ProgressDialog progressDialog;
     CatelogOrderDetailModel catelogOrderDetailModel;
     List<CatelogOrderDetailModel> orderList;
+    ElightBottomModel  morder;
 
     OrderItemAdapter adapter;
     private Intent intent;
@@ -60,7 +69,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.room_details);
         initView();
     }
-
     private void initView() {
 
         roomName=getIntent().getExtras().getString("RoomName","");
@@ -82,10 +90,21 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         customerhall.setText(roomName);
 
 
-        elight = findViewById(R.id.elight);
-        roman = findViewById(R.id.roman);
-        aPlat = findViewById(R.id.aPlat);
+        elight = findViewById(R.id.elight_value);
+        roman = findViewById(R.id.roman_value);
+        aPlat = findViewById(R.id.aPlat_value);
         additionButton = findViewById(R.id.addButton);
+
+
+        relative_Layout_press = findViewById(R.id.bottom_relative_press);
+        relative_Layout_press.setOnClickListener(this);
+        bottom_relative_press1 = findViewById(R.id.bottom_relative_press1);
+        bottom_relative_press1.setOnClickListener(this);
+        elight.setOnLongClickListener(this);
+        roman.setOnLongClickListener(this);
+        aPlat.setOnLongClickListener(this);
+
+
 
 
 
@@ -94,6 +113,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         functionalityCall();
+        getElightBottom();
 
         catelogOrderDetailModel = new CatelogOrderDetailModel();
 
@@ -101,7 +121,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         textView.setText("Room Details");
         arrow_id_back = findViewById(R.id.arrow_id_back);
         arrow_id_back.setOnClickListener(this);
+        arrow_id_back.setVisibility(View.VISIBLE);
     }
+
 
     private void functionalityCall() {
 
@@ -126,7 +148,44 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             case R.id.arrow_id_back:
                 startActivity(intent = new Intent(this, OrderActivity.class));
                 break;
+            case R.id.bottom_relative_press:
+                  dilogShow();
+                break;
+            case R.id.bottom_relative_press1:
+                dilogShow();
+                break;
+            case R.id.updateElight:
+                updatePost();
+                break;
+            case R.id.cancelElight:
+                b.dismiss();
+                break;
         }
+    }
+
+    private void dilogShow() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.edit_bottom_item, null);
+        dialogBuilder.setView(dialogView);
+
+        editElight = dialogView.findViewById(R.id.editElight);
+        editRoman = dialogView.findViewById(R.id.editRoman);
+        editAplot = dialogView.findViewById(R.id.editAplot);
+
+        updateBottom  = dialogView.findViewById(R.id.updateElight);
+        cancelElight = dialogView.findViewById(R.id.cancelElight);
+
+        dialogBuilder.setTitle("Edit bottom");
+        b = dialogBuilder.create();
+        b.show();
+
+        eventClick();
+    }
+
+    private void eventClick() {
+        updateBottom.setOnClickListener(this);
+        cancelElight.setOnClickListener(this);
     }
 
     private void addList() {
@@ -164,6 +223,22 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()){
+            case R.id.elight:
+                dilogShow();
+                break;
+            case R.id.aPlat:
+                dilogShow();
+                break;
+            case R.id.roman:
+                dilogShow();
+                break;
+        }
+        return false;
     }
 
     private class POSTOrder extends AsyncTask<String, Void, String> {
@@ -360,14 +435,168 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
                 }.getType();
                 orderList = new Gson().fromJson(result, listType);
-
                 adapter = new OrderItemAdapter(getBaseContext(), orderList);
                 recyclerView.setAdapter(adapter);
+                getFunctioncall();
                 progressDialog.dismiss();
 
             }
 
 
         }
+    }
+
+    private void getElightBottom() {
+        try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new elightdetailsGET().execute(roomName,orderID);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private class elightdetailsGET extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String roomName = strings[0];
+            String orderID = strings[1];
+            String json = "";
+
+
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "RoomGet/"+orderID.trim()+"/"+roomName.trim());
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                // System.out.println("Error: " + e);
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+
+            return json;
+
+        }
+
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                //progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+
+                //System.out.println(result);
+                Gson gson = new Gson();
+                Type getType = new TypeToken<ElightBottomModel>(){}.getType();
+                morder = new Gson().fromJson(result,getType);
+                elight.setText(morder.Elight.toString());
+                roman.setText(morder.Roman.toString());
+                aPlat.setText(morder.APlat.toString());
+                progressDialog.dismiss();
+
+            }
+
+
+        }
+    }
+
+
+    private void updatePost() {
+        try {
+
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new POSTElight().execute(roomName, String.valueOf(orderID),morder.getElight().toString(),morder.getRoman().toString(),morder.getAPlat());
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(this, "Error: " + e, Toast.LENGTH_SHORT).show();
+            // System.out.println("Error: " + e);
+        }
+        b.dismiss();
+    }
+
+    private class POSTElight extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            //     InputStream inputStream
+            String roomname = params[0];
+            String orderid = params[1];
+            String elight = params[2];
+            String roman = params[3];
+            String aPlat = params[4];
+            String json = "";
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API +"OrderRoomPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("RoomName", roomname.trim());
+                parameters.add("OrderID", orderid);
+                parameters.add("Elight", elight);
+                parameters.add("Roman", roman);
+                parameters.add("APlat", aPlat);
+
+
+                builder.post(parameters.build());
+
+
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                // System.out.println("Error: " + e);
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                //System.out.println("CONTENIDO:  " + result);
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+                  //  getElightBottom();
+
+                }
+                progressDialog.dismiss();
+
+            }
+
+
+        }
+
     }
 }
