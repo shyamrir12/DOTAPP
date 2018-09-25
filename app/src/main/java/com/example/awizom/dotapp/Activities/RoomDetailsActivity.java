@@ -1,16 +1,14 @@
 package com.example.awizom.dotapp.Activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,22 +18,16 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.awizom.dotapp.Adapters.OrderAdapter;
 import com.example.awizom.dotapp.Adapters.OrderItemAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
-import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.OrderActivity;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -45,6 +37,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private TextView customerName, customerMobileNo, customerSno, customerOrder, customerDate, customerhall;
     private ImageButton additionButton;
     private TextView elight, roman, aPlat;
+    private EditText editElight,editRoman,editAplot;
     private RecyclerView recyclerView;
 
     ProgressDialog progressDialog;
@@ -54,10 +47,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     OrderItemAdapter adapter;
     private Intent intent;
     private EditText s_no, catlogName, design, pageNo, price, price2, qty, aQty;
-   private Spinner unitSpinner,materialType;
+    private Spinner unitSpinner,materialType;
     private Button addButton, cancelButton;
     private AlertDialog b;
     private String roomName,orderID,customernAME,mobileNumber,orderDate,advance;
+
+    private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +87,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         aPlat = findViewById(R.id.aPlat);
         additionButton = findViewById(R.id.addButton);
 
+
+
         progressDialog = new ProgressDialog(this);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -100,6 +97,10 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         catelogOrderDetailModel = new CatelogOrderDetailModel();
 
+        textView = findViewById(R.id.activity_id_name);
+        textView.setText("Room Details");
+        arrow_id_back = findViewById(R.id.arrow_id_back);
+        arrow_id_back.setOnClickListener(this);
     }
 
     private void functionalityCall() {
@@ -121,6 +122,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.add:
                 addList();
+                break;
+            case R.id.arrow_id_back:
+                startActivity(intent = new Intent(this, OrderActivity.class));
                 break;
         }
     }

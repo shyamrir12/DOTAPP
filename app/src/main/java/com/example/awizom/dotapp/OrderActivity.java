@@ -1,17 +1,21 @@
 package com.example.awizom.dotapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.OrderAdapter;
@@ -29,18 +33,27 @@ import com.example.awizom.dotapp.Models.Result;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class OrderActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity implements View.OnClickListener {
     RecyclerView recyclerView;
     ProgressDialog progressDialog ;
 
     List<DataOrder> orderList;
     OrderAdapter adapter;
     Button addorder;
+
+
+    private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-        getSupportActionBar().setTitle("Order");
+
+        textView = findViewById(R.id.activity_id_name);
+        textView.setText("Order List");
+        arrow_id_back = findViewById(R.id.arrow_id_back);
+        arrow_id_back.setOnClickListener(this);
+       // getSupportActionBar().setTitle("Order");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -127,6 +140,15 @@ public class OrderActivity extends AppCompatActivity {
             progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             // System.out.println("Error: " + e);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.arrow_id_back:
+                //startActivity(intent = new Intent(this,));
+                break;
         }
     }
 

@@ -11,6 +11,7 @@
         android:background="@color/blue">
 
         <RelativeLayout
+            android:id="@+id/bottom_relative_press"
             android:layout_width="match_parent"
             android:layout_height="@dimen/relative_layout_bottom_height"
             android:layout_alignParentBottom="true"
@@ -124,6 +125,78 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/edit_relative_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/lenear1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp">
+
+                <EditText
+                    android:id="@+id/editElight"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:hint="Elight"
+                    android:textSize="15sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_horizontal"/>
+
+                <EditText
+                    android:id="@+id/editRoman"
+                    android:layout_width="115dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="-1"
+                    android:hint="Roman"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_horizontal"/>
+
+                <EditText
+                    android:id="@+id/editAplot"
+                    android:layout_width="115dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="-1"
+                    android:hint="A Plot"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_horizontal"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lenear2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/lenear1"
+                android:layout_margin="5dp">
+
+                <Button
+                    android:id="@+id/update"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:text="Update"
+                    android:textAllCaps="false"
+                    android:layout_weight="-1"
+                    android:layout_marginLeft="25dp"/>
+
+                <Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:text="Cancel"
+                    android:textAllCaps="false"
+                    android:layout_weight="-1"
+                    android:layout_marginLeft="5dp"/>
+            </LinearLayout>
 
 
         </RelativeLayout>
