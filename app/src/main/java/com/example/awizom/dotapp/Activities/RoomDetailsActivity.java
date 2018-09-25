@@ -53,8 +53,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
     OrderItemAdapter adapter;
     private Intent intent;
-    private EditText s_no, catlogName, design, pageNo, price, price2, materialType, qty, aQty;
-   // private Spinner unitSpinner;
+    private EditText s_no, catlogName, design, pageNo, price, price2, qty, aQty;
+   private Spinner unitSpinner,materialType;
     private Button addButton, cancelButton;
     private AlertDialog b;
     private String roomName,orderID,customernAME,mobileNumber,orderDate,advance;
@@ -134,8 +134,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         String priCe2 = price2.getText().toString();
         String qTy = qty.getText().toString();
         String aqty = aQty.getText().toString();
-        String materialtype = materialType.getText().toString();
-       // String unIt =  unit.getText().toString();
+        String materialtype = materialType.getSelectedItem().toString();
+       String unIt =  unitSpinner.getSelectedItem().toString();
 
 //        unitSpinner.setOnItemClickListener(this);
 //        List<String> list = new ArrayList<String>();
@@ -146,7 +146,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new POSTOrder().execute("0",materialtype,priCe2,qTy,"0","mtr.","0",catlogname,snumber,desiGn,page_no,priCe,"mtr.","0",roomName,orderID);
+            new POSTOrder().execute("0",materialtype,priCe2,qTy,"0",unIt,"0",catlogname,snumber,desiGn,page_no,priCe,unIt,"0",roomName,orderID);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -279,7 +279,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         materialType = dialogView.findViewById(R.id.materialType);
         qty = dialogView.findViewById(R.id.qTy);
         aQty = dialogView.findViewById(R.id.aQty);
-       // unitSpinner = dialogView.findViewById(R.id.unit);
+        unitSpinner = dialogView.findViewById(R.id.unit);
 
         addButton = dialogView.findViewById(R.id.add);
         cancelButton = dialogView.findViewById(R.id.cancelButton);

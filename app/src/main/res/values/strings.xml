@@ -8,4 +8,19 @@
     <string name="search">Search</string>
     <string name="room_detail">Room Details</string>
     <string name="elight">Elight</string>
+
+
+    <string-array name="Unit">
+        <item>Unit</item>
+        <item>Mtr.</item>
+        <item>Roll</item>
+        <item>Sqft</item>
+    </string-array>
+    <string-array name="MaterialType">
+        <item>Material Type</item>
+        <item>Curtain</item>
+        <item>Sofa</item>
+        <item>Wall Paper</item>
+        <item>Padding</item>
+    </string-array>
 </resources>
