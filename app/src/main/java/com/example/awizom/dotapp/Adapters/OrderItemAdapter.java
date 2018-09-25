@@ -33,8 +33,8 @@ import okhttp3.Request;
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderViewHolder> {
 
-    private Context mCtx;
-    ProgressDialog progressDialog;
+    Context mCtx;
+    private ProgressDialog progressDialog;
 
     //we are storing all the products in a list
     private List<CatelogOrderDetailModel> orderList;

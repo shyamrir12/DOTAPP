@@ -154,6 +154,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             case R.id.bottom_relative_press1:
                 dilogShow();
                 break;
+
             case R.id.updateElight:
                 updatePost();
                 break;
