@@ -216,8 +216,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 parameters.add("Unit", unit);
                 parameters.add("CatalogID", catalogID);
 
-                parameters.add("RoomName",roomName);
-                parameters.add("OrderID",orderID);
+                parameters.add("RoomName",roomName.trim());
+                parameters.add("OrderID",orderID.trim());
 
 
 
@@ -324,7 +324,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/"+orderID+"/"+roomName);
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/"+orderID.trim()+"/"+roomName.trim());
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
 
