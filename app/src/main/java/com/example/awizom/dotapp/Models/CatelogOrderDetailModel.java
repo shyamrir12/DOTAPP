@@ -17,6 +17,24 @@ public class CatelogOrderDetailModel {
     public int Price ;
     public String Unit ;
     public int CatalogID ;
+    public String RoomName ;
+    public int OrderID ;
+
+    public String getRoomName() {
+        return RoomName;
+    }
+
+    public void setRoomName(String roomName) {
+        RoomName = roomName;
+    }
+
+    public int getOrderID() {
+        return OrderID;
+    }
+
+    public void setOrderID(int orderID) {
+        OrderID = orderID;
+    }
 
     public int getOrderItemID() {
         return OrderItemID;

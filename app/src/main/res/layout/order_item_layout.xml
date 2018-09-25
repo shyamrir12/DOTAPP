@@ -1,145 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
     <android.support.v7.widget.CardView
-        android:id="@+id/cardView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="5dp">
+
+
 
         <RelativeLayout
             android:id="@+id/catelogDetail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="8dp">
 
-            <LinearLayout
-                android:id="@+id/catelogDetailList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
 
-                <TextView
-                    android:id="@+id/header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Catlog details"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
             <LinearLayout
                 android:id="@+id/catelogS.No"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/catelogDetailList">
-                <TextView
-                    android:id="@+id/sno"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="S.No."
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_below="@+id/header"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="12dp"/>
+                >
+
                 <TextView
                     android:id="@+id/cName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="CatalogName"
-                    android:layout_below="@+id/header"
+
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
+                     android:layout_marginLeft="12dp"/>
+                <TextView
+                    android:id="@+id/sno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S.No."
+
+                    android:layout_weight="1"
                     android:layout_marginLeft="12dp"/>
                 <TextView
                     android:id="@+id/c_design"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Design"
-                    android:layout_below="@+id/header"
+
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="12dp"/>
+                     android:layout_marginLeft="12dp"/>
                 <TextView
                     android:id="@+id/qty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Qty"
-                    android:layout_below="@+id/header"
+
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="15dp"/>
+                      android:layout_marginLeft="15dp"/>
 
                 <TextView
                     android:id="@+id/aQty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="AQty"
-                    android:layout_below="@+id/header"
+
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="15dp"/>
+                     android:layout_marginLeft="15dp"
+                    android:visibility="gone"/>
 
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/catelogPageNo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/catelogS.No"
-                android:layout_marginTop="5dp">
                 <TextView
                     android:id="@+id/c_pageNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PageNo"
-                    android:layout_below="@+id/header"
+
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="12dp"/>
+                     android:layout_marginLeft="12dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/catelogPageNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/catelogS.No"
+                android:layout_marginTop="5dp">
+
 
                 <TextView
                     android:id="@+id/c_pricec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Price"
-                    android:layout_below="@+id/header"
+                    android:text="MRP"
+
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
+
                     android:layout_marginLeft="12dp"/>
-                <TextView
-                    android:id="@+id/orderItemID"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="OrderItemID"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_below="@+id/header"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="15dp"/>
+
                 <TextView
                     android:id="@+id/price2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Price2"
-                    android:layout_below="@+id/header"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="15dp"/>
+                    android:text="Price"
 
+                    android:layout_weight="1"
+                     android:layout_marginLeft="15dp"/>
+                <TextView
+                    android:id="@+id/materialtype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MaterialType"
+
+                    android:layout_weight="1"
+                     android:layout_marginLeft="15dp"/>
+                <TextView
+                    android:id="@+id/unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unit"
+
+                    android:layout_weight="1"
+                      android:layout_marginLeft="15dp"/>
             </LinearLayout>
 
 
@@ -147,4 +127,4 @@
     </android.support.v7.widget.CardView>
 
 
-</RelativeLayout>
+</LinearLayout>
