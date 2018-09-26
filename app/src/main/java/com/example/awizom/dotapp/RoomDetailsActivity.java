@@ -110,7 +110,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        functionalityCall();
+
+        additionButton.setOnClickListener(this);
+        getFunctioncall();
         getElightBottom();
 
         catelogOrderDetailModel = new CatelogOrderDetailModel();
@@ -122,12 +124,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         arrow_id_back.setVisibility(View.VISIBLE);*/
     }
 
-
-    private void functionalityCall() {
-
-        additionButton.setOnClickListener(this);
-        getFunctioncall();
-    }
 
     @Override
     public void onClick(View v) {
@@ -164,18 +160,27 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         updateBottom  = dialogView.findViewById(R.id.updateElight);
         cancelElight = dialogView.findViewById(R.id.cancelElight);
 
+
+        editElight.setText(morder.Elight.toString());
+
+        editRoman.setText(morder.Roman.toString());
+
+        editAplot.setText(morder.APlat.toString());
         dialogBuilder.setTitle("Edit bottom");
         final AlertDialog b = dialogBuilder.create();
         b.show();
+
         updateBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+             String elight=editElight.getText().toString();
+                String roman=editRoman.getText().toString();
+                String aplot=editAplot.getText().toString();
                 try {
 
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new RoomDetailsActivity.POSTElight().execute(roomName, String.valueOf(orderID),morder.getElight().toString(),morder.getRoman().toString(),morder.getAPlat());
+                    new RoomDetailsActivity.POSTElight().execute(roomName.trim(), String.valueOf(orderID).trim(),elight,roman,aplot);
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -305,15 +310,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-
-
-
     private void getFunctioncall() {
 
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new detailsGET().execute(roomName,orderID);
+            new RoomDetailsActivity.detailsGET().execute(roomName,orderID);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -321,7 +323,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
-
     private class detailsGET extends AsyncTask<String, Void, String> {
 
         @Override
@@ -368,86 +369,13 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 orderList = new Gson().fromJson(result, listType);
                 adapter = new OrderItemAdapter(getBaseContext(), orderList);
                 recyclerView.setAdapter(adapter);
-                getFunctioncall();
-                progressDialog.dismiss();
+                 progressDialog.dismiss();
 
             }
 
 
         }
     }
-
-    private void getElightBottom() {
-        try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            new elightdetailsGET().execute(roomName,orderID);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private class elightdetailsGET extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String roomName = strings[0];
-            String orderID = strings[1];
-            String json = "";
-
-
-            try {
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "RoomGet/"+orderID.trim()+"/"+roomName.trim());
-                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                builder.addHeader("Accept", "application/json");
-
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-                if (response.isSuccessful()) {
-                    json = response.body().string();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                progressDialog.dismiss();
-                // System.out.println("Error: " + e);
-                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            }
-
-            return json;
-
-        }
-
-        protected void onPostExecute(String result) {
-
-            if (result.isEmpty()) {
-                progressDialog.dismiss();
-                //progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
-            } else {
-
-                //System.out.println(result);
-                Gson gson = new Gson();
-                Type getType = new TypeToken<ElightBottomModel>(){}.getType();
-                morder = new Gson().fromJson(result,getType);
-                if(morder.Elight!=null)
-                elight.setText(morder.Elight.toString());
-                if(morder.Roman!=null)
-                roman.setText(morder.Roman.toString());
-                if(morder.APlat!=null)
-                aPlat.setText(morder.APlat.toString());
-                progressDialog.dismiss();
-
-            }
-
-
-        }
-    }
-
     private class POSTOrder extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -535,15 +463,82 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
-//                    getMyOrder();
+                  getFunctioncall();
 
                 }
                 progressDialog.dismiss();
             }
         }
     }
+    private void getElightBottom() {
+        try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new elightdetailsGET().execute(roomName,orderID);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    private class elightdetailsGET extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String roomName = strings[0];
+            String orderID = strings[1];
+            String json = "";
 
 
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "RoomGet/"+orderID.trim()+"/"+roomName.trim());
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                // System.out.println("Error: " + e);
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+
+            return json;
+
+        }
+
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                //progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+
+                //System.out.println(result);
+                Gson gson = new Gson();
+                Type getType = new TypeToken<ElightBottomModel>(){}.getType();
+                morder = new Gson().fromJson(result,getType);
+
+                elight.setText(morder.Elight.toString());
+
+                roman.setText(morder.Roman.toString());
+
+                aPlat.setText(morder.APlat.toString());
+                progressDialog.dismiss();
+
+            }
+
+
+        }
+    }
     private class POSTElight extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -602,7 +597,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
-                  //  getElightBottom();
+                    getElightBottom();
 
                 }
                 progressDialog.dismiss();
