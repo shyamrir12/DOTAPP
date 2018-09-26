@@ -3,6 +3,7 @@ package com.example.awizom.dotapp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ import com.google.gson.reflect.TypeToken;
 public class OrderActivity extends AppCompatActivity implements View.OnClickListener {
     RecyclerView recyclerView;
     ProgressDialog progressDialog ;
-
+SwipeRefreshLayout mSwipeRefreshLayout;
     List<DataOrder> orderList;
     OrderAdapter adapter;
     Button addorder;
@@ -55,13 +56,20 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         arrow_id_back.setVisibility(View.INVISIBLE);*/
 
         getSupportActionBar().setTitle("Order");
+        mSwipeRefreshLayout=findViewById( R.id.swipeRefreshLayout );
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         addorder=findViewById(R.id.addorder);
         progressDialog = new ProgressDialog(this);
         getMyOrder();
-
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                getMyOrder();
+            }
+        });
         addorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,6 +244,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
+            mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             // System.out.println("Error: " + e);
         }
@@ -275,6 +284,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
             if (result.isEmpty()) {
                 progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
                 //progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
@@ -286,7 +296,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                 adapter = new OrderAdapter(OrderActivity.this, orderList);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();
-
+                mSwipeRefreshLayout.setRefreshing(false);
             }
 
 

@@ -31,33 +31,33 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderViewHolder> {
+public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {
 
     private Context mCtx;
     ProgressDialog progressDialog;
-    AlertDialog b;
-    //we are storing all the products in a list
-    private List<CatelogOrderDetailModel> orderList;
-    private CatelogOrderDetailModel catelogOrderDetailModel;
 
-    public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderList) {
+    //we are storing all the products in a list
+    private List<CatelogOrderDetailModel> orderitemList;
+
+
+    public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList) {
         this.mCtx = mCtx;
-        this.orderList = orderList;
+        this.orderitemList = orderitemList;
         progressDialog = new ProgressDialog(mCtx);
     }
 
     @NonNull
     @Override
-    public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OrderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.order_item_layout, null);
-        return new OrderViewHolder(view, mCtx, orderList);
+        return new OrderItemViewHolder(view, mCtx, orderitemList);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        CatelogOrderDetailModel order = orderList.get(position);
+    public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
+        CatelogOrderDetailModel order = orderitemList.get(position);
         try {
 
             //holder.textViewPINo.setText("PINo \n"+Integer.toString( order.getPINo()));
@@ -81,28 +81,29 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
     @Override
     public int getItemCount() {
-        return orderList.size();
+        return orderitemList.size();
     }
 
-    class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
+    class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
         AlertDialog.Builder alert;
-        private final Context mCtx;
+        private  Context mCtx;
 
         TextView catlogName, serialNo, design, pageNo, price,unit;
         TextView OrderItemID, MaterialType, Price2, Qty, AQty;
 
         //we are storing all the products in a list
-        private List<CatelogOrderDetailModel> orderList;
+        private List<CatelogOrderDetailModel> orderitemList;
 
 
-        public OrderViewHolder(View itemView, Context mCtx, List<CatelogOrderDetailModel> orderList) {
+        public OrderItemViewHolder(View itemView, Context mCtx, List<CatelogOrderDetailModel> orderitemList) {
             super(itemView);
             this.mCtx = mCtx;
-            this.orderList = orderList;
+            this.orderitemList = orderitemList;
+
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            catelogOrderDetailModel = new CatelogOrderDetailModel();
+           // CatelogOrderDetailModel catelogOrderDetailModel = new CatelogOrderDetailModel();
             serialNo = itemView.findViewById(R.id.sno);
             catlogName = itemView.findViewById(R.id.cName);
             design = itemView.findViewById(R.id.c_design);
@@ -121,7 +122,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            CatelogOrderDetailModel order = this.orderList.get(position);
+            CatelogOrderDetailModel orderitem = this.orderitemList.get(position);
 
         }
 
@@ -129,12 +130,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         public boolean onLongClick(View v) {
 
             int position = getAdapterPosition();
-            CatelogOrderDetailModel order = this.orderList.get(position);
+            CatelogOrderDetailModel orderitem = this.orderitemList.get(position);
 
             if (v.getId() == itemView.getId()) {
                 // showUpdateDeleteDialog(order);
                 try{
-                    initViewByAlertdailog(order);
+                    initViewByAlertdailog(orderitem);
                 } catch (Exception E) {
                     E.printStackTrace();}
                 Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
@@ -144,18 +145,18 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
 
     }
-    private void initViewByAlertdailog(CatelogOrderDetailModel order) {
+    private void initViewByAlertdailog(CatelogOrderDetailModel orderitem) {
         //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
         //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx, R.style.Theme_AppCompat_NoActionBar);
         AlertDialog.Builder dialogBuilder = new  AlertDialog.Builder( mCtx);
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         final View dialogView = inflater.inflate(R.layout.add_dailog_layout, null);
         dialogBuilder.setView(dialogView);
-        final String OrderItemID=String.valueOf( order.getOrderItemID());
-        final String orderRoomId=String.valueOf( order.getOrderRoomID());
-        final String catalogID=String.valueOf( order.getCatalogID());
-        final String orderRoomName= order.getRoomName();
-        final String orderID=String.valueOf( order.getOrderID());
+        final String OrderItemID=String.valueOf( orderitem.getOrderItemID());
+        final String orderRoomId=String.valueOf( orderitem.getOrderRoomID());
+        final String catalogID=String.valueOf( orderitem.getCatalogID());
+        final String orderRoomName= orderitem.getRoomName();
+        final String orderID=String.valueOf( orderitem.getOrderID());
         final EditText s_no = dialogView.findViewById(R.id.sNo);
         final EditText catlogName = dialogView.findViewById(R.id.catlogName);
         final EditText design = dialogView.findViewById(R.id.design);
@@ -168,23 +169,23 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         final Spinner  unitSpinner = dialogView.findViewById(R.id.unit);
 
 
-        s_no.setText(order.getSerialNo());
-        catlogName.setText(order.getCatalogName());
-        design.setText(order.getDesign());
-        pageNo.setText(Integer.toString(order.getPageNo()));
-        price.setText(Integer.toString(order.getPrice()));
-        materialType.setSelection(((ArrayAdapter<String>)materialType.getAdapter()).getPosition(order.getMaterialType()));
+        s_no.setText(orderitem.getSerialNo());
+        catlogName.setText(orderitem.getCatalogName());
+        design.setText(orderitem.getDesign());
+        pageNo.setText(Integer.toString(orderitem.getPageNo()));
+        price.setText(Integer.toString(orderitem.getPrice()));
+        materialType.setSelection(((ArrayAdapter<String>)materialType.getAdapter()).getPosition(orderitem.getMaterialType()));
 
       //Price2.setText(Integer.toString(order.getPrice2()));
-        qty.setText(Integer.toString(order.getQty()));
-        aQty.setText(Integer.toString(order.getAQty()));
-        unitSpinner.setSelection(((ArrayAdapter<String>)unitSpinner.getAdapter()).getPosition(order.getOrderUnit()));
+        qty.setText(Integer.toString(orderitem.getQty()));
+        aQty.setText(Integer.toString(orderitem.getAQty()));
+        unitSpinner.setSelection(((ArrayAdapter<String>)unitSpinner.getAdapter()).getPosition(orderitem.getOrderUnit()));
 
 
         final Button buttonAdd = (Button) dialogView.findViewById(R.id.add);
         final Button buttonCancel = (Button) dialogView.findViewById(R.id.cancelButton);
         dialogBuilder.setTitle("Edit Order Item");
-         b = dialogBuilder.create();
+        final AlertDialog b = dialogBuilder.create();
         b.show();
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
