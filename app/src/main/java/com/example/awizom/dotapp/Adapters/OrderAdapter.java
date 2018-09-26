@@ -21,20 +21,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.awizom.dotapp.Activities.RoomDetailsActivity;
+import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
-import com.example.awizom.dotapp.Models.Room;
-import com.example.awizom.dotapp.OrderActivity;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.Serializable;
 import java.lang.reflect.Type;
-import java.security.PrivateKey;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -81,62 +76,54 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
 
             String sampleString = order.getRoomList();
-            sampleString="---Select---,"+sampleString;
+            sampleString="Select,"+sampleString;
             String[] items = sampleString.split(",");
-
-
-// Application of the Array to the Spinner
-            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
+           ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-
-
             holder.spinner.setAdapter(spinnerArrayAdapter);
 
         }
-        //  linerdept,L2,linerstatus;
 
-       /*if(order.getDrawing().trim().length()==0)
-            Glide.with(mCtx).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA0vf_EXkL0RKmM5718bM1M7742qvMsRCEwvoLbOeiBTACc4kJYA").into(holder.imageView);
-        else
-            Glide.with(mCtx).load(order.getDrawing()).into(holder.imageView);*/
-        //OP,MR,RFT,disp,reject,linerdept;
 
-        if (order.isCancel()) {
-            holder.linerdept.setBackgroundColor(Color.RED);
-
-        } else {
             if (order.isOrderPlaced()) {
                 holder.OP.setBackgroundColor(Color.GREEN);
-                holder.MR.setBackgroundColor(Color.parseColor("#00BFFF"));
+              //  holder.MR.setBackgroundColor(Color.parseColor("#00BFFF"));
             }
             if (order.isMaterialReceived()) {
 
                 holder.MR.setBackgroundColor(Color.GREEN);
-                holder.RFT.setBackgroundColor(Color.parseColor("#00BFFF"));
+              //  holder.RFT.setBackgroundColor(Color.parseColor("#00BFFF"));
             }
             if (order.isReceivedFromTalor()) {
                 holder.RFT.setBackgroundColor(Color.GREEN);
-                holder.disp.setBackgroundColor(Color.parseColor("#00BFFF"));
+              //  holder.disp.setBackgroundColor(Color.parseColor("#00BFFF"));
             }
 
             if (order.isDispatch()) {
                 holder.disp.setBackgroundColor(Color.GREEN);
             }
+            if (order.isCancel()) {
+                holder.linerdept.setBackgroundColor(Color.RED);
 
-        }
+            }
+
         if (order.getOrderStatusID() == 0) {
 
             holder.linerdept.setVisibility(View.GONE);
             holder.linerstatus.setVisibility(View.GONE);
 
-        } else {
-            holder.textViewAddStatus.setVisibility(View.GONE);
-
+        }
+        else
+            {
+                holder.textViewAddStatus.setVisibility(View.GONE);
+                holder.linerdept.setVisibility(View.VISIBLE);
+                holder.linerstatus.setVisibility(View.VISIBLE);
         }
         if (order.getOrderID() == 0) {
             holder.L2.setVisibility(View.GONE);
         } else {
             holder.textViewAddOrder.setVisibility(View.GONE);
+            holder.L2.setVisibility(View.VISIBLE);
         }
 
     }

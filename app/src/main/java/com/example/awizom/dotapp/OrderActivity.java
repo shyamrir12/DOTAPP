@@ -41,20 +41,20 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     OrderAdapter adapter;
     Button addorder;
 
-    private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
-    private Intent intent;
+   // private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
+    //private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        textView = findViewById(R.id.activity_id_name);
+      /*  textView = findViewById(R.id.activity_id_name);
         textView.setText("Order List");
         arrow_id_back = findViewById(R.id.arrow_id_back);
         arrow_id_back.setOnClickListener(this);
-        arrow_id_back.setVisibility(View.INVISIBLE);
+        arrow_id_back.setVisibility(View.INVISIBLE);*/
 
-       // getSupportActionBar().setTitle("Order");
+        getSupportActionBar().setTitle("Order");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

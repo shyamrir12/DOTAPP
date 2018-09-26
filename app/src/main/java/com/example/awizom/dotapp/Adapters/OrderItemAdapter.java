@@ -137,7 +137,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     initViewByAlertdailog(order);
                 } catch (Exception E) {
                     E.printStackTrace();}
-                //Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
             }
             return true;
         }

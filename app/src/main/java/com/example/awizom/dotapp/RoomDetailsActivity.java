@@ -1,4 +1,4 @@
-package com.example.awizom.dotapp.Activities;
+package com.example.awizom.dotapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,15 +19,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.awizom.dotapp.Adapters.OrderAdapter;
 import com.example.awizom.dotapp.Adapters.OrderItemAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
-import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.ElightBottomModel;
 import com.example.awizom.dotapp.Models.Result;
-import com.example.awizom.dotapp.OrderActivity;
-import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -58,10 +53,10 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private EditText s_no, catlogName, design, pageNo, price, price2, qty, aQty;
     private Spinner unitSpinner,materialType;
     private Button addButton, cancelButton;
-    private AlertDialog b;
+  //  private AlertDialog b;
     private String roomName,orderID,customernAME,mobileNumber,orderDate,advance;
 
-    private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
+   // private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +64,15 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.room_details);
         initView();
     }
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+
+        return true;
+    }
     private void initView() {
 
+        getSupportActionBar().setTitle("Room Details");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         roomName=getIntent().getExtras().getString("RoomName","");
         orderID= String.valueOf(getIntent().getIntExtra("OrderID",0));
         customernAME=getIntent().getExtras().getString("CustomerName","");
@@ -104,10 +106,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         roman.setOnLongClickListener(this);
         aPlat.setOnLongClickListener(this);
 
-
-
-
-
         progressDialog = new ProgressDialog(this);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -117,11 +115,11 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         catelogOrderDetailModel = new CatelogOrderDetailModel();
 
-        textView = findViewById(R.id.activity_id_name);
+       /* textView = findViewById(R.id.activity_id_name);
         textView.setText("Room Details");
         arrow_id_back = findViewById(R.id.arrow_id_back);
         arrow_id_back.setOnClickListener(this);
-        arrow_id_back.setVisibility(View.VISIBLE);
+        arrow_id_back.setVisibility(View.VISIBLE);*/
     }
 
 
@@ -136,18 +134,10 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         switch (v.getId()) {
             case R.id.addButton:
-                showDialog();
-                //startActivity(intent = new Intent(this, AddOrderDialog.class));
+                initViewByAlertdailog();
+               //startActivity(intent = new Intent(this, AddOrderDialog.class));
                 break;
-            case R.id.cancelButton:
-                b.dismiss();
-                break;
-            case R.id.add:
-                addList();
-                break;
-            case R.id.arrow_id_back:
-                startActivity(intent = new Intent(this, OrderActivity.class));
-                break;
+
             case R.id.bottom_relative_press:
                   dilogShow();
                 break;
@@ -155,14 +145,11 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 dilogShow();
                 break;
 
-            case R.id.updateElight:
-                updatePost();
-                break;
-            case R.id.cancelElight:
-                b.dismiss();
-                break;
+
         }
     }
+
+
 
     private void dilogShow() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -178,48 +165,46 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         cancelElight = dialogView.findViewById(R.id.cancelElight);
 
         dialogBuilder.setTitle("Edit bottom");
-        b = dialogBuilder.create();
+        final AlertDialog b = dialogBuilder.create();
         b.show();
+        updateBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        eventClick();
-    }
+                try {
 
-    private void eventClick() {
-        updateBottom.setOnClickListener(this);
-        cancelElight.setOnClickListener(this);
-    }
+                    progressDialog.setMessage("loading...");
+                    progressDialog.show();
+                    new RoomDetailsActivity.POSTElight().execute(roomName, String.valueOf(orderID),morder.getElight().toString(),morder.getRoman().toString(),morder.getAPlat());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+                    // System.out.println("Error: " + e);
+                }
 
-    private void addList() {
-        String snumber = s_no.getText().toString();
-        String catlogname = catlogName.getText().toString();
-        String desiGn = design.getText().toString();
-        String page_no = pageNo.getText().toString();
-        String priCe = price.getText().toString();
-        String priCe2 = price2.getText().toString();
-        String qTy = qty.getText().toString();
-        String aqty = aQty.getText().toString();
-        String materialtype = materialType.getSelectedItem().toString();
-       String unIt =  unitSpinner.getSelectedItem().toString();
+                b.dismiss();
 
-//        unitSpinner.setOnItemClickListener(this);
-//        List<String> list = new ArrayList<String>();
-//        list.add("Mtr.");list.add("Role");list.add("Sqft");
+            }
 
 
-        try {
+        });
 
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            new POSTOrder().execute("0",materialtype,priCe2,qTy,"0",unIt,"0",catlogname,snumber,desiGn,page_no,priCe,unIt,"0",roomName,orderID);
-        } catch (Exception e) {
-            e.printStackTrace();
-            progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            // System.out.println("Error: " + e);
-        }
-        b.dismiss();
+
+        cancelElight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+                /*
+                 * we will code this method to delete the artist
+                 * */
+
+            }
+        });
 
     }
+
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -242,107 +227,10 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         return false;
     }
 
-    private class POSTOrder extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-         //     InputStream inputStream
-            String orderItemId = params[0];
-            String materialtype = params[1];
-            String priCe2 = params[2];
-            String qTy = params[3];
-            String aqty = params[4];
-            String orderUnit = params[5];
-            String orderRoomId = params[6];
-
-            String catlogname = params[7];
-            String snumber = params[8];
-            String desiGn = params[9];
-            String page_no = params[10];
-            String priCe = params[11];
-            String unit = params[12];
-            String catalogID = params[13];
-            String roomName = params[14];
-            String orderID = params[15];
 
 
 
 
-            String json = "";
-            try {
-
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderItemPost");
-                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                builder.addHeader("Accept", "application/json");
-                //builder.addHeader("Authorization", "Bearer " + accesstoken);
-
-                FormBody.Builder parameters = new FormBody.Builder();
-                parameters.add("OrderItemID", orderItemId);
-                parameters.add("MaterialType",materialtype);
-                parameters.add("Price2", priCe2);
-                parameters.add("Qty", qTy);
-                parameters.add("AQty", aqty);
-                parameters.add("OrderUnit", orderUnit);
-                parameters.add("OrderRoomID", orderRoomId);
-
-
-                parameters.add("CatalogName", catlogname);
-                parameters.add("SerialNo", snumber);
-                parameters.add("Design", desiGn);
-                parameters.add("PageNo", page_no);
-                parameters.add("Price", priCe);
-
-                parameters.add("Unit", unit);
-                parameters.add("CatalogID", catalogID);
-
-                parameters.add("RoomName",roomName.trim());
-                parameters.add("OrderID",orderID.trim());
-
-
-
-                builder.post(parameters.build());
-
-
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-
-                if (response.isSuccessful()) {
-                    json = response.body().string();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                progressDialog.dismiss();
-                // System.out.println("Error: " + e);
-                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            }
-            return json;
-        }
-
-        protected void onPostExecute(String result) {
-
-            if (result.isEmpty()) {
-                progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
-            } else {
-                //System.out.println("CONTENIDO:  " + result);
-                Gson gson = new Gson();
-                final Result jsonbodyres = gson.fromJson(result, Result.class);
-                Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                if (jsonbodyres.getStatus() == true) {
-//                    getMyOrder();
-
-                }
-                progressDialog.dismiss();
-            }
-        }
-    }
-
-
-
-    private void showDialog() {
-        initViewByAlertdailog();
-
-    }
 
     private void initViewByAlertdailog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -365,17 +253,59 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         cancelButton = dialogView.findViewById(R.id.cancelButton);
 
         dialogBuilder.setTitle("Add Order");
-        b = dialogBuilder.create();
+        final AlertDialog b = dialogBuilder.create();
         b.show();
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        buttonClick();
+
+                String snumber = s_no.getText().toString();
+                String catlogname = catlogName.getText().toString();
+                String desiGn = design.getText().toString();
+                String page_no = pageNo.getText().toString();
+                String priCe = price.getText().toString();
+                String priCe2 = price2.getText().toString();
+                String qTy = qty.getText().toString();
+                String aqty = aQty.getText().toString();
+                String materialtype = materialType.getSelectedItem().toString();
+                String unIt =  unitSpinner.getSelectedItem().toString();
+
+
+
+                try {
+
+                    progressDialog.setMessage("loading...");
+                    progressDialog.show();
+                    new POSTOrder().execute("0",materialtype,priCe2,qTy,"0",unIt,"0",catlogname,snumber,desiGn,page_no,priCe,unIt,"0",roomName,orderID);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+
+                }
+                    b.dismiss();
+
+            }
+
+
+        });
+
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+                /*
+                 * we will code this method to delete the artist
+                 * */
+
+            }
+        });
+
     }
 
-    private void buttonClick() {
 
-        addButton.setOnClickListener(this);
-        cancelButton.setOnClickListener(this);
-    }
 
 
     private void getFunctioncall() {
@@ -518,21 +448,101 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    private class POSTOrder extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            //     InputStream inputStream
+            String orderItemId = params[0];
+            String materialtype = params[1];
+            String priCe2 = params[2];
+            String qTy = params[3];
+            String aqty = params[4];
+            String orderUnit = params[5];
+            String orderRoomId = params[6];
 
-    private void updatePost() {
-        try {
+            String catlogname = params[7];
+            String snumber = params[8];
+            String desiGn = params[9];
+            String page_no = params[10];
+            String priCe = params[11];
+            String unit = params[12];
+            String catalogID = params[13];
+            String roomName = params[14];
+            String orderID = params[15];
 
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            new POSTElight().execute(roomName, String.valueOf(orderID),morder.getElight().toString(),morder.getRoman().toString(),morder.getAPlat());
-        } catch (Exception e) {
-            e.printStackTrace();
-            progressDialog.dismiss();
-            Toast.makeText(this, "Error: " + e, Toast.LENGTH_SHORT).show();
-            // System.out.println("Error: " + e);
+
+
+
+            String json = "";
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API+"OrderItemPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderItemID", orderItemId);
+                parameters.add("MaterialType",materialtype);
+                parameters.add("Price2", priCe2);
+                parameters.add("Qty", qTy);
+                parameters.add("AQty", aqty);
+                parameters.add("OrderUnit", orderUnit);
+                parameters.add("OrderRoomID", orderRoomId);
+
+
+                parameters.add("CatalogName", catlogname);
+                parameters.add("SerialNo", snumber);
+                parameters.add("Design", desiGn);
+                parameters.add("PageNo", page_no);
+                parameters.add("Price", priCe);
+
+                parameters.add("Unit", unit);
+                parameters.add("CatalogID", catalogID);
+
+                parameters.add("RoomName",roomName.trim());
+                parameters.add("OrderID",orderID.trim());
+
+
+
+                builder.post(parameters.build());
+
+
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                // System.out.println("Error: " + e);
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
         }
-        b.dismiss();
+
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                //System.out.println("CONTENIDO:  " + result);
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+//                    getMyOrder();
+
+                }
+                progressDialog.dismiss();
+            }
+        }
     }
+
 
     private class POSTElight extends AsyncTask<String, Void, String> {
         @Override

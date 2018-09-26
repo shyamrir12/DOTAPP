@@ -11,28 +11,30 @@
             android:id="@+id/customerinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp">
 
             <TextView
                 android:id="@+id/customer_name"
-                android:layout_width="180dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Customer Name"
-                android:gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+
+                android:text="Customer Name"
                 android:textColor="@color/white"
-                android:textSize="@dimen/room_text_size"/>
+                android:textSize="@dimen/room_text_size" />
 
             <TextView
                 android:id="@+id/customer_mobile_no"
-                android:layout_width="180dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Customer Name"
-                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="mobile_no"
+
                 android:layout_margin="5dp"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="-1"
+
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size"/>
         </LinearLayout>
@@ -42,30 +44,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/customerinfo"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/order_date"
-                android:layout_width="180dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Order Date"
-                android:gravity="center_horizontal"
+
                 android:layout_margin="5dp"
-                android:layout_marginLeft="10dp"
+
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size"/>
 
             <TextView
                 android:id="@+id/room_name"
-                android:layout_width="180dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Room Name"
-                android:gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="-1"
-                android:textColor="@color/white"
+               android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size"/>
         </LinearLayout>
 </RelativeLayout>
