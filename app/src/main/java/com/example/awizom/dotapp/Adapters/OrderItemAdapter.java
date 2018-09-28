@@ -59,7 +59,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         CatelogOrderDetailModel order = orderList.get(position);
         try {
-
             //holder.textViewPINo.setText("PINo \n"+Integer.toString( order.getPINo()));
             holder.serialNo.setText("SNO\n"+order.getSerialNo());
             holder.catlogName.setText("Catalog\n"+order.getCatalogName());
@@ -75,7 +74,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         } catch (Exception E) {
             E.printStackTrace();
         }
-
     }
 
 
@@ -212,12 +210,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     // System.out.println("Error: " + e);
                 }
                 b.dismiss();
-
             }
-
-
         });
-
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,7 +220,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 /*
                  * we will code this method to delete the artist
                  * */
-
             }
         });
     }
@@ -241,7 +234,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             String aqty = params[4];
             String orderUnit = params[5];
             String orderRoomId = params[6];
-
             String catlogname = params[7];
             String snumber = params[8];
             String desiGn = params[9];
@@ -251,9 +243,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             String catalogID = params[13];
             String roomName = params[14];
             String orderID = params[15];
-
-
-
 
             String json = "";
             try {
@@ -287,11 +276,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 parameters.add("RoomName",roomName.trim());
                 parameters.add("OrderID",orderID.trim());
 
-
-
                 builder.post(parameters.build());
-
-
                 okhttp3.Response response = client.newCall(builder.build()).execute();
 
                 if (response.isSuccessful()) {
@@ -318,7 +303,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 //               getMyOrder();
-
                 }
                 progressDialog.dismiss();
             }

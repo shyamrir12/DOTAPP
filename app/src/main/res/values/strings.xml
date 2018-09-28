@@ -1,13 +1,17 @@
 <resources>
     <string name="app_name">DacorOrderTracker</string>
 
-
     <string name="read_xlsx">Read XLSX</string>
     <string name="write_xlsx">Write XLSX</string>
     <string name="send_to">Send to...</string>
     <string name="search">Search</string>
     <string name="room_detail">Room Details</string>
     <string name="elight">Elight</string>
+    <string name="password">Password</string>
+    <string name="userid">User Name</string>
+    <string name="signup">Sign Up</string>
+    <string name="bottom"><u>You have already an account login Here</u></string>
+    <string name="signin">Sign In</string>
 
 
     <string-array name="Unit">
@@ -23,4 +27,40 @@
         <item>Wall Paper</item>
         <item>Padding</item>
     </string-array>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_customer">Customer</string>
+    <string name="title_order">Order</string>
+    <string name="title_report">Report</string>
+    <string name="title_status">Status</string>
+    <string name="bottom1">Create user <u>click here</u></string>
+    <string name="userContact">Contact</string>
+    <string name="title_addCustomer">Add Customer</string>
+    <string name="title_editCustomer">Modify customer</string>
+    <string name="title_customerList">Customer List</string>
+    <string name="item_pending">Pending Order List</string>
+    <string name="item_orderCreate">Order Create</string>
+    <string name="item_cancelOrder">Cancel order</string>
+    <string name="title_p_to_received_material">Pending to received material</string>
+    <string name="title_p_c_with_noadvance">Pending customer with no advance</string>
+    <string name="title_p_o_w_advance">Pending Order with advance</string>
+    <string name="title_p_i_to_p_order">Pending item to place order</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="addCustomer">Add Customer</string>
+
+    <string name="customername">Customer Name</string>
+    <string name="customercontact">Customer Contact</string>
+    <string name="address">Address</string>
+    <string name="name">name</string>
+    <string name="edit">Edit</string>
+    <string name="modifyCustomer">Modify Customer</string>
+    <string name="order_date">Order_date</string>
+    <string name="advance">Advance</string>
+    <string name="orderCreate">Order Create</string>
+    <string name="order_place">Order Place</string>
+    <string name="received">Received</string>
+    <string name="handover">Hand Over</string>
+    <string name="receivedt">Received from tailor</string>
+    <string name="receivedby">Received By</string>
+    <string name="dispatch">Dispatch</string>
 </resources>
