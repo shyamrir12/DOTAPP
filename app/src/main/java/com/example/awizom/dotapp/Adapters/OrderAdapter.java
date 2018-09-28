@@ -153,6 +153,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             super(itemView);
             this.mCtx = mCtx;
             this.orderList = orderList;
+
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
