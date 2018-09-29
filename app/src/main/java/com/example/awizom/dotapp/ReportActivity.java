@@ -7,42 +7,34 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
+
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
-import com.example.awizom.dotapp.Fragments.ModifyCustomerFragment;
 
-public class CustomerActivity extends AppCompatActivity implements View.OnClickListener {
+public class ReportActivity extends AppCompatActivity {
 
-    private TextView customerList,customerModify,customerAdd;
+    private TextView customerList,customerModify,customerAdd, mTextMessage;
     private Intent intent;
-    private Fragment addCustomerFragment,modifyCustomerFragment,listCustomerFragment;
-
+    private Fragment reportFragment,statusFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.customer_activity_layout);
+        setContentView(R.layout.report_activity_layout);
         initView();
     }
 
     private void initView() {
-        customerList = findViewById(R.id.customerList);
+        customerList = findViewById(R.id.customer);
         customerModify = findViewById(R.id.customerModify);
         customerAdd = findViewById(R.id.customerAdd);
 
-        addCustomerFragment = new AddCustomerFragment();
-        modifyCustomerFragment = new ModifyCustomerFragment();
-        listCustomerFragment = new CustomerListFrgment();
 
-        customerList.setOnClickListener(this);
-        customerModify.setOnClickListener(this);
-        customerAdd.setOnClickListener(this);
+        reportFragment = new CustomerListFrgment();
+
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -66,22 +58,4 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
             return false;
         }
     };
-
-    @Override
-    public void onClick(View v) {
-        Class fragment = null;
-        switch (v.getId()){
-            case R.id.customerList:
-                fragment = AddCustomerFragment.class;
-                break;
-            case R.id.customerModify:
-                fragment = ModifyCustomerFragment.class;
-                break;
-            case R.id.customerAdd:
-                fragment = AddCustomerFragment.class;
-                break;
-        }
-    }
-
-
 }

@@ -51,7 +51,7 @@
     <string name="customername">Customer Name</string>
     <string name="customercontact">Customer Contact</string>
     <string name="address">Address</string>
-    <string name="name">name</string>
+    <string name="name">Interior Name</string>
     <string name="edit">Edit</string>
     <string name="modifyCustomer">Modify Customer</string>
     <string name="order_date">Order_date</string>
@@ -63,4 +63,5 @@
     <string name="receivedt">Received from tailor</string>
     <string name="receivedby">Received By</string>
     <string name="dispatch">Dispatch</string>
+    <string name="interioMobile">Interior contact</string>
 </resources>

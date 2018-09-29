@@ -10,14 +10,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp">
+
             <android.support.v7.widget.CardView
                 android:id="@+id/custoumer_add_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -28,7 +31,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal">
-
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -38,9 +40,8 @@
                             android:src="@drawable/ic_filter_list_black_24dp"
                             android:tint="@color/white"
                             android:layout_marginLeft="10dp"/>
-
                         <TextView
-                            android:id="@+id/customerAdd"
+                            android:id="@+id/orderPlace"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/order_place"
@@ -52,9 +53,9 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="30dp" />
-
                     </LinearLayout>
                 </RelativeLayout>
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -63,6 +64,7 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/custoumer_add_cardview"
                 android:layout_marginTop="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -73,7 +75,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal">
-
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -83,9 +84,8 @@
                             android:src="@drawable/ic_filter_list_black_24dp"
                             android:tint="@color/white"
                             android:layout_marginLeft="10dp"/>
-
                         <TextView
-                            android:id="@+id/customerModify"
+                            android:id="@+id/receiVed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/received"
@@ -97,9 +97,9 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="30dp" />
-
                     </LinearLayout>
                 </RelativeLayout>
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -108,6 +108,7 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/custoumer_modify_cardview"
                 android:layout_marginTop="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -118,7 +119,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal">
-
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -128,9 +128,8 @@
                             android:src="@drawable/ic_filter_list_black_24dp"
                             android:tint="@color/white"
                             android:layout_marginLeft="10dp"/>
-
                         <TextView
-                            android:id="@+id/customer"
+                            android:id="@+id/handOver"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/handover"
@@ -142,9 +141,9 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="30dp" />
-
                     </LinearLayout>
                 </RelativeLayout>
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -153,6 +152,7 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/custoumer_list_cardview"
                 android:layout_marginTop="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -163,7 +163,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal">
-
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -173,9 +172,8 @@
                             android:src="@drawable/ic_filter_list_black_24dp"
                             android:tint="@color/white"
                             android:layout_marginLeft="10dp"/>
-
                         <TextView
-                            android:id="@+id/receivedText"
+                            android:id="@+id/receivedTailor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/receivedt"
@@ -187,9 +185,9 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="30dp" />
-
                     </LinearLayout>
                 </RelativeLayout>
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -198,6 +196,7 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/report_received_frome_tailor_cardView"
                 android:layout_marginTop="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -208,7 +207,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal">
-
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -218,9 +216,8 @@
                             android:src="@drawable/ic_filter_list_black_24dp"
                             android:tint="@color/white"
                             android:layout_marginLeft="10dp"/>
-
                         <TextView
-                            android:id="@+id/receivedByText"
+                            android:id="@+id/receivedBy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/receivedby"
@@ -232,103 +229,13 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="30dp" />
-
                     </LinearLayout>
                 </RelativeLayout>
+
             </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/report_cancel_cardView"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/report_received_frome_tailor_cardView"
-                android:layout_marginTop="20dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@mipmap/bgone"
-                    android:layout_gravity="center_horizontal">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center_horizontal">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/ic_cancel_black_24dp"
-                            android:tint="@color/white"
-                            android:layout_marginLeft="10dp"/>
-
-                        <TextView
-                            android:id="@+id/cancel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/cancel"
-                            android:textAlignment="center"
-                            android:gravity="center_horizontal"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginLeft="30dp" />
-
-                    </LinearLayout>
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/report_dispatch_cardView"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/report_received_frome_tailor_cardView"
-                android:layout_marginTop="20dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@mipmap/bgone"
-                    android:layout_gravity="center_horizontal">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center_horizontal">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/ic_cancel_black_24dp"
-                            android:tint="@color/white"
-                            android:layout_marginLeft="10dp"/>
-
-                        <TextView
-                            android:id="@+id/dispatch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dispatch"
-                            android:textAlignment="center"
-                            android:gravity="center_horizontal"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginLeft="30dp" />
-
-                    </LinearLayout>
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-
 
         </RelativeLayout>
+
     </LinearLayout>
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

@@ -25,6 +25,9 @@
         <activity android:name=".HomeActivity" android:label="@string/title_activity_home">
         </activity>
         <activity android:name=".CustomerActivity"></activity>
+        <activity android:name=".StatusActivity"></activity>
+        <activity android:name=".OrderBottomActivity"></activity>
+        <activity android:name=".ReportActivity"></activity>
     </application>
 
 </manifest>

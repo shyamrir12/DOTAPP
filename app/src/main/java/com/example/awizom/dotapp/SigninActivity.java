@@ -23,7 +23,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     }
     private void initView() {
         userName = findViewById(R.id.userId);
-        passWord = findViewById(R.id.pwd);
+        passWord = findViewById(R.id.addreSS);
         signinButton = findViewById(R.id.signinButton);
         signinButton.setOnClickListener(this);
         signupHere = findViewById(R.id.signupHere);

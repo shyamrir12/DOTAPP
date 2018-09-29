@@ -40,26 +40,26 @@
                 android:hint="@string/customername"
                 android:textSize="15sp"
                 android:inputType="text"
-                android:layout_above="@+id/userContact"
+                android:layout_above="@+id/customerContact"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="5dp" />
 
             <EditText
-                android:id="@+id/userContact"
+                android:id="@+id/customerContact"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/customercontact"
                 android:textSize="15sp"
                 android:inputType="number"
-                android:layout_above="@+id/pwd"
+                android:layout_above="@+id/addreSS"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="5dp" />
 
             <EditText
-                android:id="@+id/pwd"
+                android:id="@+id/addreSS"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
@@ -72,21 +72,21 @@
                 android:padding="5dp" />
 
             <EditText
-                android:id="@+id/cpwd"
+                android:id="@+id/interiorName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/name"
                 android:inputType="text"
                 android:textSize="15sp"
-                android:layout_below="@+id/pwd"
+                android:layout_below="@+id/addreSS"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="5dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cpwd"
+                android:layout_below="@+id/interiorName"
                 android:layout_marginTop="40dp">
 
                 <Button
@@ -99,7 +99,7 @@
                     android:textStyle="bold"
                     android:textSize="19sp"
                     android:background="@drawable/add_cancel_button_shape"
-                    android:layout_below="@+id/cpwd" />
+                    android:layout_below="@+id/interiorName" />
 
                 <Button
                     android:id="@+id/cancelbutton"
@@ -111,7 +111,7 @@
                     android:textStyle="bold"
                     android:textSize="19sp"
                     android:background="@drawable/add_cancel_button_shape"
-                    android:layout_below="@+id/cpwd"
+                    android:layout_below="@+id/interiorName"
 
                     android:layout_marginLeft="14dp"/>
             </LinearLayout>

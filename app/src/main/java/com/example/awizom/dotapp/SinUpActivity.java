@@ -24,8 +24,8 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
 
     private void initView() {
         userName = findViewById(R.id.userName);
-        passWord = findViewById(R.id.pwd);
-        cnfrmPassWord = findViewById(R.id.cpwd);
+        passWord = findViewById(R.id.addreSS);
+        cnfrmPassWord = findViewById(R.id.interiorName);
         signupButton = findViewById(R.id.signupButton);
         signupButton.setOnClickListener(this);
         loginHere = findViewById(R.id.signupHere);

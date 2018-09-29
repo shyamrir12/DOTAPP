@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CustomerActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp">
 
             <android.support.v7.widget.CardView
@@ -41,12 +41,11 @@
                             android:layout_marginLeft="10dp"/>
 
                         <TextView
-                            android:id="@+id/customerAdd"
+                            android:id="@+id/pendingOrder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_p_o_w_advance"
-                            android:textAlignment="center"
-                            android:gravity="center_horizontal"
+                            android:gravity="left"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -86,7 +85,7 @@
                             android:layout_marginLeft="10dp"/>
 
                         <TextView
-                            android:id="@+id/customerModify"
+                            android:id="@+id/pendingCustomer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_p_c_with_noadvance"
@@ -130,12 +129,11 @@
                             android:layout_marginLeft="10dp"/>
 
                         <TextView
-                            android:id="@+id/customer"
+                            android:id="@+id/pendingReceived"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_p_to_received_material"
-                            android:textAlignment="center"
-                            android:gravity="center_horizontal"
+                            android:gravity="left"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -175,12 +173,11 @@
                             android:layout_marginLeft="10dp"/>
 
                         <TextView
-                            android:id="@+id/customer1"
+                            android:id="@+id/pendingItemToPlace"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_p_i_to_p_order"
-                            android:textAlignment="center"
-                            android:gravity="center_horizontal"
+                            android:gravity="left"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
