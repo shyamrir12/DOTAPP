@@ -95,7 +95,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         elight = findViewById(R.id.elight_value);
         roman = findViewById(R.id.roman_value);
         aPlat = findViewById(R.id.aPlat_value);
-        additionButton = findViewById(R.id.addButton);
+        additionButton = findViewById(R.id.updateButton);
 
 
         relative_Layout_press = findViewById(R.id.bottom_relative_press);
@@ -129,19 +129,15 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.addButton:
+            case R.id.updateButton:
                 initViewByAlertdailog();
-               //startActivity(intent = new Intent(this, AddOrderDialog.class));
                 break;
-
             case R.id.bottom_relative_press:
                   dilogShow();
                 break;
             case R.id.bottom_relative_press1:
                 dilogShow();
                 break;
-
-
         }
     }
 
@@ -185,7 +181,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                     e.printStackTrace();
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-                    // System.out.println("Error: " + e);
                 }
 
                 b.dismiss();
@@ -200,10 +195,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
                 b.dismiss();
-                /*
-                 * we will code this method to delete the artist
-                 * */
-
             }
         });
 
@@ -232,11 +223,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         return false;
     }
 
-
-
-
-
-
     private void initViewByAlertdailog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -264,7 +250,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
 
-
                 String snumber = s_no.getText().toString();
                 String catlogname = catlogName.getText().toString();
                 String desiGn = design.getText().toString();
@@ -276,10 +261,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 String materialtype = materialType.getSelectedItem().toString();
                 String unIt =  unitSpinner.getSelectedItem().toString();
 
-
-
                 try {
-
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
                     new POSTOrder().execute("0",materialtype,priCe2,qTy,"0",unIt,"0",catlogname,snumber,desiGn,page_no,priCe,unIt,"0",roomName,orderID);
@@ -287,7 +269,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                     e.printStackTrace();
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-
                 }
                     b.dismiss();
 
@@ -304,7 +285,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 /*
                  * we will code this method to delete the artist
                  * */
-
             }
         });
 
@@ -316,7 +296,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             progressDialog.setMessage("loading...");
             progressDialog.show();
             new RoomDetailsActivity.detailsGET().execute(roomName,orderID);
-
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -330,8 +309,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             String roomName = strings[0];
             String orderID = strings[1];
             String json = "";
-
-
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
@@ -346,7 +323,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                // System.out.println("Error: " + e);
                 Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -358,11 +334,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                //progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
-
-                //System.out.println(result);
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
                 }.getType();
@@ -370,10 +343,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 adapter = new OrderItemAdapter(getBaseContext(), orderList);
                 recyclerView.setAdapter(adapter);
                  progressDialog.dismiss();
-
             }
-
-
         }
     }
     private class POSTOrder extends AsyncTask<String, Void, String> {
@@ -398,9 +368,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             String roomName = params[14];
             String orderID = params[15];
 
-
-
-
             String json = "";
             try {
 
@@ -420,7 +387,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 parameters.add("OrderUnit", orderUnit);
                 parameters.add("OrderRoomID", orderRoomId);
 
-
                 parameters.add("CatalogName", catlogname);
                 parameters.add("SerialNo", snumber);
                 parameters.add("Design", desiGn);
@@ -433,20 +399,14 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 parameters.add("RoomName",roomName.trim());
                 parameters.add("OrderID",orderID.trim());
 
-
-
                 builder.post(parameters.build());
-
-
                 okhttp3.Response response = client.newCall(builder.build()).execute();
-
                 if (response.isSuccessful()) {
                     json = response.body().string();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                // System.out.println("Error: " + e);
                 Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
@@ -458,7 +418,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
-                //System.out.println("CONTENIDO:  " + result);
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
@@ -491,7 +450,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             String orderID = strings[1];
             String json = "";
 
-
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
@@ -506,23 +464,17 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                // System.out.println("Error: " + e);
                 Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
-
             return json;
-
         }
 
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                //progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
-
-                //System.out.println(result);
                 Gson gson = new Gson();
                 Type getType = new TypeToken<ElightBottomModel>(){}.getType();
                 morder = new Gson().fromJson(result,getType);
@@ -580,7 +532,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                // System.out.println("Error: " + e);
                 Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
@@ -592,7 +543,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
-                //System.out.println("CONTENIDO:  " + result);
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();

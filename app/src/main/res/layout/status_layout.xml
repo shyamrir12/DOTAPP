@@ -17,7 +17,7 @@
             android:layout_margin="20dp">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/custoumer_add_cardview"
+                android:id="@+id/first_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
@@ -26,11 +26,13 @@
                     android:layout_height="match_parent"
                     android:background="@mipmap/bgone"
                     android:layout_gravity="center_horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal">
+
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -39,7 +41,8 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_filter_list_black_24dp"
                             android:tint="@color/white"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_marginLeft="10dp" />
+
                         <TextView
                             android:id="@+id/orderPlace"
                             android:layout_width="wrap_content"
@@ -59,10 +62,10 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/custoumer_modify_cardview"
+                android:id="@+id/second_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/custoumer_add_cardview"
+                android:layout_below="@+id/first_cardview"
                 android:layout_marginTop="20dp">
 
                 <RelativeLayout
@@ -70,11 +73,13 @@
                     android:layout_height="match_parent"
                     android:background="@mipmap/bgone"
                     android:layout_gravity="center_horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal">
+
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -83,7 +88,8 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_filter_list_black_24dp"
                             android:tint="@color/white"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_marginLeft="10dp" />
+
                         <TextView
                             android:id="@+id/receiVed"
                             android:layout_width="wrap_content"
@@ -103,10 +109,10 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/custoumer_list_cardview"
+                android:id="@+id/third_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/custoumer_modify_cardview"
+                android:layout_below="@+id/second_cardview"
                 android:layout_marginTop="20dp">
 
                 <RelativeLayout
@@ -114,11 +120,13 @@
                     android:layout_height="match_parent"
                     android:background="@mipmap/bgone"
                     android:layout_gravity="center_horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal">
+
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -127,7 +135,8 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_filter_list_black_24dp"
                             android:tint="@color/white"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_marginLeft="10dp" />
+
                         <TextView
                             android:id="@+id/handOver"
                             android:layout_width="wrap_content"
@@ -150,7 +159,7 @@
                 android:id="@+id/report_received_frome_tailor_cardView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/custoumer_list_cardview"
+                android:layout_below="@+id/third_cardview"
                 android:layout_marginTop="20dp">
 
                 <RelativeLayout
@@ -158,11 +167,13 @@
                     android:layout_height="match_parent"
                     android:background="@mipmap/bgone"
                     android:layout_gravity="center_horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal">
+
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -171,7 +182,8 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_filter_list_black_24dp"
                             android:tint="@color/white"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_marginLeft="10dp" />
+
                         <TextView
                             android:id="@+id/receivedTailor"
                             android:layout_width="wrap_content"
@@ -202,11 +214,13 @@
                     android:layout_height="match_parent"
                     android:background="@mipmap/bgone"
                     android:layout_gravity="center_horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal">
+
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -215,7 +229,8 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_filter_list_black_24dp"
                             android:tint="@color/white"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_marginLeft="10dp" />
+
                         <TextView
                             android:id="@+id/receivedBy"
                             android:layout_width="wrap_content"
@@ -237,6 +252,7 @@
         </RelativeLayout>
 
     </LinearLayout>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"

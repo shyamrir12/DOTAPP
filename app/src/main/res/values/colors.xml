@@ -6,6 +6,9 @@
 
     <color name="fab1_color">#4CAF50</color>
     <color name="fab2_color">#2196F3</color>
+
+    <color name="sky_blue">#69b6f2</color>
+
     <color name="black">#000</color>
     <color name="blue">#545db4</color>
     <color name="green">#0f0</color>

@@ -24,9 +24,9 @@ public class StatusActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        customerList = findViewById(R.id.customer);
-        customerModify = findViewById(R.id.customerModify);
-        customerAdd = findViewById(R.id.customerAdd);
+        customerList = findViewById(R.id.cancelOrder);
+        customerModify = findViewById(R.id.orderCreate);
+        customerAdd = findViewById(R.id.pendingOrder);
 
         reportFragment = new CustomerListFrgment();
 

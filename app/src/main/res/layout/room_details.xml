@@ -4,13 +4,11 @@
     android:layout_height="match_parent">
 
 
-
     <include
         android:id="@+id/header_relative_inclue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        layout="@layout/header_relative_layout"
-       />
+        layout="@layout/header_relative_layout" />
 
     <RelativeLayout
         android:id="@+id/relative_medium"
@@ -23,8 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            />
+            android:layout_alignParentTop="true" />
 
         <include
             android:id="@+id/toolbar"
@@ -34,7 +31,6 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
     </RelativeLayout>
-
 
 
 </RelativeLayout>

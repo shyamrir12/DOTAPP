@@ -9,18 +9,7 @@
         android:layout_height="match_parent"
         android:layout_margin="50dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/signup"
-            android:textColor="@color/fab2_color"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:layout_above="@+id/userId"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true" />
+
 
         <RelativeLayout
             android:id="@+id/centre_layout"
@@ -30,9 +19,20 @@
             android:layout_centerVertical="true"
             android:layout_centerInParent="true"
             android:layout_margin="13dp">
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signup"
+                android:textColor="@color/fab2_color"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:layout_marginBottom="40dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_above="@+id/customerName"
+                android:layout_centerHorizontal="true" />
             <EditText
-                android:id="@+id/userName"
+                android:id="@+id/customerName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
@@ -40,29 +40,29 @@
                 android:paddingLeft="10dp"
                 android:textSize="15sp"
                 android:inputType="text"
-                android:layout_above="@+id/customerContact"
+                android:layout_above="@+id/password"
                 android:layout_marginBottom="20dp"
                 android:drawableRight="@drawable/ic_person_outline_black_24dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="5dp" />
 
-            <EditText
-                android:id="@+id/customerContact"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerHorizontal="true"
-                android:hint="@string/userContact"
-                android:paddingLeft="10dp"
-                android:textSize="15sp"
-                android:inputType="text"
-                android:layout_above="@+id/addreSS"
-                android:layout_marginBottom="20dp"
-                android:drawableRight="@drawable/ic_phone_android_black_24dp"
-                android:background="@drawable/signin_sinup_button_shape"
-                android:padding="5dp" />
+            <!--<EditText-->
+                <!--android:id="@+id/contact"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:hint="@string/userContact"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:textSize="15sp"-->
+                <!--android:inputType="number"-->
+                <!--android:layout_above="@+id/password"-->
+                <!--android:layout_marginBottom="20dp"-->
+                <!--android:drawableRight="@drawable/ic_phone_android_black_24dp"-->
+                <!--android:background="@drawable/signin_sinup_button_shape"-->
+                <!--android:padding="5dp" />-->
 
             <EditText
-                android:id="@+id/addreSS"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
@@ -77,18 +77,18 @@
                 android:padding="5dp" />
 
             <EditText
-                android:id="@+id/interiorName"
+                android:id="@+id/confrmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
-                android:hint="@string/password"
-                android:inputType="textPassword"
+                android:hint="@string/cpassword"
+                android:inputType="textWebPassword"
                 android:paddingLeft="10dp"
                 android:textSize="15sp"
-                android:layout_below="@+id/addreSS"
+                android:layout_below="@+id/password"
                 android:drawableRight="@drawable/ic_lock_outline_black_24dp"
                 android:background="@drawable/signin_sinup_button_shape"
-                android:padding="5dp"/>
+                android:padding="5dp" />
 
             <Button
                 android:id="@+id/signupButton"
@@ -100,7 +100,7 @@
                 android:textStyle="bold"
                 android:textSize="19sp"
                 android:background="@drawable/relative_layout_shape"
-                android:layout_below="@+id/interiorName"
+                android:layout_below="@+id/confrmPassword"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp" />
 
@@ -113,7 +113,7 @@
                 android:textColor="@color/fab2_color"
                 android:gravity="center_horizontal"
                 android:layout_below="@+id/signupButton"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp" />
 
         </RelativeLayout>
 

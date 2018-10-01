@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/bgone">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/addCustomer"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_above="@+id/userId"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true" />
 
     <android.support.v7.widget.CardView
-        android:layout_margin="50dp"
-        android:layout_width="360dp"
-        android:layout_height="500dp"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/addCustomer"
+            android:textColor="@color/sky_blue"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_above="@+id/userId"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true" />
 
         <RelativeLayout
             android:id="@+id/centre_layout"
@@ -32,7 +31,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_centerInParent="true"
-            android:layout_margin="13dp">
+            android:layout_margin="35dp">
 
             <EditText
                 android:id="@+id/customerName"
@@ -42,26 +41,24 @@
                 android:hint="@string/customername"
                 android:textSize="15sp"
                 android:inputType="text"
-                android:layout_above="@+id/customerContact"
+                android:layout_above="@+id/contact"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="5dp" />
-
             <EditText
-                android:id="@+id/customerContact"
+                android:id="@+id/contact"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/customercontact"
                 android:textSize="15sp"
                 android:inputType="number"
-                android:layout_above="@+id/addreSS"
+                android:layout_above="@+id/password"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="5dp" />
-
             <EditText
-                android:id="@+id/addreSS"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
@@ -72,65 +69,42 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="5dp" />
-
             <EditText
-                android:id="@+id/interiorName"
+                android:id="@+id/confrmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
+                android:layout_below="@+id/password"
                 android:hint="@string/name"
                 android:inputType="text"
                 android:textSize="15sp"
                 android:layout_marginBottom="20dp"
-                android:layout_below="@+id/addreSS"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="5dp" />
-
             <EditText
                 android:id="@+id/interiormobile"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/interioMobile"
-                android:inputType="text"
+                android:inputType="number"
                 android:textSize="15sp"
-                android:layout_below="@+id/interiorName"
+                android:layout_below="@+id/confrmPassword"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="5dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <Button
+                android:id="@+id/customerButton"
+                android:layout_width="230dp"
+                android:layout_height="40dp"
+                android:text="@string/add"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="19sp"
                 android:layout_below="@+id/interiormobile"
-                android:layout_marginTop="10dp">
-
-                <Button
-                    android:id="@+id/addButton"
-                    android:layout_width="120dp"
-                    android:layout_height="45dp"
-                    android:text="@string/add"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="19sp"
-                    android:background="@drawable/add_cancel_button_shape"
-                    android:layout_below="@+id/interiorName" />
-
-                <Button
-                    android:id="@+id/cancelButton"
-                    android:layout_width="120dp"
-                    android:layout_height="45dp"
-                    android:text="@string/cancel"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="19sp"
-                    android:background="@drawable/add_cancel_button_shape"
-                    android:layout_below="@+id/interiorName"
-
-                    android:layout_marginLeft="14dp"/>
-            </LinearLayout>
-
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/add_cancel_button_shape" />
 
         </RelativeLayout>
 

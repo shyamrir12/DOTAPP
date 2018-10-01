@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -13,9 +14,10 @@ import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 
 public class ReportActivity extends AppCompatActivity {
 
-    private TextView customerList,customerModify,customerAdd, mTextMessage;
+    private TextView pendingorder,pendingcustomer,pendingreceived, pendingitemToPlace;
     private Intent intent;
-    private Fragment reportFragment,statusFragment;
+    private Fragment reportpendingOrderFragment,pendingCustomerFragment,pendingReceivedfragment,pendingItemToPlaceFragment;
+    private CardView cardViewFirst, cardViewSecond, cardViewthird,cardViewFourth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,13 +26,20 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        customerList = findViewById(R.id.customer);
-        customerModify = findViewById(R.id.customerModify);
-        customerAdd = findViewById(R.id.customerAdd);
+        pendingorder = findViewById(R.id.pendingOrder);
+        pendingcustomer = findViewById(R.id.pendingCustomer);
+        pendingreceived = findViewById(R.id.pendingReceived);
+        pendingitemToPlace = findViewById(R.id.pendingItemToPlace);
 
+        cardViewFirst = findViewById(R.id.first_cardview);
+        cardViewSecond = findViewById(R.id.second_cardview);
+        cardViewthird = findViewById(R.id.third_cardview);
+        cardViewFourth = findViewById(R.id.fourth_cardView);
 
-        reportFragment = new CustomerListFrgment();
-
+        cardViewFirst = findViewById(R.id.first_cardview);
+        cardViewSecond = findViewById(R.id.second_cardview);
+        cardViewthird = findViewById(R.id.third_cardview);
+        cardViewFourth = findViewById(R.id.third_cardview);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

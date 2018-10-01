@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".OrderActivity"
     android:id="@+id/activity_chooser_view_content">
+
     <RelativeLayout
         android:id="@+id/edit_relative_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp">
+
         <LinearLayout
             android:id="@+id/lenear1"
             android:layout_width="match_parent"
@@ -42,6 +44,7 @@
                 android:hint="A Plot"
                 android:textSize="15sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/lenear2"
             android:layout_width="match_parent"
@@ -54,17 +57,17 @@
                 android:id="@+id/updateElight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" android:text="Update"
-                android:textAllCaps="false"
-                 />
+                android:layout_weight="1"
+                android:text="Update"
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/cancelElight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" android:text="Cancel"
-                android:textAllCaps="false"
-              />
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:textAllCaps="false" />
         </LinearLayout>
     </RelativeLayout>
 

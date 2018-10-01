@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp">
-
 
 
         <RelativeLayout
@@ -21,8 +20,7 @@
             <LinearLayout
                 android:id="@+id/catelogS.No"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/cName"
@@ -31,7 +29,8 @@
                     android:text="CatalogName"
 
                     android:layout_weight="1"
-                     android:layout_marginLeft="12dp"/>
+                    android:layout_marginLeft="12dp" />
+
                 <TextView
                     android:id="@+id/sno"
                     android:layout_width="wrap_content"
@@ -39,7 +38,8 @@
                     android:text="S.No."
 
                     android:layout_weight="1"
-                    android:layout_marginLeft="12dp"/>
+                    android:layout_marginLeft="12dp" />
+
                 <TextView
                     android:id="@+id/c_design"
                     android:layout_width="wrap_content"
@@ -47,7 +47,8 @@
                     android:text="Design"
 
                     android:layout_weight="1"
-                     android:layout_marginLeft="12dp"/>
+                    android:layout_marginLeft="12dp" />
+
                 <TextView
                     android:id="@+id/qty"
                     android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
                     android:text="Qty"
 
                     android:layout_weight="1"
-                      android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp" />
 
                 <TextView
                     android:id="@+id/aQty"
@@ -64,8 +65,8 @@
                     android:text="AQty"
 
                     android:layout_weight="1"
-                     android:layout_marginLeft="15dp"
-                    android:visibility="gone"/>
+                    android:layout_marginLeft="15dp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/c_pageNo"
@@ -74,7 +75,7 @@
                     android:text="PageNo"
 
                     android:layout_weight="1"
-                     android:layout_marginLeft="12dp"/>
+                    android:layout_marginLeft="12dp" />
             </LinearLayout>
 
 
@@ -94,7 +95,7 @@
 
                     android:layout_weight="1"
 
-                    android:layout_marginLeft="12dp"/>
+                    android:layout_marginLeft="12dp" />
 
                 <TextView
                     android:id="@+id/price2"
@@ -103,7 +104,8 @@
                     android:text="Price"
 
                     android:layout_weight="1"
-                     android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp" />
+
                 <TextView
                     android:id="@+id/materialtype"
                     android:layout_width="wrap_content"
@@ -111,7 +113,8 @@
                     android:text="MaterialType"
 
                     android:layout_weight="1"
-                     android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp" />
+
                 <TextView
                     android:id="@+id/unit"
                     android:layout_width="wrap_content"
@@ -119,7 +122,7 @@
                     android:text="Unit"
 
                     android:layout_weight="1"
-                      android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp" />
             </LinearLayout>
 
 

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.CustomerActivity;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
@@ -22,7 +23,7 @@ import okhttp3.Request;
 public class AddCustomerFragment extends Fragment implements View.OnClickListener {
 
     private EditText cName,cContact,cAddress,interioName,interioContact;
-    private Button addCustomer,cancelCustomer;
+    private Button addCustomer;
     private Intent intent;
     private ProgressDialog progressDialog ;
     @Override
@@ -35,35 +36,26 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     }
     private void initView(View view) {
         cName = view.findViewById(R.id.customerName);
-        cContact = view.findViewById(R.id.customerContact);
-        cAddress = view.findViewById(R.id.addreSS);
-        interioName = view.findViewById(R.id.interiorName);
+        cContact = view.findViewById(R.id.contact);
+        cAddress = view.findViewById(R.id.password);
+        interioName = view.findViewById(R.id.confrmPassword);
         interioContact = view.findViewById(R.id.interiormobile);
 
-        addCustomer = view.findViewById(R.id.addButton);
-        cancelCustomer = view.findViewById(R.id.cancelButton);
+        addCustomer = view.findViewById(R.id.customerButton);
         addCustomer.setOnClickListener(this);
-        cancelCustomer.setOnClickListener(this);
         progressDialog = new ProgressDialog(getActivity());
     }
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId())
         {
-            case R.id.addButton :
+            case R.id.customerButton:
                 customerAddPost();
-                break;
-            case R.id.cancelButton:
-                finish();
                 break;
         }
     }
 
-    private void finish() {
-        return;
-    }
 
     private void customerAddPost() {
 
@@ -138,13 +130,14 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
 
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Invalid request",Toast.LENGTH_SHORT).show();
+                startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
             } else {
-                //System.out.println("CONTENIDO:  " + result);
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
-                Toast.makeText(getActivity(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),jsonbodyres.getMessage(),Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
+                    startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
                 }
                 progressDialog.dismiss();
             }

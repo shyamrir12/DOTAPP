@@ -17,14 +17,16 @@
             android:layout_margin="20dp">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/custoumer_add_cardview"
+                android:id="@+id/first_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@mipmap/bgone"
                     android:layout_gravity="center_horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -39,10 +41,10 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_person_add_black_24dp"
                             android:tint="@color/white"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_marginLeft="10dp" />
 
                         <TextView
-                            android:id="@+id/customerAdd"
+                            android:id="@+id/pendingOrder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_addCustomer"
@@ -58,17 +60,20 @@
                     </LinearLayout>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.CardView
-                android:id="@+id/custoumer_modify_cardview"
+                android:id="@+id/second_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/custoumer_add_cardview"
+                android:layout_below="@+id/first_cardview"
                 android:layout_marginTop="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@mipmap/bgone"
                     android:layout_gravity="center_horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -83,10 +88,10 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_edit_black_24dp"
                             android:tint="@color/white"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_marginLeft="10dp" />
 
                         <TextView
-                            android:id="@+id/customerModify"
+                            android:id="@+id/orderCreate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_editCustomer"
@@ -102,17 +107,20 @@
                     </LinearLayout>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.CardView
-                android:id="@+id/custoumer_list_cardview"
+                android:id="@+id/third_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/custoumer_modify_cardview"
+                android:layout_below="@+id/second_cardview"
                 android:layout_marginTop="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@mipmap/bgone"
                     android:layout_gravity="center_horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -127,7 +135,7 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_customer_black_24dp"
                             android:tint="@color/white"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_marginLeft="10dp" />
 
                         <TextView
                             android:id="@+id/customerList"
@@ -149,6 +157,12 @@
 
         </RelativeLayout>
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/home_container" />
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"

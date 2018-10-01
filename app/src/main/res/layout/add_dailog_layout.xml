@@ -17,23 +17,21 @@
             android:layout_margin="10dp">
 
 
-
             <EditText
                 android:id="@+id/catlogName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="CatalogName"
-                android:textSize="15sp"
-              />
+                android:textSize="15sp" />
+
             <EditText
                 android:id="@+id/sNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="S.No"
-                android:textSize="15sp"
-               />
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/design"
@@ -41,8 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Design"
-                android:textSize="15sp"
-              />
+                android:textSize="15sp" />
 
 
         </LinearLayout>
@@ -68,8 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Qty"
-                android:textSize="15sp"
-                />
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/aQty"
@@ -79,22 +75,22 @@
                 android:hint="AQty"
                 android:textSize="15sp"
                 android:visibility="gone" />
+
             <EditText
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="MRP"
-                android:textSize="15sp"
-                />
+                android:textSize="15sp" />
+
             <EditText
                 android:id="@+id/price2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Price"
-                android:textSize="15sp"
-               />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -112,16 +108,15 @@
                 android:layout_weight="1"
                 android:entries="@array/MaterialType"
                 android:textSize="15sp" />
+
             <Spinner
                 android:id="@+id/unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-              android:entries="@array/Unit"
-                android:textSize="15sp"
-               />
+                android:entries="@array/Unit"
+                android:textSize="15sp" />
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -136,16 +131,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add"
-              />
+                android:text="Add" />
 
             <Button
                 android:id="@+id/cancelButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cancel"
-              />
+                android:text="Cancel" />
         </LinearLayout>
 
 

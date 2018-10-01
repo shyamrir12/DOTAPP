@@ -2,7 +2,6 @@ package com.example.awizom.dotapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,12 +26,12 @@ public class ReportPendingOrderFragment extends Fragment implements View.OnClick
     }
     private void initView(View view) {
         cName = view.findViewById(R.id.customerName);
-        cContact = view.findViewById(R.id.customerContact);
-        cAddress = view.findViewById(R.id.addreSS);
-        interioName = view.findViewById(R.id.interiorName);
+        cContact = view.findViewById(R.id.contact);
+        cAddress = view.findViewById(R.id.password);
+        interioName = view.findViewById(R.id.confrmPassword);
         interioContact = view.findViewById(R.id.interiormobile);
 
-        addCustomer = view.findViewById(R.id.addButton);
+        addCustomer = view.findViewById(R.id.updateButton);
         cancelCustomer = view.findViewById(R.id.cancelButton);
         addCustomer.setOnClickListener(this);
         cancelCustomer.setOnClickListener(this);
@@ -44,7 +43,7 @@ public class ReportPendingOrderFragment extends Fragment implements View.OnClick
 
         switch (v.getId())
         {
-            case R.id.addButton :
+            case R.id.updateButton:
                 customerAddPost();
                 break;
             case R.id.cancelButton:

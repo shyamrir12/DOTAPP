@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@color/blue">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/blue">
+
         <LinearLayout
             android:id="@+id/customerinfo"
             android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                 android:layout_marginLeft="10dp"
 
                 android:textColor="@color/white"
-                android:textSize="@dimen/room_text_size"/>
+                android:textSize="@dimen/room_text_size" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,7 +58,7 @@
                 android:layout_margin="5dp"
 
                 android:textColor="@color/white"
-                android:textSize="@dimen/room_text_size"/>
+                android:textSize="@dimen/room_text_size" />
 
             <TextView
                 android:id="@+id/room_name"
@@ -66,9 +67,9 @@
                 android:layout_weight="1"
                 android:text="Room Name"
                 android:layout_margin="5dp"
-               android:textColor="@color/white"
-                android:textSize="@dimen/room_text_size"/>
+                android:textColor="@color/white"
+                android:textSize="@dimen/room_text_size" />
         </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
