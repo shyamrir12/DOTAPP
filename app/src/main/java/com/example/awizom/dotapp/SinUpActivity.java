@@ -12,7 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Result;
+import com.example.awizom.dotapp.Models.Token;
+import com.example.awizom.dotapp.Models.UserRegister;
 import com.google.gson.Gson;
 
 import okhttp3.FormBody;
@@ -56,7 +59,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.loginHere :
-                    startActivity(intent = new Intent(this,SinUpActivity.class));
+                    startActivity(intent = new Intent(this,SigninActivity.class));
                 break;
         }
     }
@@ -68,7 +71,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new POSTOrder().execute(name,pwd,cpwd);
+            new POSTRegister().execute(name,pwd,cpwd);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -84,7 +87,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         }return true;
     }
 
-    private class POSTOrder extends AsyncTask<String, Void, String> {
+    private class POSTRegister extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
 
@@ -102,10 +105,10 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                 builder.addHeader("Accept", "application/json");
                 //builder.addHeader("Authorization", "Bearer " + accesstoken);
                 FormBody.Builder parameters = new FormBody.Builder();
-                parameters.add("username", customername);
-                parameters.add("password", password);
-                parameters.add("confirmpassword", cnfrmpassword);
-                parameters.add("role", "user");
+                parameters.add("UserName", customername);
+                parameters.add("Password", password);
+                parameters.add("ConfirmPassword", cnfrmpassword);
+                parameters.add("Role", "User");
                 builder.post(parameters.build());
 
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -125,11 +128,26 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(SinUpActivity.this, "Invalid request",Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
-                final Result jsonbodyres = gson.fromJson(result, Result.class);
-                Toast.makeText(SinUpActivity.this,jsonbodyres.getMessage(),Toast.LENGTH_SHORT).show();
-                if (jsonbodyres.getStatus() == true) {
-                    startActivity(intent = new Intent(SinUpActivity.this, HomeActivity.class));
-                }progressDialog.dismiss();
+
+              UserRegister .RootObject jsonbody = gson.fromJson(result,  UserRegister .RootObject.class);
+              if(jsonbody.isStatus()) {
+                  Token user = new Token();
+                  user.userRole = jsonbody.Role;
+                  user.access_token = jsonbody.login.access_token;
+                  user.userName = jsonbody.login.userName;
+                  user.token_type = jsonbody.login.token_type;
+                  user.expires_in = jsonbody.login.expires_in;
+
+                  SharedPrefManager.getInstance( getApplicationContext() ).userLogin( user );
+                  if (!SharedPrefManager.getInstance( SinUpActivity.this ).getUser().access_token.equals( null )) {
+                      startActivity( intent = new Intent( SinUpActivity.this, HomeActivity.class ) );
+                  }
+              }
+              else
+                 {
+                    Toast.makeText(SinUpActivity.this,jsonbody.dataIdentityResult.getErrors().get(0),Toast.LENGTH_SHORT).show();
+                }
+                progressDialog.dismiss();
             }
         }
     }

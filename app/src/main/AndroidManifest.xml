@@ -15,11 +15,14 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".OrderActivity"> </activity>
         <activity android:name=".RoomDetailsActivity" android:parentActivityName=".OrderActivity"></activity>
-        <activity android:name=".SinUpActivity"><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
-        <activity android:name=".SigninActivity"> </activity>
+        <activity android:name=".SinUpActivity">
+
+        </activity>
+        <activity android:name=".SigninActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter></activity>
         <activity android:name=".HomeActivity" android:label="@string/title_activity_home"></activity>
         <activity android:name=".CustomerActivity"></activity>
         <activity android:name=".StatusActivity"></activity>
