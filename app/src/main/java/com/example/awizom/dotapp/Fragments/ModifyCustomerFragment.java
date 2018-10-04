@@ -2,6 +2,7 @@ package com.example.awizom.dotapp.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -38,12 +40,13 @@ import okhttp3.Request;
 
 public class ModifyCustomerFragment extends Fragment implements View.OnClickListener {
     private EditText cContact,cAddress,interioName,interioContact;
-    private Spinner cName;
+    private AutoCompleteTextView cName;
     private Button updateCustomer;
     private Intent intent;
     private ProgressDialog progressDialog ;
     private List<CustomerModel > customerlist;
-    private ArrayList<String> customerNameList;
+    private String[] customerNameList;
+    ArrayAdapter<String> adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,6 +68,26 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
 
         getCustomerDetailList();
 
+cName.addTextChangedListener( new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        cContact.setText( "" );
+        cAddress .setText( ""  );
+        interioName .setText( ""  );
+        interioContact.setText( ""  );
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if(cName.getText().length()>0)
+            getCustomerDetail(cName.getText().toString());
+    }
+       } );
     }
 
     @Override
@@ -74,12 +97,30 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
             case R.id.updateButton:
                 customerUpdatePost();
                 break;
+
         }
+    }
+
+    private void getCustomerDetail(String cusname) {
+         try{
+       for(CustomerModel cm:customerlist){
+           if(cm.getCustomerName().equals( cusname ))
+           {
+               cContact.setText( cm.getMobile() );
+               cAddress .setText( cm.getAddress() );
+               interioName .setText( cm.getInteriorName() );
+               interioContact.setText( cm.getInteriorMobile() );
+           }
+       }}
+       catch (Exception e){
+
+       }
+
     }
 
     private void customerUpdatePost() {
 
-        //String name = cName.getText().toString().trim();
+        String name = cName.getText().toString().trim();
         String contact = cContact.getText().toString().trim();
         String address = cAddress.getText().toString().trim();
         String intename = interioName.getText().toString().trim();
@@ -89,17 +130,17 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
             //String res="";
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new POSTOrder().execute(contact,address,intename,intecontact);
+            new POSTCustomer().execute(name,address,contact,intename,intecontact);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            postModifyCutomer();
+
             // System.out.println("Error: " + e);
         }
     }
 
-    private class POSTOrder extends AsyncTask<String, Void, String> {
+    private class POSTCustomer extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
 
@@ -149,9 +190,10 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getActivity(),jsonbodyres.getMessage(),Toast.LENGTH_SHORT).show();
-                if (jsonbodyres.getStatus() == true){
-                    startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
-                }
+if(jsonbodyres.getStatus()==true)
+{
+    getCustomerDetailList();
+}
                 progressDialog.dismiss();
             }
         }
@@ -200,93 +242,28 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
             }else{
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<CustomerModel>>() {
-                }.getType();
+                Type listType = new TypeToken<List<CustomerModel>>() {}.getType();
                 customerlist = new Gson().fromJson(result, listType);
-                progressDialog.dismiss();
-                customerNameList = new ArrayList<>();
+                customerNameList = new String[customerlist.size()];
+                for (int i=0;i<customerlist.size();i++)
+                {
+                    customerNameList[i]=String.valueOf( customerlist.get( i ).getCustomerName());
 
-
-
-
-                for (CustomerModel customer : customerlist) {
-
-                            customerNameList.add(customer.getCustomerName());
-                        }
-
-
-
-//                cName.addTextChangedListener(new TextWatcher() {
-//                    @Override
-//                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//                        for (CustomerModel customer : customerlist) {
-//
-//                            if(customer.getCustomerName().contains(cName.getText().toString()))
-//
-//                            customerNameList.add(customer.getCustomerName());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void afterTextChanged(Editable s) {
-//
-//                    }
-//                });
-            }
-        }
-    }
-    private void postModifyCutomer() {
-        try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            new postUpdateCustomer().execute();
-        }catch(Exception e){
-            e.printStackTrace();
-            progressDialog.dismiss();
-            Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private class postUpdateCustomer extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-
-            String json = "";
-            try {
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "CustomerGet/");
-                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                builder.addHeader("Accept", "application/json");
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-                if (response.isSuccessful()) {
-                    json = response.body().string();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+                adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.select_dialog_item,customerNameList);
+                cName.setThreshold(1);//will start working from first character
+                cName.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+
+                //Getting the instance of AutoCompleteTextView
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            }
-            return json;
+
+
+                }
+
+
+
         }
-
-        protected void onPostExecute(String result) {
-            if (result.isEmpty()){
-                progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
-            }else{
-                Gson gson = new Gson();
-                Type getType = new TypeToken<CustomerModel>(){}.getType();
-                progressDialog.dismiss();
-            }
-        }
-
-
     }
+
 }
