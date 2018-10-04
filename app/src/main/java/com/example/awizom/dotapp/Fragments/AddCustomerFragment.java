@@ -99,7 +99,6 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 //builder.addHeader("Authorization", "Bearer " + accesstoken);
-
                 FormBody.Builder parameters = new FormBody.Builder();
                 parameters.add("CustomerID", "0");
                 parameters.add("CustomerName", customername);
@@ -109,13 +108,9 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
                 parameters.add("InteriorMobile", interiormobile);
                 builder.post(parameters.build());
 
-
                 okhttp3.Response response = client.newCall(builder.build()).execute();
-
                 if (response.isSuccessful()) {
                     json = response.body().string();
-
-
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -127,11 +122,10 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
         }
 
         protected void onPostExecute(String result) {
-
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 Toast.makeText(getActivity(), "Invalid request",Toast.LENGTH_SHORT).show();
-                startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
+                startActivity(intent = new Intent(getActivity(), CustomerListFrgment.class));
             } else {
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
@@ -142,7 +136,5 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
                 progressDialog.dismiss();
             }
         }
-
-
     }
 }

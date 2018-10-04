@@ -13,13 +13,13 @@
     <string name="bottom"><u>You have already an account login Here</u></string>
     <string name="signin">Sign In</string>
 
-
     <string-array name="Unit">
         <item>Unit</item>
         <item>Mtr.</item>
         <item>Roll</item>
         <item>Sqft</item>
     </string-array>
+
     <string-array name="MaterialType">
         <item>Material Type</item>
         <item>Curtain</item>
@@ -27,7 +27,8 @@
         <item>Wall Paper</item>
         <item>Padding</item>
     </string-array>
-    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="title_activity_home">DacorOrderTracker</string>
     <string name="title_customer">Customer</string>
     <string name="title_order">Order</string>
     <string name="title_report">Report</string>
@@ -65,4 +66,5 @@
     <string name="dispatch">Dispatch</string>
     <string name="interioMobile">Interior contact</string>
     <string name="cpassword">Confirm Password</string>
+
 </resources>

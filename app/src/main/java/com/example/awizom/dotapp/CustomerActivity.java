@@ -96,13 +96,13 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                 fragmentClass = CustomerListFrgment.class;
                 break;
             case R.id.customerList:
-                fragmentClass = AddCustomerFragment.class;
+                fragmentClass = CustomerListFrgment.class;
                 break;
             case R.id.orderCreate:
                 fragmentClass = ModifyCustomerFragment.class;
                 break;
             case R.id.pendingOrder:
-                fragmentClass = CustomerListFrgment.class;
+                fragmentClass = AddCustomerFragment.class;
                 break;
         }
         try {

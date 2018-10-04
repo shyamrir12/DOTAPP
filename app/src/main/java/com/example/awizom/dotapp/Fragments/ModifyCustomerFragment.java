@@ -5,26 +5,45 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.CustomerActivity;
+import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
+import com.example.awizom.dotapp.Models.CustomerModel;
+import com.example.awizom.dotapp.Models.DataOrder;
+import com.example.awizom.dotapp.Models.ElightBottomModel;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class ModifyCustomerFragment extends Fragment implements View.OnClickListener {
-    private EditText cName,cContact,cAddress,interioName,interioContact;
+    private EditText cContact,cAddress,interioName,interioContact;
+    private Spinner cName;
     private Button updateCustomer;
     private Intent intent;
     private ProgressDialog progressDialog ;
+    private List<CustomerModel > customerlist;
+    private ArrayList<String> customerNameList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,6 +63,8 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
         updateCustomer.setOnClickListener(this);
         progressDialog = new ProgressDialog(getActivity());
 
+        getCustomerDetailList();
+
     }
 
     @Override
@@ -58,7 +79,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
 
     private void customerUpdatePost() {
 
-        String name = cName.getText().toString().trim();
+        //String name = cName.getText().toString().trim();
         String contact = cContact.getText().toString().trim();
         String address = cAddress.getText().toString().trim();
         String intename = interioName.getText().toString().trim();
@@ -68,11 +89,12 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
             //String res="";
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new POSTOrder().execute(name,contact,address,intename,intecontact);
+            new POSTOrder().execute(contact,address,intename,intecontact);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            postModifyCutomer();
             // System.out.println("Error: " + e);
         }
     }
@@ -130,6 +152,137 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
                 if (jsonbodyres.getStatus() == true){
                     startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
                 }
+                progressDialog.dismiss();
+            }
+        }
+
+
+    }
+
+
+    private void getCustomerDetailList() {
+        try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new getCustomerList().execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+    private class getCustomerList extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "CustomerGet/");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()){
+                progressDialog.dismiss();
+                Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
+            }else{
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<CustomerModel>>() {
+                }.getType();
+                customerlist = new Gson().fromJson(result, listType);
+                progressDialog.dismiss();
+                customerNameList = new ArrayList<>();
+
+                cName = new Spinner(getActivity(), customerNameList,)
+
+
+                for (CustomerModel customer : customerlist) {
+
+                            customerNameList.add(customer.getCustomerName());
+                        }
+
+
+
+//                cName.addTextChangedListener(new TextWatcher() {
+//                    @Override
+//                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//                        for (CustomerModel customer : customerlist) {
+//
+//                            if(customer.getCustomerName().contains(cName.getText().toString()))
+//
+//                            customerNameList.add(customer.getCustomerName());
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void afterTextChanged(Editable s) {
+//
+//                    }
+//                });
+            }
+        }
+    }
+    private void postModifyCutomer() {
+        try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new postUpdateCustomer().execute();
+        }catch(Exception e){
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class postUpdateCustomer extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "CustomerGet/");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()){
+                progressDialog.dismiss();
+                Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
+            }else{
+                Gson gson = new Gson();
+                Type getType = new TypeToken<CustomerModel>(){}.getType();
                 progressDialog.dismiss();
             }
         }
