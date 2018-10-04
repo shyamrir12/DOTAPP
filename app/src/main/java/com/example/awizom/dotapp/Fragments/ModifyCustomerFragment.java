@@ -206,7 +206,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
                 progressDialog.dismiss();
                 customerNameList = new ArrayList<>();
 
-                cName = new Spinner(getActivity(), customerNameList,)
+
 
 
                 for (CustomerModel customer : customerlist) {
