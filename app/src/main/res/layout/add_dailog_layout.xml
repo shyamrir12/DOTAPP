@@ -16,13 +16,20 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/catlogName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="CatalogName"
+                android:hint="CatalogName *"
+                android:textSize="15sp"
+               />
+            <AutoCompleteTextView
+                android:id="@+id/design"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Design *"
                 android:textSize="15sp" />
 
             <EditText
@@ -33,13 +40,7 @@
                 android:hint="S.No"
                 android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/design"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Design"
-                android:textSize="15sp" />
+
 
 
         </LinearLayout>
@@ -64,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Qty"
+                android:hint="Qty *"
                 android:textSize="15sp" />
 
             <EditText
@@ -81,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="MRP"
+                android:hint="MRP *"
                 android:textSize="15sp" />
 
             <EditText
@@ -89,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Price"
+                android:hint="Price *"
                 android:textSize="15sp" />
         </LinearLayout>
 

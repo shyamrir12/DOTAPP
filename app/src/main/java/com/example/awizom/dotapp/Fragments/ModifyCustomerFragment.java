@@ -190,10 +190,10 @@ cName.addTextChangedListener( new TextWatcher() {
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getActivity(),jsonbodyres.getMessage(),Toast.LENGTH_SHORT).show();
-if(jsonbodyres.getStatus()==true)
-{
-    getCustomerDetailList();
-}
+                if(jsonbodyres.getStatus()==true)
+                 {
+                   getCustomerDetailList();
+                 }
                 progressDialog.dismiss();
             }
         }

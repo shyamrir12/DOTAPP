@@ -8,9 +8,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.OrderItemAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Models.Catelog;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.ElightBottomModel;
 import com.example.awizom.dotapp.Models.Result;
@@ -47,10 +52,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     CatelogOrderDetailModel catelogOrderDetailModel;
     List<CatelogOrderDetailModel> orderList;
     ElightBottomModel  morder;
-
+    ArrayAdapter<String> catadapter;
+    ArrayAdapter<String> designapter;
     OrderItemAdapter adapter;
     private Intent intent;
-    private EditText s_no, catlogName, design, pageNo, price, price2, qty, aQty;
+    private EditText s_no, pageNo, price, price2, qty, aQty;
+    private AutoCompleteTextView catlogName, design;
     private Spinner unitSpinner,materialType;
     private Button addButton, cancelButton;
   //  private AlertDialog b;
@@ -155,12 +162,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         updateBottom  = dialogView.findViewById(R.id.updateElight);
         cancelElight = dialogView.findViewById(R.id.cancelElight);
-
-
         editElight.setText(morder.Elight.toString());
-
         editRoman.setText(morder.Roman.toString());
-
         editAplot.setText(morder.APlat.toString());
         dialogBuilder.setTitle("Edit bottom");
         final AlertDialog b = dialogBuilder.create();
@@ -239,13 +242,47 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         qty = dialogView.findViewById(R.id.qTy);
         aQty = dialogView.findViewById(R.id.aQty);
         unitSpinner = dialogView.findViewById(R.id.unit);
-
+        getCatalogList();
         addButton = dialogView.findViewById(R.id.add);
         cancelButton = dialogView.findViewById(R.id.cancelButton);
 
         dialogBuilder.setTitle("Add Order");
         final AlertDialog b = dialogBuilder.create();
         b.show();
+        catlogName.addTextChangedListener( new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+             design.setText( "" );
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(catlogName.getText().length()>0)
+                getDesignList();
+            }
+        } );
+        design.addTextChangedListener( new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                price.setText( "" );
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(design.getText().length()>0)
+                getCatalogDesignSingle();
+            }
+        } );
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -260,7 +297,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 String aqty = aQty.getText().toString();
                 String materialtype = materialType.getSelectedItem().toString();
                 String unIt =  unitSpinner.getSelectedItem().toString();
-
                 try {
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
@@ -557,5 +593,178 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         }
 
+    }
+
+    private void getCatalogDesignSingle() {
+        try {
+
+            new getCatalogDesign().execute(catlogName.getText().toString(),design.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            Toast.makeText(this, "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+    private class getCatalogDesign extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String catalogName = strings[0];
+            String designName = strings[1];
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "CatalogGet/"+catalogName+"/"+designName);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                Toast.makeText(RoomDetailsActivity.this, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()){
+
+                Toast.makeText(RoomDetailsActivity.this, "Invalid request", Toast.LENGTH_SHORT).show();
+            }else{
+                Gson gson = new Gson();
+                Type listType = new TypeToken<Catelog>() {}.getType();
+                Catelog catelogdesign = new Gson().fromJson(result, listType);
+               if (catelogdesign!=null)
+               {
+                   price.setText( String.valueOf( catelogdesign.getPrice() ) );
+                   if(catelogdesign.getUnit().trim().length()>0) {
+
+                       unitSpinner.setSelection(((ArrayAdapter<String>)unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
+                   }
+               }
+
+
+                //Getting the instance of AutoCompleteTextView
+
+            }
+
+
+
+        }
+    }
+
+    private void getCatalogList() {
+        try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new getCatalog().execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(this, "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+    private class getCatalog extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "CatalogGet");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                Toast.makeText(RoomDetailsActivity.this, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()){
+                progressDialog.dismiss();
+                Toast.makeText(RoomDetailsActivity.this, "Invalid request", Toast.LENGTH_SHORT).show();
+            }else{
+                Gson gson = new Gson();
+                Type listType = new TypeToken<String[]>() {}.getType();
+               String[] cateloglist = new Gson().fromJson(result, listType);
+
+
+                catadapter = new ArrayAdapter<String>(RoomDetailsActivity.this,android.R.layout.select_dialog_item,cateloglist);
+                catlogName.setThreshold(1);//will start working from first character
+                catlogName.setAdapter(catadapter);//setting the adapter data into the AutoCompleteTextView
+
+                //Getting the instance of AutoCompleteTextView
+                progressDialog.dismiss();
+
+
+            }
+
+
+
+        }
+    }
+    private void getDesignList() {
+        try {
+           // progressDialog.setMessage("loading...");
+           // progressDialog.show();
+            new getDesign().execute(catlogName.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+           // progressDialog.dismiss();
+            Toast.makeText(this, "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+    private class getDesign extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String catalogName = strings[0];
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "CatalogGet/"+catalogName);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(RoomDetailsActivity.this, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()){
+
+                Toast.makeText(RoomDetailsActivity.this, "Invalid request", Toast.LENGTH_SHORT).show();
+            }else{
+                Gson gson = new Gson();
+                Type listType = new TypeToken<String[]>() {}.getType();
+                String[] designlist = new Gson().fromJson(result, listType);
+                designapter = new ArrayAdapter<String>(RoomDetailsActivity.this,android.R.layout.select_dialog_item,designlist);
+                design.setThreshold(1);//will start working from first character
+                design.setAdapter(designapter);//setting the adapter data into the AutoCompleteTextView
+
+            }
+
+
+
+        }
     }
 }
