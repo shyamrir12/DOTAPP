@@ -13,18 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.awizom.dotapp.Adapters.CustomerListAdapter;
-import com.example.awizom.dotapp.Adapters.OrderAdapter;
-import com.example.awizom.dotapp.Adapters.OrderItemAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
-import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.CustomerModel;
-import com.example.awizom.dotapp.Models.DataOrder;
-import com.example.awizom.dotapp.Models.ElightBottomModel;
-import com.example.awizom.dotapp.OrderActivity;
 import com.example.awizom.dotapp.R;
-import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -53,6 +45,8 @@ public class CustomerListFrgment extends Fragment{
     }
 
     private void initView(View view) {
+
+//        ((CustomerListFrgment) getContext()).setActionBarTitle("Customer List Details");
         progressDialog = new ProgressDialog(getActivity());
         mSwipeRefreshLayout=view.findViewById( R.id.swipeRefreshLayout );
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -65,11 +59,6 @@ public class CustomerListFrgment extends Fragment{
 //                getMyOrder();
             }
         });
-//        customername = view.findViewById(R.id.customerName);
-//        customeraddress = view.findViewById(R.id.address);
-//        customercontact = view.findViewById(R.id.contact);
-//        interiorname = view.findViewById(R.id.interiorName);
-//        interiorcontact = view.findViewById(R.id.interiorContact);
 
        getCustomerList();
     }
@@ -136,11 +125,6 @@ public class CustomerListFrgment extends Fragment{
                 orderList = new Gson().fromJson(result,listType);
                 adapter = new CustomerListAdapter(getContext(), orderList);
                 recyclerView.setAdapter(adapter);
-//                customername.setText(orderList.get(1).getCustomerName().toString());
-//                customeraddress.setText(orderList.get(1).getAddress().toString());
-//                customercontact.setText(orderList.get(1).getMobile().toString());
-//                interiorname.setText(orderList.get(1).getInteriorName().toString());
-//                interiorcontact.setText(orderList.get(1).getInteriorMobile().toString());
                 progressDialog.dismiss();
             }
 

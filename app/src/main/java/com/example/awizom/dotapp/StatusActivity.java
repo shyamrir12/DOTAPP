@@ -24,6 +24,7 @@ public class StatusActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        getSupportActionBar().setTitle("Status Details");
         customerList = findViewById(R.id.cancelOrder);
         customerModify = findViewById(R.id.orderCreate);
         customerAdd = findViewById(R.id.pendingOrder);

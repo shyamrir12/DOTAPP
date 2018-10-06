@@ -1,6 +1,9 @@
 package com.example.awizom.dotapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,8 +11,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
+
+import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -23,9 +29,15 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        if(isConnectingToInternet(HomeActivity.this))
+        {
+            Toast.makeText(getApplicationContext(),"internet is available", Toast.LENGTH_LONG).show();
+        }
+        else {
+            System.out.print("internet is not available");
+        }
 
         reportFragment = new CustomerListFrgment();
-
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -55,6 +67,22 @@ public class HomeActivity extends AppCompatActivity {
             return false;
         }
     };
-
+    public static boolean isConnectingToInternet(Context context)
+    {
+        ConnectivityManager connectivity =
+                (ConnectivityManager) context.getSystemService(
+                        Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null)
+        {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+        }
+        return false;
+    }
 
 }

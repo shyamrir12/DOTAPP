@@ -9,7 +9,7 @@
         android:layout_height="@dimen/relative_layout_bottom_height"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@color/blue">
+        android:background="@color/colorAccent">
 
         <RelativeLayout
             android:id="@+id/bottom_relative_press"

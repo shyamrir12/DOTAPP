@@ -16,7 +16,7 @@
         <activity android:name=".OrderActivity"></activity>
         <activity
             android:name=".RoomDetailsActivity"
-            android:parentActivityName=".OrderActivity" />
+            android:parentActivityName=".AfterCreateOrderActivity" />
         <activity android:name=".SinUpActivity" />
         <activity android:name=".SigninActivity" />
         <activity

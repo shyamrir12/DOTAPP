@@ -29,6 +29,8 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initView() {
+
+        getSupportActionBar().setTitle("Order Details");
         cardViewFirst = findViewById(R.id.order_pending_cardview);
         cardViewSecond = findViewById(R.id.order_create_cardview);
         cardViewthird = findViewById(R.id.order_cancel_cardview);
@@ -82,16 +84,20 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
 
             case R.id.order_create_cardview:
+                getSupportActionBar().setTitle("Order Create");
                 startActivity(intent = new Intent(getApplicationContext(),AfterCreateOrderActivity.class));
                 break;
             case R.id.order_pending_cardview:
+                getSupportActionBar().setTitle("Pending List");
                 fragment = pendinOrderListFragment;
                 fragmentClass = PendinOrderListFragment.class;
                 break;
             case R.id.orderCreate:
+                getSupportActionBar().setTitle("Order Create");
                 startActivity(intent = new Intent(getApplicationContext(),AfterCreateOrderActivity.class));
                 break;
             case R.id.pendingOrder:
+                getSupportActionBar().setTitle("Pending List");
                 fragment = pendinOrderListFragment;
                 fragmentClass = PendinOrderListFragment.class;
                 break;

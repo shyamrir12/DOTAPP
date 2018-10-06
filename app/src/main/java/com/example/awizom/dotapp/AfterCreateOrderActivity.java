@@ -10,14 +10,18 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.awizom.dotapp.Adapters.OrderAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
@@ -37,8 +41,10 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
     private Intent intent;
 
-    private TextView c_contact,i_name,i_contact,i_address,orderDateLabel,orderDate,amount;
+    private TextView c_contact,i_name,i_contact,i_address,orderDateLabel;
+    private EditText orderDate,amount;
     private ListView roomname;
+    String[] roomName;
     private long cid=0;
     DataOrder catelogOrderDetailModel;
     List<DataOrder> orderList;
@@ -58,6 +64,11 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
     private Button addorder,addroom;
     int morderid=0;
 
+    String orderid;
+    String[] orderidPart;
+
+    String actualRoomList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +79,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
     private void initView() {
 
+        getSupportActionBar().setTitle("Order Create");
 
         c_name = findViewById(R.id.customerName);
         c_contact = findViewById(R.id.customerContact);
@@ -75,7 +87,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         i_contact = findViewById(R.id.interiorMobile);
         i_address = findViewById(R.id.interiorAddress);
 
-        orderDate = findViewById(R.id.orderValue);
+        orderDate = findViewById(R.id.orderDatePicker);
         amount = findViewById(R.id.amountValue);
 
         orderDateLabel = findViewById(R.id.orderDatePicker);
@@ -118,6 +130,25 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         });
         getCustomerDetailList();
 
+        roomname.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // TODO Auto-generated method stub
+
+
+                Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
+                intent.putExtra("RoomName", roomName[position].trim());
+                intent.putExtra("OrderID",orderidPart[1]);
+                intent.putExtra("CustomerName",c_name.getText().toString());
+                intent.putExtra("Mobile",c_contact.getText().toString());
+                intent.putExtra("OrderDate",orderDate.getText().toString());
+                intent.putExtra("Advance",amount.getText().toString());
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -128,11 +159,12 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
                 break;
             case R.id.addOrder:
                 if(c_name.getText().length() > 0) {
-                    addroom.setVisibility(View.VISIBLE);
+                    postOrder();
+
                 }
                 break;
             case R.id.addRoom:
-                addroomdailogueOpen(orderList.get(1).getOrderID(),orderList.get(1).getARoomList());
+                addroomdailogueOpen(Long.parseLong(orderidPart[1]),actualRoomList);
                 break;
 
         }
@@ -181,7 +213,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+               b.dismiss();
                 /*
                  * we will code this method to delete the artist
                  * */
@@ -245,8 +277,8 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
     private void getMyOrder() {
         try {
-            morderid = orderList.get(1).getOrderID();
-            new GETOrderList().execute(String.valueOf(morderid));
+
+            new GETOrderList().execute();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(AfterCreateOrderActivity.this, "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -257,16 +289,11 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         @Override
         protected String doInBackground(String... params) {
 
-            //     InputStream inputStream
-            // String accesstoken = params[0];
-            String orderid = params[0];
-            //String clave = params[1];
-            //String res = params[2];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderid);
+                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderidPart[1]);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 //  builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -289,12 +316,14 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
                 Gson gson = new Gson();
                 Type getType = new TypeToken<DataOrder>(){}.getType();
                 DataOrder  morder = new Gson().fromJson(result,getType);
-                String[] roomName = morder.getRoomList().split(",");
+                roomName = morder.getRoomList().split(",");
+                actualRoomList = morder.getARoomList();
                // ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
                // spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item); // The drop down view
                // spinner.setAdapter(spinnerArrayAdapter);
                 ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist,R.id.label, roomName);
                 roomname.setAdapter( spinnerArrayAdapter );
+
                 }
         }
         @Override
@@ -398,12 +427,91 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
             }
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,dateSetListener, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH),   currentDate.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+       // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 
 /*customer List get*/
     private void postOrder() {
+
+        String date = orderDate.getText().toString();
+        String advance = amount.getText().toString();
+
+
+            try {
+
+                //String
+                new POSTOrder().execute(String.valueOf(cid),date,advance);
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+                // System.out.println("Error: " + e);
+            }
+    }
+    private class POSTOrder extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            //     InputStream inputStream
+            String customerid = params[0];
+            String orderdate = params[1];
+            String orderamount = params[2];
+            String json = "";
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+
+                parameters.add("CustomerID", customerid);
+                parameters.add("OrderDate", orderdate);
+                parameters.add("Advance", orderamount);
+
+                builder.post(parameters.build());
+
+
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                // System.out.println("Error: " + e);
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                //System.out.println("CONTENIDO:  " + result);
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                orderid = jsonbodyres.getMessage().toString();
+                orderidPart = orderid.split(",");
+                Toast.makeText(getApplicationContext(),jsonbodyres.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+                    getMyOrder();
+                    addroom.setVisibility(View.VISIBLE);
+
+                }
+
+            }
+
+
+        }
 
     }
 

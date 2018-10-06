@@ -32,7 +32,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
 
     private void initView() {
         customerList = findViewById(R.id.customerList);
-        customerModify = findViewById(R.id.orderCreate);
+        customerModify = findViewById(R.id.modifyCustomer);
         customerAdd = findViewById(R.id.pendingOrder);
 
         cardViewFirst = findViewById(R.id.first_cardview);
@@ -86,26 +86,30 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         Class fragmentClass = null;
         switch (v.getId()){
             case R.id.first_cardview:
-
+                getSupportActionBar().setTitle("Add Customer");
                 fragment = addCustomerFragment;
                 fragmentClass = AddCustomerFragment.class;
                 break;
             case R.id.second_cardview:
+                getSupportActionBar().setTitle("Modify Customer");
                 fragment = modifyCustomerFragment;
                 fragmentClass = ModifyCustomerFragment.class;
                 break;
             case R.id.third_cardview:
+                getSupportActionBar().setTitle("Customer List");
                 fragment = listCustomerFragment;
                 fragmentClass = CustomerListFrgment.class;
                 break;
             case R.id.customerList:
+                getSupportActionBar().setTitle("Customer List");
                 fragmentClass = CustomerListFrgment.class;
                 break;
             case R.id.orderCreate:
-                fragmentClass = ModifyCustomerFragment.class;
+                getSupportActionBar().setTitle("Add Customer");
+                fragmentClass = AddCustomerFragment.class;
                 break;
             case R.id.pendingOrder:
-
+                getSupportActionBar().setTitle("Pending Order");
                 fragmentClass = AddCustomerFragment.class;
                 break;
         }

@@ -1,61 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<android.support.v7.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/half_white">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.CardView
             android:id="@+id/third_cardview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_below="@+id/second_cardview"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp">
+            android:layout_margin="15dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="69dp">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:id="@+id/firstLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_horizontal">
 
                     <TextView
                         android:id="@+id/customerName"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:gravity="left"
                         android:text="sakshi"
+                        android:textColor="@color/black"
                         android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/contact"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:gravity="left"
                         android:text="Dubey"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/address"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="8109664596" />
+                        android:gravity="left"
+                        android:text="8109664596"
+                        android:textColor="@color/black"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -63,35 +60,38 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/firstLayout"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_horizontal">
 
                     <TextView
                         android:id="@+id/interiorName"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:gravity="left"
                         android:text="sakshi"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/interiorAddress"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:gravity="left"
                         android:text="Dubey"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/interiorContact"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="8109664596" />
+                        android:gravity="left"
+                        android:text="8109664596"
+                        android:textColor="@color/black"/>
                 </LinearLayout>
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
     </RelativeLayout>
-</android.support.v7.widget.CardView>
+
 </android.support.constraint.ConstraintLayout>

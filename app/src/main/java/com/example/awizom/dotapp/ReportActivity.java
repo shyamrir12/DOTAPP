@@ -26,6 +26,8 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
+        getSupportActionBar().setTitle("Report Details");
         pendingorder = findViewById(R.id.pendingOrder);
         pendingcustomer = findViewById(R.id.pendingCustomer);
         pendingreceived = findViewById(R.id.pendingReceived);
