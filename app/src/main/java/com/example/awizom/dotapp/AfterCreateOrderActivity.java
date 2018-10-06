@@ -39,6 +39,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
     private TextView c_contact,i_name,i_contact,i_address,orderDateLabel,orderDate,amount;
     private ListView roomname;
+    private long cid=0;
     DataOrder catelogOrderDetailModel;
     List<DataOrder> orderList;
     public  int hour = 0,minute = 0;
@@ -67,7 +68,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
     private void initView() {
 
-        getCustomerList();
+
         c_name = findViewById(R.id.customerName);
         c_contact = findViewById(R.id.customerContact);
         i_name = findViewById(R.id.interiorName);
@@ -94,16 +95,25 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                c_contact.setText("");
-                i_address.setText("");
-                i_name.setText("");
-                i_contact.setText("");
+                if(c_name.getText().length()==0)
+                {
+                    cid=0;
+                    c_contact.setText("");
+                    i_address.setText("");
+                    i_name.setText("");
+                    i_contact.setText("");
+                }
+                else
+                {
+                    getCustomerDetail(c_name.getText().toString());
+                }
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (c_name.getText().length() > 0)
-                    getCustomerDetail(c_name.getText().toString());
+
+
             }
         });
         getCustomerDetailList();
@@ -279,13 +289,13 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
                 Gson gson = new Gson();
                 Type getType = new TypeToken<DataOrder>(){}.getType();
                 DataOrder  morder = new Gson().fromJson(result,getType);
-                String[] roomName = morder.getARoomList().split(",");
-                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
-                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+                String[] roomName = morder.getRoomList().split(",");
+               // ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
+               // spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item); // The drop down view
                // spinner.setAdapter(spinnerArrayAdapter);
+                ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist,R.id.label, roomName);
                 roomname.setAdapter( spinnerArrayAdapter );
-
-            }
+                }
         }
         @Override
         public void onClick(View v) {
@@ -312,11 +322,14 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         try {
 
             for (CustomerModel cm : customerlist) {
-                if (cm.getCustomerName().equals(cusname)) {
+                if ( cm.getCustomerName().equals(cusname))
+                {
+                    cid=cm.getCustomerID();
                     c_contact.setText(cm.getMobile());
                     i_address.setText(cm.getAddress());
                     i_name.setText(cm.getInteriorName());
                     i_contact.setText(cm.getInteriorMobile());
+                    break;
                 }
             }
         } catch (Exception e) {
@@ -390,52 +403,9 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
     }
 
 /*customer List get*/
-    private void getCustomerList() {
-        try {
-            new GetCustomerDetails().execute("test");
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+    private void postOrder() {
 
-        }
     }
 
-    private class GetCustomerDetails extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
 
-            String json = "";
-            try {
-
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderGet");
-                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                builder.addHeader("Accept", "application/json");
-
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-                if (response.isSuccessful()) {
-                    json = response.body().string();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-               // progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(),"Error: " + e,Toast.LENGTH_SHORT).show();
-            }
-
-            return json;
-        }
-
-        protected void onPostExecute(String result) {
-
-            if (result.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
-            } else {
-                Gson gson = new Gson();
-                Type listType = new TypeToken<List<DataOrder>>(){}.getType();
-                orderList = new Gson().fromJson(result,listType);
-                amount.setText(String.valueOf(orderList.get(1).getAdvance()));
-            }
-        }
-    }
 }

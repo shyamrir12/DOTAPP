@@ -54,7 +54,9 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -84,6 +86,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         Class fragmentClass = null;
         switch (v.getId()){
             case R.id.first_cardview:
+
                 fragment = addCustomerFragment;
                 fragmentClass = AddCustomerFragment.class;
                 break;
@@ -102,6 +105,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                 fragmentClass = ModifyCustomerFragment.class;
                 break;
             case R.id.pendingOrder:
+
                 fragmentClass = AddCustomerFragment.class;
                 break;
         }

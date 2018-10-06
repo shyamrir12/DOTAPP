@@ -37,7 +37,7 @@ import com.google.gson.reflect.TypeToken;
 public class OrderActivity extends AppCompatActivity implements View.OnClickListener {
     RecyclerView recyclerView;
     ProgressDialog progressDialog ;
-SwipeRefreshLayout mSwipeRefreshLayout;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     List<DataOrder> orderList;
     OrderAdapter adapter;
     Button addorder;

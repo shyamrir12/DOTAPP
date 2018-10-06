@@ -44,6 +44,9 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
         addCustomer = view.findViewById(R.id.customerButton);
         addCustomer.setOnClickListener(this);
         progressDialog = new ProgressDialog(getActivity());
+
+
+
     }
 
     @Override
