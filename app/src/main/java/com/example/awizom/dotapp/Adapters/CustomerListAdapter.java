@@ -55,12 +55,12 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         CustomerModel customer = customeritemList.get(position);
         try {
             //holder.textViewPINo.setText("PINo \n"+Integer.toString( order.getPINo()));
-            holder.c_name.setText("SNO\n"+customer.getCustomerName());
-            holder.c_address.setText("Catalog\n"+customer.getAddress());
-            holder.c_contact.setText("Design\n"+customer.getMobile());
-            holder.i_name.setText("PageNo\n"+customer.getInteriorName());
-            holder.i_contact.setText("MRP\n"+customer.getInteriorMobile());
-            holder.i_address.setText("MRP\n"+customer.getAddress());
+            holder.c_name.setText(customer.getCustomerName());
+            holder.c_address.setText(customer.getAddress());
+            holder.c_contact.setText(customer.getMobile());
+            holder.i_name.setText(customer.getInteriorName());
+            holder.i_contact.setText(customer.getInteriorMobile());
+            holder.i_address.setText(customer.getAddress());
 
         } catch (Exception E) {
             E.printStackTrace();

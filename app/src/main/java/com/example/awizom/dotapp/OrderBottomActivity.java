@@ -11,17 +11,16 @@ import android.support.v7.widget.CardView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import com.example.awizom.dotapp.Fragments.OrderCreateFragment;
-import com.example.awizom.dotapp.Fragments.PendinOrderCreateFragment;
+
+import com.example.awizom.dotapp.Fragments.PendinOrderListFragment;
 
 public class OrderBottomActivity extends AppCompatActivity implements View.OnClickListener {
 
     private CardView cardViewFirst, cardViewSecond, cardViewthird;
     private TextView pendingOrderList,pendingOrderCreate,cancelOrder;
     private Intent intent;
-    private Fragment ordercreateFragment, pendinOrderListFragment;
+    private Fragment  pendinOrderListFragment;
     Fragment fragment = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +37,8 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
         pendingOrderCreate = findViewById(R.id.orderCreate);
         cancelOrder = findViewById(R.id.cancelOrder);
 
-        ordercreateFragment = new OrderCreateFragment();
-        pendinOrderListFragment = new PendinOrderCreateFragment();
+
+        pendinOrderListFragment = new PendinOrderListFragment();
 
         cardViewFirst.setOnClickListener(this);
         cardViewSecond.setOnClickListener(this);
@@ -81,23 +80,20 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         Class fragmentClass = null;
         switch (v.getId()) {
+
             case R.id.order_create_cardview:
-               // fragment = ordercreateFragment;
-               // fragmentClass = OrderCreateFragment.class;
-                startActivity( intent = new Intent( getApplicationContext(),AfterCreateOrderActivity.class ) );
+                startActivity(intent = new Intent(getApplicationContext(),AfterCreateOrderActivity.class));
                 break;
             case R.id.order_pending_cardview:
                 fragment = pendinOrderListFragment;
-                fragmentClass = PendinOrderCreateFragment.class;
+                fragmentClass = PendinOrderListFragment.class;
                 break;
             case R.id.orderCreate:
-                startActivity( intent = new Intent( getApplicationContext(),AfterCreateOrderActivity.class ) );
-//                fragment = ordercreateFragment;
-//                fragmentClass = OrderCreateFragment.class;
+                startActivity(intent = new Intent(getApplicationContext(),AfterCreateOrderActivity.class));
                 break;
             case R.id.pendingOrder:
-                fragment = ordercreateFragment;
-                fragmentClass = OrderActivity.class;
+                fragment = pendinOrderListFragment;
+                fragmentClass = PendinOrderListFragment.class;
                 break;
         }
         try {
