@@ -82,16 +82,18 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
         Class fragmentClass = null;
         switch (v.getId()) {
             case R.id.order_create_cardview:
-                fragment = ordercreateFragment;
-                fragmentClass = OrderCreateFragment.class;
+               // fragment = ordercreateFragment;
+               // fragmentClass = OrderCreateFragment.class;
+                startActivity( intent = new Intent( getApplicationContext(),AfterCreateOrderActivity.class ) );
                 break;
             case R.id.order_pending_cardview:
                 fragment = pendinOrderListFragment;
                 fragmentClass = PendinOrderCreateFragment.class;
                 break;
             case R.id.orderCreate:
-                fragment = ordercreateFragment;
-                fragmentClass = OrderCreateFragment.class;
+                startActivity( intent = new Intent( getApplicationContext(),AfterCreateOrderActivity.class ) );
+//                fragment = ordercreateFragment;
+//                fragmentClass = OrderCreateFragment.class;
                 break;
             case R.id.pendingOrder:
                 fragment = ordercreateFragment;

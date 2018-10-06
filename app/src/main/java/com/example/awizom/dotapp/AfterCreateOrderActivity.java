@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,8 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
     private Intent intent;
 
-    private TextView c_contact,i_name,i_contact,i_address,orderDateLabel,orderDate,amount,roomname;
+    private TextView c_contact,i_name,i_contact,i_address,orderDateLabel,orderDate,amount;
+    private ListView roomname;
     DataOrder catelogOrderDetailModel;
     List<DataOrder> orderList;
     public  int hour = 0,minute = 0;
@@ -82,7 +84,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         addroom = findViewById(R.id.addRoom);
         addroom.setOnClickListener(this);
 
-        roomname = findViewById(R.id.roomName);
+        roomname = findViewById(R.id.hallList);
 
         c_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -277,18 +279,18 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
                 Gson gson = new Gson();
                 Type getType = new TypeToken<DataOrder>(){}.getType();
                 DataOrder  morder = new Gson().fromJson(result,getType);
-                String[] hall = morder.getARoomList().split(",");
-                roomname.setText(hall[0]);
-                roomname.setText(hall[1]);
-                roomname.setText(hall[2]);
-              roomname.setVisibility(View.VISIBLE);
-              roomname.setOnClickListener(this);
+                String[] roomName = morder.getARoomList().split(",");
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+               // spinner.setAdapter(spinnerArrayAdapter);
+                roomname.setAdapter( spinnerArrayAdapter );
+
             }
         }
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.roomName:
+                case R.id.hallList:
                     startActivity(intent = new Intent(AfterCreateOrderActivity.this,RoomDetailsActivity.class));
                     break;
             }
