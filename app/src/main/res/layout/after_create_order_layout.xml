@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/customercardView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal">
+            <LinearLayout
+                android:id="@+id/customerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <AutoCompleteTextView
+                    android:id="@+id/customerName"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:hint="Customer Name"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/customerContact"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:text="Customer Contact"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/interiorLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/customerLayout"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/interiorName"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:hint="interior Name"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:layout_margin="15dp"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/interiorMobile"
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:hint="Interior contact"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/interiorAddress"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:text="Address"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/orderCardView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:layout_below="@+id/customercardView">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal">
+                <LinearLayout
+                    android:id="@+id/orderDateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/orderDatePicker"
+                        android:layout_width="140dp"
+                        android:layout_height="30dp"
+                        android:text="Order Date"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/amount"
+                        android:layout_width="140dp"
+                        android:layout_height="30dp"
+                        android:text="Amount"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/dateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/orderDateLayout"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/orderValue"
+                        android:layout_width="140dp"
+                        android:layout_height="30dp"
+                        android:text="4/09/2018"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/amountValue"
+                        android:layout_width="140dp"
+                        android:layout_height="30dp"
+                        android:text="34000/-"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/buttonHallCardView"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:layout_below="@+id/orderCardView">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <LinearLayout
+                    android:id="@+id/buttonHallLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_margin="15dp">
+
+                    <Button
+                        android:id="@+id/addOrder"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="Add Order"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:background="@drawable/add_cancel_button_shape"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/listHallCardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/buttonHallCardView">
+            <RelativeLayout
+                android:id="@+id/rlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="15dp">
+                    <Button
+                        android:id="@+id/addRoom"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/add_cancel_button_shape"
+                        android:text="Add Room"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:visibility="gone"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="5dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/listCardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/listHallCardView">
+            <RelativeLayout
+                android:id="@+id/r1layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp">
+
+                <Button
+                    android:id="@+id/roomName"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="18dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:background="@drawable/add_cancel_button_shape"
+                    android:gravity="center"
+                    android:text="Hall"
+                    android:textSize="15sp"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+</ScrollView>
+</android.support.constraint.ConstraintLayout>
