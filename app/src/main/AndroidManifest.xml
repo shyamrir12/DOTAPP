@@ -15,19 +15,20 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".OrderActivity"> </activity>
         <activity android:name=".RoomDetailsActivity" android:parentActivityName=".OrderActivity"></activity>
-        <activity android:name=".SinUpActivity">
-
-        </activity>
+        <activity android:name=".SinUpActivity"></activity>
         <activity android:name=".SigninActivity"></activity>
-        <activity android:name=".HomeActivity" android:label="@string/title_activity_home"></activity>
+        <activity android:name=".HomeActivity" android:label="@string/title_activity_home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".CustomerActivity"> </activity>
         <activity android:name=".StatusActivity"></activity>
         <activity android:name=".OrderBottomActivity"></activity>
         <activity android:name=".ReportActivity"></activity>
-        <activity android:name=".AfterCreateOrderActivity"  android:theme="@style/AppTheme"><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+        <activity android:name=".AfterCreateOrderActivity"  android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
