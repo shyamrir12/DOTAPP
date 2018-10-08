@@ -11,16 +11,17 @@ import android.support.v7.widget.CardView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
 import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Fragments.ModifyCustomerFragment;
 
 public class CustomerActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView customerList,customerModify,customerAdd;
+    private TextView customerList, customerModify, customerAdd;
     private CardView cardViewFirst, cardViewSecond, cardViewthird;
     private Intent intent;
-    private Fragment addCustomerFragment,modifyCustomerFragment,listCustomerFragment;
+    private Fragment addCustomerFragment, modifyCustomerFragment, listCustomerFragment;
     Fragment fragment = null;
 
     @Override
@@ -55,9 +56,11 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -66,16 +69,16 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
 
             switch (item.getItemId()) {
                 case R.id.navigation_customer:
-                    startActivity(intent = new Intent(getApplicationContext(),CustomerActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), CustomerActivity.class));
                     return true;
                 case R.id.navigation_order:
-                    startActivity(intent = new Intent(getApplicationContext(),OrderBottomActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), OrderBottomActivity.class));
                     return true;
                 case R.id.navigation_report:
-                    startActivity(intent = new Intent(getApplicationContext(),ReportActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), ReportActivity.class));
                     return true;
                 case R.id.navigation_status:
-                    startActivity(intent = new Intent(getApplicationContext(),StatusActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), StatusActivity.class));
                     return true;
             }
             return false;
@@ -85,7 +88,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         Class fragmentClass = null;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.first_cardview:
                 getSupportActionBar().setTitle("Add Customer");
                 fragment = addCustomerFragment;

@@ -4,13 +4,13 @@ import java.util.List;
 
 public class CustomerModel {
 
-        public String Order[];
-        public int CustomerID ;
-        public String CustomerName ;
-        public String Address ;
-        public String Mobile ;
-        public String InteriorName ;
-        public String InteriorMobile ;
+    public String Order[];
+    public int CustomerID;
+    public String CustomerName;
+    public String Address;
+    public String Mobile;
+    public String InteriorName;
+    public String InteriorMobile;
 
     public String[] getOrder() {
         return Order;

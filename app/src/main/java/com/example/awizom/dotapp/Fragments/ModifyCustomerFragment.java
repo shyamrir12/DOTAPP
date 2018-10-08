@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.CustomerActivity;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
@@ -39,14 +40,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class ModifyCustomerFragment extends Fragment implements View.OnClickListener {
-    private EditText cContact,cAddress,interioName,interioContact;
+    private EditText cContact, cAddress, interioName, interioContact;
     private AutoCompleteTextView cName;
     private Button updateCustomer;
     private Intent intent;
-    private ProgressDialog progressDialog ;
-    private List<CustomerModel > customerlist;
+    private ProgressDialog progressDialog;
+    private List<CustomerModel> customerlist;
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,32 +70,31 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
 
         getCustomerDetailList();
 
-cName.addTextChangedListener( new TextWatcher() {
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        cName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    }
+            }
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        cContact.setText( "" );
-        cAddress .setText( ""  );
-        interioName .setText( ""  );
-        interioContact.setText( ""  );
-    }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                cContact.setText("");
+                cAddress.setText("");
+                interioName.setText("");
+                interioContact.setText("");
+            }
 
-    @Override
-    public void afterTextChanged(Editable s) {
-        if(cName.getText().length()>0)
-            getCustomerDetail(cName.getText().toString());
-    }
-       } );
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (cName.getText().length() > 0)
+                    getCustomerDetail(cName.getText().toString());
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.updateButton:
                 customerUpdatePost();
                 break;
@@ -102,19 +103,18 @@ cName.addTextChangedListener( new TextWatcher() {
     }
 
     private void getCustomerDetail(String cusname) {
-         try{
-       for(CustomerModel cm:customerlist){
-           if(cm.getCustomerName().equals( cusname ))
-           {
-               cContact.setText( cm.getMobile() );
-               cAddress .setText( cm.getAddress() );
-               interioName .setText( cm.getInteriorName() );
-               interioContact.setText( cm.getInteriorMobile() );
-           }
-       }}
-       catch (Exception e){
+        try {
+            for (CustomerModel cm : customerlist) {
+                if (cm.getCustomerName().equals(cusname)) {
+                    cContact.setText(cm.getMobile());
+                    cAddress.setText(cm.getAddress());
+                    interioName.setText(cm.getInteriorName());
+                    interioContact.setText(cm.getInteriorMobile());
+                }
+            }
+        } catch (Exception e) {
 
-       }
+        }
 
     }
 
@@ -130,7 +130,7 @@ cName.addTextChangedListener( new TextWatcher() {
             //String res="";
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new POSTCustomer().execute(name,address,contact,intename,intecontact);
+            new POSTCustomer().execute(name, address, contact, intename, intecontact);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -155,7 +155,7 @@ cName.addTextChangedListener( new TextWatcher() {
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"CustomerPost");
+                builder.url(AppConfig.BASE_URL_API + "CustomerPost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 //builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -184,16 +184,15 @@ cName.addTextChangedListener( new TextWatcher() {
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Invalid request",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
                 startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
             } else {
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
-                Toast.makeText(getActivity(),jsonbodyres.getMessage(),Toast.LENGTH_SHORT).show();
-                if(jsonbodyres.getStatus()==true)
-                 {
-                   getCustomerDetailList();
-                 }
+                Toast.makeText(getActivity(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+                    getCustomerDetailList();
+                }
                 progressDialog.dismiss();
             }
         }
@@ -213,6 +212,7 @@ cName.addTextChangedListener( new TextWatcher() {
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
+
     private class getCustomerList extends AsyncTask<String, Void, String> {
 
         @Override
@@ -228,7 +228,7 @@ cName.addTextChangedListener( new TextWatcher() {
                 if (response.isSuccessful()) {
                     json = response.body().string();
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
                 Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -237,21 +237,21 @@ cName.addTextChangedListener( new TextWatcher() {
         }
 
         protected void onPostExecute(String result) {
-            if (result.isEmpty()){
+            if (result.isEmpty()) {
                 progressDialog.dismiss();
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<CustomerModel>>() {}.getType();
+                Type listType = new TypeToken<List<CustomerModel>>() {
+                }.getType();
                 customerlist = new Gson().fromJson(result, listType);
                 customerNameList = new String[customerlist.size()];
-                for (int i=0;i<customerlist.size();i++)
-                {
-                    customerNameList[i]=String.valueOf( customerlist.get( i ).getCustomerName());
+                for (int i = 0; i < customerlist.size(); i++) {
+                    customerNameList[i] = String.valueOf(customerlist.get(i).getCustomerName());
 
                 }
 
-                adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.select_dialog_item,customerNameList);
+                adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, customerNameList);
                 cName.setThreshold(1);//will start working from first character
                 cName.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
 
@@ -259,8 +259,7 @@ cName.addTextChangedListener( new TextWatcher() {
                 progressDialog.dismiss();
 
 
-                }
-
+            }
 
 
         }

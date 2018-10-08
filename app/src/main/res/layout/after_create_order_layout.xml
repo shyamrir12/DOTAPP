@@ -15,75 +15,79 @@
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_margin="5dp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal">
-            <LinearLayout
-                android:id="@+id/customerLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
 
-                <AutoCompleteTextView
-                    android:id="@+id/customerName"
-                    android:layout_width="140dp"
-                    android:layout_height="40dp"
-                    android:hint="Customer Name"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:layout_margin="5dp"
-                    android:textSize="14sp"/>
+                <LinearLayout
+                    android:id="@+id/customerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
 
-                <TextView
-                    android:id="@+id/customerContact"
-                    android:layout_width="140dp"
-                    android:layout_height="40dp"
-                    android:text="Customer Contact"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:layout_margin="10dp"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/interiorLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/customerLayout"
-                android:gravity="center_horizontal">
+                    <AutoCompleteTextView
+                        android:id="@+id/customerName"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:hint="Customer Name"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/interiorName"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:hint="interior Name"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:layout_margin="15dp"
-                    android:textSize="14sp"/>
+                    <TextView
+                        android:id="@+id/customerContact"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:text="Customer Contact"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/interiorMobile"
-                    android:layout_width="110dp"
-                    android:layout_height="30dp"
-                    android:hint="Interior contact"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:layout_margin="10dp"
-                    android:textSize="14sp"/>
+                <LinearLayout
+                    android:id="@+id/interiorLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/customerLayout"
+                    android:gravity="center_horizontal">
 
-                <TextView
-                    android:id="@+id/interiorAddress"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
-                    android:text="Address"
-                    android:gravity="center"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/interiorName"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:hint="interior Name"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:layout_margin="15dp"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/interiorMobile"
+                        android:layout_width="110dp"
+                        android:layout_height="30dp"
+                        android:hint="Interior contact"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/interiorAddress"
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
+                        android:text="Address"
+                        android:gravity="center"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:textSize="14sp" />
+                </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.CardView
             android:id="@+id/orderCardView"
             android:layout_width="match_parent"
@@ -91,10 +95,12 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
             android:layout_below="@+id/customercardView">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal">
+
                 <LinearLayout
                     android:id="@+id/orderDateLayout"
                     android:layout_width="match_parent"
@@ -111,7 +117,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:layout_margin="10dp"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/amount"
@@ -122,8 +128,9 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:layout_margin="10dp"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/dateLayout"
                     android:layout_width="match_parent"
@@ -140,7 +147,7 @@
                         android:gravity="center"
                         android:layout_margin="10dp"
                         android:textSize="14sp"
-                        android:background="@drawable/edit_view_shape"/>
+                        android:background="@drawable/edit_view_shape" />
 
                     <EditText
                         android:id="@+id/amountValue"
@@ -151,7 +158,7 @@
                         android:gravity="center"
                         android:layout_margin="10dp"
                         android:textSize="14sp"
-                        android:background="@drawable/edit_view_shape"/>
+                        android:background="@drawable/edit_view_shape" />
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -163,10 +170,12 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
             android:layout_below="@+id/orderCardView">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal">
+
                 <LinearLayout
                     android:id="@+id/buttonHallLayout"
                     android:layout_width="match_parent"
@@ -185,7 +194,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        android:background="@drawable/add_cancel_button_shape"/>
+                        android:background="@drawable/add_cancel_button_shape" />
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -195,37 +204,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/buttonHallCardView"
-            >
+            android:layout_below="@+id/buttonHallCardView">
+
             <RelativeLayout
                 android:id="@+id/rlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="15dp">
-                    <Button
-                        android:id="@+id/addRoom"
-                        android:layout_width="120dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/add_cancel_button_shape"
-                        android:text="Add Room"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:visibility="gone"
-                        android:layout_alignParentRight="true"
-                        android:layout_margin="5dp" />
+
+                <Button
+                    android:id="@+id/addRoom"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/add_cancel_button_shape"
+                    android:text="Add Room"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp" />
+
                 <ListView
                     android:id="@+id/hallList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/addRoom"
-                    >
+                    android:layout_below="@id/addRoom">
 
                 </ListView>
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
     </RelativeLayout>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"

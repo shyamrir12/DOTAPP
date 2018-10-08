@@ -14,27 +14,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(isConnectingToInternet(MainActivity.this))
-        {
-            Toast.makeText(getApplicationContext(),"internet is available", Toast.LENGTH_LONG).show();
-        }
-        else {
+        if (isConnectingToInternet(MainActivity.this)) {
+            Toast.makeText(getApplicationContext(), "internet is available", Toast.LENGTH_LONG).show();
+        } else {
             System.out.print("internet is not available");
         }
     }
 
-    public static boolean isConnectingToInternet(Context context)
-    {
+    public static boolean isConnectingToInternet(Context context) {
         ConnectivityManager connectivity =
                 (ConnectivityManager) context.getSystemService(
                         Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null)
-        {
+        if (connectivity != null) {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
             if (info != null)
                 for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
-                    {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
                         return true;
                     }
         }

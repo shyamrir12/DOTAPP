@@ -14,10 +14,11 @@ import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 
 public class ReportActivity extends AppCompatActivity {
 
-    private TextView pendingorder,pendingcustomer,pendingreceived, pendingitemToPlace;
+    private TextView pendingorder, pendingcustomer, pendingreceived, pendingitemToPlace;
     private Intent intent;
-    private Fragment reportpendingOrderFragment,pendingCustomerFragment,pendingReceivedfragment,pendingItemToPlaceFragment;
-    private CardView cardViewFirst, cardViewSecond, cardViewthird,cardViewFourth;
+    private Fragment reportpendingOrderFragment, pendingCustomerFragment, pendingReceivedfragment, pendingItemToPlaceFragment;
+    private CardView cardViewFirst, cardViewSecond, cardViewthird, cardViewFourth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,7 @@ public class ReportActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -54,16 +56,16 @@ public class ReportActivity extends AppCompatActivity {
             Class fragmentClass = null;
             switch (item.getItemId()) {
                 case R.id.navigation_customer:
-                    startActivity(intent = new Intent(getApplicationContext(),CustomerActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), CustomerActivity.class));
                     return true;
                 case R.id.navigation_order:
-                    startActivity(intent = new Intent(getApplicationContext(),OrderBottomActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), OrderBottomActivity.class));
                     return true;
                 case R.id.navigation_report:
-                    startActivity(intent = new Intent(getApplicationContext(),ReportActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), ReportActivity.class));
                     return true;
                 case R.id.navigation_status:
-                    startActivity(intent = new Intent(getApplicationContext(),StatusActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), StatusActivity.class));
                     return true;
             }
             return false;

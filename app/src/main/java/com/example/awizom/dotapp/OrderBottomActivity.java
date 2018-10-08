@@ -17,10 +17,11 @@ import com.example.awizom.dotapp.Fragments.OrderListFragment;
 public class OrderBottomActivity extends AppCompatActivity implements View.OnClickListener {
 
     private CardView cardViewFirst, cardViewSecond, cardViewthird;
-    private TextView pendingOrderList,pendingOrderCreate,cancelOrder;
+    private TextView pendingOrderList, pendingOrderCreate, cancelOrder;
     private Intent intent;
-    private Fragment  pendinOrderListFragment;
+    private Fragment pendinOrderListFragment;
     Fragment fragment = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +87,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.order_create_cardview:
                 getSupportActionBar().setTitle("Order Create");
-                startActivity(intent = new Intent(getApplicationContext(),AfterCreateOrderActivity.class));
+                startActivity(intent = new Intent(getApplicationContext(), AfterCreateOrderActivity.class));
                 break;
             case R.id.order_pending_cardview:
                 getSupportActionBar().setTitle("Pending List");
@@ -100,7 +101,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.orderCreate:
                 getSupportActionBar().setTitle("Order Create");
-                startActivity(intent = new Intent(getApplicationContext(),AfterCreateOrderActivity.class));
+                startActivity(intent = new Intent(getApplicationContext(), AfterCreateOrderActivity.class));
                 break;
             case R.id.pendingOrder:
                 getSupportActionBar().setTitle("Pending List");

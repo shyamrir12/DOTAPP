@@ -3,29 +3,29 @@ package com.example.awizom.dotapp.Models;
 public class DataOrder {
 
 
-    public int CustomerID ;
-    public String CustomerName ;
-    public String Address ;
-    public String Mobile ;
-    public String InteriorName ;
-    public String InteriorMobile ;
-    public int OrderStatusID ;
-    public boolean OrderPlaced ;
-    public boolean MaterialReceived ;
-    public String HandOverTo ;
-    public String TelorName ;
-    public boolean ReceivedFromTalor ;
-    public String ReceivedBy ;
-    public boolean Cancel ;
-    public boolean Dispatch ;
-    public int OrderID ;
-    public double Advance ;
-    public String OrderDate ;
-    public int SNO ;
-    public String RoomList ;
-    public String ARoomList ;
-    public String TelorList ;
-    public Double TotalAmount ;
+    public int CustomerID;
+    public String CustomerName;
+    public String Address;
+    public String Mobile;
+    public String InteriorName;
+    public String InteriorMobile;
+    public int OrderStatusID;
+    public boolean OrderPlaced;
+    public boolean MaterialReceived;
+    public String HandOverTo;
+    public String TelorName;
+    public boolean ReceivedFromTalor;
+    public String ReceivedBy;
+    public boolean Cancel;
+    public boolean Dispatch;
+    public int OrderID;
+    public double Advance;
+    public String OrderDate;
+    public int SNO;
+    public String RoomList;
+    public String ARoomList;
+    public String TelorList;
+    public Double TotalAmount;
 
     public String getTelorList() {
         return TelorList;

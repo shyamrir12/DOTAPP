@@ -44,7 +44,7 @@
                         android:gravity="left"
                         android:text="Dubey"
                         android:textSize="13sp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/address"
@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="8109664596"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -70,7 +70,7 @@
                         android:gravity="left"
                         android:text="sakshi"
                         android:textSize="13sp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/interiorAddress"
@@ -79,7 +79,7 @@
                         android:gravity="left"
                         android:text="Dubey"
                         android:textSize="13sp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/interiorContact"
@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="8109664596"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
             </RelativeLayout>

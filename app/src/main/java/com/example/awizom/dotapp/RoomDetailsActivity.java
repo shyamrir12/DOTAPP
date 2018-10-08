@@ -43,7 +43,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
     private TextView customerName, customerMobileNo, customerSno, customerOrder, customerDate, customerhall;
     private ImageButton additionButton;
-    private TextView elight, roman, aPlat,totalAmount;
+    private TextView elight, roman, aPlat, totalAmount;
 
     private RelativeLayout relative_Layout_press, relativeLayout_edit_dailog, bottom_relative_press1;
     private RecyclerView recyclerView;
@@ -55,7 +55,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     List<CatelogOrderDetailModel> orderList;
     ElightBottomModel morder;
     ArrayAdapter<String> catadapter;
-    ArrayAdapter<String> designapter;
+    ArrayAdapter<String> designadapter;
     OrderItemAdapter adapter;
     private Intent intent;
     private EditText s_no, pageNo, price, price2, qty, aQty;
@@ -534,7 +534,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
                 aPlat.setText(morder.APlat.toString());
 
-                totalAmount.setText(Double.toString( morder.getTotalAmount()));
+                totalAmount.setText(Double.toString(morder.getTotalAmount()));
                 progressDialog.dismiss();
 
             }
@@ -777,9 +777,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 Type listType = new TypeToken<String[]>() {
                 }.getType();
                 String[] designlist = new Gson().fromJson(result, listType);
-                designapter = new ArrayAdapter<String>(RoomDetailsActivity.this, android.R.layout.select_dialog_item, designlist);
+                designadapter = new ArrayAdapter<String>(RoomDetailsActivity.this, android.R.layout.select_dialog_item, designlist);
                 design.setThreshold(1);//will start working from first character
-                design.setAdapter(designapter);//setting the adapter data into the AutoCompleteTextView
+                design.setAdapter(designadapter);//setting the adapter data into the AutoCompleteTextView
 
             }
 

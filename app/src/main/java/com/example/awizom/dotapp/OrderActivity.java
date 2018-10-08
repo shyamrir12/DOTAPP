@@ -36,13 +36,13 @@ import com.google.gson.reflect.TypeToken;
 
 public class OrderActivity extends AppCompatActivity implements View.OnClickListener {
     RecyclerView recyclerView;
-    ProgressDialog progressDialog ;
+    ProgressDialog progressDialog;
     SwipeRefreshLayout mSwipeRefreshLayout;
     List<DataOrder> orderList;
     OrderAdapter adapter;
     Button addorder;
 
-   // private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
+    // private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
     //private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +56,11 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         arrow_id_back.setVisibility(View.INVISIBLE);*/
 
         getSupportActionBar().setTitle("Order");
-        mSwipeRefreshLayout=findViewById( R.id.swipeRefreshLayout );
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        addorder=findViewById(R.id.addorder);
+        addorder = findViewById(R.id.addorder);
         progressDialog = new ProgressDialog(this);
         getMyOrder();
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -77,6 +77,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+
     private void showUpdateDeleteDialog() {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -106,18 +107,18 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                 String Mobile = editMobile.getText().toString().trim();
                 String InteriorName = editInteriorName.getText().toString().trim();
                 String InteriorMobile = editInteriorMobile.getText().toString().trim();
-               try {
+                try {
                     //String res="";
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new OrderActivity.POSTOrder().execute(CustomerName,Address,Mobile,InteriorName,InteriorMobile);
+                    new OrderActivity.POSTOrder().execute(CustomerName, Address, Mobile, InteriorName, InteriorMobile);
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
                     // System.out.println("Error: " + e);
                 }
-                    b.dismiss();
+                b.dismiss();
 
             }
 
@@ -136,13 +137,14 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+
     public void saveOrder() {
         try {
             //String res="";
             progressDialog.setMessage("loading...");
             progressDialog.show();
 
-           // String commenttext = editTextComment.getText().toString();
+            // String commenttext = editTextComment.getText().toString();
             new OrderActivity.POSTOrder().execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,7 +156,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.arrow_id_back:
                 //startActivity(intent = new Intent(this,));
                 break;
@@ -177,7 +179,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"CustomerPost");
+                builder.url(AppConfig.BASE_URL_API + "CustomerPost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 //builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -230,8 +232,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void getMyOrder()
-    {
+    public void getMyOrder() {
         try {
             //String res="";
             progressDialog.setMessage("loading...");
@@ -248,6 +249,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             // System.out.println("Error: " + e);
         }
     }
+
     private class GETOrderList extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -261,10 +263,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderGet");
+                builder.url(AppConfig.BASE_URL_API + "OrderGet");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-              //  builder.addHeader("Authorization", "Bearer " + accesstoken);
+                //  builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
@@ -273,7 +275,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                 e.printStackTrace();
                 progressDialog.dismiss();
                 // System.out.println("Error: " + e);
-                Toast.makeText(getApplicationContext(),"Error: " + e,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
             return json;
@@ -290,8 +292,9 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
                 //System.out.println(result);
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<DataOrder>>(){}.getType();
-                orderList = new Gson().fromJson(result,listType);
+                Type listType = new TypeToken<List<DataOrder>>() {
+                }.getType();
+                orderList = new Gson().fromJson(result, listType);
                 adapter = new OrderAdapter(OrderActivity.this, orderList);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();

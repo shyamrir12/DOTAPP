@@ -32,7 +32,6 @@
                     android:layout_marginLeft="12dp" />
 
 
-
                 <TextView
                     android:id="@+id/c_design"
                     android:layout_width="wrap_content"
@@ -41,6 +40,7 @@
 
                     android:layout_weight="1"
                     android:layout_marginLeft="12dp" />
+
                 <TextView
                     android:id="@+id/sno"
                     android:layout_width="wrap_content"
@@ -49,6 +49,7 @@
 
                     android:layout_weight="1"
                     android:layout_marginLeft="12dp" />
+
                 <TextView
                     android:id="@+id/qty"
                     android:layout_width="wrap_content"

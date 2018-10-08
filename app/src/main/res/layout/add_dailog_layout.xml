@@ -22,8 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="CatalogName *"
-                android:textSize="15sp"
-               />
+                android:textSize="15sp" />
+
             <AutoCompleteTextView
                 android:id="@+id/design"
                 android:layout_width="wrap_content"
@@ -39,8 +39,6 @@
                 android:layout_weight="1"
                 android:hint="S.No"
                 android:textSize="15sp" />
-
-
 
 
         </LinearLayout>
@@ -133,17 +131,19 @@
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:text="Add"
-                android:background="@drawable/add_cancel_button_shape"/>
-<TextView
-    android:layout_width="12dp"
-    android:layout_height="2dp" />
+                android:background="@drawable/add_cancel_button_shape" />
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="2dp" />
+
             <Button
                 android:id="@+id/cancelButton"
                 android:layout_width="100dp"
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:text="Cancel"
-                android:background="@drawable/add_cancel_button_shape"/>
+                android:background="@drawable/add_cancel_button_shape" />
         </LinearLayout>
 
 

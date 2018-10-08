@@ -1,6 +1,7 @@
 package com.example.awizom.dotapp.Models;
-public  class UserLogin {
-    public  class Login {
+
+public class UserLogin {
+    public class Login {
 
         public String access_token;
         public String token_type;
@@ -40,7 +41,7 @@ public  class UserLogin {
         }
     }
 
-    public  class RootObject {
+    public class RootObject {
         public String Message;
         public boolean Status;
         public String Role;

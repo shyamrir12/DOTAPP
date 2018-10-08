@@ -16,12 +16,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
+
 import java.util.List;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -75,9 +78,9 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
         AlertDialog.Builder alert;
-        private  Context mCtx;
+        private Context mCtx;
 
-        TextView c_name, c_contact, c_address, i_name, i_contact,i_address;
+        TextView c_name, c_contact, c_address, i_name, i_contact, i_address;
         TextView OrderItemID, MaterialType, Price2, Qty, AQty;
 
         //we are storing all the products in a list
@@ -116,10 +119,11 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
             if (v.getId() == itemView.getId()) {
                 // showUpdateDeleteDialog(order);
-                try{
+                try {
 
                 } catch (Exception E) {
-                    E.printStackTrace();}
+                    E.printStackTrace();
+                }
                 Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
             }
             return true;

@@ -12,10 +12,11 @@ import android.widget.EditText;
 
 public class ReportPendingOrderFragment extends Fragment implements View.OnClickListener {
 
-    private EditText cName,cContact,cAddress,interioName,interioContact;
-    private Button addCustomer,cancelCustomer;
+    private EditText cName, cContact, cAddress, interioName, interioContact;
+    private Button addCustomer, cancelCustomer;
     private Intent intent;
-    private ProgressDialog progressDialog ;
+    private ProgressDialog progressDialog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class ReportPendingOrderFragment extends Fragment implements View.OnClick
         return view;
 
     }
+
     private void initView(View view) {
         cName = view.findViewById(R.id.customerName);
         cContact = view.findViewById(R.id.contact);
@@ -41,8 +43,7 @@ public class ReportPendingOrderFragment extends Fragment implements View.OnClick
     @Override
     public void onClick(View v) {
 
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.updateButton:
                 customerAddPost();
                 break;
@@ -66,7 +67,6 @@ public class ReportPendingOrderFragment extends Fragment implements View.OnClick
 
 
     }
-
 
 
 }

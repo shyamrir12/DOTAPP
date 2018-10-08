@@ -4,12 +4,11 @@ import java.util.List;
 
 public class UserRegister {
 
-    public class Login
-    {
-        public String access_token ;
-        public String token_type ;
-        public int expires_in ;
-        public String userName ;
+    public class Login {
+        public String access_token;
+        public String token_type;
+        public int expires_in;
+        public String userName;
 
         public String getAccess_token() {
             return access_token;
@@ -44,10 +43,9 @@ public class UserRegister {
         }
     }
 
-    public class DataIdentityResult
-    {
-        public boolean Succeeded ;
-        public List<String> Errors ;
+    public class DataIdentityResult {
+        public boolean Succeeded;
+        public List<String> Errors;
 
         public boolean isSucceeded() {
             return Succeeded;
@@ -66,15 +64,14 @@ public class UserRegister {
         }
     }
 
-    public class RootObject
-    {
-        public String Message ;
-        public boolean Status ;
-        public String token ;
-        public String UserName ;
-        public String Role ;
-        public Login login ;
-        public DataIdentityResult dataIdentityResult ;
+    public class RootObject {
+        public String Message;
+        public boolean Status;
+        public String token;
+        public String UserName;
+        public String Role;
+        public Login login;
+        public DataIdentityResult dataIdentityResult;
 
         public String getMessage() {
             return Message;

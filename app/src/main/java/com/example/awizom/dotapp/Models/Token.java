@@ -4,8 +4,8 @@ public class Token {
     public String access_token;
     public String token_type;
     public int expires_in;
-    public String userName ;
-   public String userRole;
+    public String userName;
+    public String userRole;
 
     public String getAccess_token() {
         return access_token;
@@ -47,7 +47,7 @@ public class Token {
         this.userRole = userRole;
     }
 
-    public Token(){
+    public Token() {
 
     }
 

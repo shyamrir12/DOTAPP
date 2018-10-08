@@ -60,17 +60,17 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         CatelogOrderDetailModel order = orderitemList.get(position);
         try {
             //holder.textViewPINo.setText("PINo \n"+Integer.toString( order.getPINo()));
-            holder.serialNo.setText("SNO\n"+order.getSerialNo());
-            holder.catlogName.setText("Catalog\n"+order.getCatalogName());
-            holder.design.setText("Design\n"+order.getDesign());
-            holder.pageNo.setText("PageNo\n"+Integer.toString(order.getPageNo()));
-            holder.price.setText("MRP\n"+Integer.toString(order.getPrice()));
+            holder.serialNo.setText("SNO\n" + order.getSerialNo());
+            holder.catlogName.setText("Catalog\n" + order.getCatalogName());
+            holder.design.setText("Design\n" + order.getDesign());
+            holder.pageNo.setText("PageNo\n" + Integer.toString(order.getPageNo()));
+            holder.price.setText("MRP\n" + Integer.toString(order.getPrice()));
 
-            holder.MaterialType.setText("Material\n"+order.getMaterialType());
-            holder.Price2.setText("Price\n"+Integer.toString(order.getPrice2()));
-            holder.Qty.setText("Qty\n"+Integer.toString(order.getQty()));
-            holder.AQty.setText("AQty\n"+Integer.toString(order.getAQty()));
-            holder.unit.setText("Unit\n"+order.getOrderUnit());
+            holder.MaterialType.setText("Material\n" + order.getMaterialType());
+            holder.Price2.setText("Price\n" + Integer.toString(order.getPrice2()));
+            holder.Qty.setText("Qty\n" + Integer.toString(order.getQty()));
+            holder.AQty.setText("AQty\n" + Integer.toString(order.getAQty()));
+            holder.unit.setText("Unit\n" + order.getOrderUnit());
         } catch (Exception E) {
             E.printStackTrace();
         }
@@ -84,9 +84,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
         AlertDialog.Builder alert;
-        private  Context mCtx;
+        private Context mCtx;
 
-        TextView catlogName, serialNo, design, pageNo, price,unit;
+        TextView catlogName, serialNo, design, pageNo, price, unit;
         TextView OrderItemID, MaterialType, Price2, Qty, AQty;
 
         //we are storing all the products in a list
@@ -101,7 +101,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-           // CatelogOrderDetailModel catelogOrderDetailModel = new CatelogOrderDetailModel();
+            // CatelogOrderDetailModel catelogOrderDetailModel = new CatelogOrderDetailModel();
             serialNo = itemView.findViewById(R.id.sno);
             catlogName = itemView.findViewById(R.id.cName);
             design = itemView.findViewById(R.id.c_design);
@@ -132,10 +132,11 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
             if (v.getId() == itemView.getId()) {
                 // showUpdateDeleteDialog(order);
-                try{
+                try {
                     initViewByAlertdailog(orderitem);
                 } catch (Exception E) {
-                    E.printStackTrace();}
+                    E.printStackTrace();
+                }
                 Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
             }
             return true;
@@ -143,28 +144,29 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
 
     }
+
     private void initViewByAlertdailog(CatelogOrderDetailModel orderitem) {
         //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
         //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx, R.style.Theme_AppCompat_NoActionBar);
-        AlertDialog.Builder dialogBuilder = new  AlertDialog.Builder( mCtx);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         final View dialogView = inflater.inflate(R.layout.add_dailog_layout, null);
         dialogBuilder.setView(dialogView);
-        final String OrderItemID=String.valueOf( orderitem.getOrderItemID());
-        final String orderRoomId=String.valueOf( orderitem.getOrderRoomID());
-        final String catalogID=String.valueOf( orderitem.getCatalogID());
-        final String orderRoomName= orderitem.getRoomName();
-        final String orderID=String.valueOf( orderitem.getOrderID());
+        final String OrderItemID = String.valueOf(orderitem.getOrderItemID());
+        final String orderRoomId = String.valueOf(orderitem.getOrderRoomID());
+        final String catalogID = String.valueOf(orderitem.getCatalogID());
+        final String orderRoomName = orderitem.getRoomName();
+        final String orderID = String.valueOf(orderitem.getOrderID());
         final EditText s_no = dialogView.findViewById(R.id.sNo);
         final EditText catlogName = dialogView.findViewById(R.id.catlogName);
         final EditText design = dialogView.findViewById(R.id.design);
-        final EditText  pageNo = dialogView.findViewById(R.id.pageNo);
-        final EditText  price = dialogView.findViewById(R.id.price);
-        final EditText   price2 = dialogView.findViewById(R.id.price2);
+        final EditText pageNo = dialogView.findViewById(R.id.pageNo);
+        final EditText price = dialogView.findViewById(R.id.price);
+        final EditText price2 = dialogView.findViewById(R.id.price2);
         final Spinner materialType = dialogView.findViewById(R.id.materialType);
-        final EditText   qty = dialogView.findViewById(R.id.qTy);
-        final EditText   aQty = dialogView.findViewById(R.id.aQty);
-        final Spinner  unitSpinner = dialogView.findViewById(R.id.unit);
+        final EditText qty = dialogView.findViewById(R.id.qTy);
+        final EditText aQty = dialogView.findViewById(R.id.aQty);
+        final Spinner unitSpinner = dialogView.findViewById(R.id.unit);
 
 
         s_no.setText(orderitem.getSerialNo());
@@ -172,12 +174,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         design.setText(orderitem.getDesign());
         pageNo.setText(Integer.toString(orderitem.getPageNo()));
         price.setText(Integer.toString(orderitem.getPrice()));
-        materialType.setSelection(((ArrayAdapter<String>)materialType.getAdapter()).getPosition(orderitem.getMaterialType()));
+        materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(orderitem.getMaterialType()));
 
-      //Price2.setText(Integer.toString(order.getPrice2()));
+        //Price2.setText(Integer.toString(order.getPrice2()));
         qty.setText(Integer.toString(orderitem.getQty()));
         aQty.setText(Integer.toString(orderitem.getAQty()));
-        unitSpinner.setSelection(((ArrayAdapter<String>)unitSpinner.getAdapter()).getPosition(orderitem.getOrderUnit()));
+        unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(orderitem.getOrderUnit()));
 
 
         final Button buttonAdd = (Button) dialogView.findViewById(R.id.add);
@@ -198,10 +200,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     String qTy = qty.getText().toString();
                     String aqty = aQty.getText().toString();
                     String materialtype = materialType.getSelectedItem().toString();
-                    String unIt =  unitSpinner.getSelectedItem().toString();
+                    String unIt = unitSpinner.getSelectedItem().toString();
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new OrderItemAdapter. POSTOrder().execute(OrderItemID,materialtype,priCe2,qTy,"0",unIt,orderRoomId,catlogname,snumber,desiGn,page_no,priCe,unIt,catalogID,orderRoomName.trim(),orderID.trim());
+                    new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, "0", unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, orderRoomName.trim(), orderID.trim());
 
 
                 } catch (Exception e) {
@@ -224,6 +226,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             }
         });
     }
+
     private class POSTOrder extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -250,14 +253,14 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderItemPost");
+                builder.url(AppConfig.BASE_URL_API + "OrderItemPost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 //builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
                 parameters.add("OrderItemID", orderItemId);
-                parameters.add("MaterialType",materialtype);
+                parameters.add("MaterialType", materialtype);
                 parameters.add("Price2", priCe2);
                 parameters.add("Qty", qTy);
                 parameters.add("AQty", aqty);
@@ -274,8 +277,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 parameters.add("Unit", unit);
                 parameters.add("CatalogID", catalogID);
 
-                parameters.add("RoomName",roomName.trim());
-                parameters.add("OrderID",orderID.trim());
+                parameters.add("RoomName", roomName.trim());
+                parameters.add("OrderID", orderID.trim());
 
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();

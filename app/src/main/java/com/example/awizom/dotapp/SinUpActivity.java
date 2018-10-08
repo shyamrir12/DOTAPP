@@ -10,12 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.Models.Token;
 import com.example.awizom.dotapp.Models.UserRegister;
 import com.google.gson.Gson;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -23,10 +25,10 @@ import okhttp3.Request;
 public class SinUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button signupButton;
-    private EditText userName,passWord,cnfrmPassWord;
+    private EditText userName, passWord, cnfrmPassWord;
     private TextView loginHere;
     private Intent intent;
-    private ProgressDialog progressDialog ;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,28 +52,27 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.signupButton :
-                if(validation()) {
+        switch (v.getId()) {
+            case R.id.signupButton:
+                if (validation()) {
                     createUser();
                 }
                 break;
-            case R.id.loginHere :
-                    startActivity(intent = new Intent(this,SigninActivity.class));
+            case R.id.loginHere:
+                startActivity(intent = new Intent(this, SigninActivity.class));
                 break;
         }
     }
 
-    private void createUser(){
+    private void createUser() {
         String name = userName.getText().toString().trim();
         String pwd = passWord.getText().toString().trim();
         String cpwd = cnfrmPassWord.getText().toString().trim();
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new POSTRegister().execute(name,pwd,cpwd);
-        }
-        catch (Exception e) {
+            new POSTRegister().execute(name, pwd, cpwd);
+        } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
             Toast.makeText(this, "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -79,10 +80,11 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private boolean validation() {
-        if(userName.getText().toString().isEmpty() &&  passWord.getText().toString().isEmpty() &&  cnfrmPassWord.getText().toString().isEmpty()){
-            Toast.makeText(this,"Filed can't be blank", Toast.LENGTH_SHORT).show();
+        if (userName.getText().toString().isEmpty() && passWord.getText().toString().isEmpty() && cnfrmPassWord.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Filed can't be blank", Toast.LENGTH_SHORT).show();
             return false;
-        }return true;
+        }
+        return true;
     }
 
     private class POSTRegister extends AsyncTask<String, Void, String> {
@@ -98,7 +100,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API_REG+"register");
+                builder.url(AppConfig.BASE_URL_API_REG + "register");
                 builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
                 //builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -120,30 +122,29 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
             }
             return json;
         }
+
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(SinUpActivity.this, "Invalid request",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SinUpActivity.this, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
 
-              UserRegister .RootObject jsonbody = gson.fromJson(result,  UserRegister .RootObject.class);
-              if(jsonbody.isStatus()) {
-                  Token user = new Token();
-                  user.userRole = jsonbody.Role;
-                  user.access_token = jsonbody.login.access_token;
-                  user.userName = jsonbody.login.userName;
-                  user.token_type = jsonbody.login.token_type;
-                  user.expires_in = jsonbody.login.expires_in;
+                UserRegister.RootObject jsonbody = gson.fromJson(result, UserRegister.RootObject.class);
+                if (jsonbody.isStatus()) {
+                    Token user = new Token();
+                    user.userRole = jsonbody.Role;
+                    user.access_token = jsonbody.login.access_token;
+                    user.userName = jsonbody.login.userName;
+                    user.token_type = jsonbody.login.token_type;
+                    user.expires_in = jsonbody.login.expires_in;
 
-                  SharedPrefManager.getInstance( getApplicationContext() ).userLogin( user );
-                  if (!SharedPrefManager.getInstance( SinUpActivity.this ).getUser().access_token.equals( null )) {
-                      startActivity( intent = new Intent( SinUpActivity.this, HomeActivity.class ) );
-                  }
-              }
-              else
-                 {
-                    Toast.makeText(SinUpActivity.this,jsonbody.dataIdentityResult.getErrors().get(0),Toast.LENGTH_SHORT).show();
+                    SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
+                    if (!SharedPrefManager.getInstance(SinUpActivity.this).getUser().access_token.equals(null)) {
+                        startActivity(intent = new Intent(SinUpActivity.this, HomeActivity.class));
+                    }
+                } else {
+                    Toast.makeText(SinUpActivity.this, jsonbody.dataIdentityResult.getErrors().get(0), Toast.LENGTH_SHORT).show();
                 }
                 progressDialog.dismiss();
             }

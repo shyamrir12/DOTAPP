@@ -29,7 +29,7 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.OrderItemViewHolder>  {
+public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.OrderItemViewHolder> {
 
     private Context mCtx;
     ProgressDialog progressDialog;
@@ -55,12 +55,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         DataOrder order = orderitemList.get(position);
         try {
 
-            holder.ordername.setText("Name\n"+order.getCustomerName());
-            holder.orderaddress.setText("Address\n "+order.getAddress());
-            holder.ordercontact.setText("Mobile\n "+order.getMobile());
-            holder.orderdate.setText("Date\n "+order.getOrderDate().split("T")[0]);
-            holder.orderamount.setText("Advance\n "+Double.toString(order.getAdvance()));
-           holder.totalamount.setText("Amount\n "+Double.toString(order.getTotalAmount()));
+            holder.ordername.setText("Name\n" + order.getCustomerName());
+            holder.orderaddress.setText("Address\n " + order.getAddress());
+            holder.ordercontact.setText("Mobile\n " + order.getMobile());
+            holder.orderdate.setText("Date\n " + order.getOrderDate().split("T")[0]);
+            holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()));
+            holder.totalamount.setText("Amount\n " + Double.toString(order.getTotalAmount()));
 
         } catch (Exception E) {
             E.printStackTrace();
@@ -75,10 +75,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
         AlertDialog.Builder alert;
-        private  Context mCtx;
-        String  dept;
+        private Context mCtx;
+        String dept;
 
-        private TextView ordername,orderaddress,ordercontact,orderdate,orderamount,totalamount,textviewStatus;
+        private TextView ordername, orderaddress, ordercontact, orderdate, orderamount, totalamount, textviewStatus;
         private Button statusOrder;
         private List<DataOrder> orderitemList;
 
@@ -109,7 +109,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new POSTStatus().execute(String.valueOf(orderitem.getOrderID()),"0","0","0","0","0","","","");
+                    new POSTStatus().execute(String.valueOf(orderitem.getOrderID()), "0", "0", "0", "0", "0", "", "", "");
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -119,7 +119,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
             if (v.getId() == statusOrder.getId()) {
 
-                dept="Order Placed";
+                dept = "Order Placed";
                 messageDisplayOfStatus(orderitem);
             }
         }
@@ -127,28 +127,27 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         private boolean messageDisplayOfStatus(final DataOrder order) {
             alert = new AlertDialog.Builder(mCtx);
             alert.setTitle(dept);
-            alert.setMessage("Are you sure you want to change the "+dept+" status to OK?");
+            alert.setMessage("Are you sure you want to change the " + dept + " status to OK?");
             alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     try {
                         //String res="";
                         progressDialog.setMessage("loading...");
                         progressDialog.show();
-                        String OP="false",MR="false",RFT="false",DESP="false",CEN="false";
-                        if(order.isOrderPlaced())
-                            OP="true";
-                        if(order.isMaterialReceived())
-                            MR="true";
-                        if(order.isReceivedFromTalor())
-                            RFT="true";
-                        if(order.isDispatch())
-                            DESP="true";
-                        if(order.isCancel())
-                            CEN="true";
+                        String OP = "false", MR = "false", RFT = "false", DESP = "false", CEN = "false";
+                        if (order.isOrderPlaced())
+                            OP = "true";
+                        if (order.isMaterialReceived())
+                            MR = "true";
+                        if (order.isReceivedFromTalor())
+                            RFT = "true";
+                        if (order.isDispatch())
+                            DESP = "true";
+                        if (order.isCancel())
+                            CEN = "true";
 
-                        if(dept.equals("Order Placed"))
-                        {
-                            new POSTStatus().execute(String.valueOf(order.getOrderID()),"true",MR,RFT,DESP,CEN,order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
+                        if (dept.equals("Order Placed")) {
+                            new POSTStatus().execute(String.valueOf(order.getOrderID()), "true", MR, RFT, DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
 
                         }
 
@@ -179,9 +178,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             int position = getAdapterPosition();
             DataOrder orderitem = this.orderitemList.get(position);
             if (v.getId() == itemView.getId()) {
-                try{
+                try {
                 } catch (Exception E) {
-                    E.printStackTrace();}
+                    E.printStackTrace();
+                }
                 Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
             }
             return true;
@@ -243,7 +243,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
 
         }
-
 
 
     }

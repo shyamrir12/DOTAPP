@@ -2,23 +2,23 @@ package com.example.awizom.dotapp.Models;
 
 public class CatelogOrderDetailModel {
 
-    public int OrderItemID ;
-    public String MaterialType ;
-    public int Price2 ;
-    public int Qty ;
-    public int AQty ;
-    public String OrderUnit ;
-    public int OrderRoomID ;
+    public int OrderItemID;
+    public String MaterialType;
+    public int Price2;
+    public int Qty;
+    public int AQty;
+    public String OrderUnit;
+    public int OrderRoomID;
 
-    public String CatalogName ;
-    public String SerialNo ;
-    public String Design ;
-    public int PageNo ;
-    public int Price ;
-    public String Unit ;
-    public int CatalogID ;
-    public String RoomName ;
-    public int OrderID ;
+    public String CatalogName;
+    public String SerialNo;
+    public String Design;
+    public int PageNo;
+    public int Price;
+    public String Unit;
+    public int CatalogID;
+    public String RoomName;
+    public int OrderID;
 
     public String getRoomName() {
         return RoomName;

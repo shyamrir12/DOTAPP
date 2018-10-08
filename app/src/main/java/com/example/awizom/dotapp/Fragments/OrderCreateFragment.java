@@ -27,19 +27,20 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class OrderCreateFragment extends Fragment implements View.OnClickListener {
 
-    private EditText  customerDate, customerAdvance;
+    private EditText customerDate, customerAdvance;
     private Button addOrder;
     private Intent intent;
     private ProgressDialog progressDialog;
-    int morderid=0;
+    int morderid = 0;
     private List<DataOrder> orderList;
-    int position=0;
+    int position = 0;
     private List<CustomerModel> customerlist;
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
@@ -106,14 +107,13 @@ public class OrderCreateFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addOrder:
-             addOrderPost();
+                addOrderPost();
                 break;
         }
     }
 
     private void addOrderPost() {
         String c_name = customerName.getText().toString();
-
 
 
         try {
@@ -129,6 +129,7 @@ public class OrderCreateFragment extends Fragment implements View.OnClickListene
         }
 
     }
+
     private class POSTOrderCreate extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -179,7 +180,8 @@ public class OrderCreateFragment extends Fragment implements View.OnClickListene
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getActivity(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 startActivity(intent = new Intent(getActivity(), AfterCreateOrderActivity.class));
-                if (jsonbodyres.getStatus() == true) { }
+                if (jsonbodyres.getStatus() == true) {
+                }
                 progressDialog.dismiss();
             }
         }

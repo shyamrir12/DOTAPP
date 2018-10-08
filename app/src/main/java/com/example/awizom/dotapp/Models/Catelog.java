@@ -3,8 +3,8 @@ package com.example.awizom.dotapp.Models;
 import java.util.List;
 
 public class Catelog {
-    public List<String> OrderItems ;
-    public String CatalogName ;
+    public List<String> OrderItems;
+    public String CatalogName;
 
     public List<String> getOrderItems() {
         return OrderItems;
@@ -71,9 +71,9 @@ public class Catelog {
     }
 
     public String SerialNo;
-    public String Design ;
+    public String Design;
     public int PageNo;
     public double Price;
-    public String Unit ;
-    public int CatalogID ;
+    public String Unit;
+    public int CatalogID;
 }

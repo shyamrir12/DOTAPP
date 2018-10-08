@@ -13,27 +13,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Adapters.CustomerListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.List;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class CustomerListFrgment extends Fragment{
+public class CustomerListFrgment extends Fragment {
 
-    private  TextView customername,customeraddress,customercontact,interiorname,interiorcontact;
+    private TextView customername, customeraddress, customercontact, interiorname, interiorcontact;
     private Intent intent;
     ProgressDialog progressDialog;
     List<CustomerModel> orderList;
     RecyclerView recyclerView;
     CustomerListAdapter adapter;
     SwipeRefreshLayout mSwipeRefreshLayout;
-
 
 
     @Override
@@ -48,7 +50,7 @@ public class CustomerListFrgment extends Fragment{
 
 //        ((CustomerListFrgment) getContext()).setActionBarTitle("Customer List Details");
         progressDialog = new ProgressDialog(getActivity());
-        mSwipeRefreshLayout=view.findViewById( R.id.swipeRefreshLayout );
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -60,7 +62,7 @@ public class CustomerListFrgment extends Fragment{
             }
         });
 
-       getCustomerList();
+        getCustomerList();
     }
 
     private void getCustomerList() {
@@ -93,7 +95,7 @@ public class CustomerListFrgment extends Fragment{
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"CustomerGet");
+                builder.url(AppConfig.BASE_URL_API + "CustomerGet");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 //  builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -105,7 +107,7 @@ public class CustomerListFrgment extends Fragment{
                 e.printStackTrace();
                 progressDialog.dismiss();
                 // System.out.println("Error: " + e);
-                Toast.makeText(getActivity(),"Error: " + e,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
             return json;
@@ -121,8 +123,9 @@ public class CustomerListFrgment extends Fragment{
 
                 //System.out.println(result);
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<CustomerModel>>(){}.getType();
-                orderList = new Gson().fromJson(result,listType);
+                Type listType = new TypeToken<List<CustomerModel>>() {
+                }.getType();
+                orderList = new Gson().fromJson(result, listType);
                 adapter = new CustomerListAdapter(getContext(), orderList);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();

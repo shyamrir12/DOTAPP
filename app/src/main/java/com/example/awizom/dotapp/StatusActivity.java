@@ -13,9 +13,10 @@ import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 
 public class StatusActivity extends AppCompatActivity {
 
-    private TextView customerList,customerModify,customerAdd, mTextMessage;
+    private TextView customerList, customerModify, customerAdd, mTextMessage;
     private Intent intent;
-    private Fragment reportFragment,statusFragment;
+    private Fragment reportFragment, statusFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,7 @@ public class StatusActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -43,16 +45,16 @@ public class StatusActivity extends AppCompatActivity {
             Class fragmentClass = null;
             switch (item.getItemId()) {
                 case R.id.navigation_customer:
-                    startActivity(intent = new Intent(getApplicationContext(),CustomerActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), CustomerActivity.class));
                     return true;
                 case R.id.navigation_order:
-                    startActivity(intent = new Intent(getApplicationContext(),OrderBottomActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), OrderBottomActivity.class));
                     return true;
                 case R.id.navigation_report:
-                    startActivity(intent = new Intent(getApplicationContext(),ReportActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), ReportActivity.class));
                     return true;
                 case R.id.navigation_status:
-                    startActivity(intent = new Intent(getApplicationContext(),StatusActivity.class));
+                    startActivity(intent = new Intent(getApplicationContext(), StatusActivity.class));
                     return true;
             }
             return false;

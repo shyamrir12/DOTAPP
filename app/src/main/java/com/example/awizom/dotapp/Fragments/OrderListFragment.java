@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Adapters.OrderAdapter;
 import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
@@ -20,12 +21,14 @@ import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.List;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class OrderListFragment extends Fragment  {
+public class OrderListFragment extends Fragment {
 
 
     private Intent intent;
@@ -45,7 +48,7 @@ public class OrderListFragment extends Fragment  {
 
     private void initView(View view) {
         progressDialog = new ProgressDialog(getActivity());
-        mSwipeRefreshLayout=view.findViewById( R.id.swipeRefreshLayout );
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -80,7 +83,7 @@ public class OrderListFragment extends Fragment  {
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderDetailsByFilterGet/PendingOrderList");
+                builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet/PendingOrderList");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -90,7 +93,7 @@ public class OrderListFragment extends Fragment  {
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(),"Error: " + e,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
         }
@@ -101,8 +104,9 @@ public class OrderListFragment extends Fragment  {
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<DataOrder>>(){}.getType();
-                orderList = new Gson().fromJson(result,listType);
+                Type listType = new TypeToken<List<DataOrder>>() {
+                }.getType();
+                orderList = new Gson().fromJson(result, listType);
                 adapter = new OrderListAdapter(getContext(), orderList);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();

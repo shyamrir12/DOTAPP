@@ -2,13 +2,13 @@ package com.example.awizom.dotapp.Models;
 
 public class ElightBottomModel {
 
-        public int OrderRoomId ;
-        public String RoomName;
-        public String Elight ;
-        public String Roman ;
-        public String APlat ;
-        public int OrderID ;
-        public Double TotalAmount;
+    public int OrderRoomId;
+    public String RoomName;
+    public String Elight;
+    public String Roman;
+    public String APlat;
+    public int OrderID;
+    public Double TotalAmount;
 
     public int getOrderRoomId() {
         return OrderRoomId;

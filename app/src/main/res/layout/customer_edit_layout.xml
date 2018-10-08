@@ -40,6 +40,7 @@
                 android:layout_alignTop="@+id/customerName"
                 android:layout_margin="5dp"
                 android:src="@drawable/ic_search_black_24dp" />
+
             <EditText
                 android:id="@+id/contact"
                 android:layout_width="match_parent"
@@ -53,6 +54,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="13dp" />
+
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
@@ -65,7 +67,8 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="13dp"
-                android:layout_above="@+id/confrmPassword"/>
+                android:layout_above="@+id/confrmPassword" />
+
             <EditText
                 android:id="@+id/confrmPassword"
                 android:layout_width="match_parent"
@@ -78,6 +81,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="13dp" />
+
             <EditText
                 android:id="@+id/interiormobile"
                 android:layout_width="match_parent"
@@ -90,6 +94,7 @@
                 android:layout_below="@+id/confrmPassword"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="13dp" />
+
             <Button
                 android:id="@+id/updateButton"
                 android:layout_width="230dp"

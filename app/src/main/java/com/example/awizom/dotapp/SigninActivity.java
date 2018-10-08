@@ -25,16 +25,18 @@ import okhttp3.Response;
 public class SigninActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button signinButton;
-    private EditText userName,passWord;
+    private EditText userName, passWord;
     private TextView signupHere;
     private Intent intent;
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
         initView();
     }
+
     private void initView() {
         progressDialog = new ProgressDialog(this);
         userName = findViewById(R.id.userId);
@@ -47,36 +49,36 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.signinButton :
-                if(validation()){
+        switch (v.getId()) {
+            case R.id.signinButton:
+                if (validation()) {
                     userLogin();
-                   // startActivity(intent = new Intent(this,HomeActivity.class));
+                    // startActivity(intent = new Intent(this,HomeActivity.class));
                 }
                 break;
-            case R.id.signupHere :
-                    startActivity(intent = new Intent(this,SinUpActivity.class));
+            case R.id.signupHere:
+                startActivity(intent = new Intent(this, SinUpActivity.class));
                 break;
         }
     }
 
     private boolean validation() {
-        if(userName.getText().toString().isEmpty() &&  passWord.getText().toString().isEmpty() ){
-            Toast.makeText(this,"Filed can't be blank", Toast.LENGTH_SHORT).show();
+        if (userName.getText().toString().isEmpty() && passWord.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Filed can't be blank", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
+
     public void userLogin() {
 
-          progressDialog.setMessage("loading...");
+        progressDialog.setMessage("loading...");
         progressDialog.show();
 
         try {
             //String res="";
 
             new GetLogin().execute(userName.getText().toString(), passWord.getText().toString());
-
 
 
         } catch (Exception e) {
@@ -102,7 +104,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url( AppConfig.BASE_URL_API_REG + "UserLoginGet/"+cliente+"/"+clave);
+                builder.url(AppConfig.BASE_URL_API_REG + "UserLoginGet/" + cliente + "/" + clave);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
 
@@ -123,8 +125,8 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
             } catch (Exception e) {
                 e.printStackTrace();
                 //System.out.println("Error: " + e);
-                 Toast.makeText(getApplicationContext(),"Error: " + e,Toast.LENGTH_SHORT).show();
-               }
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
 
 
             return json;
@@ -136,26 +138,26 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                 progressDialog.dismiss();
 
                 Toast.makeText(getApplicationContext(), "Invalid user id or password", Toast.LENGTH_SHORT).show();
-            } else
-                {  Gson gson = new Gson();
-                    UserLogin.RootObject jsonbody = gson.fromJson(result, UserLogin.RootObject.class);
+            } else {
+                Gson gson = new Gson();
+                UserLogin.RootObject jsonbody = gson.fromJson(result, UserLogin.RootObject.class);
 
-                    if(jsonbody.isStatus()) {
-                        Token user = new Token();
-                        user.userRole = jsonbody.Role;
-                        user.access_token = jsonbody.login.access_token;
-                        user.userName = jsonbody.login.userName;
-                        user.token_type = jsonbody.login.token_type;
-                        user.expires_in = jsonbody.login.expires_in;
+                if (jsonbody.isStatus()) {
+                    Token user = new Token();
+                    user.userRole = jsonbody.Role;
+                    user.access_token = jsonbody.login.access_token;
+                    user.userName = jsonbody.login.userName;
+                    user.token_type = jsonbody.login.token_type;
+                    user.expires_in = jsonbody.login.expires_in;
 
-                        SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
-                        if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
-                            Intent log = new Intent(getApplicationContext(), HomeActivity.class);
-                            startActivity(log);
-                        }
-                    }else {
-                        Toast.makeText(getApplicationContext(), jsonbody.getMessage(), Toast.LENGTH_SHORT).show();
+                    SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
+                    if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
+                        Intent log = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(log);
                     }
+                } else {
+                    Toast.makeText(getApplicationContext(), jsonbody.getMessage(), Toast.LENGTH_SHORT).show();
+                }
 
             }
 

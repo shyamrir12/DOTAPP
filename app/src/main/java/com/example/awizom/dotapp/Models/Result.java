@@ -10,10 +10,10 @@ public class Result {
     private String Message;
 
 
-    public Result(String Message,Boolean Status) {
+    public Result(String Message, Boolean Status) {
 
         this.Message = Message;
-        this.Status=Status;
+        this.Status = Status;
 
     }
 

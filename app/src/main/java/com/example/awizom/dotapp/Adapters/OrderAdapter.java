@@ -36,9 +36,9 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder > {
-    int position=0;
-    int morderid=0;
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
+    int position = 0;
+    int morderid = 0;
     private Context mCtx;
     ProgressDialog progressDialog;
     //we are storing all the products in a list
@@ -76,48 +76,46 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
 
             String sampleString = order.getRoomList();
-            sampleString="Select,"+sampleString;
+            sampleString = "Select," + sampleString;
             String[] items = sampleString.split(",");
-           ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
             holder.spinner.setAdapter(spinnerArrayAdapter);
 
         }
 
 
-            if (order.isOrderPlaced()) {
-                holder.OP.setBackgroundColor(Color.GREEN);
-              //  holder.MR.setBackgroundColor(Color.parseColor("#00BFFF"));
-            }
-            if (order.isMaterialReceived()) {
+        if (order.isOrderPlaced()) {
+            holder.OP.setBackgroundColor(Color.GREEN);
+            //  holder.MR.setBackgroundColor(Color.parseColor("#00BFFF"));
+        }
+        if (order.isMaterialReceived()) {
 
-                holder.MR.setBackgroundColor(Color.GREEN);
-              //  holder.RFT.setBackgroundColor(Color.parseColor("#00BFFF"));
-            }
-            if (order.isReceivedFromTalor()) {
-                holder.RFT.setBackgroundColor(Color.GREEN);
-              //  holder.disp.setBackgroundColor(Color.parseColor("#00BFFF"));
-            }
+            holder.MR.setBackgroundColor(Color.GREEN);
+            //  holder.RFT.setBackgroundColor(Color.parseColor("#00BFFF"));
+        }
+        if (order.isReceivedFromTalor()) {
+            holder.RFT.setBackgroundColor(Color.GREEN);
+            //  holder.disp.setBackgroundColor(Color.parseColor("#00BFFF"));
+        }
 
-            if (order.isDispatch()) {
-                holder.disp.setBackgroundColor(Color.GREEN);
-            }
-            if (order.isCancel()) {
-                holder.linerdept.setBackgroundColor(Color.RED);
+        if (order.isDispatch()) {
+            holder.disp.setBackgroundColor(Color.GREEN);
+        }
+        if (order.isCancel()) {
+            holder.linerdept.setBackgroundColor(Color.RED);
 
-            }
+        }
 
         if (order.getOrderStatusID() == 0) {
 
             holder.linerdept.setVisibility(View.GONE);
             holder.linerstatus.setVisibility(View.GONE);
 
-        }
-        else
-            {
-                holder.textViewAddStatus.setVisibility(View.GONE);
-                holder.linerdept.setVisibility(View.VISIBLE);
-                holder.linerstatus.setVisibility(View.VISIBLE);
+        } else {
+            holder.textViewAddStatus.setVisibility(View.GONE);
+            holder.linerdept.setVisibility(View.VISIBLE);
+            holder.linerstatus.setVisibility(View.VISIBLE);
         }
         if (order.getOrderID() == 0) {
             holder.L2.setVisibility(View.GONE);
@@ -194,43 +192,42 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             buttonDisp.setOnClickListener(this);
             buttonReject = itemView.findViewById(R.id.buttonReject);
             buttonReject.setOnClickListener(this);
-          spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-              @Override
-              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                 int aposition = getAdapterPosition();
-                  DataOrder order =orderList.get(aposition);
-                  morderid=order.getOrderID();
-                  if(position>0)
-                  {
-                      Intent intent=new Intent(mCtx, RoomDetailsActivity.class);
-                      intent.putExtra("RoomName",spinner.getItemAtPosition(position).toString());
-                      intent.putExtra("OrderID",morderid);
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    int aposition = getAdapterPosition();
+                    DataOrder order = orderList.get(aposition);
+                    morderid = order.getOrderID();
+                    if (position > 0) {
+                        Intent intent = new Intent(mCtx, RoomDetailsActivity.class);
+                        intent.putExtra("RoomName", spinner.getItemAtPosition(position).toString());
+                        intent.putExtra("OrderID", morderid);
 
-                      intent.putExtra("CustomerName",order.getCustomerName());
-                      intent.putExtra("Mobile",order.getMobile());
-                      intent.putExtra("OrderDate",order.getOrderDate());
-                      intent.putExtra("Advance",order.getAdvance());
+                        intent.putExtra("CustomerName", order.getCustomerName());
+                        intent.putExtra("Mobile", order.getMobile());
+                        intent.putExtra("OrderDate", order.getOrderDate());
+                        intent.putExtra("Advance", order.getAdvance());
 
-                     //  intent.putExtra("order", order);
-                      mCtx.startActivity(intent);
-                  }
+                        //  intent.putExtra("order", order);
+                        mCtx.startActivity(intent);
+                    }
 
-                //  Toast.makeText(mCtx,  spinner.getItemAtPosition(position).toString()+morderid, Toast.LENGTH_SHORT).show();
-              }
+                    //  Toast.makeText(mCtx,  spinner.getItemAtPosition(position).toString()+morderid, Toast.LENGTH_SHORT).show();
+                }
 
-              @Override
-              public void onNothingSelected(AdapterView<?> parent) {
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-              }
-          });
+                }
+            });
         }
 
         @Override
         public void onClick(View v) {
             position = getAdapterPosition();
             DataOrder order = this.orderList.get(position);
-            morderid=order.getOrderID();
+            morderid = order.getOrderID();
             if (v.getId() == textViewAddOrder.getId()) {
                 try {
 
@@ -251,7 +248,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     //String res="";
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),"0","0","0","0","0","","","");
+                    new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), "0", "0", "0", "0", "0", "", "", "");
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -260,7 +257,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 }
             }
             if (v.getId() == textViewAddRoom.getId()) {
-               showUpdateDeleteDialog(order.getOrderID(),order.getARoomList());
+                showUpdateDeleteDialog(order.getOrderID(), order.getARoomList());
             }
 
 
@@ -274,110 +271,102 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             }*/
             if (v.getId() == buttonOP.getId()) {
 
-                dept="Order Placed";
+                dept = "Order Placed";
                 updateArtist(order);
             }
             if (v.getId() == buttonMR.getId()) {
 
-                dept="Material Received";
+                dept = "Material Received";
                 updateArtist(order);
             }
 
             if (v.getId() == buttonRFT.getId()) {
 
-                dept="Received From Talor";
+                dept = "Received From Talor";
                 updateArtist(order);
             }
             if (v.getId() == buttonDisp.getId()) {
 
-                dept="Dispatch";
+                dept = "Dispatch";
                 updateArtist(order);
             }
             if (v.getId() == buttonReject.getId()) {
-                dept="Cancel";
+                dept = "Cancel";
                 updateArtist(order);
 
             }
 
-         }
+        }
 
-          private boolean updateArtist(final DataOrder order) {
-              alert = new AlertDialog.Builder(mCtx);
-              alert.setTitle(dept);
-              alert.setMessage("Are you sure you want to change the "+dept+" status to OK?");
-              alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dialog, int which) {
-                      try {
-                          //String res="";
-                          progressDialog.setMessage("loading...");
-                          progressDialog.show();
-                          String OP="false",MR="false",RFT="false",DESP="false",CEN="false";
-                          if(order.isOrderPlaced())
-                              OP="true";
-                          if(order.isMaterialReceived())
-                              MR="true";
-                          if(order.isReceivedFromTalor())
-                              RFT="true";
-                          if(order.isDispatch())
-                              DESP="true";
-                          if(order.isCancel())
-                              CEN="true";
+        private boolean updateArtist(final DataOrder order) {
+            alert = new AlertDialog.Builder(mCtx);
+            alert.setTitle(dept);
+            alert.setMessage("Are you sure you want to change the " + dept + " status to OK?");
+            alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        //String res="";
+                        progressDialog.setMessage("loading...");
+                        progressDialog.show();
+                        String OP = "false", MR = "false", RFT = "false", DESP = "false", CEN = "false";
+                        if (order.isOrderPlaced())
+                            OP = "true";
+                        if (order.isMaterialReceived())
+                            MR = "true";
+                        if (order.isReceivedFromTalor())
+                            RFT = "true";
+                        if (order.isDispatch())
+                            DESP = "true";
+                        if (order.isCancel())
+                            CEN = "true";
 
-                          if(dept.equals("Order Placed"))
-                          {
-                              new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),"true",MR,RFT,DESP,CEN,order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
+                        if (dept.equals("Order Placed")) {
+                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), "true", MR, RFT, DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
 
-                          }
-                          else  if(dept.equals("Material Received"))
-                          {
-                              new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),OP,"true",RFT,DESP,CEN,order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
+                        } else if (dept.equals("Material Received")) {
+                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, "true", RFT, DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
 
-                          }
-                          else  if(dept.equals("Received From Talor"))
-                          {
-                              new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),OP,MR,"true",DESP,CEN,order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
-                          }
-                          else  if(dept.equals("Dispatch"))
-                          {
-                              new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),OP,MR,RFT,"true",CEN,order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
+                        } else if (dept.equals("Received From Talor")) {
+                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, MR, "true", DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
+                        } else if (dept.equals("Dispatch")) {
+                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, MR, RFT, "true", CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
 
-                          }
-                          else  if(dept.equals("Cancel"))
-                          {
-                              new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()),OP,MR,RFT,DESP,"true",order.getHandOverTo(),order.getTelorName(),order.getReceivedBy());
+                        } else if (dept.equals("Cancel")) {
+                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, MR, RFT, DESP, "true", order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
 
-                          }
+                        }
 
-                       } catch (Exception e) {
-                          e.printStackTrace();
-                          progressDialog.dismiss();
-                          Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-                          // System.out.println("Error: " + e);
-                      }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+                        // System.out.println("Error: " + e);
+                    }
 
 
-                  }
-              });
-              alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dialog, int which) {
-                      // close dialog
-                      dialog.cancel();
-                  }
-              });
-              alert.show();
+                }
+            });
+            alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // close dialog
+                    dialog.cancel();
+                }
+            });
+            alert.show();
 
-              return true;
-          }
+            return true;
+        }
+
         @Override
         public boolean onLongClick(View v) {
 
             position = getAdapterPosition();
             DataOrder order = this.orderList.get(position);
-            morderid=order.getOrderID();
+            morderid = order.getOrderID();
 
             if (v.getId() == linerstatus.getId()) {
 
-                 showUpdateStatusDialog(order);
+                showUpdateStatusDialog(order);
             }
             return true;
         }
@@ -389,18 +378,18 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             dialogBuilder.setView(dialogView);
             final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spinner);
 
-            String[] items =order.getTelorList().split(",");
+            String[] items = order.getTelorList().split(",");
 
 
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
             spinner.setAdapter(spinnerArrayAdapter);
-           final EditText editHandOverTo=(EditText)dialogView.findViewById(R.id.editHandOverTo);
-            final EditText editReceivedBy=(EditText)dialogView.findViewById(R.id.editReceivedBy);
+            final EditText editHandOverTo = (EditText) dialogView.findViewById(R.id.editHandOverTo);
+            final EditText editReceivedBy = (EditText) dialogView.findViewById(R.id.editReceivedBy);
 
             editHandOverTo.setText(order.getHandOverTo());
             editReceivedBy.setText(order.getReceivedBy());
-            if(order.getTelorName().trim().length()>0) {
+            if (order.getTelorName().trim().length() > 0) {
                 int selectionPosition = spinnerArrayAdapter.getPosition(order.getTelorName().toString());
                 spinner.setSelection(selectionPosition);
             }
@@ -413,12 +402,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 @Override
                 public void onClick(View view) {
 
-                    if (String.valueOf(spinner.getSelectedItem()).trim().length()>0) {
+                    if (String.valueOf(spinner.getSelectedItem()).trim().length() > 0) {
                         try {
 
                             progressDialog.setMessage("loading...");
                             progressDialog.show();
-                            new POSTStatus().execute(String.valueOf(order.getOrderID()),String.valueOf(order.isOrderPlaced()),String.valueOf(order.isMaterialReceived()),String.valueOf(order.isReceivedFromTalor()),String.valueOf(order.isDispatch()),String.valueOf(order.isCancel()),editHandOverTo.getText().toString(),spinner.getSelectedItem().toString(),editReceivedBy.getText().toString());
+                            new POSTStatus().execute(String.valueOf(order.getOrderID()), String.valueOf(order.isOrderPlaced()), String.valueOf(order.isMaterialReceived()), String.valueOf(order.isReceivedFromTalor()), String.valueOf(order.isDispatch()), String.valueOf(order.isCancel()), editHandOverTo.getText().toString(), spinner.getSelectedItem().toString(), editReceivedBy.getText().toString());
 
 
                         } catch (Exception e) {
@@ -448,7 +437,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         }
 
-        private void showUpdateDeleteDialog(final long orderid,String aroomlist) {
+        private void showUpdateDeleteDialog(final long orderid, String aroomlist) {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
 
@@ -461,9 +450,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spinner);
 
             String[] items = aroomlist.split(",");
-              ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
-              spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-               spinner.setAdapter(spinnerArrayAdapter);
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+            spinner.setAdapter(spinnerArrayAdapter);
 
             final Button buttonAdd = (Button) dialogView.findViewById(R.id.buttonAddOrder);
             final Button buttonCancel = (Button) dialogView.findViewById(R.id.buttonCancel);
@@ -477,7 +466,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 @Override
                 public void onClick(View view) {
 
-                    if (String.valueOf(spinner.getSelectedItem()).trim().length()>0) {
+                    if (String.valueOf(spinner.getSelectedItem()).trim().length() > 0) {
                         try {
 
                             progressDialog.setMessage("loading...");
@@ -512,209 +501,209 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
 
     }
-        private class POSTOrder extends AsyncTask<String, Void, String> {
-            @Override
-            protected String doInBackground(String... params) {
 
-                //     InputStream inputStream
-                String customerid = params[0];
-                String json = "";
-                try {
+    private class POSTOrder extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
 
-                    OkHttpClient client = new OkHttpClient();
-                    Request.Builder builder = new Request.Builder();
-                    builder.url(AppConfig.BASE_URL_API + "OrderPost");
-                    builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                    builder.addHeader("Accept", "application/json");
-                    //builder.addHeader("Authorization", "Bearer " + accesstoken);
+            //     InputStream inputStream
+            String customerid = params[0];
+            String json = "";
+            try {
 
-                    FormBody.Builder parameters = new FormBody.Builder();
-                    parameters.add("OrderID", "0");
-                    parameters.add("CustomerID", customerid);
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                //builder.addHeader("Authorization", "Bearer " + accesstoken);
 
-                    builder.post(parameters.build());
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderID", "0");
+                parameters.add("CustomerID", customerid);
 
-
-                    okhttp3.Response response = client.newCall(builder.build()).execute();
-
-                    if (response.isSuccessful()) {
-                        json = response.body().string();
+                builder.post(parameters.build());
 
 
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    progressDialog.dismiss();
-                    // System.out.println("Error: " + e);
-                    Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-                }
-                return json;
-            }
+                okhttp3.Response response = client.newCall(builder.build()).execute();
 
-            protected void onPostExecute(String result) {
+                if (response.isSuccessful()) {
+                    json = response.body().string();
 
-                if (result.isEmpty()) {
-                    progressDialog.dismiss();
-                    Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
-                } else {
-                    //System.out.println("CONTENIDO:  " + result);
-                    Gson gson = new Gson();
-                    final Result jsonbodyres = gson.fromJson(result, Result.class);
-                    Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                    if (jsonbodyres.getStatus() == true) {
-                        getMyOrder();
-                    }
-                    progressDialog.dismiss();
 
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                // System.out.println("Error: " + e);
+                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
 
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                //System.out.println("CONTENIDO:  " + result);
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+                    getMyOrder();
+                }
+                progressDialog.dismiss();
 
             }
+
 
         }
 
-        private class POSTStatus extends AsyncTask<String, Void, String> {
-            @Override
-            protected String doInBackground(String... params) {
+    }
 
-                //     InputStream inputStream
-                String orderid = params[0];
-                String OrderPlaced = params[1];
-                String MaterialReceived = params[2];
-                String ReceivedFromTalor = params[3];
+    private class POSTStatus extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
 
-                String Dispatch = params[4];
-                String Cancel = params[5];
-                String HandOverTo = params[6];
-                String TelorName = params[7];
-                String ReceivedBy = params[8];
+            //     InputStream inputStream
+            String orderid = params[0];
+            String OrderPlaced = params[1];
+            String MaterialReceived = params[2];
+            String ReceivedFromTalor = params[3];
 
-
-
-                String json = "";
-                try {
-
-                    OkHttpClient client = new OkHttpClient();
-                    Request.Builder builder = new Request.Builder();
-                    builder.url(AppConfig.BASE_URL_API + "OrderStatusPost");
-                    builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                    builder.addHeader("Accept", "application/json");
-                    //builder.addHeader("Authorization", "Bearer " + accesstoken);
-
-                    FormBody.Builder parameters = new FormBody.Builder();
-                    parameters.add("OrderID", orderid);
-
-                    parameters.add("OrderPlaced", OrderPlaced);
-                    parameters.add("MaterialReceived", MaterialReceived);
-                    parameters.add("ReceivedFromTalor", ReceivedFromTalor);
-                    parameters.add("Cancel", Cancel);
-                    parameters.add("Dispatch", Dispatch);
-
-                    parameters.add("HandOverTo", HandOverTo);
-                    parameters.add("TelorName", TelorName);
-                    parameters.add("ReceivedBy", ReceivedBy);
-
-                    builder.post(parameters.build());
+            String Dispatch = params[4];
+            String Cancel = params[5];
+            String HandOverTo = params[6];
+            String TelorName = params[7];
+            String ReceivedBy = params[8];
 
 
-                    okhttp3.Response response = client.newCall(builder.build()).execute();
+            String json = "";
+            try {
 
-                    if (response.isSuccessful()) {
-                        json = response.body().string();
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderID", orderid);
+
+                parameters.add("OrderPlaced", OrderPlaced);
+                parameters.add("MaterialReceived", MaterialReceived);
+                parameters.add("ReceivedFromTalor", ReceivedFromTalor);
+                parameters.add("Cancel", Cancel);
+                parameters.add("Dispatch", Dispatch);
+
+                parameters.add("HandOverTo", HandOverTo);
+                parameters.add("TelorName", TelorName);
+                parameters.add("ReceivedBy", ReceivedBy);
+
+                builder.post(parameters.build());
 
 
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    progressDialog.dismiss();
-                    // System.out.println("Error: " + e);
-                    Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-                }
-                return json;
-            }
+                okhttp3.Response response = client.newCall(builder.build()).execute();
 
-            protected void onPostExecute(String result) {
+                if (response.isSuccessful()) {
+                    json = response.body().string();
 
-                if (result.isEmpty()) {
-                    progressDialog.dismiss();
-                    Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
-                } else {
-                    //System.out.println("CONTENIDO:  " + result);
-                    Gson gson = new Gson();
-                    final Result jsonbodyres = gson.fromJson(result, Result.class);
-                    Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                    if (jsonbodyres.getStatus() == true) {
-                        getMyOrder();
-
-                    }
-                    progressDialog.dismiss();
 
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                // System.out.println("Error: " + e);
+                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
 
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                //System.out.println("CONTENIDO:  " + result);
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+                    getMyOrder();
+
+                }
+                progressDialog.dismiss();
 
             }
+
 
         }
 
-        private class POSTRoom extends AsyncTask<String, Void, String> {
-            @Override
-            protected String doInBackground(String... params) {
+    }
 
-                //     InputStream inputStream
-                String orderid = params[0];
-                String roomname = params[1];
-                String json = "";
-                try {
+    private class POSTRoom extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
 
-                    OkHttpClient client = new OkHttpClient();
-                    Request.Builder builder = new Request.Builder();
-                    builder.url(AppConfig.BASE_URL_API + "OrderRoomPost");
-                    builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                    builder.addHeader("Accept", "application/json");
-                    //builder.addHeader("Authorization", "Bearer " + accesstoken);
+            //     InputStream inputStream
+            String orderid = params[0];
+            String roomname = params[1];
+            String json = "";
+            try {
 
-                    FormBody.Builder parameters = new FormBody.Builder();
-                    parameters.add("OrderID", orderid);
-                    parameters.add("RoomName", roomname);
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderRoomPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                //builder.addHeader("Authorization", "Bearer " + accesstoken);
 
-
-                    builder.post(parameters.build());
-
-
-                    okhttp3.Response response = client.newCall(builder.build()).execute();
-
-                    if (response.isSuccessful()) {
-                        json = response.body().string();
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderID", orderid);
+                parameters.add("RoomName", roomname);
 
 
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    progressDialog.dismiss();
-                    // System.out.println("Error: " + e);
-                    Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+                builder.post(parameters.build());
+
+
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+
+
                 }
-                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                // System.out.println("Error: " + e);
+                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
-
-            protected void onPostExecute(String result) {
-
-                if (result.isEmpty()) {
-                    progressDialog.dismiss();
-                    Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
-                } else {
-                    //System.out.println("CONTENIDO:  " + result);
-                    Gson gson = new Gson();
-                    final Result jsonbodyres = gson.fromJson(result, Result.class);
-                    Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                    if (jsonbodyres.getStatus() == true) {
-                        getMyOrder();
-                    }
-                    progressDialog.dismiss();
-                }
-            }
-
+            return json;
         }
+
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                //System.out.println("CONTENIDO:  " + result);
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+                    getMyOrder();
+                }
+                progressDialog.dismiss();
+            }
+        }
+
+    }
 
     // This removes the data from our Dataset and Updates the Recycler View.
     private void removeItem(DataOrder infoData) {
@@ -731,14 +720,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         notifyItemInserted(position);
 
     }
+
     public void modifyItem(final int position, final DataOrder model) {
         orderList.set(position, model);
         notifyItemChanged(position);
 
     }
 
-    public void getMyOrder()
-    {
+    public void getMyOrder() {
         try {
             //String res="";
             progressDialog.setMessage("loading...");
@@ -754,12 +743,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             // System.out.println("Error: " + e);
         }
     }
+
     private class GETOrderList extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-           // String accesstoken = params[0];
+            // String accesstoken = params[0];
             String orderid = params[0];
             //String clave = params[1];
             //String res = params[2];
@@ -768,7 +758,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderid);
+                builder.url(AppConfig.BASE_URL_API + "OrderGet/" + orderid);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 //  builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -780,7 +770,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 e.printStackTrace();
                 progressDialog.dismiss();
                 // System.out.println("Error: " + e);
-                Toast.makeText(mCtx,"Error: " + e,Toast.LENGTH_SHORT).show();
+                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
             return json;
@@ -796,9 +786,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
                 //System.out.println(result);
                 Gson gson = new Gson();
-                Type getType = new TypeToken<DataOrder>(){}.getType();
-                DataOrder  morder = new Gson().fromJson(result,getType);
-                modifyItem(  position,morder);
+                Type getType = new TypeToken<DataOrder>() {
+                }.getType();
+                DataOrder morder = new Gson().fromJson(result, getType);
+                modifyItem(position, morder);
                 progressDialog.dismiss();
 
             }
