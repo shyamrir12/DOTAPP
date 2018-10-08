@@ -19,7 +19,6 @@ import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
     private Intent intent;
     private Fragment reportFragment,statusFragment;
 
@@ -38,7 +37,6 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         reportFragment = new CustomerListFrgment();
-        mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -52,7 +50,6 @@ public class HomeActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_customer:
                     startActivity(intent = new Intent(getApplicationContext(),CustomerActivity.class));
-                    mTextMessage.setText(R.string.title_customer);
                     return true;
                 case R.id.navigation_order:
                     startActivity(intent = new Intent(getApplicationContext(),OrderBottomActivity.class));

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,7 +37,7 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class AfterCreateOrderActivity extends AppCompatActivity implements View.OnClickListener {
+public class AfterCreateOrderActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
 
     private Intent intent;
@@ -90,8 +91,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         orderDate = findViewById(R.id.orderDatePicker);
         amount = findViewById(R.id.amountValue);
 
-        orderDateLabel = findViewById(R.id.orderDatePicker);
-        orderDateLabel.setOnClickListener(this);
+        orderDate.setOnTouchListener(this);
         addorder = findViewById(R.id.addOrder);
         addorder.setOnClickListener(this);
         addroom = findViewById(R.id.addRoom);
@@ -136,8 +136,6 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // TODO Auto-generated method stub
-
-
                 Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
                 intent.putExtra("RoomName", roomName[position].trim());
                 intent.putExtra("OrderID",Integer.valueOf( orderidPart[1]));
@@ -154,19 +152,14 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.orderDatePicker:
-                showDateTimePicker();
-                break;
             case R.id.addOrder:
                 if(c_name.getText().length() > 0) {
                     postOrder();
-
                 }
                 break;
             case R.id.addRoom:
                 addroomdailogueOpen(Long.parseLong(orderidPart[1]),actualRoomList);
                 break;
-
         }
     }
 
@@ -221,6 +214,18 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         });
 
     }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (v.getId()){
+            case R.id.orderDatePicker:
+                showDateTimePicker();
+                break;
+
+        }
+        return false;
+    }
+
     private class postAddRoom extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -252,7 +257,6 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                // System.out.println("Error: " + e);
                 Toast.makeText(AfterCreateOrderActivity.this, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
@@ -263,7 +267,6 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
             if (result.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
-                //System.out.println("CONTENIDO:  " + result);
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
@@ -474,14 +477,10 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
                 parameters.add("Advance", orderamount);
 
                 builder.post(parameters.build());
-
-
                 okhttp3.Response response = client.newCall(builder.build()).execute();
 
                 if (response.isSuccessful()) {
                     json = response.body().string();
-
-
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -492,7 +491,6 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         }
 
         protected void onPostExecute(String result) {
-
             if (result.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
@@ -505,15 +503,9 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
                 if (jsonbodyres.getStatus() == true) {
                     getMyOrder();
                     addroom.setVisibility(View.VISIBLE);
-
                 }
-
             }
-
-
         }
 
     }
-
-
 }

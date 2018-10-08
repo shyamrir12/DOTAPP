@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.awizom.dotapp.Fragments.PendinOrderListFragment;
+import com.example.awizom.dotapp.Fragments.OrderListFragment;
 
 public class OrderBottomActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,12 +35,13 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
         cardViewSecond = findViewById(R.id.order_create_cardview);
         cardViewthird = findViewById(R.id.order_cancel_cardview);
 
+
         pendingOrderList = findViewById(R.id.pendingOrder);
         pendingOrderCreate = findViewById(R.id.orderCreate);
         cancelOrder = findViewById(R.id.cancelOrder);
 
 
-        pendinOrderListFragment = new PendinOrderListFragment();
+        pendinOrderListFragment = new OrderListFragment();
 
         cardViewFirst.setOnClickListener(this);
         cardViewSecond.setOnClickListener(this);
@@ -90,7 +91,12 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
             case R.id.order_pending_cardview:
                 getSupportActionBar().setTitle("Pending List");
                 fragment = pendinOrderListFragment;
-                fragmentClass = PendinOrderListFragment.class;
+                fragmentClass = OrderListFragment.class;
+                break;
+            case R.id.order_cancel_cardview:
+                getSupportActionBar().setTitle("Cancel List");
+                fragment = pendinOrderListFragment;
+                fragmentClass = OrderListFragment.class;
                 break;
             case R.id.orderCreate:
                 getSupportActionBar().setTitle("Order Create");
@@ -99,7 +105,12 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
             case R.id.pendingOrder:
                 getSupportActionBar().setTitle("Pending List");
                 fragment = pendinOrderListFragment;
-                fragmentClass = PendinOrderListFragment.class;
+                fragmentClass = OrderListFragment.class;
+                break;
+            case R.id.cancelOrder:
+                getSupportActionBar().setTitle("Cancel List");
+                fragment = pendinOrderListFragment;
+                fragmentClass = OrderListFragment.class;
                 break;
         }
         try {

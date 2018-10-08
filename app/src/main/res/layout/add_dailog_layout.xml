@@ -129,17 +129,21 @@
 
             <Button
                 android:id="@+id/add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
-                android:text="Add" />
-
+                android:text="Add"
+                android:background="@drawable/add_cancel_button_shape"/>
+<TextView
+    android:layout_width="12dp"
+    android:layout_height="2dp" />
             <Button
                 android:id="@+id/cancelButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
-                android:text="Cancel" />
+                android:text="Cancel"
+                android:background="@drawable/add_cancel_button_shape"/>
         </LinearLayout>
 
 

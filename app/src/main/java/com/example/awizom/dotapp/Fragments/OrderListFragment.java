@@ -13,30 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.awizom.dotapp.Adapters.CustomerListAdapter;
 import com.example.awizom.dotapp.Adapters.OrderAdapter;
+import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
-import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class PendinOrderListFragment extends Fragment  {
+public class OrderListFragment extends Fragment  {
 
-    private TextView customername,customercontact,customeraddress,orderdate,orderamount,orderAdvance;
+
     private Intent intent;
     ProgressDialog progressDialog;
     List<DataOrder> orderList;
     RecyclerView recyclerView;
-    OrderAdapter adapter;
+    OrderListAdapter adapter;
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -65,38 +61,28 @@ public class PendinOrderListFragment extends Fragment  {
 
     private void getCustomerList() {
         try {
-            //String res="";
+
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new GetOrderDetailList().execute("test");
-
-            //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
-
+            new GetCustomerDetails().execute("test");
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            // System.out.println("Error: " + e);
         }
     }
 
-    private class GetOrderDetailList extends AsyncTask<String, Void, String> {
+    private class GetCustomerDetails extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
 
-            //     InputStream inputStream
-            String accesstoken = params[0];
-            //String clave = params[1];
-            //String res = params[2];
             String json = "";
             try {
-
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"CustomerGet");
+                builder.url(AppConfig.BASE_URL_API+"OrderDetailsByFilterGet/PendingOrderList");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //  builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
@@ -104,36 +90,26 @@ public class PendinOrderListFragment extends Fragment  {
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                // System.out.println("Error: " + e);
                 Toast.makeText(getActivity(),"Error: " + e,Toast.LENGTH_SHORT).show();
             }
-
             return json;
         }
 
         protected void onPostExecute(String result) {
-
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                //progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
-
-                //System.out.println(result);
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<DataOrder>>(){}.getType();
                 orderList = new Gson().fromJson(result,listType);
-                adapter = new OrderAdapter(getContext(), orderList);
+                adapter = new OrderListAdapter(getContext(), orderList);
                 recyclerView.setAdapter(adapter);
-//                customername.setText(orderList.get(1).getCustomerName().toString());
-//                customeraddress.setText(orderList.get(1).getAddress().toString());
-//                customercontact.setText(orderList.get(1).getMobile().toString());
-//                interiorname.setText(orderList.get(1).getInteriorName().toString());
-//                interiorcontact.setText(orderList.get(1).getInteriorMobile().toString());
                 progressDialog.dismiss();
             }
-
-
         }
+
+
     }
+
 }

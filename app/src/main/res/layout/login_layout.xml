@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bgone">
+    android:background="@color/colorPrimaryDark">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -18,23 +18,11 @@
             android:layout_centerInParent="true"
             android:layout_margin="13dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/signin"
-                android:textColor="@color/fab2_color"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:layout_above="@+id/userId"
-                android:layout_marginBottom="40dp"
-                android:layout_centerHorizontal="true" />
 
             <EditText
                 android:id="@+id/userId"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/userid"
                 android:paddingLeft="10dp"
@@ -49,7 +37,7 @@
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:hint="@string/password"
@@ -71,7 +59,7 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="19sp"
-                android:background="@drawable/relative_layout_shape"
+                android:background="@drawable/add_cancel_button_shape"
                 android:layout_below="@+id/password"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp" />
@@ -82,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bottom1"
                 android:textSize="14sp"
-                android:textColor="@color/fab2_color"
+                android:textColor="@color/colorPrimaryDark"
                 android:gravity="center_horizontal"
                 android:layout_below="@+id/signinButton"
                 android:layout_marginTop="15dp" />

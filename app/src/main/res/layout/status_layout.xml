@@ -24,7 +24,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@mipmap/bgone"
+                    android:background="@color/colorAccent"
                     android:layout_gravity="center_horizontal">
 
                     <LinearLayout
@@ -71,7 +71,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@mipmap/bgone"
+                    android:background="@color/colorAccent"
                     android:layout_gravity="center_horizontal">
 
                     <LinearLayout
@@ -118,7 +118,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@mipmap/bgone"
+                    android:background="@color/colorAccent"
                     android:layout_gravity="center_horizontal">
 
                     <LinearLayout
@@ -165,7 +165,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@mipmap/bgone"
+                    android:background="@color/colorAccent"
                     android:layout_gravity="center_horizontal">
 
                     <LinearLayout
@@ -212,7 +212,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@mipmap/bgone"
+                    android:background="@color/colorAccent"
                     android:layout_gravity="center_horizontal">
 
                     <LinearLayout

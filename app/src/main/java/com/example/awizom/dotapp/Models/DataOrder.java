@@ -25,6 +25,7 @@ public class DataOrder {
     public String RoomList ;
     public String ARoomList ;
     public String TelorList ;
+    public Double TotalAmount ;
 
     public String getTelorList() {
         return TelorList;
@@ -200,5 +201,13 @@ public class DataOrder {
 
     public void setRoomList(String roomList) {
         RoomList = roomList;
+    }
+
+    public Double getTotalAmount() {
+        return TotalAmount;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
+        TotalAmount = totalAmount;
     }
 }

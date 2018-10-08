@@ -12,7 +12,10 @@
         android:layout_centerHorizontal="true">
 
 
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
         <RelativeLayout
             android:id="@+id/centre_layout"
             android:layout_width="match_parent"
@@ -20,12 +23,12 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_centerInParent="true"
-            android:layout_margin="35dp">
+            android:layout_margin="20dp">
 
             <EditText
                 android:id="@+id/customerName"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/customername"
                 android:textSize="15sp"
@@ -37,7 +40,7 @@
             <EditText
                 android:id="@+id/contact"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/customercontact"
                 android:textSize="15sp"
@@ -50,7 +53,7 @@
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="false"
                 android:hint="@string/address"
@@ -63,7 +66,7 @@
             <EditText
                 android:id="@+id/confrmPassword"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:hint="@string/name"
@@ -75,7 +78,7 @@
             <EditText
                 android:id="@+id/interiormobile"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/interioMobile"
                 android:inputType="number"
@@ -99,7 +102,7 @@
                 android:background="@drawable/add_cancel_button_shape" />
 
         </RelativeLayout>
-
+</RelativeLayout>
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>

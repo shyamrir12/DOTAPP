@@ -4,21 +4,29 @@
     <item
         android:id="@+id/navigation_customer"
         android:icon="@drawable/ic_customer_black_24dp"
-        android:title="@string/title_customer" />
+        android:title="@string/title_customer"
+        android:tooltipText="@string/title_customer"
+        android:visible="true"/>
 
     <item
         android:id="@+id/navigation_order"
         android:icon="@drawable/ic_bookmark_border_black_24dp"
-        android:title="@string/title_order" />
+        android:title="@string/title_order"
+        android:tooltipText="@string/title_order"
+        android:visible="true"/>
 
     <item
         android:id="@+id/navigation_report"
         android:icon="@drawable/ic_report_black_24dp"
-        android:title="@string/title_report" />
+        android:title="@string/title_report"
+        android:tooltipText="@string/title_report"
+        android:visible="true"/>
 
     <item
         android:id="@+id/navigation_status"
         android:icon="@drawable/ic_filter_list_black_24dp"
-        android:title="@string/title_status" />
+        android:title="@string/title_status"
+        android:tooltipText="@string/title_status"
+        android:visible="true"/>
 
 </menu>

@@ -15,30 +15,36 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:padding="8dp">
 
                 <LinearLayout
                     android:id="@+id/l1"
-                    android:layout_width="263dp"
-                    android:layout_height="40dp"
+                    android:layout_width="253dp"
+                    android:layout_height="55dp"
                     android:orientation="horizontal"
                     android:padding="5dp">
 
                     <TextView
-                        android:id="@+id/TextViewCustomerName"
+                        android:id="@+id/textViewCustomerName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="Customer Name"
+                        android:gravity="left"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/TextViewCustomerAddress"
+                        android:id="@+id/textViewCustomerAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="Address"
+                        android:textSize="12sp"
+                        android:gravity="left"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <TextView
@@ -46,14 +52,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="left"
+                        android:textSize="12sp"
                         android:hint="Mobile No."
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/L2"
-                    android:layout_width="267dp"
-                    android:layout_height="40dp"
+                    android:layout_width="253dp"
+                    android:layout_height="55dp"
                     android:layout_below="@id/l1"
                     android:orientation="horizontal"
                     android:padding="5dp">
@@ -64,7 +74,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="Order Date"
-                        android:textStyle="bold" />
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:gravity="left"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/textViewAdvance"
@@ -72,42 +85,47 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="Advance"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:gravity="left"
+                        android:textColor="@color/black"/>
 
                     <TextView
-                        android:id="@+id/textViewAddRoom"
+                        android:id="@+id/textViewATotalAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="12sp"
                         android:hint="Total Amount"
-                        android:textColor="@color/fab2_color"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:gravity="left"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/L3"
-                    android:layout_width="45dp"
-                    android:layout_height="82dp"
+                    android:layout_width="57dp"
+                    android:layout_height="120dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
+                    android:layout_marginEnd="0dp"
                     android:orientation="vertical"
                     android:padding="5dp">
 
 
                     <TextView
-                        android:id="@+id/orderPlaced"
+                        android:id="@+id/textViewStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="Op"
-                        android:textSize="17sp" />
+                        android:text="Status"
+                        android:textSize="12sp"/>
 
                     <Button
                         android:id="@+id/buttonOP"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_margin="10dp"
+                        android:layout_marginTop="35dp"
                         android:background="@drawable/button_background"
                         android:text="OK"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
