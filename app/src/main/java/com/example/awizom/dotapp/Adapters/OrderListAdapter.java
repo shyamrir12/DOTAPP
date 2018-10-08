@@ -52,15 +52,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
-        DataOrder customer = orderitemList.get(position);
+        DataOrder order = orderitemList.get(position);
         try {
 
-            holder.customername.setText(customer.getCustomerName());
-            holder.customeraddress.setText(customer.getAddress());
-            holder.customercontact.setText(customer.getMobile());
-            holder.orderdate.setText(customer.getOrderDate());
-         //   holder.orderamount.setText(customer.getAdvance());
-         //  holder.totalamount.setText(Double.valueOf(customer.getTotalAmount()));
+            holder.ordername.setText("Name\n"+order.getCustomerName());
+            holder.orderaddress.setText("Address\n "+order.getAddress());
+            holder.ordercontact.setText("Mobile\n "+order.getMobile());
+            holder.orderdate.setText("Date\n "+order.getOrderDate().split("T")[0]);
+            holder.orderamount.setText("Advance\n "+Double.toString(order.getAdvance()));
+           holder.totalamount.setText("Amount\n "+Double.toString(order.getTotalAmount()));
 
         } catch (Exception E) {
             E.printStackTrace();
@@ -78,7 +78,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         private  Context mCtx;
         String  dept;
 
-        private TextView customername,customeraddress,customercontact,orderdate,orderamount,totalamount,textviewStatus;
+        private TextView ordername,orderaddress,ordercontact,orderdate,orderamount,totalamount,textviewStatus;
         private Button statusOrder;
         private List<DataOrder> orderitemList;
 
@@ -89,9 +89,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             this.orderitemList = orderitemList;
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
-            customername = view.findViewById(R.id.textViewCustomerName);
-            customeraddress = view.findViewById(R.id.textViewCustomerAddress);
-            customercontact = view.findViewById(R.id.textViewMobile);
+            ordername = view.findViewById(R.id.textViewCustomerName);
+            orderaddress = view.findViewById(R.id.textViewCustomerAddress);
+            ordercontact = view.findViewById(R.id.textViewMobile);
             orderdate = view.findViewById(R.id.textViewOrderDate);
             orderamount = view.findViewById(R.id.textViewAdvance);
             totalamount = view.findViewById(R.id.textViewATotalAmount);

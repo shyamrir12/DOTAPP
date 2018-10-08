@@ -109,6 +109,12 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                 getSupportActionBar().setTitle("Add Customer");
                 fragmentClass = AddCustomerFragment.class;
                 break;
+
+            case R.id.modifyCustomer:
+                getSupportActionBar().setTitle("Modify Customer");
+                fragment = modifyCustomerFragment;
+                fragmentClass = ModifyCustomerFragment.class;
+                break;
             case R.id.addCustomer:
                 getSupportActionBar().setTitle("Pending Order");
                 fragmentClass = AddCustomerFragment.class;

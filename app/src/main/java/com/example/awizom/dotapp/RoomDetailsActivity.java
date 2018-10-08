@@ -43,7 +43,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
     private TextView customerName, customerMobileNo, customerSno, customerOrder, customerDate, customerhall;
     private ImageButton additionButton;
-    private TextView elight, roman, aPlat;
+    private TextView elight, roman, aPlat,totalAmount;
 
     private RelativeLayout relative_Layout_press, relativeLayout_edit_dailog, bottom_relative_press1;
     private RecyclerView recyclerView;
@@ -106,6 +106,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         elight = findViewById(R.id.elight_value);
         roman = findViewById(R.id.roman_value);
         aPlat = findViewById(R.id.aPlat_value);
+        totalAmount = findViewById(R.id.total_value);
         additionButton = findViewById(R.id.updateButton);
 
 
@@ -468,7 +469,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     getFunctioncall();
-
+                    getElightBottom();
                 }
                 progressDialog.dismiss();
             }
@@ -532,6 +533,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 roman.setText(morder.Roman.toString());
 
                 aPlat.setText(morder.APlat.toString());
+
+                totalAmount.setText(Double.toString( morder.getTotalAmount()));
                 progressDialog.dismiss();
 
             }

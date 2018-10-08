@@ -8,6 +8,7 @@ public class ElightBottomModel {
         public String Roman ;
         public String APlat ;
         public int OrderID ;
+        public Double TotalAmount;
 
     public int getOrderRoomId() {
         return OrderRoomId;
@@ -55,5 +56,13 @@ public class ElightBottomModel {
 
     public void setOrderID(int orderID) {
         OrderID = orderID;
+    }
+
+    public Double getTotalAmount() {
+        return TotalAmount;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
+        TotalAmount = totalAmount;
     }
 }
