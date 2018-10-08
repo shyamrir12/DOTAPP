@@ -30,12 +30,11 @@ import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -45,28 +44,28 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
     private Intent intent;
 
-    private TextView c_contact, i_name, i_contact, i_address, orderDateLabel;
-    private EditText orderDate, amount;
+    private TextView c_contact,i_name,i_contact,i_address,orderDateLabel;
+    private EditText orderDate,amount;
     private ListView roomname;
     String[] roomName;
-    private long cid = 0;
+    private long cid=0;
     DataOrder catelogOrderDetailModel;
     List<DataOrder> orderList;
-    public int hour = 0, minute = 0;
+    public  int hour = 0,minute = 0;
 
     public DatePicker datePicker;
     public Calendar calendar;
     public int year, month, day;
-    public String dateOb;
-    public Calendar myCalendar;
+    public  String dateOb;
+    public Calendar myCalendar ;
     public Date date;
     private AutoCompleteTextView c_name;
 
     private List<CustomerModel> customerlist;
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
-    private Button addorder, addroom;
-    int morderid = 0;
+    private Button addorder,addroom;
+    int morderid=0;
 
     String orderid;
     String[] orderidPart;
@@ -84,11 +83,10 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
     private void initView() {
 
         getSupportActionBar().setTitle("Order Create");
-
         c_name = findViewById(R.id.customerName);
         c_contact = findViewById(R.id.customerContact);
         i_name = findViewById(R.id.interiorName);
-        i_contact = findViewById(R.id.interiorMobile);
+//        i_contact = findViewById(R.id.interiorMobile);
         i_address = findViewById(R.id.interiorAddress);
 
         orderDate = findViewById(R.id.orderDatePicker);
@@ -111,13 +109,16 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (c_name.getText().length() == 0) {
-                    cid = 0;
+                if(c_name.getText().length()==0)
+                {
+                    cid=0;
                     c_contact.setText("");
                     i_address.setText("");
                     i_name.setText("");
                     i_contact.setText("");
-                } else {
+                }
+                else
+                {
                     getCustomerDetail(c_name.getText().toString());
                 }
 
@@ -131,41 +132,44 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         });
         getCustomerDetailList();
 
-        roomname.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        roomname.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // TODO Auto-generated method stub
-                Intent intent = new Intent(getApplicationContext(), RoomDetailsActivity.class);
+                Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
                 intent.putExtra("RoomName", roomName[position].trim());
-                intent.putExtra("OrderID", Integer.valueOf(orderidPart[1]));
-                intent.putExtra("CustomerName", c_name.getText().toString());
-                intent.putExtra("Mobile", c_contact.getText().toString());
-                intent.putExtra("OrderDate", orderDate.getText().toString());
-                intent.putExtra("Advance", Double.valueOf(amount.getText().toString()));
+                intent.putExtra("OrderID",Integer.valueOf( orderidPart[1]));
+                intent.putExtra("CustomerName",c_name.getText().toString());
+                intent.putExtra("Mobile",c_contact.getText().toString());
+                intent.putExtra("OrderDate",orderDate.getText().toString());
+                intent.putExtra("Advance",Double.valueOf( amount.getText().toString()));
                 startActivity(intent);
             }
         });
+
+        orderDate.setText( DateFormat.getDateInstance().format(new Date()) );
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        switch (v.getId()){
             case R.id.addOrder:
-                if (c_name.getText().length() > 0) {
+                if(c_name.getText().length() > 0) {
                     postOrder();
                 }
                 break;
             case R.id.addRoom:
-                addroomdailogueOpen(Long.parseLong(orderidPart[1]), actualRoomList);
+                addroomdailogueOpen(Long.parseLong(orderidPart[1]),actualRoomList);
                 break;
         }
     }
 
-    /*Room Add*/
+/*Room Add*/
 
-    private void addroomdailogueOpen(final long orderid, String aroomlist) {
+    private void addroomdailogueOpen(final long orderid,String aroomlist){
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AfterCreateOrderActivity.this);
         LayoutInflater inflater = LayoutInflater.from(AfterCreateOrderActivity.this);
@@ -190,7 +194,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
             @Override
             public void onClick(View view) {
 
-                if (String.valueOf(spinner.getSelectedItem()).trim().length() > 0) {
+                if (String.valueOf(spinner.getSelectedItem()).trim().length()>0) {
                     try {
                         new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim());
                     } catch (Exception e) {
@@ -206,7 +210,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                b.dismiss();
+               b.dismiss();
                 /*
                  * we will code this method to delete the artist
                  * */
@@ -217,7 +221,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        switch (v.getId()) {
+        switch (v.getId()){
             case R.id.orderDatePicker:
                 showDateTimePicker();
                 break;
@@ -288,7 +292,6 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
             // System.out.println("Error: " + e);
         }
     }
-
     private class GETOrderList extends AsyncTask<String, Void, String> implements View.OnClickListener {
         @Override
         protected String doInBackground(String... params) {
@@ -297,7 +300,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderGet/" + orderidPart[1]);
+                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderidPart[1]);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 //  builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -308,36 +311,33 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
             } catch (Exception e) {
                 e.printStackTrace();
                 // System.out.println("Error: " + e);
-                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Error: " + e,Toast.LENGTH_SHORT).show();
             }
             return json;
         }
-
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 //System.out.println(result);
                 Gson gson = new Gson();
-                Type getType = new TypeToken<DataOrder>() {
-                }.getType();
-                DataOrder morder = new Gson().fromJson(result, getType);
+                Type getType = new TypeToken<DataOrder>(){}.getType();
+                DataOrder  morder = new Gson().fromJson(result,getType);
                 roomName = morder.getRoomList().split(",");
                 actualRoomList = morder.getARoomList();
-                // ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
-                // spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item); // The drop down view
-                // spinner.setAdapter(spinnerArrayAdapter);
-                ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist, R.id.label, roomName);
-                roomname.setAdapter(spinnerArrayAdapter);
+               // ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
+               // spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item); // The drop down view
+               // spinner.setAdapter(spinnerArrayAdapter);
+                ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist,R.id.label, roomName);
+                roomname.setAdapter( spinnerArrayAdapter );
 
-            }
+                }
         }
-
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
+            switch (v.getId()){
                 case R.id.hallList:
-                    startActivity(intent = new Intent(AfterCreateOrderActivity.this, RoomDetailsActivity.class));
+                    startActivity(intent = new Intent(AfterCreateOrderActivity.this,RoomDetailsActivity.class));
                     break;
             }
         }
@@ -358,8 +358,9 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         try {
 
             for (CustomerModel cm : customerlist) {
-                if (cm.getCustomerName().equals(cusname)) {
-                    cid = cm.getCustomerID();
+                if ( cm.getCustomerName().equals(cusname))
+                {
+                    cid=cm.getCustomerID();
                     c_contact.setText(cm.getMobile());
                     i_address.setText(cm.getAddress());
                     i_name.setText(cm.getInteriorName());
@@ -419,7 +420,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
     }
 
 
-    /*Date picker Show*/
+/*Date picker Show*/
     private void showDateTimePicker() {
         final Calendar currentDate = Calendar.getInstance();
         myCalendar = Calendar.getInstance();
@@ -432,30 +433,27 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
                         + (monthOfYear + 1) + "/" + year);
             }
         };
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH));
-        // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,dateSetListener, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH),   currentDate.get(Calendar.DAY_OF_MONTH));
+       // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 
-    /*customer List get*/
+/*customer List get*/
     private void postOrder() {
 
         String date = orderDate.getText().toString();
         String advance = amount.getText().toString();
+            try {
 
+                //String
+                new POSTOrder().execute(String.valueOf(cid),date,advance);
+            } catch (Exception e) {
+                e.printStackTrace();
 
-        try {
-
-            //String
-            new POSTOrder().execute(String.valueOf(cid), date, advance);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            // System.out.println("Error: " + e);
-        }
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+                // System.out.println("Error: " + e);
+            }
     }
-
     private class POSTOrder extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -503,7 +501,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 orderid = jsonbodyres.getMessage().toString();
                 orderidPart = orderid.split(",");
-                Toast.makeText(getApplicationContext(), jsonbodyres.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),jsonbodyres.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     getMyOrder();
                     addroom.setVisibility(View.VISIBLE);

@@ -86,7 +86,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
 
             case R.id.order_create_cardview:
-                getSupportActionBar().setTitle("Order Create");
+               // getSupportActionBar().setTitle("Order Create");
                 startActivity(intent = new Intent(getApplicationContext(), AfterCreateOrderActivity.class));
                 break;
             case R.id.order_pending_cardview:
