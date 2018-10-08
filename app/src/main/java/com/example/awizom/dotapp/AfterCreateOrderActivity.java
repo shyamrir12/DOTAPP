@@ -140,11 +140,11 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
 
                 Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
                 intent.putExtra("RoomName", roomName[position].trim());
-                intent.putExtra("OrderID",orderidPart[1]);
+                intent.putExtra("OrderID",Integer.valueOf( orderidPart[1]));
                 intent.putExtra("CustomerName",c_name.getText().toString());
                 intent.putExtra("Mobile",c_contact.getText().toString());
                 intent.putExtra("OrderDate",orderDate.getText().toString());
-                intent.putExtra("Advance",amount.getText().toString());
+                intent.putExtra("Advance",Double.valueOf( amount.getText().toString()));
                 startActivity(intent);
             }
         });
