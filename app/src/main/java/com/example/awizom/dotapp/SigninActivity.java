@@ -38,6 +38,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initView() {
+        getSupportActionBar().setTitle("Sign In");
         progressDialog = new ProgressDialog(this);
         userName = findViewById(R.id.userId);
         passWord = findViewById(R.id.password);

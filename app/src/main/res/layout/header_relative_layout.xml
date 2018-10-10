@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-
+                android:paddingLeft="9dp"
                 android:text="Customer Name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size" />
@@ -31,15 +31,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="mobile_no"
-
+                android:paddingRight="9dp"
+                android:text="Room Name"
                 android:layout_margin="5dp"
-                android:layout_marginLeft="10dp"
-
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size" />
-        </LinearLayout>
 
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/customerinfo2"
             android:layout_width="match_parent"
@@ -52,24 +50,25 @@
                 android:id="@+id/order_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Order Date"
-
                 android:layout_margin="5dp"
-
+                android:layout_weight="1"
+                android:paddingLeft="9dp"
+                android:text="Customer Name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size" />
-
             <TextView
                 android:id="@+id/room_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingRight="9dp"
                 android:text="Room Name"
                 android:layout_margin="5dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size" />
+
         </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>

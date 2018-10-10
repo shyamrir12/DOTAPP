@@ -156,7 +156,6 @@
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
-
         <android.support.v7.widget.CardView
             android:id="@+id/listHallCardView"
             android:layout_width="match_parent"
@@ -200,6 +199,7 @@
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
+
     </RelativeLayout>
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

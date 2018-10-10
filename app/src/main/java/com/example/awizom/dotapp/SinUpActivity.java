@@ -38,6 +38,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
+        getSupportActionBar().setTitle("Sign Up");
         userName = findViewById(R.id.customerName);
         passWord = findViewById(R.id.password);
         cnfrmPassWord = findViewById(R.id.confrmPassword);
