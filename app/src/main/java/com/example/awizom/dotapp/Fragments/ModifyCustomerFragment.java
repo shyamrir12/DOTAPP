@@ -2,7 +2,6 @@ package com.example.awizom.dotapp.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,30 +10,20 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.CustomerActivity;
-import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.CustomerModel;
-import com.example.awizom.dotapp.Models.DataOrder;
-import com.example.awizom.dotapp.Models.ElightBottomModel;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -69,6 +58,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
         progressDialog = new ProgressDialog(getActivity());
 
         getCustomerDetailList();
+
 
         cName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -248,20 +238,16 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
                 customerNameList = new String[customerlist.size()];
                 for (int i = 0; i < customerlist.size(); i++) {
                     customerNameList[i] = String.valueOf(customerlist.get(i).getCustomerName());
-
                 }
 
                 adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, customerNameList);
                 cName.setThreshold(1);//will start working from first character
                 cName.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-
                 //Getting the instance of AutoCompleteTextView
                 progressDialog.dismiss();
 
 
             }
-
-
         }
     }
 

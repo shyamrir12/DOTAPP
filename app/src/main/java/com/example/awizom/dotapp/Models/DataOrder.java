@@ -27,6 +27,7 @@ public class DataOrder {
     public String TelorList;
     public Double TotalAmount;
 
+
     public String getTelorList() {
         return TelorList;
     }

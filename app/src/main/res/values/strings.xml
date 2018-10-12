@@ -58,7 +58,8 @@
     <string name="order_date">Order_date</string>
     <string name="advance">Advance</string>
     <string name="orderCreate">Order Create</string>
-    <string name="order_place">Order Place</string>
+    <string name="order_place">Pending to place Order</string>
+    <string name="pendingtorecevedMaterial">Pending to Receive Material</string>
     <string name="received">Received</string>
     <string name="handover">Hand Over</string>
     <string name="receivedt">Received from tailor</string>
@@ -66,5 +67,7 @@
     <string name="dispatch">Dispatch</string>
     <string name="interioMobile">Interior contact</string>
     <string name="cpassword">Confirm Password</string>
+    <string name="pendinTorecevFromTailor">Pending to Receive from Tailor</string>
+    <string name="tailor">Tailor Name</string>
 
 </resources>

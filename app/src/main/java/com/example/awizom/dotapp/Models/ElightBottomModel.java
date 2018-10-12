@@ -65,4 +65,5 @@ public class ElightBottomModel {
     public void setTotalAmount(Double totalAmount) {
         TotalAmount = totalAmount;
     }
+
 }

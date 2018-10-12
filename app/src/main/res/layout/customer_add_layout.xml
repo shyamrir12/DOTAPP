@@ -3,19 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <android.support.v7.widget.CardView
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp">
 
             <RelativeLayout
                 android:id="@+id/centre_layout"
@@ -24,7 +16,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_centerInParent="true"
-                android:layout_margin="20dp">
+                android:layout_margin="30dp">
 
                 <EditText
                     android:id="@+id/customerName"
@@ -36,8 +28,8 @@
                     android:inputType="text"
                     android:layout_above="@+id/contact"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/signin_sinup_button_shape"
-                    android:padding="13dp" />
+                    android:paddingLeft="14dp"
+                    android:background="@drawable/signin_sinup_button_shape" />
 
                 <EditText
                     android:id="@+id/contact"
@@ -51,7 +43,7 @@
                     android:layout_above="@+id/password"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/signin_sinup_button_shape"
-                    android:padding="13dp" />
+                    android:paddingLeft="14dp" />
 
                 <EditText
                     android:id="@+id/password"
@@ -65,7 +57,7 @@
                     android:textSize="15sp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/signin_sinup_button_shape"
-                    android:padding="13dp" />
+                    android:paddingLeft="14dp" />
 
                 <EditText
                     android:id="@+id/confrmPassword"
@@ -78,7 +70,7 @@
                     android:textSize="15sp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/signin_sinup_button_shape"
-                    android:padding="13dp" />
+                    android:paddingLeft="14dp" />
 
                 <EditText
                     android:id="@+id/interiormobile"
@@ -91,7 +83,7 @@
                     android:textSize="15sp"
                     android:layout_below="@+id/confrmPassword"
                     android:background="@drawable/signin_sinup_button_shape"
-                    android:padding="13dp" />
+                    android:paddingLeft="14dp"/>
 
                 <Button
                     android:id="@+id/customerButton"
@@ -108,7 +100,7 @@
                     android:background="@drawable/add_cancel_button_shape" />
 
             </RelativeLayout>
-        </RelativeLayout>
+
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>

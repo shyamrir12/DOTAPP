@@ -2,38 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent">
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent">
+        android:background="@color/colorAccent"
+        android:layout_margin="10dp">
 
         <LinearLayout
             android:id="@+id/customerinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="10dp">
+            android:layout_centerHorizontal="true">
 
             <TextView
                 android:id="@+id/customer_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:paddingLeft="9dp"
                 android:text="Customer Name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size" />
 
             <TextView
                 android:id="@+id/customer_mobile_no"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingRight="9dp"
                 android:text="Room Name"
-                android:layout_margin="5dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size" />
 
@@ -43,32 +43,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/customerinfo"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true">
 
             <TextView
                 android:id="@+id/order_date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:paddingLeft="9dp"
                 android:text="Customer Name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size" />
             <TextView
                 android:id="@+id/room_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingRight="9dp"
                 android:text="Room Name"
-                android:layout_margin="5dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size" />
 
         </LinearLayout>
 
     </RelativeLayout>
-
+</RelativeLayout>
 </RelativeLayout>

@@ -6,19 +6,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.CardView
             android:id="@+id/customercardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal">
+                android:layout_margin="15dp">
             <LinearLayout
                 android:id="@+id/customerLayout"
                 android:layout_width="match_parent"
@@ -31,25 +29,56 @@
                     android:layout_height="wrap_content"
                     android:hint="Customer Name"
                     android:textSize="14sp"
-                    android:layout_weight="1"/>
-
+                    android:layout_weight="1"
+                    android:paddingLeft="15dp"/>
                 <TextView
                     android:id="@+id/customerContact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mobile"
                     android:textSize="14sp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:paddingLeft="15dp"/>
                 <TextView
                     android:id="@+id/interiorAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Address"
                     android:textSize="14sp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:paddingLeft="15dp"/>
 
 
             </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/dateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_below="@+id/customerLayout"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/orderDatePicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Date"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:paddingLeft="15dp"
+                        android:layout_marginRight="5dp"/>
+
+                    <EditText
+                        android:id="@+id/amountValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Amount"
+                        android:text="0.0"
+                        android:textSize="14sp"
+                        android:paddingLeft="15dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"/>
+                </LinearLayout>
             <!--<LinearLayout-->
                 <!--android:id="@+id/interiorLayout"-->
                 <!--android:layout_width="match_parent"-->
@@ -93,33 +122,33 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal">
 
-                <LinearLayout
-                    android:id="@+id/dateLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal">
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/dateLayout"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center_horizontal">-->
 
-                    <EditText
-                        android:id="@+id/orderDatePicker"
-                        android:layout_width="140dp"
-                        android:layout_height="30dp"
-                        android:hint="Date"
-                        android:textSize="14sp"
-                        android:background="@drawable/edit_view_shape"
-                        android:layout_weight="1"
-                        android:layout_marginRight="5dp"/>
+                    <!--<EditText-->
+                        <!--android:id="@+id/orderDatePicker"-->
+                        <!--android:layout_width="140dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:hint="Date"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:paddingLeft="14dp"-->
+                        <!--android:layout_marginRight="5dp"/>-->
 
-                    <EditText
-                        android:id="@+id/amountValue"
-                        android:layout_width="140dp"
-                        android:layout_height="30dp"
-                        android:hint="Amount"
-                        android:text="0.0"
-                        android:textSize="14sp"
-                        android:background="@drawable/edit_view_shape"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="5dp"/>
-                </LinearLayout>
+                    <!--<EditText-->
+                        <!--android:id="@+id/amountValue"-->
+                        <!--android:layout_width="140dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:hint="Amount"-->
+                        <!--android:text="0.0"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:paddingLeft="14dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_marginLeft="5dp"/>-->
+                <!--</LinearLayout>-->
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
@@ -128,8 +157,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
-            android:layout_margin="5dp"
-            android:layout_below="@+id/orderCardView">
+            android:layout_below="@+id/customercardView">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -140,7 +168,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_margin="15dp">
-
                     <Button
                         android:id="@+id/addOrder"
                         android:layout_width="match_parent"
@@ -161,8 +188,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/buttonHallCardView"
-            >
+            android:layout_below="@+id/buttonHallCardView">
             <RelativeLayout
                 android:id="@+id/rlayout"
                 android:layout_width="match_parent"
@@ -175,7 +201,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_margin="15dp">
-
                 <Button
                         android:id="@+id/addRoom"
                         android:layout_width="match_parent"
@@ -192,25 +217,12 @@
                     android:id="@+id/hallList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/l"
-                    >
-
+                    android:layout_below="@id/l">
                 </ListView>
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
 
     </RelativeLayout>
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
-
+    
 </android.support.constraint.ConstraintLayout>

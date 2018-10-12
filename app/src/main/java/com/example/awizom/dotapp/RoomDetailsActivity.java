@@ -100,13 +100,11 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         customerOrder.setText(date[0]);
         customerhall.setText(roomName);
 
-
         elight = findViewById(R.id.elight_value);
         roman = findViewById(R.id.roman_value);
         aPlat = findViewById(R.id.aPlat_value);
         totalAmount = findViewById(R.id.total_value);
         additionButton = findViewById(R.id.updateButton);
-
 
         relative_Layout_press = findViewById(R.id.bottom_relative_press);
         relative_Layout_press.setOnClickListener(this);
@@ -371,7 +369,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         protected void onPostExecute(String result) {
             try {
 
-
                 if (result.isEmpty()) {
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
@@ -485,7 +482,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private class elightdetailsGET extends AsyncTask<String, Void, String> {
@@ -545,7 +541,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected String doInBackground(String... params) {
 
-            //     InputStream inputStream
+            //  InputStream inputStream
             String roomname = params[0];
             String orderid = params[1];
             String elight = params[2];

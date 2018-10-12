@@ -35,6 +35,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     ProgressDialog progressDialog;
     private List<DataOrder> orderitemList;
 
+
     public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
@@ -54,14 +55,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
         DataOrder order = orderitemList.get(position);
         try {
-
-            holder.ordername.setText("Name\n" + order.getCustomerName());
-            holder.orderaddress.setText("Address\n " + order.getAddress());
-            holder.ordercontact.setText("Mobile\n " + order.getMobile());
-            holder.orderdate.setText("Date\n " + order.getOrderDate().split("T")[0]);
-            holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()));
-            holder.totalamount.setText("Amount\n " + Double.toString(order.getTotalAmount()));
-
+            holder.ordername.setText("Name\n" + order.getCustomerName().trim());
+            holder.orderaddress.setText("Address\n " + order.getAddress().trim());
+            holder.ordercontact.setText("Mobile\n " + order.getMobile().trim());
+            holder.orderdate.setText("Date\n " + order.getOrderDate().split("T")[0].trim());
+            holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()).trim());
+            holder.totalamount.setText("Amount\n " + Double.toString(order.getTotalAmount()).trim());
         } catch (Exception E) {
             E.printStackTrace();
         }
@@ -78,7 +77,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         private Context mCtx;
         String dept;
 
-        private TextView ordername, orderaddress, ordercontact, orderdate, orderamount, totalamount, textviewStatus;
+        private TextView ordername, orderaddress, ordercontact, orderdate, orderamount, totalamount, textviewStatus,status;
         private Button statusOrder;
         private List<DataOrder> orderitemList;
 
@@ -90,6 +89,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
             ordername = view.findViewById(R.id.textViewCustomerName);
+            status = view.findViewById(R.id.textViewStatus);
             orderaddress = view.findViewById(R.id.textViewCustomerAddress);
             ordercontact = view.findViewById(R.id.textViewMobile);
             orderdate = view.findViewById(R.id.textViewOrderDate);
@@ -119,7 +119,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
             if (v.getId() == statusOrder.getId()) {
 
-                dept = "Order Placed";
+                dept = "PendingOrderwithadvance";
                 messageDisplayOfStatus(orderitem);
             }
         }

@@ -131,6 +131,7 @@
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:text="Add"
+                android:textColor="@color/white"
                 android:background="@drawable/add_cancel_button_shape" />
 
             <TextView
@@ -143,6 +144,7 @@
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:text="Cancel"
+                android:textColor="@color/white"
                 android:background="@drawable/add_cancel_button_shape" />
         </LinearLayout>
 

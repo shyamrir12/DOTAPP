@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.awizom.dotapp.Fragments.AfterCreateOrderoFragment;
 import com.example.awizom.dotapp.Fragments.OrderListFragment;
 
 public class OrderBottomActivity extends AppCompatActivity implements View.OnClickListener {
@@ -19,7 +20,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
     private CardView cardViewFirst, cardViewSecond, cardViewthird;
     private TextView pendingOrderList, pendingOrderCreate, cancelOrder;
     private Intent intent;
-    private Fragment pendinOrderListFragment;
+    private Fragment pendinOrderListFragment,orderCreate;
     Fragment fragment = null;
 
     @Override
@@ -43,6 +44,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
 
 
         pendinOrderListFragment = new OrderListFragment();
+        orderCreate = new AfterCreateOrderoFragment();
 
         cardViewFirst.setOnClickListener(this);
         cardViewSecond.setOnClickListener(this);
@@ -86,29 +88,61 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
 
             case R.id.order_create_cardview:
-               // getSupportActionBar().setTitle("Order Create");
-                startActivity(intent = new Intent(getApplicationContext(), AfterCreateOrderActivity.class));
+               getSupportActionBar().setTitle("Order Create");
+                fragment = orderCreate;
+                fragmentClass = AfterCreateOrderoFragment.class;
                 break;
             case R.id.order_pending_cardview:
+
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("NAME_KEY", "PendingOrderList");
+                OrderListFragment myFragment2 = new OrderListFragment();
+                myFragment2.setArguments(bundle2);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
+
                 getSupportActionBar().setTitle("Pending List");
                 fragment = pendinOrderListFragment;
                 fragmentClass = OrderListFragment.class;
                 break;
             case R.id.order_cancel_cardview:
+                Bundle bundle = new Bundle();
+                bundle.putString("NAME_KEY", "CancelOrderList");
+                OrderListFragment myFragment = new OrderListFragment();
+                myFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment).commit();
+
+
                 getSupportActionBar().setTitle("Cancel List");
                 fragment = pendinOrderListFragment;
                 fragmentClass = OrderListFragment.class;
                 break;
             case R.id.orderCreate:
+                fragment = orderCreate;
                 getSupportActionBar().setTitle("Order Create");
-                startActivity(intent = new Intent(getApplicationContext(), AfterCreateOrderActivity.class));
+                fragmentClass = AfterCreateOrderoFragment.class;
+                //startActivity(intent = new Intent(getApplicationContext(), AfterCreateOrderActivity.class));
                 break;
             case R.id.pendingOrder:
+
+                Bundle bundle3 = new Bundle();
+                bundle3.putString("NAME_KEY", "PendingOrderList");
+                OrderListFragment myFragment3 = new OrderListFragment();
+                myFragment3.setArguments(bundle3);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment3).commit();
+
+
                 getSupportActionBar().setTitle("Pending List");
                 fragment = pendinOrderListFragment;
                 fragmentClass = OrderListFragment.class;
                 break;
             case R.id.cancelOrder:
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("NAME_KEY", "CancelOrderList");
+                OrderListFragment myFragment1 = new OrderListFragment();
+                myFragment1.setArguments(bundle1);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment1).commit();
+
+
                 getSupportActionBar().setTitle("Cancel List");
                 fragment = pendinOrderListFragment;
                 fragmentClass = OrderListFragment.class;

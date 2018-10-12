@@ -1,5 +1,6 @@
 package com.example.awizom.dotapp.Fragments;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -71,7 +72,7 @@ public class OrderListFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
-            Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
+           Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -83,7 +84,10 @@ public class OrderListFragment extends Fragment {
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet/PendingOrderList");
+
+                String name= getArguments().getString("NAME_KEY").toString();
+
+                builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet/"+name);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -93,7 +97,7 @@ public class OrderListFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
+               //Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
         }
@@ -112,7 +116,6 @@ public class OrderListFragment extends Fragment {
                 progressDialog.dismiss();
             }
         }
-
 
     }
 
