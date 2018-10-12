@@ -1,11 +1,9 @@
 package com.example.awizom.dotapp.Fragments;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -25,29 +23,26 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.awizom.dotapp.AfterCreateOrderActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.RoomDetailsActivity;
+import com.example.awizom.dotapp.SigninActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class AfterCreateOrderoFragment extends Fragment implements View.OnClickListener, View.OnTouchListener {
-
 
     private TextView c_contact,i_name,i_contact,i_address,orderDateLabel;
     private EditText orderDate,amount;
@@ -149,7 +144,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
             }
         });
 
-        orderDate.setText( DateFormat.getDateInstance().format(new Date()) );
+       // orderDate.setText( DateFormat.getDateInstance().format(new Date()) );
 
     }
 
@@ -158,8 +153,11 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.addOrder:
+                try {
                 if(c_name.getText().length() > 0) {
                     postOrder();
+                } }catch (Exception e){
+                    e.printStackTrace();
                 }
                 break;
             case R.id.addRoom:
@@ -197,7 +195,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
 
                 if (String.valueOf(spinner.getSelectedItem()).trim().length()>0) {
                     try {
-                        new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim());
+                        new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim(),SharedPrefManager.getInstance(getContext()).getUser().access_token);
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -236,8 +234,9 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-            String orderid = params[0];
-            String roomname = params[1];
+            String accesstoken = params[0];
+            String orderid = params[1];
+            String roomname = params[2];
             String json = "";
             try {
 
@@ -246,7 +245,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                 builder.url(AppConfig.BASE_URL_API + "OrderRoomPost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
                 parameters.add("OrderID", orderid);
@@ -286,7 +285,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
     private void getMyOrder() {
         try {
 
-            new GETOrderList().execute();
+            new GETOrderList().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -298,13 +297,14 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         protected String doInBackground(String... params) {
 
             String json = "";
+            String accesstoken = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderidPart[1]);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //  builder.addHeader("Authorization", "Bearer " + accesstoken);
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
@@ -348,7 +348,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
     private void getCustomerDetailList() {
         try {
 
-            new getCustomerList().execute();
+            new getCustomerList().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -380,12 +380,14 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
+            String accesstoken = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 builder.url(AppConfig.BASE_URL_API + "CustomerGet/");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
@@ -446,7 +448,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         try {
 
             //String
-            new POSTOrder().execute(String.valueOf(cid),date,advance);
+            new POSTOrder().execute(String.valueOf(cid),date,advance,SharedPrefManager.getInstance(getContext()).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -459,9 +461,10 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-            String customerid = params[0];
-            String orderdate = params[1];
-            String orderamount = params[2];
+            String accesstoken = params[0];
+            String customerid = params[1];
+            String orderdate = params[2];
+            String orderamount = params[3];
             String json = "";
             try {
 
@@ -470,7 +473,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                 builder.url(AppConfig.BASE_URL_API + "OrderPost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
 
@@ -513,7 +516,4 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         }
 
     }
-
-
-
 }

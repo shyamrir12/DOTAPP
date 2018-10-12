@@ -14,8 +14,10 @@ import android.widget.Toast;
 
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.CustomerActivity;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
+import com.example.awizom.dotapp.SigninActivity;
 import com.google.gson.Gson;
 
 import okhttp3.FormBody;
@@ -74,7 +76,7 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
             //String res="";
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new POSTOrder().execute(name, contact, address, intename, intecontact);
+            new POSTOrder().execute(name, contact, address, intename, intecontact, SharedPrefManager.getInstance(getContext()).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -89,11 +91,12 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-            String customername = params[0];
-            String address = params[1];
-            String mobile = params[2];
-            String interiorname = params[3];
-            String interiormobile = params[4];
+            String accesstoken = params[0];
+            String customername = params[1];
+            String address = params[2];
+            String mobile = params[3];
+            String interiorname = params[4];
+            String interiormobile = params[5];
 
             String json = "";
             try {
@@ -103,7 +106,7 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
                 builder.url(AppConfig.BASE_URL_API + "CustomerPost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
                 FormBody.Builder parameters = new FormBody.Builder();
                 parameters.add("CustomerID", "0");
                 parameters.add("CustomerName", customername);

@@ -31,9 +31,9 @@
         <activity android:name=".StatusActivity" />
         <activity android:name=".OrderBottomActivity" />
         <activity android:name=".ReportActivity" />
-        <activity
-            android:name=".AfterCreateOrderActivity"
-            android:theme="@style/AppTheme"></activity>
+        <!--<activity-->
+            <!--android:name=".AfterCreateOrderActivity"-->
+            <!--android:theme="@style/AppTheme"></activity>-->
     </application>
 
 </manifest>
