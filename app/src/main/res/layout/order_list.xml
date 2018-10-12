@@ -20,8 +20,8 @@
 
                 <LinearLayout
                     android:id="@+id/l1"
-                    android:layout_width="253dp"
-                    android:layout_height="55dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="5dp">
 
@@ -59,8 +59,8 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/L2"
-                    android:layout_width="253dp"
-                    android:layout_height="55dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/l1"
                     android:orientation="horizontal"
                     android:padding="5dp">
@@ -99,36 +99,63 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/L3"
-                    android:layout_width="57dp"
-                    android:layout_height="110dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginEnd="0dp"
-                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/L2"
+                    android:orientation="horizontal"
                     android:padding="5dp">
-
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/textViewStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:text="Status"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/L3"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
                     <Button
                         android:id="@+id/buttonOP"
-                        android:layout_width="30dp"
+                        android:layout_width="120dp"
                         android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="35dp"
                         android:background="@drawable/button_background"
                         android:text="OK"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/white" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
+
 
             </RelativeLayout>
 

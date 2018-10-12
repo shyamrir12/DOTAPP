@@ -30,8 +30,10 @@
 
                     <TextView
                         android:id="@+id/customerName"
-                        android:layout_width="130dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="5dp"
                         android:gravity="left"
                         android:text="sakshi"
                         android:textColor="@color/black"
@@ -39,8 +41,10 @@
 
                     <TextView
                         android:id="@+id/contact"
-                        android:layout_width="110dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="5dp"
                         android:gravity="left"
                         android:text="Dubey"
                         android:textSize="13sp"
@@ -48,9 +52,11 @@
 
                     <TextView
                         android:id="@+id/address"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="left"
+                        android:paddingLeft="5dp"
                         android:text="8109664596"
                         android:textColor="@color/black" />
                 </LinearLayout>
@@ -65,8 +71,10 @@
 
                     <TextView
                         android:id="@+id/interiorName"
-                        android:layout_width="130dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="5dp"
                         android:gravity="left"
                         android:text="sakshi"
                         android:textSize="13sp"
@@ -74,8 +82,10 @@
 
                     <TextView
                         android:id="@+id/interiorAddress"
-                        android:layout_width="110dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="5dp"
                         android:gravity="left"
                         android:text="Dubey"
                         android:textSize="13sp"
@@ -83,8 +93,10 @@
 
                     <TextView
                         android:id="@+id/interiorContact"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="5dp"
                         android:gravity="left"
                         android:text="8109664596"
                         android:textColor="@color/black" />

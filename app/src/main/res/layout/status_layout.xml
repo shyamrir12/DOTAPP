@@ -9,6 +9,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/l0"
         android:layout_width="match_parent"
@@ -27,7 +28,6 @@
             android:padding="10dp"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/r0"
         android:layout_width="match_parent"
@@ -62,7 +62,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="30dp" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/l2"
             android:layout_width="wrap_content"
@@ -93,13 +92,39 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="30dp" />
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/l3"
+            android:id="@+id/lo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/l2"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/l2">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_filter_list_black_24dp"
+                android:tint="@color/colorAccent"
+                android:layout_marginLeft="10dp" />
+            <TextView
+                android:id="@+id/handover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/handover"
+                android:gravity="left"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/lo">
 
             <ImageView
                 android:layout_width="30dp"
@@ -111,6 +136,34 @@
                 android:tint="@color/colorAccent"
                 android:layout_marginLeft="10dp" />
 
+            <TextView
+                android:id="@+id/tailor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tailor"
+                android:gravity="left"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="left"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/l3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lp"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_filter_list_black_24dp"
+                android:tint="@color/colorAccent"
+                android:layout_marginLeft="10dp" />
             <TextView
                 android:id="@+id/pendingTorecevefrometailor"
                 android:layout_width="wrap_content"
@@ -125,13 +178,11 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="30dp" />
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/l4"
+            android:id="@+id/lq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/l3"
-            android:orientation="horizontal"
             android:layout_marginTop="10dp">
 
             <ImageView
@@ -144,6 +195,37 @@
                 android:tint="@color/colorAccent"
                 android:layout_marginLeft="10dp" />
 
+            <TextView
+                android:id="@+id/receivedby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/receivedby"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/l4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lq"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_filter_list_black_24dp"
+                android:tint="@color/colorAccent"
+                android:layout_marginLeft="10dp" />
             <TextView
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
@@ -159,7 +241,6 @@
                 android:layout_marginLeft="30dp" />
 
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/l5"
             android:layout_width="wrap_content"
@@ -194,128 +275,11 @@
         </LinearLayout>
 
     </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/lZ"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/r0"
-        android:background="@color/colorAccent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Order List"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="left"
-            android:padding="10dp" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lZ">
-
-        <LinearLayout
-            android:id="@+id/lo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_filter_list_black_24dp"
-                android:tint="@color/colorAccent"
-                android:layout_marginLeft="10dp" />
-
-            <TextView
-                android:id="@+id/handover"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/handover"
-                android:gravity="left"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="30dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lo"
-            android:layout_marginTop="10dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_filter_list_black_24dp"
-                android:tint="@color/colorAccent"
-                android:layout_marginLeft="10dp" />
-
-            <TextView
-                android:id="@+id/tailor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tailor"
-                android:gravity="left"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_gravity="left"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="30dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lq"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lp"
-            android:layout_marginTop="10dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_filter_list_black_24dp"
-                android:tint="@color/colorAccent"
-                android:layout_marginLeft="10dp" />
-
-            <TextView
-                android:id="@+id/receivedby"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/receivedby"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="30dp" />
-        </LinearLayout>
-
-    </RelativeLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_container" />
+
 </RelativeLayout>
 
     <android.support.design.widget.BottomNavigationView

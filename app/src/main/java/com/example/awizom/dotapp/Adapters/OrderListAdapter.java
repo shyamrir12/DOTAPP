@@ -202,10 +202,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     builder.url(AppConfig.BASE_URL_API + "OrderStatusPost");
                     builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                     builder.addHeader("Accept", "application/json");
-
                     FormBody.Builder parameters = new FormBody.Builder();
                     parameters.add("OrderID", orderid);
-
                     parameters.add("OrderPlaced", OrderPlaced);
                     builder.post(parameters.build());
 
@@ -224,26 +222,18 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
 
             protected void onPostExecute(String result) {
-
                 if (result.isEmpty()) {
                     progressDialog.dismiss();
                     Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
                 } else {
-
                     Gson gson = new Gson();
                     final Result jsonbodyres = gson.fromJson(result, Result.class);
                     Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                     if (jsonbodyres.getStatus() == true) {
                     }
                     progressDialog.dismiss();
-
                 }
-
-
             }
-
         }
-
-
     }
 }

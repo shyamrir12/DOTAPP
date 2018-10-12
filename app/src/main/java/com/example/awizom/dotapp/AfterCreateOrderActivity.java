@@ -193,7 +193,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
     };
 
 
-    /*Room Add*/
+/*Room Add*/
 
     private void addroomdailogueOpen(final long orderid,String aroomlist){
 
@@ -369,7 +369,7 @@ public class AfterCreateOrderActivity extends AppCompatActivity implements View.
         }
     }
 
-    /*customer get*/
+/*customer get*/
     private void getCustomerDetailList() {
         try {
 
