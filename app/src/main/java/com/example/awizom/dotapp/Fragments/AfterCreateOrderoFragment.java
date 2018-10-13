@@ -33,11 +33,9 @@ import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.RoomDetailsActivity;
-import com.example.awizom.dotapp.SigninActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -123,7 +121,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                     c_contact.setText("");
                     i_address.setText("");
                     //i_name.setText("");
-                    i_contact.setText("");
+                    //i_contact.setText("");
                 }
                 else
                 {
