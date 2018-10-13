@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.awizom.dotapp.Adapters.OrderAdapter;
 import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
@@ -57,7 +58,7 @@ public class OrderListFragment extends Fragment {
             @Override
             public void onRefresh() {
                 // Refresh items
-//                getMyOrder();
+               //  getMyOrder();
             }
         });
         getCustomerList();
@@ -68,7 +69,7 @@ public class OrderListFragment extends Fragment {
 
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new GetCustomerDetails().execute("test");
+            new GetCustomerDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -79,7 +80,7 @@ public class OrderListFragment extends Fragment {
     private class GetCustomerDetails extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-
+            String accesstoken = "";
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
@@ -90,6 +91,7 @@ public class OrderListFragment extends Fragment {
                 builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet/"+name);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();

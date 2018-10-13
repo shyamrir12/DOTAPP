@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.CustomerListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
@@ -70,7 +71,7 @@ public class CustomerListFrgment extends Fragment {
             //String res="";
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new GetCustomerDetails().execute("test");
+            new GetCustomerDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
             //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
 
@@ -98,7 +99,7 @@ public class CustomerListFrgment extends Fragment {
                 builder.url(AppConfig.BASE_URL_API + "CustomerGet");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //  builder.addHeader("Authorization", "Bearer " + accesstoken);
+                 builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();

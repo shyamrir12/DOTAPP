@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//test
+
         if (isConnectingToInternet(MainActivity.this)) {
             Toast.makeText(getApplicationContext(), "internet is available", Toast.LENGTH_LONG).show();
         } else {

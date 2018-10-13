@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.awizom.dotapp.Adapters.OrderItemAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Catelog;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.ElightBottomModel;
@@ -179,7 +180,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new RoomDetailsActivity.POSTElight().execute(roomName.trim(), String.valueOf(orderID).trim(), elight, roman, aplot);
+                    new RoomDetailsActivity.POSTElight().execute(roomName.trim(), String.valueOf(orderID).trim(), elight, roman, aplot,SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -299,7 +300,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 try {
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new POSTOrder().execute("0", materialtype, priCe2, qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe, unIt, "0", roomName, orderID);
+                    new POSTOrder().execute("0", materialtype, priCe2, qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                            unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -330,7 +332,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new RoomDetailsActivity.detailsGET().execute(roomName, orderID);
+            new RoomDetailsActivity.detailsGET().execute(roomName, orderID,SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -342,8 +344,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         protected String doInBackground(String... strings) {
-            String roomName = strings[0];
-            String orderID = strings[1];
+            String accesstoken = strings[0];
+            String roomName = strings[1];
+            String orderID = strings[2];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
@@ -351,7 +354,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" + roomName.trim());
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
@@ -391,23 +394,24 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected String doInBackground(String... params) {
             //     InputStream inputStream
-            String orderItemId = params[0];
-            String materialtype = params[1];
-            String priCe2 = params[2];
-            String qTy = params[3];
-            String aqty = params[4];
-            String orderUnit = params[5];
-            String orderRoomId = params[6];
+            String accesstoken = params[0];
+            String orderItemId = params[1];
+            String materialtype = params[2];
+            String priCe2 = params[3];
+            String qTy = params[4];
+            String aqty = params[5];
+            String orderUnit = params[6];
+            String orderRoomId = params[7];
 
-            String catlogname = params[7];
-            String snumber = params[8];
-            String desiGn = params[9];
-            String page_no = params[10];
-            String priCe = params[11];
-            String unit = params[12];
-            String catalogID = params[13];
-            String roomName = params[14];
-            String orderID = params[15];
+            String catlogname = params[8];
+            String snumber = params[9];
+            String desiGn = params[10];
+            String page_no = params[11];
+            String priCe = params[12];
+            String unit = params[13];
+            String catalogID = params[14];
+            String roomName = params[15];
+            String orderID = params[16];
 
             String json = "";
             try {
@@ -417,7 +421,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 builder.url(AppConfig.BASE_URL_API + "OrderItemPost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
                 parameters.add("OrderItemID", orderItemId);
@@ -475,7 +479,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new elightdetailsGET().execute(roomName, orderID);
+            new elightdetailsGET().execute(roomName, orderID,SharedPrefManager.getInstance(this).getUser().access_token);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -488,8 +492,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         protected String doInBackground(String... strings) {
-            String roomName = strings[0];
-            String orderID = strings[1];
+            String accesstoken = strings[0];
+            String roomName = strings[1];
+            String orderID = strings[2];
             String json = "";
 
             try {
@@ -498,6 +503,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 builder.url(AppConfig.BASE_URL_API + "RoomGet/" + orderID.trim() + "/" + roomName.trim());
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
@@ -542,11 +548,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         protected String doInBackground(String... params) {
 
             //  InputStream inputStream
-            String roomname = params[0];
-            String orderid = params[1];
-            String elight = params[2];
-            String roman = params[3];
-            String aPlat = params[4];
+            String accesstoken = params[0];
+            String roomname = params[1];
+            String orderid = params[2];
+            String elight = params[3];
+            String roman = params[4];
+            String aPlat = params[5];
             String json = "";
             try {
 
@@ -555,7 +562,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 builder.url(AppConfig.BASE_URL_API + "OrderRoomPost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
                 parameters.add("RoomName", roomname.trim());
@@ -608,7 +615,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private void getCatalogDesignSingle() {
         try {
 
-            new getCatalogDesign().execute(catlogName.getText().toString(), design.getText().toString());
+            new getCatalogDesign().execute(catlogName.getText().toString(), design.getText().toString(),SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -621,8 +628,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
-            String catalogName = strings[0];
-            String designName = strings[1];
+            String accesstoken = strings[0];
+            String catalogName = strings[1];
+            String designName = strings[2];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
@@ -731,7 +739,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         try {
             // progressDialog.setMessage("loading...");
             // progressDialog.show();
-            new getDesign().execute(catlogName.getText().toString());
+            new getDesign().execute(catlogName.getText().toString(),SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             // progressDialog.dismiss();
@@ -743,6 +751,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         protected String doInBackground(String... strings) {
+            String accesstoken = "";
             String json = "";
             String catalogName = strings[0];
             try {
@@ -751,6 +760,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 builder.url(AppConfig.BASE_URL_API + "CatalogGet/" + catalogName);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();

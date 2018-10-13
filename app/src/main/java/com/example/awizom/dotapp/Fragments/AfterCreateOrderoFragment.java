@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.InputType;
@@ -19,6 +21,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -65,6 +68,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
     private Button addorder,addroom;
+    private ImageButton addNewCustomer;
     int morderid=0;
 
     String orderid;
@@ -72,6 +76,8 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
     Intent intent;
 
     String actualRoomList;
+    Fragment fragment = null;
+    private Fragment addNewCustomerFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,8 +104,12 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         addorder.setOnClickListener(this);
         addroom = view.findViewById(R.id.addRoom);
         addroom.setOnClickListener(this);
+        addNewCustomer = view.findViewById(R.id.addnewCustomerButton);
+        addNewCustomer.setOnClickListener(this);
 
         roomname = view.findViewById(R.id.hallList);
+
+        addNewCustomerFragment = new AddCustomerFragment();
 
         c_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -151,6 +161,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        Class fragmentClass = null;
         switch (v.getId()){
             case R.id.addOrder:
                 try {
@@ -163,6 +174,21 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
             case R.id.addRoom:
                 addroomdailogueOpen(Long.parseLong(orderidPart[1]),actualRoomList);
                 break;
+            case R.id.addnewCustomerButton:
+
+                fragment = addNewCustomerFragment;
+                fragmentClass = AddCustomerFragment.class;
+                break;
+        }
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.home_container, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

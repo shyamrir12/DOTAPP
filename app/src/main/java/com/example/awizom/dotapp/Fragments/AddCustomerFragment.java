@@ -100,7 +100,6 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
 
             String json = "";
             try {
-
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 builder.url(AppConfig.BASE_URL_API + "CustomerPost");

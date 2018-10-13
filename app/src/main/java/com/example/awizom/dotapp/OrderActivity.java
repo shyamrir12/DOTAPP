@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.OrderAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.DataOrder;
 
 import java.lang.reflect.Type;
@@ -111,7 +112,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                     //String res="";
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new OrderActivity.POSTOrder().execute(CustomerName, Address, Mobile, InteriorName, InteriorMobile);
+                    new OrderActivity.POSTOrder().execute(CustomerName, Address, Mobile, InteriorName, InteriorMobile, SharedPrefManager.getInstance(OrderActivity.this).getUser().access_token);
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -145,7 +146,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             progressDialog.show();
 
             // String commenttext = editTextComment.getText().toString();
-            new OrderActivity.POSTOrder().execute();
+            new OrderActivity.POSTOrder().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -168,11 +169,12 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-            String customername = params[0];
-            String address = params[1];
-            String mobile = params[2];
-            String interiorname = params[3];
-            String interiormobile = params[4];
+            String accesstoken = params[0];
+            String customername = params[1];
+            String address = params[2];
+            String mobile = params[3];
+            String interiorname = params[4];
+            String interiormobile = params[5];
 
             String json = "";
             try {
@@ -182,7 +184,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                 builder.url(AppConfig.BASE_URL_API + "CustomerPost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
                 parameters.add("CustomerID", "0");
@@ -237,7 +239,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             //String res="";
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new OrderActivity.GETOrderList().execute("test");
+            new OrderActivity.GETOrderList().execute(SharedPrefManager.getInstance(this).getUser().access_token);
 
             //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
 
@@ -266,7 +268,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                 builder.url(AppConfig.BASE_URL_API + "OrderGet");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //  builder.addHeader("Authorization", "Bearer " + accesstoken);
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
