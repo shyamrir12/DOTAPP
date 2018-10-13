@@ -26,7 +26,15 @@ public class DataOrder {
     public String ARoomList;
     public String TelorList;
     public Double TotalAmount;
+    public Double ATotalAmount;
 
+    public Double getActualTotalAmount() {
+        return ATotalAmount;
+    }
+
+    public void setActualTotalAmount(Double aTotalAmount) {
+        ATotalAmount = aTotalAmount;
+    }
 
     public String getTelorList() {
         return TelorList;

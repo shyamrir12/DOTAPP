@@ -17,6 +17,7 @@ public class SharedPrefManager {
     private static final String KEY_USER_EMAIL = "username";
     private static final String KEY_USER_EXPIRES = "expiresin";
     private static final String KEY_USER_ROLE = "userrole";
+    private static final boolean KEY_USER_ACTIVE = false;
 
     private SharedPrefManager(Context context) {
         mCtx = context;

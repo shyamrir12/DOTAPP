@@ -9,6 +9,15 @@ public class ElightBottomModel {
     public String APlat;
     public int OrderID;
     public Double TotalAmount;
+    public Double ATotalAmount;
+
+    public Double getActualTotalAmount() {
+        return ATotalAmount;
+    }
+
+    public void setActualTotalAmount(Double aTotalAmount) {
+        ATotalAmount = aTotalAmount;
+    }
 
     public int getOrderRoomId() {
         return OrderRoomId;

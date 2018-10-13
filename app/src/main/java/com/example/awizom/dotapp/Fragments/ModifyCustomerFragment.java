@@ -136,12 +136,13 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-            String accesstoken = params[0];
-            String customername = params[1];
-            String address = params[2];
-            String mobile = params[3];
-            String interiorname = params[4];
-            String interiormobile = params[5];
+
+            String customername = params[0];
+            String address = params[1];
+            String mobile = params[2];
+            String interiorname = params[3];
+            String interiormobile = params[4];
+            String accesstoken = params[5];
 
             String json = "";
             try {
@@ -209,7 +210,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
 
         @Override
         protected String doInBackground(String... strings) {
-            String accesstoken ="";
+            String accesstoken = strings[0];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();

@@ -80,7 +80,7 @@ public class OrderListFragment extends Fragment {
     private class GetCustomerDetails extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            String accesstoken = "";
+            String accesstoken = params[0];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();

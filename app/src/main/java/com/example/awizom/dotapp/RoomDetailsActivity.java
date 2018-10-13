@@ -344,9 +344,10 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         protected String doInBackground(String... strings) {
-            String accesstoken = strings[0];
-            String roomName = strings[1];
-            String orderID = strings[2];
+
+            String roomName = strings[0];
+            String orderID = strings[1];
+            String accesstoken = strings[2];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
@@ -394,24 +395,25 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected String doInBackground(String... params) {
             //     InputStream inputStream
-            String accesstoken = params[0];
-            String orderItemId = params[1];
-            String materialtype = params[2];
-            String priCe2 = params[3];
-            String qTy = params[4];
-            String aqty = params[5];
-            String orderUnit = params[6];
-            String orderRoomId = params[7];
 
-            String catlogname = params[8];
-            String snumber = params[9];
-            String desiGn = params[10];
-            String page_no = params[11];
-            String priCe = params[12];
-            String unit = params[13];
-            String catalogID = params[14];
-            String roomName = params[15];
-            String orderID = params[16];
+            String orderItemId = params[0];
+            String materialtype = params[1];
+            String priCe2 = params[2];
+            String qTy = params[3];
+            String aqty = params[4];
+            String orderUnit = params[5];
+            String orderRoomId = params[6];
+
+            String catlogname = params[7];
+            String snumber = params[8];
+            String desiGn = params[9];
+            String page_no = params[10];
+            String priCe = params[11];
+            String unit = params[12];
+            String catalogID = params[13];
+            String roomName = params[14];
+            String orderID = params[15];
+            String accesstoken = params[16];
 
             String json = "";
             try {
@@ -492,9 +494,10 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         protected String doInBackground(String... strings) {
-            String accesstoken = strings[0];
-            String roomName = strings[1];
-            String orderID = strings[2];
+
+            String roomName = strings[0];
+            String orderID = strings[1];
+            String accesstoken = strings[2];
             String json = "";
 
             try {
@@ -548,12 +551,13 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         protected String doInBackground(String... params) {
 
             //  InputStream inputStream
-            String accesstoken = params[0];
-            String roomname = params[1];
-            String orderid = params[2];
-            String elight = params[3];
-            String roman = params[4];
-            String aPlat = params[5];
+
+            String roomname = params[0];
+            String orderid = params[1];
+            String elight = params[2];
+            String roman = params[3];
+            String aPlat = params[4];
+            String accesstoken = params[5];
             String json = "";
             try {
 
@@ -637,6 +641,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 builder.url(AppConfig.BASE_URL_API + "CatalogGet/" + catalogName + "/" + designName);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
@@ -679,7 +684,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new getCatalog().execute();
+            new getCatalog().execute(SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -692,12 +697,14 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
+            String accesstoken = strings[0];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 builder.url(AppConfig.BASE_URL_API + "CatalogGet");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
+
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
@@ -751,9 +758,10 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         protected String doInBackground(String... strings) {
-            String accesstoken = "";
+
             String json = "";
             String catalogName = strings[0];
+            String accesstoken = strings[1];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();

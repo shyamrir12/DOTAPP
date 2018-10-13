@@ -260,9 +260,10 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-            String accesstoken = params[0];
-            String orderid = params[1];
-            String roomname = params[2];
+
+            String orderid = params[0];
+            String roomname = params[1];
+            String accesstoken = params[2];
             String json = "";
             try {
 
@@ -323,7 +324,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         protected String doInBackground(String... params) {
 
             String json = "";
-            String accesstoken = "";
+            String accesstoken = params[0];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
@@ -390,8 +391,8 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                     cid=cm.getCustomerID();
                     c_contact.setText(cm.getMobile());
                     i_address.setText(cm.getAddress());
-                    i_name.setText(cm.getInteriorName());
-                    i_contact.setText(cm.getInteriorMobile());
+//                    i_name.setText(cm.getInteriorName());
+//                    i_contact.setText(cm.getInteriorMobile());
                     break;
                 }
             }
@@ -406,7 +407,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
-            String accesstoken = "";
+            String accesstoken = strings[0];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
@@ -487,10 +488,11 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-            String accesstoken = params[0];
-            String customerid = params[1];
-            String orderdate = params[2];
-            String orderamount = params[3];
+
+            String customerid = params[0];
+            String orderdate = params[1];
+            String orderamount = params[2];
+            String accesstoken = params[3];
             String json = "";
             try {
 

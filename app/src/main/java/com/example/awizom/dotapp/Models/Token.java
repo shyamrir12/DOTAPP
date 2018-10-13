@@ -6,6 +6,7 @@ public class Token {
     public int expires_in;
     public String userName;
     public String userRole;
+    public Boolean userActive;
 
     public String getAccess_token() {
         return access_token;
@@ -51,4 +52,11 @@ public class Token {
 
     }
 
+    public Boolean getUserActive() {
+        return userActive;
+    }
+
+    public void setUserActive(Boolean userActive) {
+        this.userActive = userActive;
+    }
 }
