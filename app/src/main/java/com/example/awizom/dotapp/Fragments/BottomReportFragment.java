@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.awizom.dotapp.CustomerActivity;
+import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.OrderBottomActivity;
 import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.ReportActivity;
@@ -64,53 +65,69 @@ public class BottomReportFragment extends Fragment implements View.OnClickListen
         Class fragmentClass = null;
         switch (v.getId()){
             case R.id.pendingOrder:
-                Bundle bundle = new Bundle();
-                bundle.putString("NAME_KEY", "PendingOrderwithadvance");
-                OrderListFragment myFragment = new OrderListFragment();
-                myFragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.container,myFragment).commit();
+                intent = new Intent( getContext(), NewOrderListActivity.class );
+                intent = intent.putExtra( "FilterKey" ,"PendingOrderwithadvance");
+                startActivity( intent );
 
-                getActivity().setTitle("Pending Order with advance");
-                fragment = reportpendingOrderFragment;
-                fragmentClass = OrderListFragment.class;
+//                Bundle bundle = new Bundle();
+//                bundle.putString("NAME_KEY", "PendingOrderwithadvance");
+//                OrderListFragment myFragment = new OrderListFragment();
+//                myFragment.setArguments(bundle);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment).commit();
+//
+//                getActivity().setTitle("Pending Order with advance");
+//                fragment = reportpendingOrderFragment;
+//                fragmentClass = OrderListFragment.class;
                 break;
 
             case R.id.pendingCustomer:
-                Bundle bundle11 = new Bundle();
-                bundle11.putString("NAME_KEY", "PendingCustomerwithnoadvance");
-                OrderListFragment myFragment1 = new OrderListFragment();
-                myFragment1.setArguments(bundle11);
-                getFragmentManager().beginTransaction().replace(R.id.container,myFragment1).commit();
 
-                getActivity().setTitle("Pending Customer with no advance");
-                fragment = reportpendingOrderFragment;
-                fragmentClass = OrderListFragment.class;
+                intent = new Intent( getContext(), NewOrderListActivity.class );
+                intent = intent.putExtra( "FilterKey" ,"PendingCustomerwithnoadvance");
+                startActivity( intent );
+
+//                Bundle bundle11 = new Bundle();
+//                bundle11.putString("NAME_KEY", "PendingCustomerwithnoadvance");
+//                OrderListFragment myFragment1 = new OrderListFragment();
+//                myFragment1.setArguments(bundle11);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment1).commit();
+//
+//                getActivity().setTitle("Pending Customer with no advance");
+//                fragment = reportpendingOrderFragment;
+//                fragmentClass = OrderListFragment.class;
                 break;
 
             case R.id.pendingReceived:
+                intent = new Intent( getContext(), NewOrderListActivity.class );
+                intent = intent.putExtra( "FilterKey" ,"PendingMaterialReceived");
+                startActivity( intent );
 
-                Bundle bundle12 = new Bundle();
-                bundle12.putString("NAME_KEY", "PendingMaterialReceived");
-                OrderListFragment myFragment2 = new OrderListFragment();
-                myFragment2.setArguments(bundle12);
-                getFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
-
-                getActivity().setTitle("Pending Material Received");
-                fragment = reportpendingOrderFragment;
-                fragmentClass = OrderListFragment.class;
+//                Bundle bundle12 = new Bundle();
+//                bundle12.putString("NAME_KEY", "PendingMaterialReceived");
+//                OrderListFragment myFragment2 = new OrderListFragment();
+//                myFragment2.setArguments(bundle12);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
+//
+//                getActivity().setTitle("Pending Material Received");
+//                fragment = reportpendingOrderFragment;
+//                fragmentClass = OrderListFragment.class;
                 break;
 
             case R.id.pendingItemToPlace:
 
-                Bundle bundle13 = new Bundle();
-                bundle13.putString("NAME_KEY", "Pendingitemtoplaceholder");
-                OrderListFragment myFragment3 = new OrderListFragment();
-                myFragment3.setArguments(bundle13);
-                getFragmentManager().beginTransaction().replace(R.id.container,myFragment3).commit();
+                intent = new Intent( getContext(), NewOrderListActivity.class );
+                intent = intent.putExtra( "FilterKey" ,"Pendingitemtoplaceholder");
+                startActivity( intent );
 
-                getActivity().setTitle("Pending item to placeholder");
-                fragment = reportpendingOrderFragment;
-                fragmentClass = OrderListFragment.class;
+//                Bundle bundle13 = new Bundle();
+//                bundle13.putString("NAME_KEY", "Pendingitemtoplaceholder");
+//                OrderListFragment myFragment3 = new OrderListFragment();
+//                myFragment3.setArguments(bundle13);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment3).commit();
+//
+//                getActivity().setTitle("Pending item to placeholder");
+//                fragment = reportpendingOrderFragment;
+//                fragmentClass = OrderListFragment.class;
                 break;
 
         }
