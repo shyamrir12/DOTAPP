@@ -46,10 +46,15 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         signinButton.setOnClickListener(this);
         signupHere = findViewById(R.id.signupHere);
         signupHere.setOnClickListener(this);
-        if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
-            Intent log = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(log);
+        try {
+            if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
+                Intent log = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(log);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
     @Override
