@@ -4,15 +4,18 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,16 +29,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.awizom.dotapp.Adapters.OrderAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
-import com.example.awizom.dotapp.Fragments.AfterCreateOrderoFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
-import com.example.awizom.dotapp.Models.Result;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.text.DateFormat;
@@ -46,6 +46,10 @@ import java.util.List;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+
+import com.example.awizom.dotapp.Models.Result;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class AfterCreateActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -72,7 +76,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private ImageButton addNewCustomer;
     int morderid=0;
 
-    String orderid;
+    String orderid="";
     String[] orderidPart;
     Intent intent;
     String actualRoomList;
@@ -97,7 +101,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         orderDate = findViewById(R.id.orderDatePicker);
         amount = findViewById(R.id.amountValue);
 
-        orderDate.setInputType(InputType.TYPE_NULL);
+        orderDate.setInputType( InputType.TYPE_NULL);
         orderDate.setOnClickListener(this);
         addorder = findViewById(R.id.addOrder);
         addorder.setOnClickListener(this);
@@ -110,30 +114,9 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         addNewCustomerFragment = new AddCustomerFragment();
 
         progressDialog = new ProgressDialog(getApplicationContext());
+        progressDialog = new ProgressDialog(this);
 
-        c_name.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(c_name.getText().length()==0)
-                {
-                    cid=0;
-                    c_contact.setText("");
-                    i_address.setText("");
-                }
-                else
-                {
-                    getCustomerDetail(c_name.getText().toString());
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
-        getCustomerDetailList();
 
         roomname.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -144,7 +127,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 // TODO Auto-generated method stub
                 Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
                 intent.putExtra("RoomName", roomName[position].trim());
-                intent.putExtra("OrderID",Integer.valueOf( orderidPart[1]));
+                intent.putExtra("OrderID",Integer.valueOf( orderid));
                 intent.putExtra("CustomerName",c_name.getText().toString());
                 intent.putExtra("Mobile",c_contact.getText().toString());
                 intent.putExtra("OrderDate",orderDate.getText().toString());
@@ -154,8 +137,39 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         });
 
 
-        loadData();
-        orderDate.setText( DateFormat.getDateInstance().format(new Date()) );
+
+        orderid = getIntent().getExtras().getString( "OrderID", "" );
+        if(!orderid.equals( "" )){
+            getMyOrder( orderid );
+        }
+        else {
+            c_name.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if(c_name.getText().length()==0)
+                    {
+                        cid=0;
+                        c_contact.setText("");
+                        i_address.setText("");
+                    }
+                    else
+                    {
+                        getCustomerDetail(c_name.getText().toString());
+                    }
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) { }
+            });
+            getCustomerDetailList();
+            loadData();
+            orderDate.setText( DateFormat.getDateInstance().format(new Date()) );
+        }
+
     }
 
     private void loadData() {
@@ -234,7 +248,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 }
                 break;
             case R.id.addRoom:
-                addroomdailogueOpen(Long.parseLong(orderidPart[1]), actualRoomList);
+                addroomdailogueOpen(Long.parseLong(orderid), actualRoomList);
                 break;
             case R.id.addnewCustomerButton:
                 openUpdateDailoge();
@@ -247,8 +261,10 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void openUpdateDailoge() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getApplicationContext());
-        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.customer_add_layout, null);
         dialogBuilder.setView(dialogView);
         final EditText cName, cContact, cAddress, interioName, interioContact;
@@ -353,10 +369,13 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     private void addroomdailogueOpen(final long orderid,String aroomlist){
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getApplicationContext());
-        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.room_layout, null);
         dialogBuilder.setView(dialogView);
+
 
         final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spinner);
 
@@ -450,17 +469,17 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
-                    getMyOrder();
+                    getMyOrder(orderid);
                 }
             }
         }
 
     }
 
-    private void getMyOrder() {
+    private void getMyOrder(String orderId) {
         try {
 
-            new GETOrderList().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+            new GETOrderList().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token,orderId);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -473,10 +492,11 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
             String json = "";
             String accesstoken = params[0];
+            String orderid=params[1];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderidPart[1]);
+                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderid);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -499,6 +519,11 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 Gson gson = new Gson();
                 Type getType = new TypeToken<DataOrder>(){}.getType();
                 DataOrder  morder = new Gson().fromJson(result,getType);
+                cid=morder.getCustomerID();
+                c_contact.setText(morder.getMobile());
+                i_address.setText(morder.getAddress());
+                orderDate.setText( morder.getOrderDate() );
+                  amount.setText(String.valueOf(  morder.getAdvance()) );
                 roomName = morder.getRoomList().split(",");
                 actualRoomList = morder.getARoomList();
                 // ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
@@ -678,14 +703,14 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 //System.out.println("CONTENIDO:  " + result);
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
-                orderid = jsonbodyres.getMessage().toString();
-                orderidPart = orderid.split(",");
+                orderidPart =  jsonbodyres.getMessage().split(",");
+                orderid=orderidPart[1];
                 Toast.makeText(getApplicationContext(),jsonbodyres.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
                     addorder.setEnabled(false);
                     addorder.setClickable(false);
-                    getMyOrder();
+                    getMyOrder(orderid);
                     addroom.setVisibility(View.VISIBLE);
                 }
             }

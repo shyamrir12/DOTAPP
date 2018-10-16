@@ -68,7 +68,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
     private ImageButton addNewCustomer;
     int morderid=0;
 
-    String orderid;
+    String orderid="";
     String[] orderidPart;
     Intent intent;
     String actualRoomList;
@@ -109,6 +109,8 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
 
         progressDialog = new ProgressDialog(getActivity());
 
+
+
         c_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -132,6 +134,8 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
             public void afterTextChanged(Editable s) { }
         });
         getCustomerDetailList();
+        orderDate.setText( DateFormat.getDateInstance().format(new Date()) );
+
 
         roomname.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -142,7 +146,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                 // TODO Auto-generated method stub
                 Intent intent=new Intent(getContext(), RoomDetailsActivity.class);
                 intent.putExtra("RoomName", roomName[position].trim());
-                intent.putExtra("OrderID",Integer.valueOf( orderidPart[1]));
+                intent.putExtra("OrderID",Integer.valueOf( orderid));
                 intent.putExtra("CustomerName",c_name.getText().toString());
                 intent.putExtra("Mobile",c_contact.getText().toString());
                 intent.putExtra("OrderDate",orderDate.getText().toString());
@@ -152,72 +156,13 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         });
 
 
-       loadData();
-       orderDate.setText( DateFormat.getDateInstance().format(new Date()) );
+        String orderidlist= getArguments().getString("OrderID").toString();
+        Toast.makeText(getActivity(),orderidlist , Toast.LENGTH_SHORT).show();
+
 
     }
 
-    private void loadData() {
-        try {
-            //String res="";
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            new GETLoadDataList().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
-            //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            progressDialog.dismiss();
-            Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            // System.out.println("Error: " + e);
-        }
-    }
-
-    private class GETLoadDataList extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-
-            String accesstoken = params[0];
-            String json = "";
-            try {
-
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderGet");
-                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                builder.addHeader("Accept", "application/json");
-                builder.addHeader("Authorization", "Bearer " + accesstoken);
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-                if (response.isSuccessful()) {
-                    json = response.body().string();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                progressDialog.dismiss();
-                Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            }
-
-            return json;
-        }
-
-        protected void onPostExecute(String result) {
-
-            if (result.isEmpty()) {
-                progressDialog.dismiss();
-                Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
-            } else {
-                progressDialog.dismiss();
-                Gson gson = new Gson();
-                Type getType = new TypeToken<DataOrder>() {
-                }.getType();
-                //data = new Gson().fromJson(result, getType);
-
-            }
-
-
-        }
-    }
 
 
     @Override
@@ -233,7 +178,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                 }
                 break;
             case R.id.addRoom:
-                addroomdailogueOpen(Long.parseLong(orderidPart[1]), actualRoomList);
+                addroomdailogueOpen(Long.parseLong(orderid), actualRoomList);
                 break;
             case R.id.addnewCustomerButton:
                 openUpdateDailoge();
@@ -458,17 +403,18 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
-                    getMyOrder();
+
+                    getMyOrder(orderid);
                 }
             }
         }
 
     }
 
-    private void getMyOrder() {
+    private void getMyOrder(String orderId) {
         try {
 
-            new GETOrderList().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
+            new GETOrderList().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token,orderId);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -481,10 +427,11 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
 
             String json = "";
             String accesstoken = params[0];
+            String orderid=params[1];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderidPart[1]);
+                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderid);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -507,6 +454,9 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                 Gson gson = new Gson();
                 Type getType = new TypeToken<DataOrder>(){}.getType();
                 DataOrder  morder = new Gson().fromJson(result,getType);
+                cid=morder.getCustomerID();
+                c_contact.setText(morder.getMobile());
+                i_address.setText(morder.getAddress());
                 roomName = morder.getRoomList().split(",");
                 actualRoomList = morder.getARoomList();
                 // ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
@@ -686,14 +636,15 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                 //System.out.println("CONTENIDO:  " + result);
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
-                orderid = jsonbodyres.getMessage().toString();
-                orderidPart = orderid.split(",");
+
+                orderidPart =  jsonbodyres.getMessage().split(",");
+                orderid=orderidPart[1];
                 Toast.makeText(getContext(),jsonbodyres.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
                     addorder.setEnabled(false);
                     addorder.setClickable(false);
-                    getMyOrder();
+                    getMyOrder(orderid);
                     addroom.setVisibility(View.VISIBLE);
                 }
             }

@@ -1,11 +1,17 @@
 package com.example.awizom.dotapp.Adapters;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +20,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Fragments.AfterCreateOrderoFragment;
 import com.example.awizom.dotapp.Fragments.OrderListFragment;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
+import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 
@@ -32,11 +41,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private Context mCtx;
     ProgressDialog progressDialog;
     private List<DataOrder> orderitemList;
+    String filterKey;
 
 
-    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList) {
+    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
+        this.filterKey = filterKey;
         progressDialog = new ProgressDialog(mCtx);
     }
 
@@ -59,6 +70,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             holder.orderdate.setText("Date\n " + order.getOrderDate().split("T")[0].trim());
             holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()).trim());
             holder.totalamount.setText("Amount\n " + Double.toString(order.getTotalAmount()).trim());
+            holder.textviewStatus.setText( filterKey );
+
         } catch (Exception E) {
             E.printStackTrace();
         }
@@ -96,6 +109,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             textviewStatus = view.findViewById(R.id.textViewStatus);
             textviewStatus.setOnClickListener(this);
             statusOrder = view.findViewById(R.id.buttonOP);
+            statusOrder.setOnClickListener( this );
             textviewStatus.setText("List");
         }
 
@@ -108,6 +122,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
             if (v.getId() == statusOrder.getId()) {
 
+                Intent i = new Intent().setClass(mCtx, AfterCreateActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                i = i.putExtra( "OrderID" ,String.valueOf(   orderitem.OrderID));
+                mCtx.startActivity( i );
             }
         }
 
@@ -117,10 +135,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             DataOrder orderitem = this.orderitemList.get(position);
             if (v.getId() == itemView.getId()) {
                 try {
+
+
+
+                  //  Toast.makeText(mCtx,String.valueOf(  orderitem.OrderID), Toast.LENGTH_SHORT).show();
+
                 } catch (Exception E) {
                     E.printStackTrace();
                 }
-                Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
             }
             return true;
         }

@@ -632,9 +632,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
-            String accesstoken = strings[0];
-            String catalogName = strings[1];
-            String designName = strings[2];
+            String accesstoken = strings[2];
+            String catalogName = strings[0];
+            String designName = strings[1];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
@@ -704,7 +704,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 builder.url(AppConfig.BASE_URL_API + "CatalogGet");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
