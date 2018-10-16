@@ -8,11 +8,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.awizom.dotapp.Fragments.BottomCustomerFragment;
+import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
+import com.example.awizom.dotapp.Fragments.BottomReportFragment;
+import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 
 import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
@@ -20,7 +25,8 @@ import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
 public class HomeActivity extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment reportFragment, statusFragment;
+    private Fragment customerLayoutfragment, reportLayoutfragment,orderLayoutfragment,statusLayoutFragment;
+    Fragment fragment = null;
 
 
     @Override
@@ -34,7 +40,10 @@ public class HomeActivity extends AppCompatActivity {
             System.out.print("internet is not available");
         }
 
-        reportFragment = new CustomerListFrgment();
+        customerLayoutfragment = new BottomCustomerFragment();
+        reportLayoutfragment = new BottomReportFragment();
+        orderLayoutfragment = new BottomOrderFragment();
+        statusLayoutFragment = new BottomStatusFragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -47,17 +56,35 @@ public class HomeActivity extends AppCompatActivity {
             Class fragmentClass = null;
             switch (item.getItemId()) {
                 case R.id.navigation_customer:
-                    startActivity(intent = new Intent(getApplicationContext(), CustomerActivity.class));
-                    return true;
+                    getSupportActionBar().setTitle("Customer Details");
+                    fragment = customerLayoutfragment;
+                    fragmentClass = BottomCustomerFragment.class;
+                    break;
                 case R.id.navigation_order:
-                    startActivity(intent = new Intent(getApplicationContext(), OrderBottomActivity.class));
-                    return true;
+                    getSupportActionBar().setTitle("Order Details");
+                    fragment = orderLayoutfragment;
+                    fragmentClass = BottomOrderFragment.class;
+                    break;
                 case R.id.navigation_report:
-                    startActivity(intent = new Intent(getApplicationContext(), ReportActivity.class));
-                    return true;
+                    getSupportActionBar().setTitle("Report Details");
+                    fragment = reportLayoutfragment;
+                    fragmentClass = BottomReportFragment.class;
+                    break;
                 case R.id.navigation_status:
-                    startActivity(intent = new Intent(getApplicationContext(), StatusActivity.class));
-                    return true;
+                    getSupportActionBar().setTitle("Status Details");
+                    fragment = statusLayoutFragment;
+                    fragmentClass = BottomStatusFragment.class;
+                    break;
+
+            }
+
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.home_container, fragment).commit();
+                setTitle("");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             return false;
         }

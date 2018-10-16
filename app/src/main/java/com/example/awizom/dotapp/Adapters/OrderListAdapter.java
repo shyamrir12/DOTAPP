@@ -20,9 +20,7 @@ import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -98,6 +96,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             textviewStatus = view.findViewById(R.id.textViewStatus);
             textviewStatus.setOnClickListener(this);
             statusOrder = view.findViewById(R.id.buttonOP);
+            textviewStatus.setText("List");
         }
 
         @Override
@@ -105,72 +104,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             int position = getAdapterPosition();
             DataOrder orderitem = this.orderitemList.get(position);
             if (v.getId() == textviewStatus.getId()) {
-                try {
 
-                    progressDialog.setMessage("loading...");
-                    progressDialog.show();
-                    new POSTStatus().execute(String.valueOf(orderitem.getOrderID()), "0", "0", "0", "0", "0", "", "", "");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    progressDialog.dismiss();
-                    Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-
-                }
             }
             if (v.getId() == statusOrder.getId()) {
 
-                dept = "PendingOrderwithadvance";
-                messageDisplayOfStatus(orderitem);
             }
-        }
-
-        private boolean messageDisplayOfStatus(final DataOrder order) {
-            alert = new AlertDialog.Builder(mCtx);
-            alert.setTitle(dept);
-            alert.setMessage("Are you sure you want to change the " + dept + " status to OK?");
-            alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    try {
-                        //String res="";
-                        progressDialog.setMessage("loading...");
-                        progressDialog.show();
-                        String OP = "false", MR = "false", RFT = "false", DESP = "false", CEN = "false";
-                        if (order.isOrderPlaced())
-                            OP = "true";
-                        if (order.isMaterialReceived())
-                            MR = "true";
-                        if (order.isReceivedFromTalor())
-                            RFT = "true";
-                        if (order.isDispatch())
-                            DESP = "true";
-                        if (order.isCancel())
-                            CEN = "true";
-
-                        if (dept.equals("Order Placed")) {
-                            new POSTStatus().execute(String.valueOf(order.getOrderID()), "true", MR, RFT, DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
-
-                        }
-
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
-                        Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-                        // System.out.println("Error: " + e);
-                    }
-
-
-                }
-            });
-            alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // close dialog
-                    dialog.cancel();
-                }
-            });
-            alert.show();
-
-            return true;
         }
 
         @Override
@@ -187,53 +125,5 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             return true;
         }
 
-
-        private class POSTStatus extends AsyncTask<String, Void, String> {
-            @Override
-            protected String doInBackground(String... params) {
-
-                String orderid = params[0];
-                String OrderPlaced = params[1];
-                String json = "";
-                try {
-
-                    OkHttpClient client = new OkHttpClient();
-                    Request.Builder builder = new Request.Builder();
-                    builder.url(AppConfig.BASE_URL_API + "OrderStatusPost");
-                    builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                    builder.addHeader("Accept", "application/json");
-                    FormBody.Builder parameters = new FormBody.Builder();
-                    parameters.add("OrderID", orderid);
-                    parameters.add("OrderPlaced", OrderPlaced);
-                    builder.post(parameters.build());
-
-
-                    okhttp3.Response response = client.newCall(builder.build()).execute();
-
-                    if (response.isSuccessful()) {
-                        json = response.body().string();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    progressDialog.dismiss();
-                    Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-                }
-                return json;
-            }
-
-            protected void onPostExecute(String result) {
-                if (result.isEmpty()) {
-                    progressDialog.dismiss();
-                    Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
-                } else {
-                    Gson gson = new Gson();
-                    final Result jsonbodyres = gson.fromJson(result, Result.class);
-                    Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                    if (jsonbodyres.getStatus() == true) {
-                    }
-                    progressDialog.dismiss();
-                }
-            }
-        }
     }
 }

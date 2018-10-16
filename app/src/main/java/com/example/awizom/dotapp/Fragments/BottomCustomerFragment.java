@@ -57,8 +57,6 @@ public class BottomCustomerFragment extends Fragment implements View.OnClickList
         cardViewSecond.setOnClickListener(this);
         cardViewthird.setOnClickListener(this);
 
-        BottomNavigationView navigation = view.findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
 
@@ -68,7 +66,7 @@ public class BottomCustomerFragment extends Fragment implements View.OnClickList
         Class fragmentClass = null;
         switch (v.getId()) {
             case R.id.first_cardview:
-
+                getActivity().setTitle("Add Customer");
                 fragment = addCustomerFragment;
                 fragmentClass = AddCustomerFragment.class;
                 break;
@@ -113,27 +111,5 @@ public class BottomCustomerFragment extends Fragment implements View.OnClickList
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-            switch (item.getItemId()) {
-                case R.id.navigation_customer:
-                    startActivity(intent = new Intent(getContext(), CustomerActivity.class));
-                    return true;
-                case R.id.navigation_order:
-                    startActivity(intent = new Intent(getContext(), OrderBottomActivity.class));
-                    return true;
-                case R.id.navigation_report:
-                    startActivity(intent = new Intent(getContext(), ReportActivity.class));
-                    return true;
-                case R.id.navigation_status:
-                    startActivity(intent = new Intent(getContext(), StatusActivity.class));
-                    return true;
-            }
-            return false;
-        }
-    };
 }
