@@ -5,13 +5,18 @@
     android:background="@color/white" >
     <ProgressBar
         android:id="@+id/progressBar"
-
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/imgLogo1"
+        android:layout_width="550dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/snskriti"
+        android:layout_marginTop="30dp"/>
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imgLogo"

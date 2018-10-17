@@ -50,6 +50,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
            if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
                Intent log = new Intent(getApplicationContext(), HomeActivity.class);
                startActivity(log);
+               finish();
             }
        }catch (Exception e){
             e.printStackTrace();
