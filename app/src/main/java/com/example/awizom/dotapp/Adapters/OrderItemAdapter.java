@@ -5,8 +5,8 @@ import android.content.DialogInterface;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,11 +140,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
             if (v.getId() == itemView.getId()) {
                 // showUpdateDeleteDialog(order);
-                try {
-                    initViewByAlertdailog(orderitem);
-                } catch (Exception E) {
-                    E.printStackTrace();
-                }
+
+               try {
+                  initViewByAlertdailog(orderitem);
+               } catch (Exception E) {
+                   E.printStackTrace();
+               }
                 Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
             }
             return true;
@@ -160,6 +161,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         final View dialogView = inflater.inflate(R.layout.add_dailog_layout, null);
         dialogBuilder.setView(dialogView);
+
+
         final String OrderItemID = String.valueOf(orderitem.getOrderItemID());
         final String orderRoomId = String.valueOf(orderitem.getOrderRoomID());
         final String catalogID = String.valueOf(orderitem.getCatalogID());
@@ -195,6 +198,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         dialogBuilder.setTitle("Edit Order Item");
         final AlertDialog b = dialogBuilder.create();
         b.show();
+
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

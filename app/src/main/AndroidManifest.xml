@@ -15,7 +15,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".OrderActivity">  </activity>
         <activity
-            android:name=".RoomDetailsActivity"/>
+            android:name=".RoomDetailsActivity" android:theme="@style/AppTheme"/>
             <!--android:parentActivityName=".AfterCreateOrderActivity" />-->
         <activity android:name=".SinUpActivity" />
         <activity android:name=".SigninActivity" >
