@@ -1,0 +1,16 @@
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/admin1" android:icon="@drawable/user" app:showAsAction="always"   android:title="@string/add"/>
+    <!--<item-->
+        <!--android:id="@+id/user1" android:icon="@drawable/user" app:showAsAction="always|withText" android:title="reset"/>-->
+    <item
+        android:id="@+id/about" android:icon="@android:mipmap/sym_def_app_icon" app:showAsAction="never" android:title="Home">
+    </item>
+    <item
+        android:id="@+id/exit"  app:showAsAction="never" android:title="sign out">
+    </item>
+</menu>
