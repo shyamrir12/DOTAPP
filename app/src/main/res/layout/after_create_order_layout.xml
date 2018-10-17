@@ -89,6 +89,14 @@
                         android:paddingLeft="15dp"
                         android:layout_weight="1"
                         android:layout_marginLeft="5dp"/>
+                    <TextView
+                        android:id="@+id/textViewATotalAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total Amount"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        />
                 </LinearLayout>
             <!--<LinearLayout-->
                 <!--android:id="@+id/interiorLayout"-->
@@ -166,7 +174,7 @@
         <android.support.v7.widget.CardView
             android:id="@+id/buttonHallCardView"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="120dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/customercardView">
             <RelativeLayout
@@ -177,13 +185,13 @@
                     android:id="@+id/buttonHallLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_margin="15dp">
+                   android:orientation="vertical"
+                  >
                     <Button
                         android:id="@+id/addOrder"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:text="Add Order"
+                        android:text="Submit Order"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:layout_margin="10dp"
@@ -191,6 +199,18 @@
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:background="@drawable/add_cancel_button_shape"/>
+                    <Button
+                        android:id="@+id/addRoom"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/add_cancel_button_shape"
+                        android:text="Add Room"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="10dp" />
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -206,29 +226,12 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="15dp">
-                <LinearLayout
-                    android:id="@+id/l"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_margin="10dp">
-                <Button
-                        android:id="@+id/addRoom"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/add_cancel_button_shape"
-                        android:text="Add Room"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:visibility="gone"
-                        android:layout_alignParentRight="true"
-                        android:layout_margin="5dp" />
-                </LinearLayout>
+
                 <ListView
                     android:id="@+id/hallList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/l">
+                   >
                 </ListView>
             </RelativeLayout>
 

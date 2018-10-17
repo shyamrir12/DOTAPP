@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -33,12 +34,14 @@ import com.example.awizom.dotapp.Adapters.OrderAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
+import com.example.awizom.dotapp.Fragments.DatePickerFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
 
 import java.lang.reflect.Type;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -51,9 +54,9 @@ import com.example.awizom.dotapp.Models.Result;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class AfterCreateActivity extends AppCompatActivity implements View.OnClickListener {
+public class AfterCreateActivity extends AppCompatActivity implements View.OnClickListener ,DatePickerDialog.OnDateSetListener  {
 
-    private TextView c_contact,i_name,i_contact,i_address,orderDateLabel;
+    private TextView c_contact,i_name,i_contact,i_address,orderDateLabel,textViewATotalAmount;
     private EditText orderDate,amount;
     private ListView roomname;
     String[] roomName;
@@ -70,6 +73,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     public Date date;
     private AutoCompleteTextView c_name;
     private List<CustomerModel> customerlist;
+    private CustomerModel customer;
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
     private Button addorder,addroom,actualRead,simpleRead;
@@ -100,7 +104,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         i_address = findViewById(R.id.interiorAddress);
         orderDate = findViewById(R.id.orderDatePicker);
         amount = findViewById(R.id.amountValue);
-
+        textViewATotalAmount=findViewById(R.id.textViewATotalAmount);
         orderDate.setInputType( InputType.TYPE_NULL);
         orderDate.setOnClickListener(this);
         addorder = findViewById(R.id.addOrder);
@@ -126,7 +130,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
                 // TODO Auto-generated method stub
                 Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
-                intent.putExtra("RoomName", roomName[position].trim());
+                intent.putExtra("RoomName", roomName[position].split( "-" )[0].trim());
                 intent.putExtra("OrderID",Integer.valueOf( orderid));
                 intent.putExtra("CustomerName",c_name.getText().toString());
                 intent.putExtra("Mobile",c_contact.getText().toString());
@@ -137,10 +141,16 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         });
 
 
-
-        orderid = getIntent().getExtras().getString( "OrderID", "" );
+       try{
+        orderid = getIntent().getExtras().getString( "OrderID", "" );}
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         if(!orderid.equals( "" )){
             getMyOrder( orderid );
+            addroom.setVisibility( View.VISIBLE );
+
         }
         else {
             c_name.addTextChangedListener(new TextWatcher() {
@@ -187,6 +197,19 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             // System.out.println("Error: " + e);
         }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c=Calendar.getInstance();
+        c.set(Calendar.YEAR,year);
+        c.set(Calendar.MONTH,month);
+        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        //String dateString= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(c.getTime());
+        // Date date = new Date();
+        orderDate.setText(formatter.format(c.getTime()));
+
     }
 
     private class GETLoadDataList extends AsyncTask<String, Void, String> {
@@ -254,7 +277,10 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 openUpdateDailoge();
                 break;
             case R.id.orderDatePicker:
-                showDateTimePicker();
+
+                DialogFragment datepicker=new DatePickerFragment();
+                datepicker.show(getSupportFragmentManager(),"date picker");
+
                 break;
         }
 
@@ -358,7 +384,9 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
+                    getCustomerDetailList();
                     b.dismiss();
+
                 }
                 progressDialog.dismiss();
             }
@@ -520,10 +548,12 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 Type getType = new TypeToken<DataOrder>(){}.getType();
                 DataOrder  morder = new Gson().fromJson(result,getType);
                 cid=morder.getCustomerID();
+                c_name.setText( morder.getCustomerName() );
                 c_contact.setText(morder.getMobile());
                 i_address.setText(morder.getAddress());
-                orderDate.setText( morder.getOrderDate() );
-                  amount.setText(String.valueOf(  morder.getAdvance()) );
+                orderDate.setText( morder.getOrderDate().split( "T" )[0] );
+                amount.setText(String.valueOf(  morder.getAdvance()) );
+                textViewATotalAmount.setText( String.valueOf( morder.getTotalAmount() ) );
                 roomName = morder.getRoomList().split(",");
                 actualRoomList = morder.getARoomList();
                 // ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
@@ -556,22 +586,17 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void getCustomerDetail(String cusname) {
-        try {
 
-            for (CustomerModel cm : customerlist) {
-                if ( cm.getCustomerName().equals(cusname))
-                {
-                    cid=cm.getCustomerID();
-                    c_contact.setText(cm.getMobile());
-                    i_address.setText(cm.getAddress());
-//                    i_name.setText(cm.getInteriorName());
-//                    i_contact.setText(cm.getInteriorMobile());
-                    break;
-                }
+            try {
+
+                new getCustomer().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token,cusname);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
-        } catch (Exception e) {
 
-        }
+
+
 
     }
 
@@ -623,23 +648,50 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-    /*Date picker Show*/
-    private void showDateTimePicker() {
-        final Calendar currentDate = Calendar.getInstance();
-        myCalendar = Calendar.getInstance();
+    private class getCustomer extends AsyncTask<String, Void, String> {
 
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                myCalendar.set(year, monthOfYear, dayOfMonth);
-                orderDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String accesstoken = strings[0];
+            String cusname = strings[1];
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "CustomerGet/"+cusname);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
-        };
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(),dateSetListener, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH),   currentDate.get(Calendar.DAY_OF_MONTH));
-        // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        datePickerDialog.show();
-    }
+            return json;
+        }
 
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<CustomerModel>() {
+                }.getType();
+                customer= new Gson().fromJson(result, listType);
+                if(customer!=null){
+                cid=customer.getCustomerID();
+                c_contact.setText(customer.getMobile());
+                i_address.setText(customer.getAddress());}
+
+
+            }
+
+
+        }
+    }
     /*customer List get*/
     private void postOrder() {
 
@@ -677,7 +729,9 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
-
+                if(!orderid.equals( "" )){
+                    parameters.add("OrderID", orderid);
+                }
                 parameters.add("CustomerID", customerid);
                 parameters.add("OrderDate", orderdate);
                 parameters.add("Advance", orderamount);
@@ -711,6 +765,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     addorder.setEnabled(false);
                     addorder.setClickable(false);
                     getMyOrder(orderid);
+                    //addorder.setVisibility( View.GONE );
                     addroom.setVisibility(View.VISIBLE);
                 }
             }
