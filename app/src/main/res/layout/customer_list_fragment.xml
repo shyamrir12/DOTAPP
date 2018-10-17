@@ -41,14 +41,14 @@
 
                     <TextView
                         android:id="@+id/contact"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="116dp"
+                        android:layout_height="19dp"
                         android:layout_weight="1"
-                        android:paddingLeft="5dp"
                         android:gravity="left"
+                        android:paddingLeft="5dp"
                         android:text="Dubey"
-                        android:textSize="13sp"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/address"

@@ -2,7 +2,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+
+  compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.awizom.dotapp"
         minSdkVersion 22

@@ -10,6 +10,10 @@
     <color name="black">#000</color>
     <color name="blue">#545db4</color>
     <color name="green">#0f0</color>
+    <color name="button_pressed">#ff8a00</color>
+    <color name="button_focused">#ff8a00</color>
+    <color name="button_default">#1c76bb</color>
+
     <color name="white">#fff</color>
     <color name="half_white">#fcf9f9</color>
     <color name="gray">#706e6e</color>
@@ -17,5 +21,6 @@
     <color name="button_background_color">#2269ac</color>
     <color name="unsuscolor">#47d5df</color>
     <color name="transparenncy">#8c000000</color>
-
+    <color name="ColorPrimary">#FF5722</color>
+    <color name="ColorPrimaryDark">#E64A19</color>
 </resources>

@@ -10,22 +10,25 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
 import com.example.awizom.dotapp.Fragments.BottomCustomerFragment;
 import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
 import com.example.awizom.dotapp.Fragments.BottomReportFragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
+import com.example.awizom.dotapp.Fragments.UserListFragment;
 
 import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
 
 public class HomeActivity extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment customerLayoutfragment, reportLayoutfragment,orderLayoutfragment,statusLayoutFragment;
+    private Fragment userListFragment, customerLayoutfragment, reportLayoutfragment, orderLayoutfragment, statusLayoutFragment;
     Fragment fragment = null;
 
 
@@ -39,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             System.out.print("internet is not available");
         }
-
+        userListFragment = new UserListFragment();
         customerLayoutfragment = new BottomCustomerFragment();
         reportLayoutfragment = new BottomReportFragment();
         orderLayoutfragment = new BottomOrderFragment();
@@ -47,6 +50,53 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Class fragmentClass = null;
+
+        switch (item.getItemId()) {
+            case R.id.admin1:
+                getSupportActionBar().setTitle("User List");
+                fragment = userListFragment;
+                fragmentClass = UserListFragment.class;
+            break;
+
+          //  case R.id.user1:
+
+               // Toast.makeText(this, "user is clicked ", Toast.LENGTH_LONG).show();
+
+           //     return (true);
+            case R.id.about:
+              Intent i = new Intent(this,HomeActivity.class);
+              startActivity(i);
+
+
+
+            case R.id.exit:
+                finish();
+                return (true);
+        }
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.home_container, fragment).commit();
+            setTitle("");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return (super.onOptionsItemSelected(item));
+    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
