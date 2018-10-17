@@ -61,6 +61,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private AutoCompleteTextView catlogName, design;
     private Spinner unitSpinner, materialType;
     private Button addButton, cancelButton;
+    String actualorder="";
     //  private AlertDialog b;
     private String roomName, orderID, customernAME, mobileNumber, orderDate, advance;
 
@@ -89,7 +90,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         mobileNumber = getIntent().getExtras().getString("Mobile", "");
         orderDate = getIntent().getExtras().getString("OrderDate", "");
         advance = String.valueOf(getIntent().getDoubleExtra("Advance", 0));
-
+        actualorder=getIntent().getExtras().getString( "ActualOrder", "" );
         customerName = findViewById(R.id.customer_name);
         customerMobileNo = findViewById(R.id.customer_mobile_no);
         customerOrder = findViewById(R.id.order_date);
@@ -300,9 +301,19 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 try {
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new POSTOrder().execute("0", materialtype, priCe2, qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                            unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
-                } catch (Exception e) {
+                    if(actualorder.equals( "ActualOrder" ))
+                    {
+                        new POSTOrder().execute("0", materialtype, priCe2, "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                                unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
+
+                    }
+                    else
+                    {
+                        new POSTOrder().execute("0", materialtype, priCe2, qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                                unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
+
+                    }
+                      } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -381,7 +392,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                     Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
                     }.getType();
                     orderList = new Gson().fromJson(result, listType);
-                    adapter = new OrderItemAdapter(getBaseContext(), orderList);
+                    adapter = new OrderItemAdapter(getBaseContext(), orderList,actualorder);
                     recyclerView.setAdapter(adapter);
                     progressDialog.dismiss();
                 }
@@ -536,8 +547,15 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 roman.setText(morder.Roman.toString());
 
                 aPlat.setText(morder.APlat.toString());
+                if(actualorder.equals( "ActualOrder" ))
+                {
+                    totalAmount.setText(Double.toString(morder.getATotalAmount()));
+                }
+                else
+                {
+                    totalAmount.setText(Double.toString(morder.getTotalAmount()));
+                }
 
-                totalAmount.setText(Double.toString(morder.getTotalAmount()));
                 progressDialog.dismiss();
 
             }

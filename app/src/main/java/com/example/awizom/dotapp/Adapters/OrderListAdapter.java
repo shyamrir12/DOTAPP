@@ -89,7 +89,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         String dept;
 
         private TextView ordername, orderaddress, ordercontact, orderdate, orderamount, totalamount, textviewStatus,status;
-        private Button statusOrder;
+        private Button statusOrder,buttonOrder,buttonActualOrder;
         private List<DataOrder> orderitemList;
 
 
@@ -109,7 +109,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             textviewStatus = view.findViewById(R.id.textViewStatus);
             textviewStatus.setOnClickListener(this);
             statusOrder = view.findViewById(R.id.buttonOP);
+            buttonOrder = view.findViewById(R.id.buttonOrder);
+            buttonActualOrder = view.findViewById(R.id.buttonActualOrder);
             statusOrder.setOnClickListener( this );
+            buttonOrder.setOnClickListener( this );
+            buttonActualOrder.setOnClickListener( this );
             textviewStatus.setText("List");
         }
 
@@ -122,9 +126,22 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
             if (v.getId() == statusOrder.getId()) {
 
+
+            }
+            if (v.getId() == buttonOrder.getId()) {
+
                 Intent i = new Intent().setClass(mCtx, AfterCreateActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 i = i.putExtra( "OrderID" ,String.valueOf(   orderitem.OrderID));
+                i = i.putExtra( "ActualOrder" ,"");
+                mCtx.startActivity( i );
+            }
+            if (v.getId() == buttonActualOrder.getId()) {
+
+                Intent i = new Intent().setClass(mCtx, AfterCreateActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                i = i.putExtra( "OrderID" ,String.valueOf(   orderitem.OrderID));
+                i = i.putExtra( "ActualOrder" ,"ActualOrder");
                 mCtx.startActivity( i );
             }
         }

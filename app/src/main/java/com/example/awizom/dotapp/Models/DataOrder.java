@@ -23,18 +23,29 @@ public class DataOrder {
     public String OrderDate;
     public int SNO;
     public String RoomList;
+    public String ActuRoomList;
     public String ARoomList;
     public String TelorList;
     public Double TotalAmount;
     public Double ATotalAmount;
 
-    public Double getActualTotalAmount() {
+    public String getActuRoomList() {
+        return ActuRoomList;
+    }
+
+    public void setActuRoomList(String actuRoomList) {
+        ActuRoomList = actuRoomList;
+    }
+
+    public Double getATotalAmount() {
         return ATotalAmount;
     }
 
-    public void setActualTotalAmount(Double aTotalAmount) {
-        ATotalAmount = aTotalAmount;
+    public void setATotalAmount(Double ATotalAmount) {
+        this.ATotalAmount = ATotalAmount;
     }
+
+
 
     public String getTelorList() {
         return TelorList;

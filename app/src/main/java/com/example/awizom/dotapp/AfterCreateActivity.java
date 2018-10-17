@@ -17,6 +17,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -81,6 +82,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     int morderid=0;
 
     String orderid="";
+    String actualorder="";
     String[] orderidPart;
     Intent intent;
     String actualRoomList;
@@ -106,7 +108,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         amount = findViewById(R.id.amountValue);
         textViewATotalAmount=findViewById(R.id.textViewATotalAmount);
         orderDate.setInputType( InputType.TYPE_NULL);
-        orderDate.setOnClickListener(this);
+
         addorder = findViewById(R.id.addOrder);
         addorder.setOnClickListener(this);
         addroom = findViewById(R.id.addRoom);
@@ -121,7 +123,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         progressDialog = new ProgressDialog(this);
 
 
-
+         orderDate.setOnClickListener( this );
         roomname.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -136,13 +138,16 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 intent.putExtra("Mobile",c_contact.getText().toString());
                 intent.putExtra("OrderDate",orderDate.getText().toString());
                 intent.putExtra("Advance",Double.valueOf( amount.getText().toString()));
+                intent.putExtra("ActualOrder",actualorder);
                 startActivity(intent);
             }
         });
 
 
        try{
-        orderid = getIntent().getExtras().getString( "OrderID", "" );}
+        orderid = getIntent().getExtras().getString( "OrderID", "" );
+           actualorder=getIntent().getExtras().getString( "ActualOrder", "" );}
+
         catch (Exception e)
         {
             e.printStackTrace();
@@ -276,12 +281,12 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             case R.id.addnewCustomerButton:
                 openUpdateDailoge();
                 break;
-            case R.id.orderDatePicker:
-
-                DialogFragment datepicker=new DatePickerFragment();
-                datepicker.show(getSupportFragmentManager(),"date picker");
-
+            case  R.id.orderDatePicker:
+               DialogFragment datepicker=new DatePickerFragment();
+               datepicker.show(getSupportFragmentManager(),"date picker");
                 break;
+
+
         }
 
     }
@@ -553,13 +558,19 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 i_address.setText(morder.getAddress());
                 orderDate.setText( morder.getOrderDate().split( "T" )[0] );
                 amount.setText(String.valueOf(  morder.getAdvance()) );
-                textViewATotalAmount.setText( String.valueOf( morder.getTotalAmount() ) );
-                roomName = morder.getRoomList().split(",");
+                if(actualorder.equals( "ActualOrder" ))
+                {
+                    textViewATotalAmount.setText( String.valueOf( morder.getATotalAmount() ) );
+                    roomName = morder.getActuRoomList().split(",");
+                }
+                else
+                {
+                    textViewATotalAmount.setText( String.valueOf( morder.getTotalAmount() ) );
+                    roomName = morder.getRoomList().split(",");
+                }
+
                 actualRoomList = morder.getARoomList();
-                // ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
-                // spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item); // The drop down view
-                // spinner.setAdapter(spinnerArrayAdapter);
-                ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist,R.id.label,roomName);
+                 ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist,R.id.label,roomName);
                 roomname.setAdapter( spinnerArrayAdapter );
 
             }

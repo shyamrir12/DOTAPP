@@ -11,13 +11,15 @@ public class ElightBottomModel {
     public Double TotalAmount;
     public Double ATotalAmount;
 
-    public Double getActualTotalAmount() {
+    public Double getATotalAmount() {
         return ATotalAmount;
     }
 
-    public void setActualTotalAmount(Double aTotalAmount) {
-        ATotalAmount = aTotalAmount;
+    public void setATotalAmount(Double ATotalAmount) {
+        this.ATotalAmount = ATotalAmount;
     }
+
+
 
     public int getOrderRoomId() {
         return OrderRoomId;

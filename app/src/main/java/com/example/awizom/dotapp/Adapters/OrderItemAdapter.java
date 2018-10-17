@@ -35,14 +35,16 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
     private Context mCtx;
     ProgressDialog progressDialog;
+    String actualorder;
 
     //we are storing all the products in a list
     private List<CatelogOrderDetailModel> orderitemList;
 
 
-    public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList) {
+    public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList,String actualorder) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
+        this.actualorder = actualorder;
         progressDialog = new ProgressDialog(mCtx);
     }
 
@@ -71,6 +73,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             holder.Qty.setText("Qty\n" + Integer.toString(order.getQty()));
             holder.AQty.setText("AQty\n" + Integer.toString(order.getAQty()));
             holder.unit.setText("Unit\n" + order.getOrderUnit());
+
+            if(actualorder.equals( "ActualOrder" )){
+                holder.AQty.setVisibility( View.VISIBLE );
+                holder.Qty.setVisibility( View.GONE );
+            }
+
         } catch (Exception E) {
             E.printStackTrace();
         }

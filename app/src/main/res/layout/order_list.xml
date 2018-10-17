@@ -112,6 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:hint="Status"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -119,7 +120,7 @@
                         android:id="@+id/textViewStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Status"
+
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         android:textStyle="bold"/>
@@ -138,26 +139,37 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/L3"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+
                     <Button
                         android:id="@+id/buttonOP"
-                        android:layout_width="120dp"
-                        android:layout_height="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
                         android:background="@drawable/button_background"
                         android:text="OK"
+                        android:layout_margin="5dp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/white" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    <Button
+                        android:id="@+id/buttonOrder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:background="@drawable/button_background"
+                        android:text="Order"
+                        android:layout_margin="5dp"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/white" />
+                    <Button
+                        android:id="@+id/buttonActualOrder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/button_background"
+                        android:text="Actual Order"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
