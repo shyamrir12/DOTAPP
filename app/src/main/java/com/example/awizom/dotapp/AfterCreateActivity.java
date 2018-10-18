@@ -581,6 +581,11 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 i_address.setText(morder.getAddress());
                 orderDate.setText( morder.getOrderDate().split( "T" )[0] );
                 amount.setText(String.valueOf(  morder.getAdvance()) );
+                if(morder.getOrderStatusID() == 0) {
+                    addUserStatus.setVisibility(View.VISIBLE);
+                }else {
+                    addUserStatus.setVisibility(View.GONE);
+                }
                 if(actualorder.equals( "ActualOrder" ))
                 {
                     textViewATotalAmount.setText( String.valueOf( morder.getATotalAmount() ) );

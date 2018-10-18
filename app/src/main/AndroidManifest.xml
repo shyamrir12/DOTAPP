@@ -18,12 +18,7 @@
         <activity
             android:name=".RoomDetailsActivity" android:theme="@style/AppTheme"/>
             <!--android:parentActivityName=".AfterCreateOrderActivity" />-->
-        <activity android:name=".SinUpActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".SinUpActivity" />
         <activity android:name=".SigninActivity" >
 
         </activity>
@@ -52,7 +47,10 @@
         <activity android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
     </application>
