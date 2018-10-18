@@ -71,6 +71,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()).trim());
             holder.totalamount.setText("Amount\n " + Double.toString(order.getTotalAmount()).trim());
             holder.textviewStatus.setText( filterKey );
+            if(order.getOrderStatusID()==0)
+            {
+                holder.textviewStatus.setVisibility( View.GONE );
+                holder.statusOrder.setVisibility( View.GONE );
+            }
 
         } catch (Exception E) {
             E.printStackTrace();
