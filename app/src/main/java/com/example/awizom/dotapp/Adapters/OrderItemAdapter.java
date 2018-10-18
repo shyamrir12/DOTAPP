@@ -254,8 +254,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                         String aqty = aQty.getText().toString();
                         String materialtype = materialType.getSelectedItem().toString();
                         String unIt = unitSpinner.getSelectedItem().toString();
-                        //progressDialog.setMessage("loading...");
-                       // progressDialog.show();
+                       // progressDialog.setMessage("loading...");
+                        //progressDialog.show();
                         if(actualorder.equals( "ActualOrder" )){
 
                             new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2,QTY, aqty, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim(),SharedPrefManager.getInstance(mCtx).getUser().access_token);

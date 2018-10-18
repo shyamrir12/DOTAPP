@@ -26,6 +26,7 @@ import com.example.awizom.dotapp.Fragments.BottomReportFragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 
 import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
 
@@ -54,6 +55,8 @@ public class HomeActivity extends AppCompatActivity {
         statusLayoutFragment = new BottomStatusFragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
     }
 
     public void checkNetworkConnection(){
@@ -135,11 +138,13 @@ public class HomeActivity extends AppCompatActivity {
                 break;
 
             case R.id.exit:
-                Intent intt = new Intent(this, SigninActivity.class);
-                startActivity(intt);
+                SharedPrefManager.getInstance(this).logout();
+                Intent login = new Intent(getApplicationContext(), SigninActivity.class);
+                startActivity(login);
+
 
              finish();
-             onStop();
+
              break;
                 //return (true);
         }
