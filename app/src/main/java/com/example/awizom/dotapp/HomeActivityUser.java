@@ -1,6 +1,8 @@
 package com.example.awizom.dotapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,6 +12,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -51,8 +54,31 @@ public class HomeActivityUser extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(HomeActivityUser.this);
+            alertbox.setIcon(R.drawable.warning);
+            alertbox.setTitle("Do You Want To Exit Programme?");
+            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // finish used for destroyed activity
+                    finishAffinity();
+                    System.exit(0);
 
+
+                }
+            });
+
+            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // Nothing will be happened when clicked on no button
+                    // of Dialog
+                }
+            });
+
+            alertbox.show();
+        }
+        return super.onKeyDown(keyCode, event);
     }
    @Override
    public boolean onCreateOptionsMenu(Menu menu) {

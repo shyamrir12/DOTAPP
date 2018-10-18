@@ -1,15 +1,19 @@
 package com.example.awizom.dotapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -30,7 +34,8 @@ public class HomeActivity extends AppCompatActivity {
     private Intent intent;
     private Fragment userListFragment, customerLayoutfragment, reportLayoutfragment, orderLayoutfragment, statusLayoutFragment;
     Fragment fragment = null;
-
+    boolean doubleBackToExitPressedOnce = false;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +55,54 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-    @Override
-    public void onBackPressed() {
 
+    public void checkNetworkConnection(){
+        AlertDialog.Builder builder =new AlertDialog.Builder(this);
+        builder.setTitle("No internet Connection");
+        builder.setMessage("Please turn on internet connection to continue");
+        builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
+
+
+
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(HomeActivity.this);
+            alertbox.setIcon(R.drawable.warning);
+            alertbox.setTitle("Do You Want To Exit Programme?");
+            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // finish used for destroyed activity
+                    finishAffinity();
+                    System.exit(0);
+
+
+                }
+            });
+
+            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // Nothing will be happened when clicked on no button
+                    // of Dialog
+                }
+            });
+
+            alertbox.show();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
