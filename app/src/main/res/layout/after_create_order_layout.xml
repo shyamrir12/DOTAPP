@@ -185,8 +185,7 @@
                     android:id="@+id/buttonHallLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                   android:orientation="vertical"
-                  >
+                   android:orientation="horizontal">
                     <Button
                         android:id="@+id/addOrder"
                         android:layout_width="match_parent"
@@ -198,7 +197,13 @@
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        android:background="@drawable/add_cancel_button_shape"/>
+                        android:background="@drawable/add_cancel_button_shape"/></LinearLayout>
+                <LinearLayout
+                    android:id="@+id/buttonRoomAddLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/buttonHallLayout">
                     <Button
                         android:id="@+id/addRoom"
                         android:layout_width="match_parent"
@@ -209,8 +214,20 @@
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:visibility="gone"
+                        android:layout_weight="1"
                         android:layout_alignParentRight="true"
-                        android:layout_margin="10dp" />
+                        android:layout_margin="5dp" />
+                    <Button
+                        android:id="@+id/addstatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/add_cancel_button_shape"
+                        android:text="Add Status"
+                        android:textColor="@color/white"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="5dp"/>
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>

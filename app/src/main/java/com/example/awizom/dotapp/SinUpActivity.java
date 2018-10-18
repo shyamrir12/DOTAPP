@@ -18,6 +18,9 @@ import com.example.awizom.dotapp.Models.Token;
 import com.example.awizom.dotapp.Models.UserRegister;
 import com.google.gson.Gson;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -88,8 +91,20 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         if (userName.getText().toString().isEmpty() && passWord.getText().toString().isEmpty() && cnfrmPassWord.getText().toString().isEmpty()) {
             Toast.makeText(this, "Filed can't be blank", Toast.LENGTH_SHORT).show();
             return false;
+        }else if( !isValidPassword(passWord.getText().toString())) {
+            Toast.makeText(getApplicationContext(),"Password must contain mix of upper and lower case letters as well as digits and one special charecter(4-20)",Toast.LENGTH_SHORT);
+            return false;
+        }else if(passWord.getText().toString().contains(cnfrmPassWord.getText().toString())){
+            Toast.makeText(getApplicationContext(),"Password not match",Toast.LENGTH_SHORT);
+
+            return false;
         }
         return true;
+    }
+
+    public static boolean isValidPassword(String password) {
+        Matcher matcher = Pattern.compile("((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{4,20})").matcher(password);
+        return matcher.matches();
     }
 
     private class POSTRegister extends AsyncTask<String, Void, String> {

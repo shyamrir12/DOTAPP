@@ -17,6 +17,23 @@
             android:layout_centerInParent="true"
             android:layout_margin="13dp">
 
+            <Spinner
+                android:id="@+id/spinnerUserRole"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_above="@+id/customerName"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/signin_sinup_button_shape"
+                android:padding="8dp" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@+id/spinnerUserRole"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                android:tint="@color/gray"/>
+
             <EditText
                 android:id="@+id/customerName"
                 android:layout_width="match_parent"
@@ -30,22 +47,20 @@
                 android:layout_above="@+id/password"
                 android:layout_marginBottom="20dp"
                 android:drawableRight="@drawable/ic_person_outline_black_24dp"
-                android:background="@drawable/signin_sinup_button_shape"
-                />
+                android:background="@drawable/signin_sinup_button_shape" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="false"
+                android:layout_centerVertical="true"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingLeft="14dp"
                 android:paddingRight="10dp"
                 android:textSize="15sp"
                 android:layout_marginBottom="20dp"
-                android:layout_above="@+id/confrmPassword"
                 android:drawableRight="@drawable/ic_lock_outline_black_24dp"
                 android:background="@drawable/signin_sinup_button_shape" />
 
@@ -54,7 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:layout_centerVertical="false"
+                android:layout_below="@+id/password"
                 android:hint="@string/cpassword"
                 android:inputType="textWebPassword"
                 android:paddingLeft="14dp"
@@ -75,7 +91,7 @@
                 android:background="@drawable/add_cancel_button_shape"
                 android:layout_below="@+id/confrmPassword"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp" />
+                android:layout_marginTop="20dp" />
 
             <TextView
                 android:id="@+id/loginHere"

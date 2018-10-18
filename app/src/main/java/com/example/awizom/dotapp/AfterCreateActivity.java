@@ -77,7 +77,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private CustomerModel customer;
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
-    private Button addorder,addroom,actualRead,simpleRead;
+    private Button addorder,addroom,actualRead,simpleRead,addUserStatus;
     private ImageButton addNewCustomer;
     int morderid=0;
 
@@ -116,11 +116,16 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         addNewCustomer = findViewById(R.id.addnewCustomerButton);
         addNewCustomer.setOnClickListener(this);
 
+        addUserStatus = findViewById(R.id.addstatus);
+        addUserStatus.setOnClickListener(this);
+
+
         roomname = findViewById(R.id.hallList);
         addNewCustomerFragment = new AddCustomerFragment();
 
         progressDialog = new ProgressDialog(getApplicationContext());
         progressDialog = new ProgressDialog(this);
+
 
 
          orderDate.setOnClickListener( this );
@@ -282,13 +287,31 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 openUpdateDailoge();
                 break;
             case  R.id.orderDatePicker:
-               DialogFragment datepicker=new DatePickerFragment();
-               datepicker.show(getSupportFragmentManager(),"date picker");
+                DialogFragment datepicker=new DatePickerFragment();
+                datepicker.show(getSupportFragmentManager(),"date picker");
+                break;
+            case  R.id.addstatus:
+                    addStatusUser();
                 break;
 
 
         }
 
+    }
+
+    private void addStatusUser() {
+                            try {
+
+                        //String res="";
+                        progressDialog.setMessage("loading...");
+                        progressDialog.show();
+                        new AfterCreateActivity.POSTStatus().execute(orderid, "0", "0", "0", "0", "0", "", "", "",SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+                        // System.out.println("Error: " + e);
+                    }
     }
 
     private void openUpdateDailoge() {
@@ -778,6 +801,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     getMyOrder(orderid);
                     //addorder.setVisibility( View.GONE );
                     addroom.setVisibility(View.VISIBLE);
+                    addUserStatus.setVisibility(View.VISIBLE);
                     //post status
 //                    try {
 //
@@ -867,7 +891,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
-
+                    addUserStatus.setVisibility(View.INVISIBLE);
                 }
                 progressDialog.dismiss();
 

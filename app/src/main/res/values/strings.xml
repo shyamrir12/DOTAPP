@@ -24,6 +24,7 @@
         <item>Roll</item>
         <item>Sqft</item>
     </string-array>
+    <string name="pwdtextype">abcdefghijklmnopqrstuvwxyz1234567890 </string>
 
     <string-array name="MaterialType">
         <item>Material Type</item>

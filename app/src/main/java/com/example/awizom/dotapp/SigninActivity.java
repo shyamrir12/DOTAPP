@@ -17,6 +17,9 @@ import com.example.awizom.dotapp.Models.Token;
 import com.example.awizom.dotapp.Models.UserLogin;
 import com.google.gson.Gson;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -80,8 +83,16 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         if (userName.getText().toString().isEmpty() && passWord.getText().toString().isEmpty()) {
             Toast.makeText(this, "Filed can't be blank", Toast.LENGTH_SHORT).show();
             return false;
+        }else if( !isValidPassword(passWord.getText().toString())) {
+            Toast.makeText(getApplicationContext(),"Password incorrect",Toast.LENGTH_SHORT);
+            return false;
         }
         return true;
+    }
+
+    public static boolean isValidPassword(String password) {
+        Matcher matcher = Pattern.compile("((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{4,20})").matcher(password);
+        return matcher.matches();
     }
 
     public void userLogin() {
