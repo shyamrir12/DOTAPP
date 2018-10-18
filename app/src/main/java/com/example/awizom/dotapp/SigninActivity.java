@@ -36,7 +36,10 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.login_layout);
         initView();
     }
+    @Override
+    public void onBackPressed() {
 
+    }
     private void initView() {
         getSupportActionBar().setTitle("Sign In");
         progressDialog = new ProgressDialog(this);

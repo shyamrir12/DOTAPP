@@ -50,7 +50,10 @@ public class HomeActivityUser extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    @Override
+    public void onBackPressed() {
 
+    }
    @Override
    public boolean onCreateOptionsMenu(Menu menu) {
        // Inflate the menu; this adds items to the action bar if it is present.
@@ -74,16 +77,21 @@ public class HomeActivityUser extends AppCompatActivity {
 //            // Toast.makeText(this, "user is clicked ", Toast.LENGTH_LONG).show();
 //
 //            //     return (true);
-//            case R.id.about:
-//                Intent i = new Intent(this, com.example.awizom.dotapp.HomeActivity.class);
-//                startActivity(i);
+        case R.id.about:
+                Intent i = new Intent(this, HomeActivityUser.class);
+                startActivity(i);
+                finish();
+                break;
 //
 //
 //
           case R.id.exit:
               Intent intt = new Intent(this, SigninActivity.class);
               startActivity(intt);
+              finish();
               break;
+
+
        }
         try {
             fragment = (Fragment) fragmentClass.newInstance();

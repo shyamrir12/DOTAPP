@@ -50,7 +50,10 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+    @Override
+    public void onBackPressed() {
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,14 +81,18 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.about:
                 Intent i = new Intent(this, HomeActivity.class);
                 startActivity(i);
-
+                finish();
+                onStop();
                 break;
 
             case R.id.exit:
                 Intent intt = new Intent(this, SigninActivity.class);
                 startActivity(intt);
-                break;
-            //return (true);
+
+             finish();
+             onStop();
+             break;
+                //return (true);
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -158,3 +165,4 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 }
+

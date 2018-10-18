@@ -3,7 +3,9 @@ package com.example.awizom.dotapp.Fragments;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,7 +32,9 @@ public class UserListFragment extends Fragment {
     UserListAdapter adapter;
     RecyclerView recyclerView;
     String userId;
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    Handler handler = new Handler();
+    Runnable refresh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,16 +42,24 @@ public class UserListFragment extends Fragment {
         View view = inflater.inflate(R.layout.user_list_item, container, false);
         initView(view);
         return view;
+
     }
 
     private void initView(View view) {
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait while loading users");
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+             getUserList();
+            }
+        });
         getUserList();
     }
     private void getUserList() {
@@ -63,6 +75,7 @@ public class UserListFragment extends Fragment {
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private class GetUserDetails extends AsyncTask<String, Void, String> {
         @Override
@@ -105,7 +118,7 @@ public class UserListFragment extends Fragment {
                 for (UserModel cm : userItemList) {
                     userId  = cm.getUserId();
                 }
-                
+
                 adapter = new UserListAdapter  (getContext(),userItemList);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();

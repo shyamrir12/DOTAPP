@@ -4,9 +4,9 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +18,11 @@ import android.widget.Toast;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
-import com.example.awizom.dotapp.HomeActivity;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.Models.UserModel;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -40,6 +37,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
     String userId;
     int pos;
     UserModel um;
+    private Fragment userListFragment;
+    Fragment fragment = null;
 
     String activeuser="False";
     //we are storing all the products in a list
@@ -49,6 +48,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
     public UserListAdapter(Context mCtx, List<UserModel> useritemList) {
         this.mCtx = mCtx;
         this.useritemList = useritemList;
+        userListFragment = new UserListFragment();
         progressDialog = new ProgressDialog(mCtx);
     }
 
@@ -134,6 +134,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
 
         @Override
         public void onClick(View v) {
+            Class fragmentClass = null;
             int position = getAdapterPosition();
             UserModel useritem = this.useritemList.get(position);
            // pos=position;
@@ -147,14 +148,23 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
 
                 alertbox.setNeutralButton("Yes",
                         new DialogInterface.OnClickListener() {
+                            Class fragmentClass = null;
+
 
                             public void onClick(DialogInterface arg0,
                                                 int arg1) {
-                                if(active.getText().equals( "Activate" ))
-                                    activeuser="True";
+                                if (active.getText().equals("Activate"))
+                                    activeuser = "True";
                                 postUserList();
 
+
+
+
+
                             }
+
+
+
                         });
                 alertbox.setPositiveButton("No", null);
 
@@ -229,6 +239,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
                         , jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                    // modifyItem(pos,um);
+
                     progressDialog.dismiss();
                 }
 
@@ -240,6 +251,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
 
 
     }
+
+
+
+
     public void modifyItem(final int position, final UserModel model) {
         useritemList.set(position, model);
         notifyItemChanged(position);

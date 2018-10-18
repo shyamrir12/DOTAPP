@@ -36,6 +36,10 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.registraion_layout);
         initView();
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 
     private void initView() {
         getSupportActionBar().setTitle("Sign Up");
