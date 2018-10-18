@@ -8,10 +8,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,11 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.Models.Catelog;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -32,11 +39,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {
-
+    private AutoCompleteTextView catlogName, design;
+    private EditText  price;
     private Context mCtx;
     ProgressDialog progressDialog;
     String actualorder;
-
+    ArrayAdapter<String> designadapter;
+    private Spinner unitSpinner;
     //we are storing all the products in a list
     private List<CatelogOrderDetailModel> orderitemList;
 
@@ -138,46 +147,50 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             int position = getAdapterPosition();
             CatelogOrderDetailModel orderitem = this.orderitemList.get(position);
 
-            if (v.getId() == itemView.getId()) {
-                // showUpdateDeleteDialog(order);
-
+           if (v.getId() == itemView.getId()) {
+               initViewByAlertdailog(orderitem,v);
                try {
-                  initViewByAlertdailog(orderitem);
+
                } catch (Exception E) {
                    E.printStackTrace();
                }
-                Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
+
             }
             return true;
         }
-        private void initViewByAlertdailog(CatelogOrderDetailModel orderitem) {
+        private void initViewByAlertdailog(CatelogOrderDetailModel orderitem,View v) {
 
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
-            LayoutInflater inflater = LayoutInflater.from(mCtx);
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(v.getRootView().getContext());
+            LayoutInflater inflater = LayoutInflater.from(v.getRootView().getContext());
             final View dialogView = inflater.inflate(R.layout.add_dailog_layout, null);
             dialogBuilder.setView(dialogView);
-
 
             final String OrderItemID = String.valueOf(orderitem.getOrderItemID());
             final String orderRoomId = String.valueOf(orderitem.getOrderRoomID());
             final String catalogID = String.valueOf(orderitem.getCatalogID());
+            final String QTY = String.valueOf(orderitem.getQty());
+            final String AQTY = String.valueOf(orderitem.getAQty());
             final String orderRoomName = orderitem.getRoomName();
             final String orderID = String.valueOf(orderitem.getOrderID());
             final EditText s_no = dialogView.findViewById(R.id.sNo);
-            final EditText catlogName = dialogView.findViewById(R.id.catlogName);
-            final EditText design = dialogView.findViewById(R.id.design);
+             catlogName = dialogView.findViewById(R.id.catlogName);
+            design = dialogView.findViewById(R.id.design);
             final EditText pageNo = dialogView.findViewById(R.id.pageNo);
-            final EditText price = dialogView.findViewById(R.id.price);
+             price = dialogView.findViewById(R.id.price);
             final EditText price2 = dialogView.findViewById(R.id.price2);
             final Spinner materialType = dialogView.findViewById(R.id.materialType);
             final EditText qty = dialogView.findViewById(R.id.qTy);
             final EditText aQty = dialogView.findViewById(R.id.aQty);
-            final Spinner unitSpinner = dialogView.findViewById(R.id.unit);
-
+           unitSpinner = dialogView.findViewById(R.id.unit);
+            if(actualorder.equals( "ActualOrder" )) {
+               qty.setVisibility( dialogView.GONE );
+                aQty.setVisibility( dialogView.VISIBLE );
+            }
 
             s_no.setText(orderitem.getSerialNo());
             catlogName.setText(orderitem.getCatalogName());
             design.setText(orderitem.getDesign());
+            price2.setText(Double.toString(   orderitem.getPrice2() ));
             pageNo.setText(Integer.toString(orderitem.getPageNo()));
             price.setText(Integer.toString(orderitem.getPrice()));
             materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(orderitem.getMaterialType()));
@@ -193,11 +206,44 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             dialogBuilder.setTitle("Edit Order Item");
             final AlertDialog b = dialogBuilder.create();
             b.show();
+          /*  catlogName.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    design.setText("");
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (catlogName.getText().length() > 0)
+                        getDesignList();
+                }
+            });
+            design.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    price.setText("");
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (design.getText().length() > 0)
+                        getCatalogDesignSingle();
+                }
+            });*/
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    try {
+
                         String snumber = s_no.getText().toString();
                         String catlogname = catlogName.getText().toString();
                         String desiGn = design.getText().toString();
@@ -208,17 +254,20 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                         String aqty = aQty.getText().toString();
                         String materialtype = materialType.getSelectedItem().toString();
                         String unIt = unitSpinner.getSelectedItem().toString();
-                        progressDialog.setMessage("loading...");
-                        progressDialog.show();
-                        new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, "0", unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, orderRoomName.trim(), orderID.trim());
+                        //progressDialog.setMessage("loading...");
+                       // progressDialog.show();
+                        if(actualorder.equals( "ActualOrder" )){
+
+                            new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2,QTY, aqty, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim(),SharedPrefManager.getInstance(mCtx).getUser().access_token);
+
+                        }
+                        else {
+                            new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, AQTY, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim(),SharedPrefManager.getInstance(mCtx).getUser().access_token);
+
+                        }
 
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
-                        Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-                        // System.out.println("Error: " + e);
-                    }
+
                     b.dismiss();
                 }
             });
@@ -235,9 +284,125 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         }
 
     }
+    private void getCatalogDesignSingle() {
+        try {
+
+            new getCatalogDesign().execute(catlogName.getText().toString(), design.getText().toString(),SharedPrefManager.getInstance(mCtx).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class getCatalogDesign extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String accesstoken = strings[2];
+            String catalogName = strings[0];
+            String designName = strings[1];
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "CatalogGet/" + catalogName + "/" + designName);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+
+                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<Catelog>() {
+                }.getType();
+                Catelog catelogdesign = new Gson().fromJson(result, listType);
+                if (catelogdesign != null) {
+                    price.setText(String.valueOf(catelogdesign.getPrice()));
+                    if (catelogdesign.getUnit().trim().length() > 0) {
+
+                        unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
+                    }
+                }
 
 
+                //Getting the instance of AutoCompleteTextView
 
+            }
+
+
+        }
+    }
+    private void getDesignList() {
+        try {
+            // progressDialog.setMessage("loading...");
+            // progressDialog.show();
+            new getDesign().execute(catlogName.getText().toString(), SharedPrefManager.getInstance(mCtx).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // progressDialog.dismiss();
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class getDesign extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String json = "";
+            String catalogName = strings[0];
+            String accesstoken = strings[1];
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "CatalogGet/" + catalogName);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+
+                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<String[]>() {
+                }.getType();
+                String[] designlist = new Gson().fromJson(result, listType);
+                designadapter = new ArrayAdapter<String>(mCtx, android.R.layout.select_dialog_item, designlist);
+                design.setThreshold(1);//will start working from first character
+                design.setAdapter(designadapter);//setting the adapter data into the AutoCompleteTextView
+
+            }
+
+
+        }
+    }
     private class POSTOrder extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -258,7 +423,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             String catalogID = params[13];
             String roomName = params[14];
             String orderID = params[15];
-
+            String accesstoken = params[16];
             String json = "";
             try {
 
@@ -267,7 +432,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 builder.url(AppConfig.BASE_URL_API + "OrderItemPost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                //builder.addHeader("Authorization", "Bearer " + accesstoken);
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
                 parameters.add("OrderItemID", orderItemId);
@@ -299,7 +464,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
                 // System.out.println("Error: " + e);
                 Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
@@ -309,18 +474,19 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
                 Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 //System.out.println("CONTENIDO:  " + result);
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
-                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mCtx.getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
-//               getMyOrder();
+                    //   getMyOrder();
                 }
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
             }
         }
     }
+
 }
