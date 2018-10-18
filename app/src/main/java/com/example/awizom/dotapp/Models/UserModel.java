@@ -6,6 +6,14 @@ public class UserModel {
     private String RoleId;
     private boolean Active;
 
+    public boolean isActive() {
+        return Active;
+    }
+
+    public void setActive(boolean active) {
+        Active = active;
+    }
+
     public UserModel(String userId, String userName, String roleId, boolean active) {
         UserId = userId;
         UserName = userName;
@@ -45,11 +53,5 @@ public class UserModel {
     }
 
 
-    public boolean isActive(Object o) {
-        return Active;
-    }
 
-    public void setActive(boolean active) {
-        Active = active;
-    }
 }

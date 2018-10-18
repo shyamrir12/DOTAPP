@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DacorOrderTracker</string>
+    <string name="app_name">Decor Order Tracker</string>
 
     <string name="read_xlsx">Read XLSX</string>
     <string name="write_xlsx">Write XLSX</string>
@@ -33,7 +33,7 @@
         <item>Padding</item>
     </string-array>
 
-    <string name="title_activity_home">DacorOrderTracker</string>
+    <string name="title_activity_home">Decor Order Tracker</string>
     <string name="title_customer">Customer</string>
     <string name="title_order">Order</string>
     <string name="title_report">Report</string>

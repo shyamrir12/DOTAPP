@@ -4,9 +4,18 @@ public class Token {
     public String access_token;
     public String token_type;
     public int expires_in;
+
+    public boolean getUserActive() {
+        return userActive;
+    }
+
+    public void setUserActive(boolean userActive) {
+        this.userActive = userActive;
+    }
+
     public String userName;
     public String userRole;
-    public Boolean userActive;
+    public boolean userActive;
 
     public String getAccess_token() {
         return access_token;
@@ -52,11 +61,5 @@ public class Token {
 
     }
 
-    public Boolean getUserActive() {
-        return userActive;
-    }
 
-    public void setUserActive(Boolean userActive) {
-        this.userActive = userActive;
-    }
 }

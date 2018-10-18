@@ -45,6 +45,15 @@ public class UserLogin {
         public String Message;
         public boolean Status;
         public String Role;
+        public boolean Active ;
+
+        public boolean isActive() {
+            return Active;
+        }
+
+        public void setActive(boolean active) {
+            Active = active;
+        }
 
         public String getMessage() {
             return Message;

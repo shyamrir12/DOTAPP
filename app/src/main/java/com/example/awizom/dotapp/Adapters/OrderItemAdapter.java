@@ -150,94 +150,93 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             }
             return true;
         }
+        private void initViewByAlertdailog(CatelogOrderDetailModel orderitem) {
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
+            LayoutInflater inflater = LayoutInflater.from(mCtx);
+            final View dialogView = inflater.inflate(R.layout.add_dailog_layout, null);
+            dialogBuilder.setView(dialogView);
 
 
-    }
-
-    private void initViewByAlertdailog(CatelogOrderDetailModel orderitem) {
-        //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
-        //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx, R.style.Theme_AppCompat_NoActionBar);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mCtx);
-        LayoutInflater inflater = LayoutInflater.from(mCtx);
-        final View dialogView = inflater.inflate(R.layout.add_dailog_layout, null);
-        dialogBuilder.setView(dialogView);
-
-
-        final String OrderItemID = String.valueOf(orderitem.getOrderItemID());
-        final String orderRoomId = String.valueOf(orderitem.getOrderRoomID());
-        final String catalogID = String.valueOf(orderitem.getCatalogID());
-        final String orderRoomName = orderitem.getRoomName();
-        final String orderID = String.valueOf(orderitem.getOrderID());
-        final EditText s_no = dialogView.findViewById(R.id.sNo);
-        final EditText catlogName = dialogView.findViewById(R.id.catlogName);
-        final EditText design = dialogView.findViewById(R.id.design);
-        final EditText pageNo = dialogView.findViewById(R.id.pageNo);
-        final EditText price = dialogView.findViewById(R.id.price);
-        final EditText price2 = dialogView.findViewById(R.id.price2);
-        final Spinner materialType = dialogView.findViewById(R.id.materialType);
-        final EditText qty = dialogView.findViewById(R.id.qTy);
-        final EditText aQty = dialogView.findViewById(R.id.aQty);
-        final Spinner unitSpinner = dialogView.findViewById(R.id.unit);
+            final String OrderItemID = String.valueOf(orderitem.getOrderItemID());
+            final String orderRoomId = String.valueOf(orderitem.getOrderRoomID());
+            final String catalogID = String.valueOf(orderitem.getCatalogID());
+            final String orderRoomName = orderitem.getRoomName();
+            final String orderID = String.valueOf(orderitem.getOrderID());
+            final EditText s_no = dialogView.findViewById(R.id.sNo);
+            final EditText catlogName = dialogView.findViewById(R.id.catlogName);
+            final EditText design = dialogView.findViewById(R.id.design);
+            final EditText pageNo = dialogView.findViewById(R.id.pageNo);
+            final EditText price = dialogView.findViewById(R.id.price);
+            final EditText price2 = dialogView.findViewById(R.id.price2);
+            final Spinner materialType = dialogView.findViewById(R.id.materialType);
+            final EditText qty = dialogView.findViewById(R.id.qTy);
+            final EditText aQty = dialogView.findViewById(R.id.aQty);
+            final Spinner unitSpinner = dialogView.findViewById(R.id.unit);
 
 
-        s_no.setText(orderitem.getSerialNo());
-        catlogName.setText(orderitem.getCatalogName());
-        design.setText(orderitem.getDesign());
-        pageNo.setText(Integer.toString(orderitem.getPageNo()));
-        price.setText(Integer.toString(orderitem.getPrice()));
-        materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(orderitem.getMaterialType()));
+            s_no.setText(orderitem.getSerialNo());
+            catlogName.setText(orderitem.getCatalogName());
+            design.setText(orderitem.getDesign());
+            pageNo.setText(Integer.toString(orderitem.getPageNo()));
+            price.setText(Integer.toString(orderitem.getPrice()));
+            materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(orderitem.getMaterialType()));
 
-        //Price2.setText(Integer.toString(order.getPrice2()));
-        qty.setText(Integer.toString(orderitem.getQty()));
-        aQty.setText(Integer.toString(orderitem.getAQty()));
-        unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(orderitem.getOrderUnit()));
-
-
-        final Button buttonAdd = (Button) dialogView.findViewById(R.id.add);
-        final Button buttonCancel = (Button) dialogView.findViewById(R.id.cancelButton);
-        dialogBuilder.setTitle("Edit Order Item");
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
-
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    String snumber = s_no.getText().toString();
-                    String catlogname = catlogName.getText().toString();
-                    String desiGn = design.getText().toString();
-                    String page_no = pageNo.getText().toString();
-                    String priCe = price.getText().toString();
-                    String priCe2 = price2.getText().toString();
-                    String qTy = qty.getText().toString();
-                    String aqty = aQty.getText().toString();
-                    String materialtype = materialType.getSelectedItem().toString();
-                    String unIt = unitSpinner.getSelectedItem().toString();
-                    progressDialog.setMessage("loading...");
-                    progressDialog.show();
-                    new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, "0", unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, orderRoomName.trim(), orderID.trim());
+            //Price2.setText(Integer.toString(order.getPrice2()));
+            qty.setText(Integer.toString(orderitem.getQty()));
+            aQty.setText(Integer.toString(orderitem.getAQty()));
+            unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(orderitem.getOrderUnit()));
 
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    progressDialog.dismiss();
-                    Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-                    // System.out.println("Error: " + e);
+            final Button buttonAdd = (Button) dialogView.findViewById(R.id.add);
+            final Button buttonCancel = (Button) dialogView.findViewById(R.id.cancelButton);
+            dialogBuilder.setTitle("Edit Order Item");
+            final AlertDialog b = dialogBuilder.create();
+            b.show();
+
+            buttonAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        String snumber = s_no.getText().toString();
+                        String catlogname = catlogName.getText().toString();
+                        String desiGn = design.getText().toString();
+                        String page_no = pageNo.getText().toString();
+                        String priCe = price.getText().toString();
+                        String priCe2 = price2.getText().toString();
+                        String qTy = qty.getText().toString();
+                        String aqty = aQty.getText().toString();
+                        String materialtype = materialType.getSelectedItem().toString();
+                        String unIt = unitSpinner.getSelectedItem().toString();
+                        progressDialog.setMessage("loading...");
+                        progressDialog.show();
+                        new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, "0", unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, orderRoomName.trim(), orderID.trim());
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+                        // System.out.println("Error: " + e);
+                    }
+                    b.dismiss();
                 }
-                b.dismiss();
-            }
-        });
+            });
 
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                b.dismiss();
-                /*
-                 * we will code this method to delete the artist
-                 * */
-            }
-        });
+            buttonCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    b.dismiss();
+                    /*
+                     * we will code this method to delete the artist
+                     * */
+                }
+            });
+        }
+
     }
+
+
 
     private class POSTOrder extends AsyncTask<String, Void, String> {
         @Override

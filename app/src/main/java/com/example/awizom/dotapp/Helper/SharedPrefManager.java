@@ -38,6 +38,7 @@ public class SharedPrefManager {
         editor.putString(KEY_USER_EMAIL, user.userName);
         editor.putInt(KEY_USER_EXPIRES, user.expires_in);
         editor.putString(KEY_USER_ROLE, user.userRole);
+        editor.putBoolean( String.valueOf( KEY_USER_ACTIVE ), user.userActive);
         editor.apply();
         return true;
     }
@@ -57,6 +58,7 @@ public class SharedPrefManager {
         token.userName   =  sharedPreferences.getString(KEY_USER_EMAIL, null);
         token.expires_in =  sharedPreferences.getInt(KEY_USER_EXPIRES, 0);
         token.userRole   =  sharedPreferences.getString(KEY_USER_ROLE, null);
+        token.userActive   =  sharedPreferences.getBoolean( String.valueOf( KEY_USER_ACTIVE ), false);
         return  token;
     }
 

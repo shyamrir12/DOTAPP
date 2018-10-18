@@ -22,6 +22,7 @@ import com.example.awizom.dotapp.Fragments.BottomReportFragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 
 import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
 
@@ -82,7 +83,10 @@ public class HomeActivity extends AppCompatActivity {
 
 
             case R.id.exit:
-                finish();
+
+                SharedPrefManager.getInstance(this).logout();
+                Intent login = new Intent(getApplicationContext(), SigninActivity.class);
+                startActivity(login);
                 return (true);
         }
         try {
