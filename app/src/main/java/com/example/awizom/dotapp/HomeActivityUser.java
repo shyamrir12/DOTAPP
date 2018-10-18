@@ -22,10 +22,9 @@ import com.example.awizom.dotapp.Fragments.BottomReportFragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
+import com.example.awizom.dotapp.R;
 
-import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
-
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivityUser extends AppCompatActivity {
 
     private Intent intent;
     private Fragment userListFragment, customerLayoutfragment, reportLayoutfragment, orderLayoutfragment, statusLayoutFragment;
@@ -37,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        if (isConnectingToInternet(HomeActivity.this)) {
+        if (isConnectingToInternet(HomeActivityUser.this)) {
             Toast.makeText(getApplicationContext(), "internet is available", Toast.LENGTH_LONG).show();
         } else {
             System.out.print("internet is not available");
@@ -52,49 +51,48 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+   @Override
+   public boolean onCreateOptionsMenu(Menu menu) {
+       // Inflate the menu; this adds items to the action bar if it is present.
+      getMenuInflater().inflate(R.menu.menu_main_user, menu);
+       return true;
+   }
 
-    @Override
+   @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Class fragmentClass = null;
 
-        switch (item.getItemId()) {
-            case R.id.admin1:
-                getSupportActionBar().setTitle("User List");
-                fragment = userListFragment;
-                fragmentClass = UserListFragment.class;
-                break;
-
-            //  case R.id.user1:
-
-            // Toast.makeText(this, "user is clicked ", Toast.LENGTH_LONG).show();
-
-            //     return (true);
-            case R.id.about:
-                Intent i = new Intent(this, HomeActivity.class);
-                startActivity(i);
-
-                break;
-
-            case R.id.exit:
-                Intent intt = new Intent(this, SigninActivity.class);
-                startActivity(intt);
-                break;
-            //return (true);
-        }
+       switch (item.getItemId()) {
+  //          case R.id.admin1:
+//                getSupportActionBar().setTitle("User List");
+//                fragment = userListFragment;
+//                fragmentClass = UserListFragment.class;
+//                break;
+//
+//            //  case R.id.user1:
+//
+//            // Toast.makeText(this, "user is clicked ", Toast.LENGTH_LONG).show();
+//
+//            //     return (true);
+//            case R.id.about:
+//                Intent i = new Intent(this, com.example.awizom.dotapp.HomeActivity.class);
+//                startActivity(i);
+//
+//
+//
+          case R.id.exit:
+              Intent intt = new Intent(this, SigninActivity.class);
+              startActivity(intt);
+              break;
+       }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.home_container, fragment).commit();
+           fragmentManager.beginTransaction().replace(R.id.home_container, fragment).commit();
             setTitle("");
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+           e.printStackTrace();
+       }
 
         return (super.onOptionsItemSelected(item));
     }

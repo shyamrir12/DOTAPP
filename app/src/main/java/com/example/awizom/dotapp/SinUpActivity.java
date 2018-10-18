@@ -142,7 +142,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
 
                     SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
                     if (!SharedPrefManager.getInstance(SinUpActivity.this).getUser().access_token.equals(null)) {
-                        startActivity(intent = new Intent(SinUpActivity.this, HomeActivity.class));
+                        startActivity(intent = new Intent(SinUpActivity.this, HomeActivityUser.class));
                     }
                 } else {
                     Toast.makeText(SinUpActivity.this, jsonbody.dataIdentityResult.getErrors().get(0), Toast.LENGTH_SHORT).show();

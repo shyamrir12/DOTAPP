@@ -27,6 +27,11 @@
             android:label="@string/title_activity_home">
 
         </activity>
+        <activity
+            android:name=".HomeActivityUser"
+            android:label="@string/title_activity_home">
+
+        </activity>
         <activity android:name=".CustomerActivity"></activity>
         <activity android:name=".StatusActivity" />
         <activity android:name=".OrderBottomActivity" />

@@ -46,16 +46,16 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         signinButton.setOnClickListener(this);
         signupHere = findViewById(R.id.signupHere);
         signupHere.setOnClickListener(this);
-       try {
-           if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
-               Intent log = new Intent(getApplicationContext(), HomeActivity.class);
-               startActivity(log);
-               finish();
-            }
-       }catch (Exception e){
-            e.printStackTrace();
-       }
-
+//       try {
+//           if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
+//               Intent log = new Intent(getApplicationContext(), HomeActivity.class);
+//               startActivity(log);
+//               finish();
+//            }
+//       }catch (Exception e){
+//            e.printStackTrace();
+//       }
+//
     }
 
     @Override
@@ -152,24 +152,33 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
             } else {
                 Gson gson = new Gson();
                 UserLogin.RootObject jsonbody = gson.fromJson(result, UserLogin.RootObject.class);
-if(jsonbody.login!=null)
-{
-    if (jsonbody.isStatus()) {
-        Token user = new Token();
-        user.userRole = jsonbody.Role;
-        user.access_token = jsonbody.login.access_token;
-        user.userName = jsonbody.login.userName;
-        user.token_type = jsonbody.login.token_type;
-        user.expires_in = jsonbody.login.expires_in;
-        user.userActive = jsonbody.Active;
-        SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
-        if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
-            Intent log = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(log);
-        }
-    }
-}
-               else {
+
+                if (jsonbody.isStatus()) {
+                    Token user = new Token();
+                    user.userRole = jsonbody.Role;
+                    user.access_token = jsonbody.login.access_token;
+                    user.userName = jsonbody.login.userName;
+                    user.token_type = jsonbody.login.token_type;
+                    user.expires_in = jsonbody.login.expires_in;
+
+                    SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
+                    if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
+
+                        if(user.getUserRole().contains("Admin")) {
+                            Intent log = new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(log);
+
+                        }
+                        else {
+
+                            Intent log = new Intent(getApplicationContext(), HomeActivityUser.class);
+                            startActivity(log);
+
+
+                        }
+
+                    }
+                } else {
                     Toast.makeText(getApplicationContext(), jsonbody.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
