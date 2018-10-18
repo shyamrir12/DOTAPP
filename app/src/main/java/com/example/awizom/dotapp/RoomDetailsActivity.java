@@ -207,9 +207,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) { }
 
     @Override
     public boolean onLongClick(View v) {
@@ -510,7 +508,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             String orderID = strings[1];
             String accesstoken = strings[2];
             String json = "";
-
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
