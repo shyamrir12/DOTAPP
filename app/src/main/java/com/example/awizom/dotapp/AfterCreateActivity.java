@@ -778,8 +778,102 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     getMyOrder(orderid);
                     //addorder.setVisibility( View.GONE );
                     addroom.setVisibility(View.VISIBLE);
+                    //post status
+//                    try {
+//
+//                        //String res="";
+//                        progressDialog.setMessage("loading...");
+//                        progressDialog.show();
+//                        new AfterCreateActivity.POSTStatus().execute(orderid, "0", "0", "0", "0", "0", "", "", "",SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        progressDialog.dismiss();
+//                        Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+//                        // System.out.println("Error: " + e);
+//                    }
                 }
             }
+        }
+
+    }
+    private class POSTStatus extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            //     InputStream inputStream
+            String orderid = params[0];
+            String OrderPlaced = params[1];
+            String MaterialReceived = params[2];
+            String ReceivedFromTalor = params[3];
+
+            String Dispatch = params[4];
+            String Cancel = params[5];
+            String HandOverTo = params[6];
+            String TelorName = params[7];
+            String ReceivedBy = params[8];
+            String accesstoken = params[9];
+
+            String json = "";
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderID", orderid);
+
+                parameters.add("OrderPlaced", OrderPlaced);
+                parameters.add("MaterialReceived", MaterialReceived);
+                parameters.add("ReceivedFromTalor", ReceivedFromTalor);
+                parameters.add("Cancel", Cancel);
+                parameters.add("Dispatch", Dispatch);
+
+                parameters.add("HandOverTo", HandOverTo);
+                parameters.add("TelorName", TelorName);
+                parameters.add("ReceivedBy", ReceivedBy);
+
+                builder.post(parameters.build());
+
+
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                // System.out.println("Error: " + e);
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                //System.out.println("CONTENIDO:  " + result);
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+
+
+                }
+                progressDialog.dismiss();
+
+            }
+
+
         }
 
     }
