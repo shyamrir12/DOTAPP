@@ -13,6 +13,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,11 +44,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        if (isConnectingToInternet(HomeActivity.this)) {
-            Toast.makeText(getApplicationContext(), "internet is available", Toast.LENGTH_LONG).show();
-        } else {
-            System.out.print("internet is not available");
-        }
+//        if (isConnectingToInternet(HomeActivity.this)) {
+//            Toast.makeText(getApplicationContext(), "internet is available", Toast.LENGTH_LONG).show();
+//        } else {
+//            System.out.print("internet is not available");
+//        }
         userListFragment = new UserListFragment();
         customerLayoutfragment = new BottomCustomerFragment();
         reportLayoutfragment = new BottomReportFragment();
@@ -58,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
 
     public void checkNetworkConnection(){
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
@@ -73,9 +75,24 @@ public class HomeActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    public boolean isNetworkConnectionAvailable() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnected();
+        if (isConnected) {
+            Log.d("Network", "Connected");
+            return true;
+        } else {
+            checkNetworkConnection();
+            Log.d("Network", "Not Connected");
+            return false;
+        }
 
 
-
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
