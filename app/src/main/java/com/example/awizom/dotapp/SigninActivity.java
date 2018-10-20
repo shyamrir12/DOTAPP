@@ -83,9 +83,18 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         signupHere.setOnClickListener(this);
        try {
            if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
-               Intent log = new Intent(getApplicationContext(), HomeActivity.class);
-               startActivity(log);
-               finish();
+               if(SharedPrefManager.getInstance(SigninActivity.this).getUser().userRole.contains("Admin")) {
+                   Intent log = new Intent(getApplicationContext(), HomeActivity.class);
+                   startActivity(log);
+
+               }
+               else {
+
+                   Intent log = new Intent(getApplicationContext(), HomeActivityUser.class);
+                   startActivity(log);
+
+
+               }
             }
        }catch (Exception e){
             e.printStackTrace();

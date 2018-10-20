@@ -101,55 +101,14 @@
                         android:textStyle="bold"/>
 
                 </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/L3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/L2"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Status"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/textViewStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-
-
-
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/L3"
+                    android:layout_below="@+id/L2"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/buttonOP"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/add_cancel_button_shape"
-                        android:text="OK"
-                        android:layout_margin="5dp"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                        android:textColor="@color/white" />
+
                     <Button
                         android:id="@+id/buttonOrder"
                         android:layout_width="wrap_content"

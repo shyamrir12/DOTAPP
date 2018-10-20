@@ -9,15 +9,8 @@ public class DataOrder {
     public String Mobile;
     public String InteriorName;
     public String InteriorMobile;
-    public int OrderStatusID;
-    public boolean OrderPlaced;
-    public boolean MaterialReceived;
-    public String HandOverTo;
-    public String TelorName;
-    public boolean ReceivedFromTalor;
-    public String ReceivedBy;
-    public boolean Cancel;
-    public boolean Dispatch;
+
+
     public int OrderID;
     public double Advance;
     public String OrderDate;
@@ -111,77 +104,8 @@ public class DataOrder {
         InteriorMobile = interiorMobile;
     }
 
-    public int getOrderStatusID() {
-        return OrderStatusID;
-    }
 
-    public void setOrderStatusID(int orderStatusID) {
-        OrderStatusID = orderStatusID;
-    }
 
-    public boolean isOrderPlaced() {
-        return OrderPlaced;
-    }
-
-    public void setOrderPlaced(boolean orderPlaced) {
-        OrderPlaced = orderPlaced;
-    }
-
-    public boolean isMaterialReceived() {
-        return MaterialReceived;
-    }
-
-    public void setMaterialReceived(boolean materialReceived) {
-        MaterialReceived = materialReceived;
-    }
-
-    public String getHandOverTo() {
-        return HandOverTo;
-    }
-
-    public void setHandOverTo(String handOverTo) {
-        HandOverTo = handOverTo;
-    }
-
-    public String getTelorName() {
-        return TelorName;
-    }
-
-    public void setTelorName(String telorName) {
-        TelorName = telorName;
-    }
-
-    public boolean isReceivedFromTalor() {
-        return ReceivedFromTalor;
-    }
-
-    public void setReceivedFromTalor(boolean receivedFromTalor) {
-        ReceivedFromTalor = receivedFromTalor;
-    }
-
-    public String getReceivedBy() {
-        return ReceivedBy;
-    }
-
-    public void setReceivedBy(String receivedBy) {
-        ReceivedBy = receivedBy;
-    }
-
-    public boolean isCancel() {
-        return Cancel;
-    }
-
-    public void setCancel(boolean cancel) {
-        Cancel = cancel;
-    }
-
-    public boolean isDispatch() {
-        return Dispatch;
-    }
-
-    public void setDispatch(boolean dispatch) {
-        Dispatch = dispatch;
-    }
 
     public int getOrderID() {
         return OrderID;

@@ -70,12 +70,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             holder.orderdate.setText("Date\n " + order.getOrderDate().split("T")[0].trim());
             holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()).trim());
             holder.totalamount.setText("Amount\n " + Double.toString(order.getTotalAmount()).trim());
-            holder.textviewStatus.setText( filterKey );
-            if(order.getOrderStatusID()==0)
-            {
-                holder.textviewStatus.setVisibility( View.GONE );
-                holder.statusOrder.setVisibility( View.GONE );
-            }
+            //holder.textviewStatus.setText( filterKey );
+
 
         } catch (Exception E) {
             E.printStackTrace();
@@ -105,34 +101,27 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
             ordername = view.findViewById(R.id.textViewCustomerName);
-            status = view.findViewById(R.id.textViewStatus);
+            //status = view.findViewById(R.id.textViewStatus);
             orderaddress = view.findViewById(R.id.textViewCustomerAddress);
             ordercontact = view.findViewById(R.id.textViewMobile);
             orderdate = view.findViewById(R.id.textViewOrderDate);
             orderamount = view.findViewById(R.id.textViewAdvance);
             totalamount = view.findViewById(R.id.textViewATotalAmount);
-            textviewStatus = view.findViewById(R.id.textViewStatus);
-            textviewStatus.setOnClickListener(this);
-            statusOrder = view.findViewById(R.id.buttonOP);
+
+
             buttonOrder = view.findViewById(R.id.buttonOrder);
             buttonActualOrder = view.findViewById(R.id.buttonActualOrder);
-            statusOrder.setOnClickListener( this );
+
             buttonOrder.setOnClickListener( this );
             buttonActualOrder.setOnClickListener( this );
-            textviewStatus.setText("List");
+
         }
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
             DataOrder orderitem = this.orderitemList.get(position);
-            if (v.getId() == textviewStatus.getId()) {
 
-            }
-            if (v.getId() == statusOrder.getId()) {
-
-
-            }
             if (v.getId() == buttonOrder.getId()) {
 
                 Intent i = new Intent().setClass(mCtx, AfterCreateActivity.class);

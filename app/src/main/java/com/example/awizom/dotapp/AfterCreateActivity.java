@@ -116,8 +116,8 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         addNewCustomer = findViewById(R.id.addnewCustomerButton);
         addNewCustomer.setOnClickListener(this);
 
-        addUserStatus = findViewById(R.id.addstatus);
-        addUserStatus.setOnClickListener(this);
+       // addUserStatus = findViewById(R.id.addstatus);
+        //addUserStatus.setOnClickListener(this);
 
 
         roomname = findViewById(R.id.hallList);
@@ -290,9 +290,9 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 DialogFragment datepicker=new DatePickerFragment();
                 datepicker.show(getSupportFragmentManager(),"date picker");
                 break;
-            case  R.id.addstatus:
-                    addStatusUser();
-                break;
+//            case  R.id.addstatus:
+//                    addStatusUser();
+//                break;
 
 
         }
@@ -581,11 +581,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 i_address.setText(morder.getAddress());
                 orderDate.setText( morder.getOrderDate().split( "T" )[0] );
                 amount.setText(String.valueOf(  morder.getAdvance()) );
-                if(morder.getOrderStatusID() == 0) {
-                    addUserStatus.setVisibility(View.VISIBLE);
-                }else {
-                    addUserStatus.setVisibility(View.GONE);
-                }
+
                 if(actualorder.equals( "ActualOrder" ))
                 {
                     textViewATotalAmount.setText( String.valueOf( morder.getATotalAmount() ) );
@@ -806,7 +802,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     getMyOrder(orderid);
                     //addorder.setVisibility( View.GONE );
                     addroom.setVisibility(View.VISIBLE);
-                    addUserStatus.setVisibility(View.VISIBLE);
+                  //  addUserStatus.setVisibility(View.VISIBLE);
                     //post status
 //                    try {
 //

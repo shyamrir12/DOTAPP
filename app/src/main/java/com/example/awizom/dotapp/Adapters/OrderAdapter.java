@@ -69,9 +69,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.textViewMobile.setText(order.getMobile());
         holder.textViewOrderDate.setText(order.getOrderDate().split("T")[0]);
         holder.textViewAdvance.setText("Advance " + Double.toString(order.getAdvance()));
-        holder.textHandOverTo.setText("Hand Over To\n" + order.getHandOverTo());
-        holder.textTelorName.setText("Telor Name\n" + order.getTelorName());
-        holder.textReceivedBy.setText("Received By\n" + order.getReceivedBy());
+//        holder.textHandOverTo.setText("Hand Over To\n" + order.getHandOverTo());
+//        holder.textTelorName.setText("Telor Name\n" + order.getTelorName());
+//        holder.textReceivedBy.setText("Received By\n" + order.getReceivedBy());
         if (order.getRoomList().trim().length() > 0) {
 
 
@@ -85,38 +85,38 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
 
 
-        if (order.isOrderPlaced()) {
-            holder.OP.setBackgroundColor(Color.GREEN);
-            //  holder.MR.setBackgroundColor(Color.parseColor("#00BFFF"));
-        }
-        if (order.isMaterialReceived()) {
+//        if (order.isOrderPlaced()) {
+//            holder.OP.setBackgroundColor(Color.GREEN);
+//            //  holder.MR.setBackgroundColor(Color.parseColor("#00BFFF"));
+//        }
+//        if (order.isMaterialReceived()) {
+//
+//            holder.MR.setBackgroundColor(Color.GREEN);
+//            //  holder.RFT.setBackgroundColor(Color.parseColor("#00BFFF"));
+//        }
+//        if (order.isReceivedFromTalor()) {
+//            holder.RFT.setBackgroundColor(Color.GREEN);
+//            //  holder.disp.setBackgroundColor(Color.parseColor("#00BFFF"));
+//        }
+//
+//        if (order.isDispatch()) {
+//            holder.disp.setBackgroundColor(Color.GREEN);
+//        }
+//        if (order.isCancel()) {
+//            holder.linerdept.setBackgroundColor(Color.RED);
+//
+//        }
 
-            holder.MR.setBackgroundColor(Color.GREEN);
-            //  holder.RFT.setBackgroundColor(Color.parseColor("#00BFFF"));
-        }
-        if (order.isReceivedFromTalor()) {
-            holder.RFT.setBackgroundColor(Color.GREEN);
-            //  holder.disp.setBackgroundColor(Color.parseColor("#00BFFF"));
-        }
-
-        if (order.isDispatch()) {
-            holder.disp.setBackgroundColor(Color.GREEN);
-        }
-        if (order.isCancel()) {
-            holder.linerdept.setBackgroundColor(Color.RED);
-
-        }
-
-        if (order.getOrderStatusID() == 0) {
-
-            holder.linerdept.setVisibility(View.GONE);
-            holder.linerstatus.setVisibility(View.GONE);
-
-        } else {
-            holder.textViewAddStatus.setVisibility(View.GONE);
-            holder.linerdept.setVisibility(View.VISIBLE);
-            holder.linerstatus.setVisibility(View.VISIBLE);
-        }
+//        if (order.getOrderStatusID() == 0) {
+//
+//            holder.linerdept.setVisibility(View.GONE);
+//            holder.linerstatus.setVisibility(View.GONE);
+//
+//        } else {
+//            holder.textViewAddStatus.setVisibility(View.GONE);
+//            holder.linerdept.setVisibility(View.VISIBLE);
+//            holder.linerstatus.setVisibility(View.VISIBLE);
+//        }
         if (order.getOrderID() == 0) {
             holder.L2.setVisibility(View.GONE);
         } else {
@@ -309,32 +309,32 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                         progressDialog.setMessage("loading...");
                         progressDialog.show();
                         String OP = "false", MR = "false", RFT = "false", DESP = "false", CEN = "false";
-                        if (order.isOrderPlaced())
-                            OP = "true";
-                        if (order.isMaterialReceived())
-                            MR = "true";
-                        if (order.isReceivedFromTalor())
-                            RFT = "true";
-                        if (order.isDispatch())
-                            DESP = "true";
-                        if (order.isCancel())
-                            CEN = "true";
-
-                        if (dept.equals("Order Placed")) {
-                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), "true", MR, RFT, DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
-
-                        } else if (dept.equals("Material Received")) {
-                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, "true", RFT, DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
-
-                        } else if (dept.equals("Received From Talor")) {
-                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, MR, "true", DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
-                        } else if (dept.equals("Dispatch")) {
-                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, MR, RFT, "true", CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
-
-                        } else if (dept.equals("Cancel")) {
-                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, MR, RFT, DESP, "true", order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
-
-                        }
+//                        if (order.isOrderPlaced())
+//                            OP = "true";
+//                        if (order.isMaterialReceived())
+//                            MR = "true";
+//                        if (order.isReceivedFromTalor())
+//                            RFT = "true";
+//                        if (order.isDispatch())
+//                            DESP = "true";
+//                        if (order.isCancel())
+//                            CEN = "true";
+//
+//                        if (dept.equals("Order Placed")) {
+//                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), "true", MR, RFT, DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
+//
+//                        } else if (dept.equals("Material Received")) {
+//                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, "true", RFT, DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
+//
+//                        } else if (dept.equals("Received From Talor")) {
+//                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, MR, "true", DESP, CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
+//                        } else if (dept.equals("Dispatch")) {
+//                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, MR, RFT, "true", CEN, order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
+//
+//                        } else if (dept.equals("Cancel")) {
+//                            new OrderAdapter.POSTStatus().execute(String.valueOf(order.getOrderID()), OP, MR, RFT, DESP, "true", order.getHandOverTo(), order.getTelorName(), order.getReceivedBy());
+//
+//                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -387,12 +387,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             final EditText editHandOverTo = (EditText) dialogView.findViewById(R.id.editHandOverTo);
             final EditText editReceivedBy = (EditText) dialogView.findViewById(R.id.editReceivedBy);
 
-            editHandOverTo.setText(order.getHandOverTo());
-            editReceivedBy.setText(order.getReceivedBy());
-            if (order.getTelorName().trim().length() > 0) {
-                int selectionPosition = spinnerArrayAdapter.getPosition(order.getTelorName().toString());
-                spinner.setSelection(selectionPosition);
-            }
+//            editHandOverTo.setText(order.getHandOverTo());
+//            editReceivedBy.setText(order.getReceivedBy());
+//            if (order.getTelorName().trim().length() > 0) {
+//                int selectionPosition = spinnerArrayAdapter.getPosition(order.getTelorName().toString());
+//                spinner.setSelection(selectionPosition);
+//            }
             final Button buttonAdd = (Button) dialogView.findViewById(R.id.buttonAddOrder);
             final Button buttonCancel = (Button) dialogView.findViewById(R.id.buttonCancel);
             dialogBuilder.setTitle("Add Order Status");
@@ -407,7 +407,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
                             progressDialog.setMessage("loading...");
                             progressDialog.show();
-                            new POSTStatus().execute(String.valueOf(order.getOrderID()), String.valueOf(order.isOrderPlaced()), String.valueOf(order.isMaterialReceived()), String.valueOf(order.isReceivedFromTalor()), String.valueOf(order.isDispatch()), String.valueOf(order.isCancel()), editHandOverTo.getText().toString(), spinner.getSelectedItem().toString(), editReceivedBy.getText().toString());
+                           // new POSTStatus().execute(String.valueOf(order.getOrderID()), String.valueOf(order.isOrderPlaced()), String.valueOf(order.isMaterialReceived()), String.valueOf(order.isReceivedFromTalor()), String.valueOf(order.isDispatch()), String.valueOf(order.isCancel()), editHandOverTo.getText().toString(), spinner.getSelectedItem().toString(), editReceivedBy.getText().toString());
 
 
                         } catch (Exception e) {

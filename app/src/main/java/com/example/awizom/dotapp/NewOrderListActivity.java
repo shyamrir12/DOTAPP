@@ -95,7 +95,7 @@ public class NewOrderListActivity extends AppCompatActivity {
 
                // String name= getArguments().getString("NAME_KEY").toString();
 
-                builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet/"+filterKey);
+                builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
