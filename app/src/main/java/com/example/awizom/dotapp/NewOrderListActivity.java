@@ -94,8 +94,11 @@ public class NewOrderListActivity extends AppCompatActivity {
                 Request.Builder builder = new Request.Builder();
 
                // String name= getArguments().getString("NAME_KEY").toString();
-
-                builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet");
+                if(filterKey.equals("")) {
+                    builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet" );
+                }else {
+                    builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet/" + filterKey);
+                }
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);

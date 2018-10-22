@@ -30,11 +30,11 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
 
     private void initView() {
         getSupportActionBar().setTitle("Status Details");
-        handOver = findViewById(R.id.handover);
+        handOver = findViewById(R.id.pendingToreceivedMaterial);
 //        tailOr = findViewById(R.id.tailor);
         receIvedby = findViewById(R.id.receivedby);
   //      pendingtoPlaceOrder = findViewById(R.id.pendingToPlaceOrder);
-        pendingToreceivedMaterial = findViewById(R.id.pendingtoreceivedMaterial);
+        pendingToreceivedMaterial = findViewById(R.id.pendingtToPlaceOrder);
         pendingtorecevefrometailor = findViewById(R.id.pendingTorecevefrometailor);
   //      cancelList = findViewById(R.id.cancel);
         dispatchList = findViewById(R.id.dispatch);
@@ -85,7 +85,7 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
 
         Class fragmentClass = null;
         switch (v.getId()){
-            case R.id.handover:
+            case R.id.pendingToreceivedMaterial:
                 Bundle bundle = new Bundle();
                 bundle.putString("NAME_KEY", "HandOverTo");
                 OrderListFragment myFragment = new OrderListFragment();
@@ -123,7 +123,7 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
 //
 //                break;
 
-            case R.id.pendingtoreceivedMaterial:
+            case R.id.pendingtToPlaceOrder:
                 Bundle bundle14 = new Bundle();
                 bundle14.putString("NAME_KEY", "PendingMaterialReceived");
                 OrderListFragment myFragment4 = new OrderListFragment();

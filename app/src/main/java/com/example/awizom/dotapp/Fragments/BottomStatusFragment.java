@@ -15,7 +15,7 @@ import com.example.awizom.dotapp.R;
 
 public class BottomStatusFragment extends Fragment implements View.OnClickListener {
 
-    private TextView handOver, tailOr, receIvedby, pendingtoPlaceOrder,pendingToreceivedMaterial,pendingtorecevefrometailor,cancelList,dispatchList;
+    private TextView pendingttoPlaceOrder, holD, receIvedby, pendingtoPlaceOrder,pendingToreceivedMaterial,pendingtorecevefrometailor,cancelList,dispatchList;
     private Intent intent;
     private Fragment statuspendingOrderFragment;
     Fragment fragment = null;
@@ -29,8 +29,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 
     private void initView(View view) {
 
-//        handOver = view.findViewById(R.id.handover);
-//        tailOr = view.findViewById(R.id.tailor);
+        pendingttoPlaceOrder = view.findViewById(R.id.pendingtToPlaceOrder);
+        holD = view.findViewById(R.id.hold);
 //        receIvedby = view.findViewById(R.id.receivedby);
 //        pendingtoPlaceOrder = view.findViewById(R.id.pendingToPlaceOrder);
 //        pendingToreceivedMaterial = view.findViewById(R.id.pendingtoreceivedMaterial);
@@ -38,8 +38,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 //        cancelList = view.findViewById(R.id.cancel);
 //        dispatchList = view.findViewById(R.id.dispatch);
 
-//        handOver.setOnClickListener(this);
-//        tailOr.setOnClickListener(this);
+        pendingttoPlaceOrder.setOnClickListener(this);
+        holD.setOnClickListener(this);
 //        tailOr.setOnClickListener(this);
 //        receIvedby.setOnClickListener(this);
 //        pendingtoPlaceOrder.setOnClickListener(this);
@@ -55,27 +55,27 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         Class fragmentClass = null;
         switch (v.getId()){
-//            case R.id.handover:
+            case R.id.pendingtToPlaceOrder:
+
+                intent = new Intent( getContext(), NewOrderListActivity.class );
+                intent = intent.putExtra( "FilterKey" ,"PandingToPlaceOrder");
+                startActivity( intent );
+
+//                Bundle bundle = new Bundle();
+//                bundle.putString("NAME_KEY", "HandOverTo");
+//                OrderListFragment myFragment = new OrderListFragment();
+//                myFragment.setArguments(bundle);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment).commit();
+//                getActivity().setTitle("Pending Order with advance");
+//                fragment = statuspendingOrderFragment;
+//                fragmentClass = OrderListFragment.class;
+                break;
 //
-//                intent = new Intent( getContext(), NewOrderListActivity.class );
-//                intent = intent.putExtra( "FilterKey" ,"HandOverTo");
-//                startActivity( intent );
-//
-////                Bundle bundle = new Bundle();
-////                bundle.putString("NAME_KEY", "HandOverTo");
-////                OrderListFragment myFragment = new OrderListFragment();
-////                myFragment.setArguments(bundle);
-////                getFragmentManager().beginTransaction().replace(R.id.container,myFragment).commit();
-////                getActivity().setTitle("Pending Order with advance");
-////                fragment = statuspendingOrderFragment;
-////                fragmentClass = OrderListFragment.class;
-//                break;
-//
-//            case R.id.tailor:
-//                intent = new Intent( getContext(), NewOrderListActivity.class );
-//                intent = intent.putExtra( "FilterKey" ,"TelorName");
-//                startActivity( intent );
-//
+            case R.id.hold:
+                intent = new Intent( getContext(), NewOrderListActivity.class );
+                intent = intent.putExtra( "FilterKey" ,"Hold");
+                startActivity( intent );
+
 ////                Bundle bundle11 = new Bundle();
 ////                bundle11.putString("NAME_KEY", "TelorName");
 ////                OrderListFragment myFragment1 = new OrderListFragment();

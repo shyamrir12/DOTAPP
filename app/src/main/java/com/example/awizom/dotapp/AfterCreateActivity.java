@@ -425,8 +425,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     private void addroomdailogueOpen(final long orderid,String aroomlist){
 
-
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.room_layout, null);
@@ -568,35 +566,38 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             return json;
         }
         protected void onPostExecute(String result) {
-            if (result.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
-            } else {
-                //System.out.println(result);
-                Gson gson = new Gson();
-                Type getType = new TypeToken<DataOrder>(){}.getType();
-                DataOrder  morder = new Gson().fromJson(result,getType);
-                cid=morder.getCustomerID();
-                c_name.setText( morder.getCustomerName() );
-                c_contact.setText(morder.getMobile());
-                i_address.setText(morder.getAddress());
-                orderDate.setText( morder.getOrderDate().split( "T" )[0] );
-                amount.setText(String.valueOf(  morder.getAdvance()) );
 
-                if(actualorder.equals( "ActualOrder" ))
-                {
-                    textViewATotalAmount.setText( String.valueOf( morder.getATotalAmount() ) );
-                    roomName = morder.getActuRoomList().split(",");
+            try {
+                if (result.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                } else {
+                    //System.out.println(result);
+                    Gson gson = new Gson();
+                    Type getType = new TypeToken<DataOrder>() {
+                    }.getType();
+                    DataOrder morder = new Gson().fromJson(result, getType);
+                    cid = morder.getCustomerID();
+                    c_name.setText(morder.getCustomerName());
+                    c_contact.setText(morder.getMobile());
+                    i_address.setText(morder.getAddress());
+                    orderDate.setText(morder.getOrderDate().split("T")[0]);
+                    amount.setText(String.valueOf(morder.getAdvance()));
+
+                    if (actualorder.equals("ActualOrder")) {
+                        textViewATotalAmount.setText(String.valueOf(morder.getATotalAmount()));
+                        roomName = morder.getActuRoomList().split(",");
+                    } else {
+                        textViewATotalAmount.setText(String.valueOf(morder.getTotalAmount()));
+                        roomName = morder.getRoomList().split(",");
+                    }
+
+                    actualRoomList = morder.getARoomList();
+                    ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist, R.id.label, roomName);
+                    roomname.setAdapter(spinnerArrayAdapter);
+
                 }
-                else
-                {
-                    textViewATotalAmount.setText( String.valueOf( morder.getTotalAmount() ) );
-                    roomName = morder.getRoomList().split(",");
-                }
-
-                actualRoomList = morder.getARoomList();
-                 ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist,R.id.label,roomName);
-                roomname.setAdapter( spinnerArrayAdapter );
-
+            }catch (Exception e){
+                e.printStackTrace();
             }
         }
         @Override
