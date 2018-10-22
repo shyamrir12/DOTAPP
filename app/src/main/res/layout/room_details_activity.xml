@@ -7,15 +7,20 @@
     <RelativeLayout
         android:id="@+id/Relative1"
         android:layout_width="match_parent"
-        android:layout_height="260px"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@color/colorAccent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="260px"
-            android:layout_margin="10dp"
+            android:layout_height="69dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:background="@color/colorAccent">
 
             <LinearLayout
@@ -85,22 +90,21 @@
 
             <TextView
                 android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/customerinfo2"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="16dp"
-                android:gravity="center_horizontal"
-                android:text="All"
+                android:layout_below="@+id/customerinfo"
+                android:text="     All"
+                android:layout_gravity="center"
                 android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/allOkButtton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="23dp"
-                android:layout_marginBottom="15dp"
+                android:layout_alignEnd="@+id/customerinfo2"
+                android:layout_below="@+id/customerinfo"
                 android:background="@drawable/button_background_shape"
                 android:text="Ok" />
         </RelativeLayout>
