@@ -24,10 +24,15 @@ import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.AfterCreateOrderoFragment;
 import com.example.awizom.dotapp.Fragments.OrderListFragment;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.HomeActivityUser;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
+import com.example.awizom.dotapp.Models.Token;
+import com.example.awizom.dotapp.Models.UserRegister;
 import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.R;
+import com.example.awizom.dotapp.SinUpActivity;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -142,11 +147,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
             if (v.getId() == canceLOrderButton.getId()) {
 
-                Intent intent = new Intent(mCtx, NewOrderListActivity.class);
-                intent = intent.putExtra("FilterKey", "CancelOrderList");
-                mCtx.startActivity(intent);
+//                Intent intent = new Intent(mCtx, NewOrderListActivity.class);
+//                intent = intent.putExtra("FilterKey", "CancelOrderList");
+//                mCtx.startActivity(intent);
+
+                cancelOrderListPost();
             }
         }
+
+
+
 
         @Override
         public boolean onLongClick(View v) {
@@ -154,10 +164,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             DataOrder orderitem = this.orderitemList.get(position);
             if (v.getId() == itemView.getId()) {
                 try {
-
-
                     //  Toast.makeText(mCtx,String.valueOf(  orderitem.OrderID), Toast.LENGTH_SHORT).show();
-
                 } catch (Exception E) {
                     E.printStackTrace();
                 }
@@ -166,5 +173,67 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             return true;
         }
 
+    }
+
+    private void cancelOrderListPost() {
+
+        try {
+
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new PostCancelOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private class PostCancelOrderList extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            // InputStream inputStream
+            String accesstoken = params[0];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API_REG + "");
+                builder.addHeader("Content-Type", "application/json");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+
+                }
+                progressDialog.dismiss();
+            }
+        }
     }
 }
