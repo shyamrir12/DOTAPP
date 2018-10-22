@@ -41,6 +41,8 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+import static java.lang.System.exit;
+
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.OrderItemViewHolder> {
 
     private Context mCtx;
@@ -147,14 +149,36 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 mCtx.startActivity(i);
             }
             if (v.getId() == canceLOrderButton.getId()) {
+                AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+                alertbox.setTitle("Do You Want to Cancel");
+                alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // finish used for destroyed activity
+             //           finishAffinity();
+                       exit(0);
+
+
+                    }
+                });
+
+                alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // Nothing will be happened when clicked on no button
+                        // of Dialog
+                    }
+                });
+
+                alertbox.show();
+            }
 
 //                Intent intent = new Intent(mCtx, NewOrderListActivity.class);
 //                intent = intent.putExtra("FilterKey", "CancelOrderList");
 //                mCtx.startActivity(intent);
 
-                cancelOrderListPost();
+              //  cancelOrderListPost();
             }
-        }
+
 
 
 

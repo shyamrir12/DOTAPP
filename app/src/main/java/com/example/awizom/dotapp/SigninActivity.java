@@ -47,7 +47,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             AlertDialog.Builder alertbox = new AlertDialog.Builder(SigninActivity.this);
-            alertbox.setIcon(R.drawable.warning);
+            alertbox.setIcon(R.drawable.ic_warning_black_24dp);
             alertbox.setTitle("Do You Want To Exit Programme?");
             alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface arg0, int arg1) {
