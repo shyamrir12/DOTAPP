@@ -407,7 +407,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
                             progressDialog.setMessage("loading...");
                             progressDialog.show();
-                           // new POSTStatus().execute(String.valueOf(order.getOrderID()), String.valueOf(order.isOrderPlaced()), String.valueOf(order.isMaterialReceived()), String.valueOf(order.isReceivedFromTalor()), String.valueOf(order.isDispatch()), String.valueOf(order.isCancel()), editHandOverTo.getText().toString(), spinner.getSelectedItem().toString(), editReceivedBy.getText().toString());
+                            // new POSTStatus().execute(String.valueOf(order.getOrderID()), String.valueOf(order.isOrderPlaced()), String.valueOf(order.isMaterialReceived()), String.valueOf(order.isReceivedFromTalor()), String.valueOf(order.isDispatch()), String.valueOf(order.isCancel()), editHandOverTo.getText().toString(), spinner.getSelectedItem().toString(), editReceivedBy.getText().toString());
 
 
                         } catch (Exception e) {

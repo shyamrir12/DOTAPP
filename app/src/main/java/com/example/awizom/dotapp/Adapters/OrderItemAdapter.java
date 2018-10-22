@@ -5,11 +5,8 @@ import android.content.DialogInterface;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +36,7 @@ import okhttp3.Request;
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {
     private AutoCompleteTextView catlogName, design;
-    private EditText  price;
+    private EditText price;
     private Context mCtx;
     ProgressDialog progressDialog;
     String actualorder;
@@ -50,7 +46,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private List<CatelogOrderDetailModel> orderitemList;
 
 
-    public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList,String actualorder) {
+    public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
         this.actualorder = actualorder;
@@ -83,9 +79,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             holder.AQty.setText("AQty\n" + Integer.toString(order.getAQty()));
             holder.unit.setText("Unit\n" + order.getOrderUnit());
 
-            if(actualorder.equals( "ActualOrder" )){
-                holder.AQty.setVisibility( View.VISIBLE );
-                holder.Qty.setVisibility( View.GONE );
+            if (actualorder.equals("ActualOrder")) {
+                holder.AQty.setVisibility(View.VISIBLE);
+                holder.Qty.setVisibility(View.GONE);
             }
 
         } catch (Exception E) {
@@ -147,18 +143,19 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             int position = getAdapterPosition();
             CatelogOrderDetailModel orderitem = this.orderitemList.get(position);
 
-           if (v.getId() == itemView.getId()) {
-               initViewByAlertdailog(orderitem,v);
-               try {
+            if (v.getId() == itemView.getId()) {
+                initViewByAlertdailog(orderitem, v);
+                try {
 
-               } catch (Exception E) {
-                   E.printStackTrace();
-               }
+                } catch (Exception E) {
+                    E.printStackTrace();
+                }
 
             }
             return true;
         }
-        private void initViewByAlertdailog(CatelogOrderDetailModel orderitem,View v) {
+
+        private void initViewByAlertdailog(CatelogOrderDetailModel orderitem, View v) {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(v.getRootView().getContext());
             LayoutInflater inflater = LayoutInflater.from(v.getRootView().getContext());
@@ -173,24 +170,24 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             final String orderRoomName = orderitem.getRoomName();
             final String orderID = String.valueOf(orderitem.getOrderID());
             final EditText s_no = dialogView.findViewById(R.id.sNo);
-             catlogName = dialogView.findViewById(R.id.catlogName);
+            catlogName = dialogView.findViewById(R.id.catlogName);
             design = dialogView.findViewById(R.id.design);
             final EditText pageNo = dialogView.findViewById(R.id.pageNo);
-             price = dialogView.findViewById(R.id.price);
+            price = dialogView.findViewById(R.id.price);
             final EditText price2 = dialogView.findViewById(R.id.price2);
             final Spinner materialType = dialogView.findViewById(R.id.materialType);
             final EditText qty = dialogView.findViewById(R.id.qTy);
             final EditText aQty = dialogView.findViewById(R.id.aQty);
-           unitSpinner = dialogView.findViewById(R.id.unit);
-            if(actualorder.equals( "ActualOrder" )) {
-               qty.setVisibility( dialogView.GONE );
-                aQty.setVisibility( dialogView.VISIBLE );
+            unitSpinner = dialogView.findViewById(R.id.unit);
+            if (actualorder.equals("ActualOrder")) {
+                qty.setVisibility(dialogView.GONE);
+                aQty.setVisibility(dialogView.VISIBLE);
             }
 
             s_no.setText(orderitem.getSerialNo());
             catlogName.setText(orderitem.getCatalogName());
             design.setText(orderitem.getDesign());
-            price2.setText(Double.toString(   orderitem.getPrice2() ));
+            price2.setText(Double.toString(orderitem.getPrice2()));
             pageNo.setText(Integer.toString(orderitem.getPageNo()));
             price.setText(Integer.toString(orderitem.getPrice()));
             materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(orderitem.getMaterialType()));
@@ -244,28 +241,26 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 @Override
                 public void onClick(View view) {
 
-                        String snumber = s_no.getText().toString();
-                        String catlogname = catlogName.getText().toString();
-                        String desiGn = design.getText().toString();
-                        String page_no = pageNo.getText().toString();
-                        String priCe = price.getText().toString();
-                        String priCe2 = price2.getText().toString();
-                        String qTy = qty.getText().toString();
-                        String aqty = aQty.getText().toString();
-                        String materialtype = materialType.getSelectedItem().toString();
-                        String unIt = unitSpinner.getSelectedItem().toString();
-                       // progressDialog.setMessage("loading...");
-                        //progressDialog.show();
-                        if(actualorder.equals( "ActualOrder" )){
+                    String snumber = s_no.getText().toString();
+                    String catlogname = catlogName.getText().toString();
+                    String desiGn = design.getText().toString();
+                    String page_no = pageNo.getText().toString();
+                    String priCe = price.getText().toString();
+                    String priCe2 = price2.getText().toString();
+                    String qTy = qty.getText().toString();
+                    String aqty = aQty.getText().toString();
+                    String materialtype = materialType.getSelectedItem().toString();
+                    String unIt = unitSpinner.getSelectedItem().toString();
+                    // progressDialog.setMessage("loading...");
+                    //progressDialog.show();
+                    if (actualorder.equals("ActualOrder")) {
 
-                            new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2,QTY, aqty, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim(),SharedPrefManager.getInstance(mCtx).getUser().access_token);
+                        new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, QTY, aqty, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim(), SharedPrefManager.getInstance(mCtx).getUser().access_token);
 
-                        }
-                        else {
-                            new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, AQTY, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim(),SharedPrefManager.getInstance(mCtx).getUser().access_token);
+                    } else {
+                        new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, AQTY, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim(), SharedPrefManager.getInstance(mCtx).getUser().access_token);
 
-                        }
-
+                    }
 
 
                     b.dismiss();
@@ -284,10 +279,11 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         }
 
     }
+
     private void getCatalogDesignSingle() {
         try {
 
-            new getCatalogDesign().execute(catlogName.getText().toString(), design.getText().toString(),SharedPrefManager.getInstance(mCtx).getUser().access_token);
+            new getCatalogDesign().execute(catlogName.getText().toString(), design.getText().toString(), SharedPrefManager.getInstance(mCtx).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -347,6 +343,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
         }
     }
+
     private void getDesignList() {
         try {
             // progressDialog.setMessage("loading...");
@@ -403,6 +400,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
         }
     }
+
     private class POSTOrder extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -464,7 +462,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-               // progressDialog.dismiss();
+                // progressDialog.dismiss();
                 // System.out.println("Error: " + e);
                 Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
@@ -474,7 +472,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
-               // progressDialog.dismiss();
+                // progressDialog.dismiss();
                 Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 //System.out.println("CONTENIDO:  " + result);
@@ -484,7 +482,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 if (jsonbodyres.getStatus() == true) {
                     //   getMyOrder();
                 }
-               // progressDialog.dismiss();
+                // progressDialog.dismiss();
             }
         }
     }

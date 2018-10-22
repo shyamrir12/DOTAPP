@@ -40,7 +40,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
     private Fragment userListFragment;
     Fragment fragment = null;
 
-    String activeuser="False";
+    String activeuser = "False";
     //we are storing all the products in a list
     private List<UserModel> useritemList;
 
@@ -65,30 +65,27 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
     }
 
 
-
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
 
         UserModel user = useritemList.get(position);
         try {
 
-                holder.username.setText( user.getUserName() );
+            holder.username.setText(user.getUserName());
 
 
-                holder.roleid.setText( user.getRoleId() );
+            holder.roleid.setText(user.getRoleId());
 
-                if (user.isActive())
-                    holder.active.setText( "De-Activate" );
-                else
-                    holder.active.setText( "Activate" );
-
-
-                holder.userid.setText( user.getUserId() );
+            if (user.isActive())
+                holder.active.setText("De-Activate");
+            else
+                holder.active.setText("Activate");
 
 
+            holder.userid.setText(user.getUserId());
 
 
-         // holder.active.setText(toString(user.isActive()));
+            // holder.active.setText(toString(user.isActive()));
 
         } catch (Exception E) {
             E.printStackTrace();
@@ -137,10 +134,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
             Class fragmentClass = null;
             int position = getAdapterPosition();
             UserModel useritem = this.useritemList.get(position);
-           // pos=position;
+            // pos=position;
             //um=useritem;
             if (v.getId() == active.getId()) {
-                userId=useritem.getUserId();
+                userId = useritem.getUserId();
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
                 alertbox.setMessage("are you sure want to active");
                 alertbox.setTitle("Active Status");
@@ -158,11 +155,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
                                 postUserList();
 
 
-
-
-
                             }
-
 
 
                         });
@@ -206,7 +199,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "UserActivePost/"+ userId +"/"+activeuser);
+                builder.url(AppConfig.BASE_URL_API + "UserActivePost/" + userId + "/" + activeuser);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -238,7 +231,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
                 Toast.makeText(mCtx
                         , jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
-                   // modifyItem(pos,um);
+                    // modifyItem(pos,um);
 
                     progressDialog.dismiss();
                 }
@@ -251,8 +244,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
 
 
     }
-
-
 
 
     public void modifyItem(final int position, final UserModel model) {
