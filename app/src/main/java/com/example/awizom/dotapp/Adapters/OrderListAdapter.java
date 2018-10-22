@@ -139,6 +139,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
             if (v.getId() == buttonActualOrder.getId()) {
 
+
                 Intent i = new Intent().setClass(mCtx, AfterCreateActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 i = i.putExtra("OrderID", String.valueOf(orderitem.OrderID));
