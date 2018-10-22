@@ -89,8 +89,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         private Context mCtx;
         String dept;
 
-        private TextView ordername, orderaddress, ordercontact, orderdate, orderamount, totalamount, textviewStatus,status;
-        private Button statusOrder,buttonOrder,buttonActualOrder;
+        private TextView ordername, orderaddress, ordercontact, orderdate, orderamount, totalamount, textviewStatus, status;
+        private Button statusOrder, buttonOrder, buttonActualOrder, canceLOrderButton;
         private List<DataOrder> orderitemList;
 
 
@@ -111,9 +111,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
             buttonOrder = view.findViewById(R.id.buttonOrder);
             buttonActualOrder = view.findViewById(R.id.buttonActualOrder);
+            canceLOrderButton = view.findViewById(R.id.cancelOrderButton);
 
-            buttonOrder.setOnClickListener( this );
-            buttonActualOrder.setOnClickListener( this );
+            buttonOrder.setOnClickListener(this);
+            buttonActualOrder.setOnClickListener(this);
+            canceLOrderButton.setOnClickListener(this);
 
         }
 
@@ -126,17 +128,23 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                 Intent i = new Intent().setClass(mCtx, AfterCreateActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                i = i.putExtra( "OrderID" ,String.valueOf(   orderitem.OrderID));
-                i = i.putExtra( "ActualOrder" ,"");
-                mCtx.startActivity( i );
+                i = i.putExtra("OrderID", String.valueOf(orderitem.OrderID));
+                i = i.putExtra("ActualOrder", "");
+                mCtx.startActivity(i);
             }
             if (v.getId() == buttonActualOrder.getId()) {
 
                 Intent i = new Intent().setClass(mCtx, AfterCreateActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                i = i.putExtra( "OrderID" ,String.valueOf(   orderitem.OrderID));
-                i = i.putExtra( "ActualOrder" ,"ActualOrder");
-                mCtx.startActivity( i );
+                i = i.putExtra("OrderID", String.valueOf(orderitem.OrderID));
+                i = i.putExtra("ActualOrder", "ActualOrder");
+                mCtx.startActivity(i);
+            }
+            if (v.getId() == canceLOrderButton.getId()) {
+
+                Intent intent = new Intent(mCtx, NewOrderListActivity.class);
+                intent = intent.putExtra("FilterKey", "CancelOrderList");
+                mCtx.startActivity(intent);
             }
         }
 
@@ -148,13 +156,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 try {
 
 
-
-                  //  Toast.makeText(mCtx,String.valueOf(  orderitem.OrderID), Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(mCtx,String.valueOf(  orderitem.OrderID), Toast.LENGTH_SHORT).show();
 
                 } catch (Exception E) {
                     E.printStackTrace();
                 }
-               // Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
             }
             return true;
         }

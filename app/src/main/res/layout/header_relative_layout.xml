@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
-        android:layout_margin="10dp">
+        android:layout_margin="15dp">
 
         <LinearLayout
             android:id="@+id/customerinfo"
@@ -27,7 +27,7 @@
                 android:text="Customer Name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
             <TextView
                 android:id="@+id/customer_mobile_no"
@@ -37,7 +37,7 @@
                 android:text="Room Name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
         </LinearLayout>
         <LinearLayout
@@ -57,7 +57,7 @@
                 android:text="Customer Name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size"
-                android:gravity="center"/>
+                android:gravity="left"/>
             <TextView
                 android:id="@+id/room_name"
                 android:layout_width="match_parent"
@@ -66,10 +66,28 @@
                 android:text="Room Name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/room_text_size"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
         </LinearLayout>
+        <TextView
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/customerinfo2"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/customerinfo"
+            android:text="     All"
+            android:layout_gravity="center"
+            android:textColor="@color/white" />
 
+        <Button
+            android:id="@+id/allOkButtton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignEnd="@+id/customerinfo2"
+            android:layout_below="@+id/customerinfo"
+            android:background="@drawable/button_background_shape"
+            android:text="Ok" />
     </RelativeLayout>
 </RelativeLayout>
 </RelativeLayout>
