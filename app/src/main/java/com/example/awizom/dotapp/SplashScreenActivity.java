@@ -60,7 +60,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 } else  {    AlertDialog.Builder alertbox = new AlertDialog.Builder(SplashScreenActivity.this);
-                    alertbox.setIcon(R.drawable.warning);
+                    alertbox.setIcon(R.drawable.ic_warning_black_24dp);
                     alertbox.setTitle("Internet Connection Is Not Available");
                     alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
