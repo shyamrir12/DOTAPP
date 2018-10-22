@@ -129,11 +129,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         catelogOrderDetailModel = new CatelogOrderDetailModel();
 
-       /* textView = findViewById(R.id.activity_id_name);
-        textView.setText("Room Details");
-        arrow_id_back = findViewById(R.id.arrow_id_back);
-        arrow_id_back.setOnClickListener(this);
-        arrow_id_back.setVisibility(View.VISIBLE);*/
+
     }
 
 

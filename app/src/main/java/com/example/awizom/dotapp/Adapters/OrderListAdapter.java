@@ -1,17 +1,12 @@
 package com.example.awizom.dotapp.Adapters;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,17 +17,10 @@ import android.widget.Toast;
 
 import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
-import com.example.awizom.dotapp.Fragments.AfterCreateOrderoFragment;
-import com.example.awizom.dotapp.Fragments.OrderListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
-import com.example.awizom.dotapp.HomeActivityUser;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
-import com.example.awizom.dotapp.Models.Token;
-import com.example.awizom.dotapp.Models.UserRegister;
-import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.R;
-import com.example.awizom.dotapp.SinUpActivity;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -41,7 +29,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-import static java.lang.System.exit;
 
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.OrderItemViewHolder> {
 
@@ -77,7 +64,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             holder.orderdate.setText("Date\n " + order.getOrderDate().split("T")[0].trim());
             holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()).trim());
             holder.totalamount.setText("Amount\n " + Double.toString(order.getTotalAmount()).trim());
-            //holder.textviewStatus.setText( filterKey );
 
 
         } catch (Exception E) {
@@ -154,9 +140,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 alertbox.setTitle("Do You Want to Cancel");
                 alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        // finish used for destroyed activity
-             //           finishAffinity();
-                       exit(0);
+                        //   exit(0);
 
 
                     }
@@ -172,15 +156,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 alertbox.show();
             }
 
-//                Intent intent = new Intent(mCtx, NewOrderListActivity.class);
-//                intent = intent.putExtra("FilterKey", "CancelOrderList");
-//                mCtx.startActivity(intent);
-
-              //  cancelOrderListPost();
-            }
-
-
-
+            //  cancelOrderListPost();
+        }
 
 
         @Override
