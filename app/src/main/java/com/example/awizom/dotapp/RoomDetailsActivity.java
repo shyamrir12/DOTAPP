@@ -119,7 +119,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         progressDialog = new ProgressDialog(this);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
+        
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         additionButton.setOnClickListener(this);
         getFunctioncall();
@@ -237,6 +239,18 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         pageNo = dialogView.findViewById(R.id.pageNo);
         price = dialogView.findViewById(R.id.price);
         price2 = dialogView.findViewById(R.id.price2);
+        price2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int weight = Integer.parseInt(price.getText().toString());
+                int bodyfat = Integer.parseInt(price2.getText().toString());
+                int lbm = (weight*bodyfat)/100;
+                int res = weight - lbm;
+                price2.setText(String.valueOf(res));
+
+            }
+
+        });
         materialType = dialogView.findViewById(R.id.materialType);
         qty = dialogView.findViewById(R.id.qTy);
         aQty = dialogView.findViewById(R.id.aQty);
@@ -296,6 +310,19 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 String aqty = aQty.getText().toString();
                 String materialtype = materialType.getSelectedItem().toString();
                 String unIt = unitSpinner.getSelectedItem().toString();
+
+                price2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int weight = Integer.parseInt(price.getText().toString());
+                        int bodyfat = Integer.parseInt(price2.getText().toString());
+                        int lbm = (weight *bodyfat) / 100 ;
+                        int res = weight - lbm;
+                        price2.setText(String.valueOf(res));
+                                            }
+
+                });
+
                 try {
                     progressDialog.setMessage("loading...");
                     progressDialog.show();

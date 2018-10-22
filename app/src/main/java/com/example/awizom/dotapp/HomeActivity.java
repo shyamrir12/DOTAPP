@@ -155,6 +155,12 @@ public class HomeActivity extends AppCompatActivity {
                 break;
 
             case R.id.exit:
+
+
+                
+
+
+
                 SharedPrefManager.getInstance(this).logout();
                 Intent login = new Intent(getApplicationContext(), SigninActivity.class);
                 startActivity(login);

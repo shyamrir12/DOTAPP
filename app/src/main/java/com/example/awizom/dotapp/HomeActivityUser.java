@@ -39,12 +39,7 @@ public class HomeActivityUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        if (isConnectingToInternet(HomeActivityUser.this)) {
-            Toast.makeText(getApplicationContext(), "internet is available", Toast.LENGTH_LONG).show();
-        } else {
-            System.out.print("internet is not available");
-        }
-        userListFragment = new UserListFragment();
+      userListFragment = new UserListFragment();
         customerLayoutfragment = new BottomCustomerFragment();
         reportLayoutfragment = new BottomReportFragment();
         orderLayoutfragment = new BottomOrderFragment();

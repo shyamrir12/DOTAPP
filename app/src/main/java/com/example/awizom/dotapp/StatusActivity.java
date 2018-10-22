@@ -31,12 +31,12 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
     private void initView() {
         getSupportActionBar().setTitle("Status Details");
         handOver = findViewById(R.id.handover);
-        tailOr = findViewById(R.id.tailor);
+//        tailOr = findViewById(R.id.tailor);
         receIvedby = findViewById(R.id.receivedby);
-        pendingtoPlaceOrder = findViewById(R.id.pendingToPlaceOrder);
+  //      pendingtoPlaceOrder = findViewById(R.id.pendingToPlaceOrder);
         pendingToreceivedMaterial = findViewById(R.id.pendingtoreceivedMaterial);
         pendingtorecevefrometailor = findViewById(R.id.pendingTorecevefrometailor);
-        cancelList = findViewById(R.id.cancel);
+  //      cancelList = findViewById(R.id.cancel);
         dispatchList = findViewById(R.id.dispatch);
 
         handOver.setOnClickListener(this);
@@ -96,14 +96,14 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
                 fragmentClass = OrderListFragment.class;
                 break;
 
-            case R.id.tailor:
-                Bundle bundle11 = new Bundle();
-                bundle11.putString("NAME_KEY", "TelorName");
-                OrderListFragment myFragment1 = new OrderListFragment();
-                myFragment1.setArguments(bundle11);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment1).commit();
-
-                break;
+//            case R.id.tailor:
+//                Bundle bundle11 = new Bundle();
+//                bundle11.putString("NAME_KEY", "TelorName");
+//                OrderListFragment myFragment1 = new OrderListFragment();
+//                myFragment1.setArguments(bundle11);
+//                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment1).commit();
+//
+//                break;
 
             case R.id.receivedby:
                 Bundle bundle12 = new Bundle();
@@ -114,14 +114,14 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
 
-            case R.id.pendingToPlaceOrder:
-                Bundle bundle13 = new Bundle();
-                bundle13.putString("NAME_KEY", "Pendingitemtoplaceholder");
-                OrderListFragment myFragment3 = new OrderListFragment();
-                myFragment3.setArguments(bundle13);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment3).commit();
-
-                break;
+//            case R.id.pendingToPlaceOrder:
+//                Bundle bundle13 = new Bundle();
+//                bundle13.putString("NAME_KEY", "Pendingitemtoplaceholder");
+//                OrderListFragment myFragment3 = new OrderListFragment();
+//                myFragment3.setArguments(bundle13);
+//                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment3).commit();
+//
+//                break;
 
             case R.id.pendingtoreceivedMaterial:
                 Bundle bundle14 = new Bundle();
@@ -131,13 +131,13 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment4).commit();
                 break;
 
-            case R.id.cancel:
-                Bundle bundle15 = new Bundle();
-                bundle15.putString("NAME_KEY", "CancelOrderlist");
-                OrderListFragment myFragment5 = new OrderListFragment();
-                myFragment5.setArguments(bundle15);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment5).commit();
-                break;
+//            case R.id.cancel:
+//                Bundle bundle15 = new Bundle();
+//                bundle15.putString("NAME_KEY", "CancelOrderlist");
+//                OrderListFragment myFragment5 = new OrderListFragment();
+//                myFragment5.setArguments(bundle15);
+//                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment5).commit();
+//                break;
 
             case R.id.dispatch:
                 Bundle bundle16 = new Bundle();

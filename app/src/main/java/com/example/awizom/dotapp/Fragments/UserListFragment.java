@@ -122,6 +122,7 @@ public class UserListFragment extends Fragment {
                 adapter = new UserListAdapter  (getContext(),userItemList);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();
+                adapter.notifyDataSetChanged();
             }
 
 

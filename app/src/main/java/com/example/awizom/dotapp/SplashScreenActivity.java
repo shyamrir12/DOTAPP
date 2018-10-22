@@ -54,15 +54,12 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
 
                 if (isConnectingToInternet(SplashScreenActivity.this)) {
-              //     Toast.makeText(getApplicationContext(), "internet is available", Toast.LENGTH_LONG).show();
 
                     Intent i = new Intent(SplashScreenActivity.this, SigninActivity.class);
 
                     startActivity(i);
                     finish();
-                } else  {
-//                    Toast.makeText(getApplicationContext(), "internet is not available", Toast.LENGTH_LONG).show();
-                    AlertDialog.Builder alertbox = new AlertDialog.Builder(SplashScreenActivity.this);
+                } else  {    AlertDialog.Builder alertbox = new AlertDialog.Builder(SplashScreenActivity.this);
                     alertbox.setIcon(R.drawable.warning);
                     alertbox.setTitle("Internet Connection Is Not Available");
                     alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -72,23 +69,16 @@ public class SplashScreenActivity extends AppCompatActivity {
                          //   intent.setClassName("com.android.phone", "com.android.phone.NetworkSetting");
                          //   startActivity(intent);
 
-                            // finish used for destroyed activity
+
                           finishAffinity();
                            System.exit(0);
 
                         }
                     });
 
-             //      alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-         //               public void onClick(DialogInterface arg0, int arg1) {
-                            // Nothing will be happened when clicked on no button
-                            // of Dialog
-             //           }
-          //          });
-
                     alertbox.show();
 
-                  //  System.out.print("internet is not available");
+
                 }
 
 
