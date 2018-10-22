@@ -13,9 +13,8 @@
         <RelativeLayout
             android:id="@+id/catelogDetail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="8dp">
-
 
             <LinearLayout
                 android:id="@+id/catelogS.No"
@@ -27,7 +26,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="CatalogName"
-
                     android:layout_weight="1"
                     android:layout_marginLeft="12dp" />
 
@@ -37,7 +35,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Design"
-
                     android:layout_weight="1"
                     android:layout_marginLeft="12dp" />
 
@@ -46,7 +43,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="S.No."
-
                     android:layout_weight="1"
                     android:layout_marginLeft="12dp" />
 
@@ -55,7 +51,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Qty"
-
                     android:layout_weight="1"
                     android:layout_marginLeft="15dp" />
 
@@ -64,7 +59,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="AQty"
-
                     android:layout_weight="1"
                     android:layout_marginLeft="15dp"
                     android:visibility="gone" />
@@ -74,11 +68,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PageNo"
-
                     android:layout_weight="1"
                     android:layout_marginLeft="12dp" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/catelogPageNo"
@@ -93,9 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MRP"
-
                     android:layout_weight="1"
-
                     android:layout_marginLeft="12dp" />
 
                 <TextView
@@ -103,7 +93,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price"
-
                     android:layout_weight="1"
                     android:layout_marginLeft="15dp" />
 
@@ -112,7 +101,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MaterialType"
-
                     android:layout_weight="1"
                     android:layout_marginLeft="15dp" />
 
@@ -121,11 +109,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Unit"
-
                     android:layout_weight="1"
                     android:layout_marginLeft="15dp" />
+                <Button
+                    android:id="@+id/okButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/add_cancel_button_shape"
+                    android:text="ok"/>
             </LinearLayout>
-
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

@@ -74,9 +74,9 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                 case R.id.navigation_order:
                     startActivity(intent = new Intent(getApplicationContext(), OrderBottomActivity.class));
                     return true;
-                case R.id.navigation_report:
-                    startActivity(intent = new Intent(getApplicationContext(), ReportActivity.class));
-                    return true;
+//                case R.id.navigation_report:
+//                    startActivity(intent = new Intent(getApplicationContext(), ReportActivity.class));
+//                    return true;
                 case R.id.navigation_status:
                     startActivity(intent = new Intent(getApplicationContext(), StatusActivity.class));
                     return true;

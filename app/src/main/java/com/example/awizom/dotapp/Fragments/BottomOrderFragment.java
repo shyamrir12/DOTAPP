@@ -36,12 +36,12 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 
         cardViewFirst = view.findViewById(R.id.order_pending_cardview);
         cardViewSecond = view.findViewById(R.id.order_create_cardview);
-        cardViewthird = view.findViewById(R.id.order_cancel_cardview);
+//        cardViewthird = view.findViewById(R.id.order_cancel_cardview);
 
 
         pendingOrderList = view.findViewById(R.id.pendingOrder);
         pendingOrderCreate = view.findViewById(R.id.orderCreate);
-        cancelOrder = view.findViewById(R.id.cancelOrder);
+//        cancelOrder = view.findViewById(R.id.cancelOrder);
 
 
         pendinOrderListFragment = new OrderListFragment();
@@ -49,11 +49,11 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 
         cardViewFirst.setOnClickListener(this);
         cardViewSecond.setOnClickListener(this);
-        cardViewthird.setOnClickListener(this);
+//        cardViewthird.setOnClickListener(this);
 
         pendingOrderList.setOnClickListener(this);
         pendingOrderCreate.setOnClickListener(this);
-        cancelOrder.setOnClickListener(this);
+//        cancelOrder.setOnClickListener(this);
 
 
     }
@@ -123,11 +123,11 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 //                fragment = pendinOrderListFragment;
 //                fragmentClass = OrderListFragment.class;
                 break;
-            case R.id.cancelOrder:
-
-                intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"CancelOrderList");
-                startActivity( intent );
+//            case R.id.cancelOrder:
+//
+//                intent = new Intent( getContext(), NewOrderListActivity.class );
+//                intent = intent.putExtra( "FilterKey" ,"CancelOrderList");
+//                startActivity( intent );
              /*   Bundle bundle1 = new Bundle();
                 bundle1.putString("NAME_KEY", "CancelOrderList");
                 OrderListFragment myFragment1 = new OrderListFragment();
@@ -136,7 +136,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
                 getActivity().setTitle("Cancel List");
                 fragment = pendinOrderListFragment;
                 fragmentClass = OrderListFragment.class;*/
-                break;
+//                break;
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();

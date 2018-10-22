@@ -149,11 +149,11 @@ public class HomeActivityUser extends AppCompatActivity {
                     fragment = orderLayoutfragment;
                     fragmentClass = BottomOrderFragment.class;
                     break;
-                case R.id.navigation_report:
-                    getSupportActionBar().setTitle("Report Details");
-                    fragment = reportLayoutfragment;
-                    fragmentClass = BottomReportFragment.class;
-                    break;
+//                case R.id.navigation_report:
+//                    getSupportActionBar().setTitle("Report Details");
+//                    fragment = reportLayoutfragment;
+//                    fragmentClass = BottomReportFragment.class;
+//                    break;
                 case R.id.navigation_status:
                     getSupportActionBar().setTitle("Status Details");
                     fragment = statusLayoutFragment;
