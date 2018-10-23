@@ -107,7 +107,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
                break;
             case R.id.pendingOrder:
                 intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"");
+                intent = intent.putExtra( "FilterKey" ,"pandingForAdv");
                 startActivity( intent );
               //  getActivity().getFragmentManager().popBackStack();
 

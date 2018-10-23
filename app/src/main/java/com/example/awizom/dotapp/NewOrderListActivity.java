@@ -94,7 +94,7 @@ public class NewOrderListActivity extends AppCompatActivity {
                 Request.Builder builder = new Request.Builder();
 
                // String name= getArguments().getString("NAME_KEY").toString();
-                if(filterKey.equals("")) {
+                if(filterKey.equals("pandingForAdv")) {
                     builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet" );
                 }else {
                     builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet/" + filterKey);
