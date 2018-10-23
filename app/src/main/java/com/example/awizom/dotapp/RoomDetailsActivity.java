@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Adapters.OrderItemAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
@@ -31,6 +32,7 @@ import com.example.awizom.dotapp.Models.ElightBottomModel;
 import com.example.awizom.dotapp.Models.Result;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -61,7 +63,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private AutoCompleteTextView catlogName, design;
     private Spinner unitSpinner, materialType;
     private Button addButton, cancelButton;
-    String actualorder="";
+    String actualorder = "";
     //  private AlertDialog b;
     private String roomName, orderID, customernAME, mobileNumber, orderDate, advance;
 
@@ -90,7 +92,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         mobileNumber = getIntent().getExtras().getString("Mobile", "");
         orderDate = getIntent().getExtras().getString("OrderDate", "");
         advance = String.valueOf(getIntent().getDoubleExtra("Advance", 0));
-        actualorder=getIntent().getExtras().getString( "ActualOrder", "" );
+        actualorder = getIntent().getExtras().getString("ActualOrder", "");
         customerName = findViewById(R.id.customer_name);
         customerMobileNo = findViewById(R.id.customer_mobile_no);
         customerOrder = findViewById(R.id.order_date);
@@ -119,7 +121,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         progressDialog = new ProgressDialog(this);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
@@ -179,7 +181,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new RoomDetailsActivity.POSTElight().execute(roomName.trim(), String.valueOf(orderID).trim(), elight, roman, aplot,SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+                    new RoomDetailsActivity.POSTElight().execute(roomName.trim(), String.valueOf(orderID).trim(), elight, roman, aplot, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -193,7 +195,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
         });
 
-
         cancelElight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,7 +206,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) { }
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    }
 
     @Override
     public boolean onLongClick(View v) {
@@ -235,18 +237,16 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         pageNo = dialogView.findViewById(R.id.pageNo);
         price = dialogView.findViewById(R.id.price);
         price2 = dialogView.findViewById(R.id.price2);
-        price2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        {
                 int weight = Integer.parseInt(price.getText().toString());
                 int bodyfat = Integer.parseInt(price2.getText().toString());
-                int lbm = (weight*bodyfat)/100;
+                int lbm = (weight * bodyfat) / 100;
                 int res = weight - lbm;
                 price2.setText(String.valueOf(res));
 
             }
 
-        });
+
         materialType = dialogView.findViewById(R.id.materialType);
         qty = dialogView.findViewById(R.id.qTy);
         aQty = dialogView.findViewById(R.id.aQty);
@@ -307,34 +307,29 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 String materialtype = materialType.getSelectedItem().toString();
                 String unIt = unitSpinner.getSelectedItem().toString();
 
-                price2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                {
                         int weight = Integer.parseInt(price.getText().toString());
                         int bodyfat = Integer.parseInt(price2.getText().toString());
-                        int lbm = (weight *bodyfat) / 100 ;
+                        int lbm = (weight * bodyfat) / 100;
                         int res = weight - lbm;
                         price2.setText(String.valueOf(res));
-                                            }
+                    }
 
-                });
+
 
                 try {
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    if(actualorder.equals( "ActualOrder" ))
-                    {
+                    if (actualorder.equals("ActualOrder")) {
                         new POSTOrder().execute("0", materialtype, priCe2, "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
                                 unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
 
-                    }
-                    else
-                    {
+                    } else {
                         new POSTOrder().execute("0", materialtype, priCe2, qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
                                 unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
 
                     }
-                      } catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -364,7 +359,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new RoomDetailsActivity.detailsGET().execute(roomName, orderID,SharedPrefManager.getInstance(this).getUser().access_token);
+            new RoomDetailsActivity.detailsGET().execute(roomName, orderID, SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -413,7 +408,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                     Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
                     }.getType();
                     orderList = new Gson().fromJson(result, listType);
-                    adapter = new OrderItemAdapter(getBaseContext(), orderList,actualorder);
+                    adapter = new OrderItemAdapter(getBaseContext(), orderList, actualorder);
                     recyclerView.setAdapter(adapter);
                     progressDialog.dismiss();
                 }
@@ -513,7 +508,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new elightdetailsGET().execute(roomName, orderID,SharedPrefManager.getInstance(this).getUser().access_token);
+            new elightdetailsGET().execute(roomName, orderID, SharedPrefManager.getInstance(this).getUser().access_token);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -567,12 +562,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 roman.setText(morder.Roman.toString());
 
                 aPlat.setText(morder.APlat.toString());
-                if(actualorder.equals( "ActualOrder" ))
-                {
+                if (actualorder.equals("ActualOrder")) {
                     totalAmount.setText(Double.toString(morder.getATotalAmount()));
-                }
-                else
-                {
+                } else {
                     totalAmount.setText(Double.toString(morder.getTotalAmount()));
                 }
 
@@ -657,7 +649,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private void getCatalogDesignSingle() {
         try {
 
-            new getCatalogDesign().execute(catlogName.getText().toString(), design.getText().toString(),SharedPrefManager.getInstance(this).getUser().access_token);
+            new getCatalogDesign().execute(catlogName.getText().toString(), design.getText().toString(), SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -784,7 +776,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         try {
             // progressDialog.setMessage("loading...");
             // progressDialog.show();
-            new getDesign().execute(catlogName.getText().toString(),SharedPrefManager.getInstance(this).getUser().access_token);
+            new getDesign().execute(catlogName.getText().toString(), SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             // progressDialog.dismiss();

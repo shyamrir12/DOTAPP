@@ -29,6 +29,8 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+import static java.lang.System.exit;
+
 
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.OrderItemViewHolder> {
 
@@ -36,6 +38,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     ProgressDialog progressDialog;
     private List<DataOrder> orderitemList;
     String filterKey;
+     private  DataOrder orderitem;
 
 
     public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey) {
@@ -43,6 +46,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         this.orderitemList = orderitemList;
         this.filterKey = filterKey;
         progressDialog = new ProgressDialog(mCtx);
+        String a = SharedPrefManager.getInstance(mCtx).getUser().access_token;
+
     }
 
     @NonNull
@@ -140,9 +145,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 alertbox.setTitle("Do You Want to Cancel");
                 alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        //   exit(0);
+                       //    exit(0);
 
-
+                        cancelOrderListPost();
                     }
                 });
 
@@ -156,14 +161,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 alertbox.show();
             }
 
-            //  cancelOrderListPost();
+
         }
 
 
         @Override
         public boolean onLongClick(View v) {
             int position = getAdapterPosition();
-            DataOrder orderitem = this.orderitemList.get(position);
+           orderitem = this.orderitemList.get(position);
             if (v.getId() == itemView.getId()) {
                 try {
                     //  Toast.makeText(mCtx,String.valueOf(  orderitem.OrderID), Toast.LENGTH_SHORT).show();
@@ -200,11 +205,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
             // InputStream inputStream
             String accesstoken = params[0];
+
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API_REG + "");
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusCancelPost/" + orderitem.OrderID);
                 builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);

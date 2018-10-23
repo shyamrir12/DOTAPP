@@ -397,7 +397,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
             }
 
-
         }
     }
 
@@ -441,8 +440,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 parameters.add("OrderUnit", orderUnit);
                 parameters.add("OrderRoomID", orderRoomId);
 
-
-                parameters.add("CatalogName", catlogname);
+             parameters.add("CatalogName", catlogname);
                 parameters.add("SerialNo", snumber);
                 parameters.add("Design", desiGn);
                 parameters.add("PageNo", page_no);
