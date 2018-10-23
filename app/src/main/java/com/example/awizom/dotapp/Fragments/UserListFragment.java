@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Adapters.UserListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
@@ -20,8 +21,10 @@ import com.example.awizom.dotapp.Models.UserModel;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.List;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -57,11 +60,12 @@ public class UserListFragment extends Fragment {
             @Override
             public void onRefresh() {
                 // Refresh items
-             getUserList();
+                getUserList();
             }
         });
         getUserList();
     }
+
     private void getUserList() {
         try {
             progressDialog.setMessage("loading...");
@@ -116,10 +120,10 @@ public class UserListFragment extends Fragment {
                 userItemList = new Gson().fromJson(result, listType);
 
                 for (UserModel cm : userItemList) {
-                    userId  = cm.getUserId();
+                    userId = cm.getUserId();
                 }
 
-                adapter = new UserListAdapter  (getContext(),userItemList);
+                adapter = new UserListAdapter(getContext(), userItemList);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();
                 adapter.notifyDataSetChanged();
@@ -130,8 +134,6 @@ public class UserListFragment extends Fragment {
 
 
     }
-
-
 
 
 }

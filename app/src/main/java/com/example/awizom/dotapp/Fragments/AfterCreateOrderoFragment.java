@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
@@ -34,48 +35,50 @@ import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class AfterCreateOrderoFragment extends Fragment implements View.OnClickListener{
+public class AfterCreateOrderoFragment extends Fragment implements View.OnClickListener {
 
-    private TextView c_contact,i_name,i_contact,i_address,orderDateLabel;
-    private EditText orderDate,amount;
+    private TextView c_contact, i_name, i_contact, i_address, orderDateLabel;
+    private EditText orderDate, amount;
     private ListView roomname;
     String[] roomName;
 
-    private long cid=0;
+    private long cid = 0;
     DataOrder catelogOrderDetailModel;
     List<DataOrder> orderList;
-    public  int hour = 0,minute = 0;
+    public int hour = 0, minute = 0;
     public DatePicker datePicker;
     public Calendar calendar;
     public int year, month, day;
-    public  String dateOb;
-    public Calendar myCalendar ;
+    public String dateOb;
+    public Calendar myCalendar;
     public Date date;
     private AutoCompleteTextView c_name;
     private List<CustomerModel> customerlist;
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
-    private Button addorder,addroom,actualRead,simpleRead;
+    private Button addorder, addroom, actualRead, simpleRead;
     private ImageButton addNewCustomer;
-    int morderid=0;
+    int morderid = 0;
 
-    String orderid="";
+    String orderid = "";
     String[] orderidPart;
     Intent intent;
     String actualRoomList;
     Fragment fragment = null;
     private Fragment addNewCustomerFragment;
     private ProgressDialog progressDialog;
-    private  AlertDialog b;
+    private AlertDialog b;
     private DataOrder data;
 
 
@@ -110,59 +113,54 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         progressDialog = new ProgressDialog(getActivity());
 
 
-
         c_name.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(c_name.getText().length()==0)
-                {
-                    cid=0;
+                if (c_name.getText().length() == 0) {
+                    cid = 0;
                     c_contact.setText("");
                     i_address.setText("");
-                }
-                else
-                {
+                } else {
                     getCustomerDetail(c_name.getText().toString());
                 }
 
             }
 
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
         });
         getCustomerDetailList();
-        orderDate.setText( DateFormat.getDateInstance().format(new Date()) );
+        orderDate.setText(DateFormat.getDateInstance().format(new Date()));
 
 
-        roomname.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        roomname.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
                 // TODO Auto-generated method stub
-                Intent intent=new Intent(getContext(), RoomDetailsActivity.class);
+                Intent intent = new Intent(getContext(), RoomDetailsActivity.class);
                 intent.putExtra("RoomName", roomName[position].trim());
-                intent.putExtra("OrderID",Integer.valueOf( orderid));
-                intent.putExtra("CustomerName",c_name.getText().toString());
-                intent.putExtra("Mobile",c_contact.getText().toString());
-                intent.putExtra("OrderDate",orderDate.getText().toString());
-                intent.putExtra("Advance",Double.valueOf( amount.getText().toString()));
+                intent.putExtra("OrderID", Integer.valueOf(orderid));
+                intent.putExtra("CustomerName", c_name.getText().toString());
+                intent.putExtra("Mobile", c_contact.getText().toString());
+                intent.putExtra("OrderDate", orderDate.getText().toString());
+                intent.putExtra("Advance", Double.valueOf(amount.getText().toString()));
                 startActivity(intent);
             }
         });
 
 
-        String orderidlist= getArguments().getString("OrderID").toString();
-        Toast.makeText(getActivity(),orderidlist , Toast.LENGTH_SHORT).show();
+        String orderidlist = getArguments().getString("OrderID").toString();
+        Toast.makeText(getActivity(), orderidlist, Toast.LENGTH_SHORT).show();
 
 
     }
-
-
 
 
     @Override
@@ -198,14 +196,13 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         final EditText cName, cContact, cAddress, interioName, interioContact;
         dialogBuilder.setTitle("Create Customer");
 
-       b = dialogBuilder.create();
+        b = dialogBuilder.create();
         b.show();
         cName = dialogView.findViewById(R.id.customerName);
         cContact = dialogView.findViewById(R.id.contact);
         cAddress = dialogView.findViewById(R.id.password);
         interioName = dialogView.findViewById(R.id.confrmPassword);
         interioContact = dialogView.findViewById(R.id.interiormobile);
-
 
 
         final Button buttonCreate = dialogView.findViewById(R.id.customerButton);
@@ -295,7 +292,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
 
     /*Room Add*/
 
-    private void addroomdailogueOpen(final long orderid,String aroomlist){
+    private void addroomdailogueOpen(final long orderid, String aroomlist) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -320,9 +317,9 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
             @Override
             public void onClick(View view) {
 
-                if (String.valueOf(spinner.getSelectedItem()).trim().length()>0) {
+                if (String.valueOf(spinner.getSelectedItem()).trim().length() > 0) {
                     try {
-                        new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim(),SharedPrefManager.getInstance(getContext()).getUser().access_token);
+                        new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim(), SharedPrefManager.getInstance(getContext()).getUser().access_token);
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -414,24 +411,25 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
     private void getMyOrder(String orderId) {
         try {
 
-            new GETOrderList().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token,orderId);
+            new GETOrderList().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token, orderId);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             // System.out.println("Error: " + e);
         }
     }
+
     private class GETOrderList extends AsyncTask<String, Void, String> implements View.OnClickListener {
         @Override
         protected String doInBackground(String... params) {
 
             String json = "";
             String accesstoken = params[0];
-            String orderid=params[1];
+            String orderid = params[1];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderid);
+                builder.url(AppConfig.BASE_URL_API + "OrderGet/" + orderid);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -446,15 +444,17 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
             }
             return json;
         }
+
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 //System.out.println(result);
                 Gson gson = new Gson();
-                Type getType = new TypeToken<DataOrder>(){}.getType();
-                DataOrder  morder = new Gson().fromJson(result,getType);
-                cid=morder.getCustomerID();
+                Type getType = new TypeToken<DataOrder>() {
+                }.getType();
+                DataOrder morder = new Gson().fromJson(result, getType);
+                cid = morder.getCustomerID();
                 c_contact.setText(morder.getMobile());
                 i_address.setText(morder.getAddress());
                 roomName = morder.getRoomList().split(",");
@@ -462,16 +462,17 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                 // ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, roomName);
                 // spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item); // The drop down view
                 // spinner.setAdapter(spinnerArrayAdapter);
-                ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.layout_button_roomlist,R.id.label,roomName);
-                roomname.setAdapter( spinnerArrayAdapter );
+                ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.layout_button_roomlist, R.id.label, roomName);
+                roomname.setAdapter(spinnerArrayAdapter);
 
             }
         }
+
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.hallList:
-                    startActivity(intent = new Intent(getContext(),RoomDetailsActivity.class));
+                    startActivity(intent = new Intent(getContext(), RoomDetailsActivity.class));
                     break;
             }
         }
@@ -492,9 +493,8 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         try {
 
             for (CustomerModel cm : customerlist) {
-                if ( cm.getCustomerName().equals(cusname))
-                {
-                    cid=cm.getCustomerID();
+                if (cm.getCustomerName().equals(cusname)) {
+                    cid = cm.getCustomerID();
                     c_contact.setText(cm.getMobile());
                     i_address.setText(cm.getAddress());
 //                    i_name.setText(cm.getInteriorName());
@@ -568,7 +568,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                 orderDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
             }
         };
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),dateSetListener, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH),   currentDate.get(Calendar.DAY_OF_MONTH));
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), dateSetListener, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH));
         // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
@@ -581,7 +581,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
         try {
 
             //String
-            new POSTOrder().execute(String.valueOf(cid),date,advance,SharedPrefManager.getInstance(getContext()).getUser().access_token);
+            new POSTOrder().execute(String.valueOf(cid), date, advance, SharedPrefManager.getInstance(getContext()).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -589,6 +589,7 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
             // System.out.println("Error: " + e);
         }
     }
+
     private class POSTOrder extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -637,9 +638,9 @@ public class AfterCreateOrderoFragment extends Fragment implements View.OnClickL
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
 
-                orderidPart =  jsonbodyres.getMessage().split(",");
-                orderid=orderidPart[1];
-                Toast.makeText(getContext(),jsonbodyres.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                orderidPart = jsonbodyres.getMessage().split(",");
+                orderid = orderidPart[1];
+                Toast.makeText(getContext(), jsonbodyres.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
                     addorder.setEnabled(false);

@@ -20,7 +20,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
     private CardView cardViewFirst, cardViewSecond, cardViewthird;
     private TextView pendingOrderList, pendingOrderCreate, cancelOrder;
     private Intent intent;
-    private Fragment pendinOrderListFragment,orderCreate;
+    private Fragment pendinOrderListFragment, orderCreate;
     Fragment fragment = null;
 
     @Override
@@ -97,19 +97,19 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 //                break;
             case R.id.orderCreate:
 
-                intent = new Intent( getContext(), AfterCreateActivity.class );
-               // intent = intent.putExtra( "FilterKey" ,"PendingOrderList");
-               startActivity( intent );
-               // getActivity().setTitle("Order Create");
-               //   fragment = orderCreate;
-             //  fragmentClass = AfterCreateOrderoFragment.class;
+                intent = new Intent(getContext(), AfterCreateActivity.class);
+                // intent = intent.putExtra( "FilterKey" ,"PendingOrderList");
+                startActivity(intent);
+                // getActivity().setTitle("Order Create");
+                //   fragment = orderCreate;
+                //  fragmentClass = AfterCreateOrderoFragment.class;
 
-               break;
+                break;
             case R.id.pendingOrder:
-                intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"pandingForAdv");
-                startActivity( intent );
-              //  getActivity().getFragmentManager().popBackStack();
+                intent = new Intent(getContext(), NewOrderListActivity.class);
+                intent = intent.putExtra("FilterKey", "pandingForAdv");
+                startActivity(intent);
+                //  getActivity().getFragmentManager().popBackStack();
 
 //                Bundle bundle3 = new Bundle();
 //                bundle3.putString("NAME_KEY", "PendingOrderList");

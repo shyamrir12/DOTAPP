@@ -15,10 +15,11 @@ import com.example.awizom.dotapp.R;
 
 public class BottomStatusFragment extends Fragment implements View.OnClickListener {
 
-    private TextView pendingttoPlaceOrder, holD, receIvedby, pendingtoPlaceOrder,pendingToreceivedMaterial,pendingtorecevefrometailor,cancelList,dispatchList;
+    private TextView pendingttoPlaceOrder, holD, receIvedby, pendingtoPlaceOrder, pendingToreceivedMaterial, pendingtorecevefrometailor, cancelList, dispatchList;
     private Intent intent;
     private Fragment statuspendingOrderFragment;
     Fragment fragment = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,12 +55,12 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         Class fragmentClass = null;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.pendingtToPlaceOrder:
 
-                intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"PandingToPlaceOrder");
-                startActivity( intent );
+                intent = new Intent(getContext(), NewOrderListActivity.class);
+                intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
+                startActivity(intent);
 
 //                Bundle bundle = new Bundle();
 //                bundle.putString("NAME_KEY", "HandOverTo");
@@ -72,9 +73,9 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 break;
 //
             case R.id.hold:
-                intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"Hold");
-                startActivity( intent );
+                intent = new Intent(getContext(), NewOrderListActivity.class);
+                intent = intent.putExtra("FilterKey", "Hold");
+                startActivity(intent);
 
 ////                Bundle bundle11 = new Bundle();
 ////                bundle11.putString("NAME_KEY", "TelorName");
@@ -82,7 +83,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 ////                myFragment1.setArguments(bundle11);
 ////                getFragmentManager().beginTransaction().replace(R.id.container,myFragment1).commit();
 //
-//                break;
+                break;
 //
 //            case R.id.receivedby:
 //                intent = new Intent( getContext(), NewOrderListActivity.class );
