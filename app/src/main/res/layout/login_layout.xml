@@ -76,9 +76,9 @@
             <TextView
                 android:id="@+id/signupHere"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_below="@+id/signinButton"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
                 android:text="@string/bottom1"
                 android:textColor="@color/colorPrimaryDark"

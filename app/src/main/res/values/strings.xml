@@ -10,7 +10,7 @@
     <string name="password">Password</string>
     <string name="userid">User Name</string>
     <string name="signup">Sign Up</string>
-    <string name="bottom"><u>You have already an account login Here</u></string>
+    <string name="bottom"><u>Already have an account login Here</u></string>
     <string name="signin">Sign In</string>
     <string name="count">Nothing is selected</string>
     <string name="action_settings">Settings</string>
