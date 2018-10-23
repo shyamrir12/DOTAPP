@@ -63,11 +63,11 @@ public class BottomReportFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
 
         Class fragmentClass = null;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.pendingOrder:
-                intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"PendingOrderwithadvance");
-                startActivity( intent );
+                intent = new Intent(getContext(), NewOrderListActivity.class);
+                intent = intent.putExtra("FilterKey", "PendingOrderwithadvance");
+                startActivity(intent);
 
 //                Bundle bundle = new Bundle();
 //                bundle.putString("NAME_KEY", "PendingOrderwithadvance");
@@ -82,9 +82,9 @@ public class BottomReportFragment extends Fragment implements View.OnClickListen
 
             case R.id.pendingCustomer:
 
-                intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"PendingCustomerwithnoadvance");
-                startActivity( intent );
+                intent = new Intent(getContext(), NewOrderListActivity.class);
+                intent = intent.putExtra("FilterKey", "PendingCustomerwithnoadvance");
+                startActivity(intent);
 
 //                Bundle bundle11 = new Bundle();
 //                bundle11.putString("NAME_KEY", "PendingCustomerwithnoadvance");
@@ -98,9 +98,9 @@ public class BottomReportFragment extends Fragment implements View.OnClickListen
                 break;
 
             case R.id.pendingReceived:
-                intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"PendingMaterialReceived");
-                startActivity( intent );
+                intent = new Intent(getContext(), NewOrderListActivity.class);
+                intent = intent.putExtra("FilterKey", "PendingMaterialReceived");
+                startActivity(intent);
 
 //                Bundle bundle12 = new Bundle();
 //                bundle12.putString("NAME_KEY", "PendingMaterialReceived");
@@ -115,9 +115,9 @@ public class BottomReportFragment extends Fragment implements View.OnClickListen
 
             case R.id.pendingItemToPlace:
 
-                intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"Pendingitemtoplaceholder");
-                startActivity( intent );
+                intent = new Intent(getContext(), NewOrderListActivity.class);
+                intent = intent.putExtra("FilterKey", "Pendingitemtoplaceholder");
+                startActivity(intent);
 
 //                Bundle bundle13 = new Bundle();
 //                bundle13.putString("NAME_KEY", "Pendingitemtoplaceholder");
