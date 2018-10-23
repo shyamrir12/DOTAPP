@@ -82,7 +82,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 ////                myFragment1.setArguments(bundle11);
 ////                getFragmentManager().beginTransaction().replace(R.id.container,myFragment1).commit();
 //
-//                break;
+               break;
 //
 //            case R.id.receivedby:
 //                intent = new Intent( getContext(), NewOrderListActivity.class );

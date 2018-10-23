@@ -4,27 +4,18 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.awizom.dotapp.Adapters.CustomerListAdapter;
 import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
-import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
-import com.example.awizom.dotapp.Fragments.OrderListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
-import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -64,7 +55,7 @@ public class NewOrderListActivity extends AppCompatActivity {
 
 
         filterKey = getIntent().getExtras().getString( "FilterKey", "" );
-        if (!filterKey.equals( "" ))
+        if (!filterKey.equals( "PandingToPlaceOrder" ))
             getOrderList();
 
 
