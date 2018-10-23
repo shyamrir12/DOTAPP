@@ -111,6 +111,7 @@ public class HomeActivityUser extends AppCompatActivity {
               SharedPrefManager.getInstance(this).logout();
               Intent login = new Intent(getApplicationContext(), SigninActivity.class);
               startActivity(login);
+              //
               break;
 
 
