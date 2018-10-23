@@ -37,17 +37,14 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
         pendingcustomer = findViewById(R.id.pendingCustomer);
         pendingreceived = findViewById(R.id.pendingReceived);
         pendingitemToPlace = findViewById(R.id.pendingItemToPlace);
-
         cardViewFirst = findViewById(R.id.first_cardview);
         cardViewSecond = findViewById(R.id.second_cardview);
         cardViewthird = findViewById(R.id.third_cardview);
         cardViewFourth = findViewById(R.id.fourth_cardView);
-
         pendingorder.setOnClickListener(this);
         pendingcustomer.setOnClickListener(this);
         pendingreceived.setOnClickListener(this);
         pendingitemToPlace.setOnClickListener(this);
-
         reportpendingOrderFragment = new OrderListFragment();
 
         BottomNavigationView navigation = findViewById(R.id.navigation);

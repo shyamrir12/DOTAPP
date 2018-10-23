@@ -116,11 +116,13 @@
                         android:layout_weight="1"
                         android:background="@drawable/add_cancel_button_shape"
                         android:text="Order"
+                        android:textSize="12sp"
                         android:layout_margin="5dp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/white" />
                     <Button
                         android:id="@+id/buttonActualOrder"
+                        android:textSize="12sp"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_weight="1"
@@ -133,6 +135,7 @@
                         android:id="@+id/cancelOrderButton"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
+                        android:textSize="12sp"
                         android:layout_weight="1"
                         android:layout_margin="5dp"
                         android:background="@drawable/add_cancel_button_shape"
