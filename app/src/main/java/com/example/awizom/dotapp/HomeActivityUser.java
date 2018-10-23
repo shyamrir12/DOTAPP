@@ -25,6 +25,7 @@ import com.example.awizom.dotapp.Fragments.BottomReportFragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.R;
 
 public class HomeActivityUser extends AppCompatActivity {
@@ -107,9 +108,10 @@ public class HomeActivityUser extends AppCompatActivity {
 //
 //
           case R.id.exit:
-              Intent intt = new Intent(this, SigninActivity.class);
-              startActivity(intt);
-              finish();
+              SharedPrefManager.getInstance(this).logout();
+              Intent login = new Intent(getApplicationContext(), SigninActivity.class);
+              startActivity(login);
+              //
               break;
 
 

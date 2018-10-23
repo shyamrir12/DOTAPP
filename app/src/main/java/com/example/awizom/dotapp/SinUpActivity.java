@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
     private TextView loginHere;
     private Intent intent;
     private ProgressDialog progressDialog;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +79,19 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         userName = findViewById(R.id.customerName);
         passWord = findViewById(R.id.password);
         cnfrmPassWord = findViewById(R.id.confrmPassword);
-
+        spinner=findViewById( R.id.spinnerUserRole );
         signupButton = findViewById(R.id.signupButton);
         signupButton.setOnClickListener(this);
         loginHere = findViewById(R.id.loginHere);
         loginHere.setOnClickListener(this);
+        String userrole[] = {"User","HandOverTo","MaterialReceived","OrderPlaced","Dispatch", "ReceivedFromTalor"};
 
+
+
+// Application of the Array to the Spinner
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, userrole);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+        spinner.setAdapter(spinnerArrayAdapter);
         progressDialog = new ProgressDialog(this);
     }
 
@@ -103,10 +113,13 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         String name = userName.getText().toString().trim();
         String pwd = passWord.getText().toString().trim();
         String cpwd = cnfrmPassWord.getText().toString().trim();
+        String ur="User";
+        if(spinner!=null)
+            ur=spinner.getSelectedItem().toString().trim();
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new POSTRegister().execute(name, pwd, cpwd);
+            new POSTRegister().execute(name, pwd, cpwd,ur);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -115,13 +128,13 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private boolean validation() {
-        if (userName.getText().toString().isEmpty() && passWord.getText().toString().isEmpty() && cnfrmPassWord.getText().toString().isEmpty()) {
+        if (spinner.getSelectedItem().toString().isEmpty() &&userName.getText().toString().isEmpty() && passWord.getText().toString().isEmpty() && cnfrmPassWord.getText().toString().isEmpty()) {
             Toast.makeText(this, "Filed can't be blank", Toast.LENGTH_SHORT).show();
             return false;
         }else if( !isValidPassword(passWord.getText().toString())) {
             Toast.makeText(getApplicationContext(),"Password must contain mix of upper and lower case letters as well as digits and one special charecter(4-20)",Toast.LENGTH_SHORT);
             return false;
-        }else if(passWord.getText().toString().contains(cnfrmPassWord.getText().toString())){
+        }else if(!passWord.getText().toString().contains(cnfrmPassWord.getText().toString())){
             Toast.makeText(getApplicationContext(),"Password not match",Toast.LENGTH_SHORT);
 
             return false;
@@ -142,6 +155,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
             String customername = params[0];
             String password = params[1];
             String cnfrmpassword = params[2];
+            String userrole = params[3];
 
             String json = "";
             try {
@@ -155,7 +169,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                 parameters.add("UserName", customername);
                 parameters.add("Password", password);
                 parameters.add("ConfirmPassword", cnfrmpassword);
-                parameters.add("Role", "User");
+                parameters.add("Role", userrole);
                 builder.post(parameters.build());
 
                 okhttp3.Response response = client.newCall(builder.build()).execute();
