@@ -92,7 +92,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             case R.id.handOverTo:
                 intent = new Intent( getContext(), NewOrderListActivity.class );
                 intent = intent.putExtra( "FilterKey" ,"PandingToHandOverTo");
-                intent = intent.putExtra("ButtonName","Place Order");
+                intent = intent.putExtra("ButtonName","");
 
                 startActivity( intent );
 
@@ -107,7 +107,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             case R.id.receivedFromTailor:
                 intent = new Intent( getContext(), NewOrderListActivity.class );
                 intent = intent.putExtra( "FilterKey" ,"PandingToReceivedFromTelor");
-                intent = intent.putExtra("ButtonName","Place Order");
+                intent = intent.putExtra("ButtonName","Received");
                 intent = intent.putExtra("StatusName", "ReceivedFromTalor");
 
                 startActivity( intent );
