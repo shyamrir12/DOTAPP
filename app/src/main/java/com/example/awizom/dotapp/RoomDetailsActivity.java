@@ -28,6 +28,7 @@ import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Catelog;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
+import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.ElightBottomModel;
 import com.example.awizom.dotapp.Models.Result;
 import com.google.gson.Gson;
@@ -49,7 +50,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private RelativeLayout relative_Layout_press, relativeLayout_edit_dailog, bottom_relative_press1;
     private RecyclerView recyclerView;
     private EditText editElight, editRoman, editAplot;
-    private Button updateBottom, cancelElight;
+    private Button updateBottom, cancelElight,allok;
 
     ProgressDialog progressDialog;
     CatelogOrderDetailModel catelogOrderDetailModel;
@@ -66,6 +67,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     String actualorder = "";
     //  private AlertDialog b;
     private String roomName, orderID, customernAME, mobileNumber, orderDate, advance;
+    DataOrder orderitem;
+
 
     // private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
 
@@ -97,6 +100,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         customerMobileNo = findViewById(R.id.customer_mobile_no);
         customerOrder = findViewById(R.id.order_date);
         customerhall = findViewById(R.id.room_name);
+        allok=findViewById(R.id.allOkButtton);
+
 
         customerName.setText(customernAME);
         customerMobileNo.setText(mobileNumber);
@@ -130,8 +135,79 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         getElightBottom();
 
         catelogOrderDetailModel = new CatelogOrderDetailModel();
+        allok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allOkButtonRoomLevel();
+            }
+        });
+
+    }
+    private void allOkButtonRoomLevel() {
+
+        try {
+
+            //     progressDialog.setMessage("loading...");
+            //      progressDialog.show();
+            new allokButtonRoomLevel().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            //       progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private class allokButtonRoomLevel extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            orderitem=new DataOrder();
+            catelogOrderDetailModel= new CatelogOrderDetailModel();
+            String accesstoken = params[0];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew" );
+                builder.addHeader("Content-Type", "application/json");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderID" , String.valueOf(orderitem.getOrderID()));
+                parameters.add("RoomName" ,catelogOrderDetailModel.getRoomName() );
+                parameters.add("OrderItemID"  ,"0" );
+                parameters.add("StatusName"  ,"OrderPlaced");
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                //      progressDialog.dismiss();
+//                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
 
 
+                }
+                //       progressDialog.dismiss();
+            }
+        }
     }
 
 

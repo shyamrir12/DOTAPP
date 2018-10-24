@@ -133,7 +133,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             Qty = itemView.findViewById(R.id.qty);
             AQty = itemView.findViewById(R.id.aQty);
             unit = itemView.findViewById(R.id.unit);
-allok=itemView.findViewById(R.id.allOkButtton);
+
             okitem = itemView.findViewById(R.id.okButton);
             okitem.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,12 +141,7 @@ allok=itemView.findViewById(R.id.allOkButtton);
                     okButtonPost();
                 }
             });
-            allok.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    allOkButtonRoomLevel();
-                }
-            });
+
 
         }
 
@@ -300,72 +295,6 @@ allok=itemView.findViewById(R.id.allOkButtton);
 
     }
 
-    private void allOkButtonRoomLevel() {
-
-        try {
-
-            //     progressDialog.setMessage("loading...");
-            //      progressDialog.show();
-            new allokButtonRoomLevel().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token);
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            //       progressDialog.dismiss();
-            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
-    private class allokButtonRoomLevel extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            orderitem=new DataOrder();
-            catelogOrderDetailModel= new CatelogOrderDetailModel();
-            String accesstoken = params[0];
-            String json = "";
-            try {
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew" );
-                builder.addHeader("Content-Type", "application/json");
-                builder.addHeader("Accept", "application/json");
-                builder.addHeader("Authorization", "Bearer " + accesstoken);
-
-                FormBody.Builder parameters = new FormBody.Builder();
-                parameters.add("OrderID" , String.valueOf(orderitem.getOrderID()));
-                parameters.add("RoomName" ,catelogOrderDetailModel.getRoomName() );
-                parameters.add("OrderItemID"  ,"0" );
-                parameters.add("StatusName"  ,"OrderPlaced");
-                builder.post(parameters.build());
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-                if (response.isSuccessful()) {
-                    json = response.body().string();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                //      progressDialog.dismiss();
-//                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-            }
-            return json;
-        }
-
-        protected void onPostExecute(String result) {
-            if (result.isEmpty()) {
-                progressDialog.dismiss();
-                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
-            } else {
-                Gson gson = new Gson();
-                final Result jsonbodyres = gson.fromJson(result, Result.class);
-                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                if (jsonbodyres.getStatus() == true) {
-
-
-                }
-                //       progressDialog.dismiss();
-            }
-        }
-    }
 
 
     private void okButtonPost() {
