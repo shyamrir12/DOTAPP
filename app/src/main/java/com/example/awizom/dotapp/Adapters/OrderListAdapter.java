@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -38,13 +39,17 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     ProgressDialog progressDialog;
     private List<DataOrder> orderitemList;
     String filterKey;
-     private  DataOrder orderitem;
+    private String valueButtonname;
+    private  DataOrder orderitem;
+    DataOrder order;
 
 
-    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey) {
+
+    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey,String valueButtonname) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
         this.filterKey = filterKey;
+        this.valueButtonname = valueButtonname;
         progressDialog = new ProgressDialog(mCtx);
         String a = SharedPrefManager.getInstance(mCtx).getUser().access_token;
 
@@ -61,7 +66,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
-        DataOrder order = orderitemList.get(position);
+        order = orderitemList.get(position);
         try {
             holder.ordername.setText("Name\n" + order.getCustomerName().trim());
             holder.orderaddress.setText("Address\n " + order.getAddress().trim());
@@ -105,8 +110,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             orderdate = view.findViewById(R.id.textViewOrderDate);
             orderamount = view.findViewById(R.id.textViewAdvance);
             totalamount = view.findViewById(R.id.textViewATotalAmount);
-
-
             buttonOrder = view.findViewById(R.id.buttonOrder);
             buttonActualOrder = view.findViewById(R.id.buttonActualOrder);
             canceLOrderButton = view.findViewById(R.id.cancelOrderButton);
@@ -114,13 +117,34 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             buttonOrder.setOnClickListener(this);
             buttonActualOrder.setOnClickListener(this);
             canceLOrderButton.setOnClickListener(this);
+            canceLOrderButton.setText(valueButtonname);
+            canceLOrderButton.setVisibility(View.GONE);
+
+            try {
+                if (!totalamount.getText().equals("0.0")) {
+                    canceLOrderButton.setVisibility(View.VISIBLE);
+
+                }
+                else if (totalamount.getText().equals("0.0")){
+                    canceLOrderButton.setVisibility(View.GONE);
+
+
+                }
+            }
+            catch (Exception e)
+            {e.printStackTrace();
+            }
+
 
         }
+
+
+
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            DataOrder orderitem = this.orderitemList.get(position);
+          orderitem = this.orderitemList.get(position);
 
             if (v.getId() == buttonOrder.getId()) {
 
@@ -140,25 +164,26 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 mCtx.startActivity(i);
             }
             if (v.getId() == canceLOrderButton.getId()) {
-                AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                alertbox.setIcon(R.drawable.ic_warning_black_24dp);
-                alertbox.setTitle("Do You Want to Cancel");
-                alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                       //    exit(0);
-
-                        cancelOrderListPost();
-                    }
-                });
-
-                alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // Nothing will be happened when clicked on no button
-                        // of Dialog
-                    }
-                });
-
-                alertbox.show();
+                cancelOrderListPost();
+//                AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+//                alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+//                alertbox.setTitle("Do You Want to Cancel");
+//                alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface arg0, int arg1) {
+//                       //    exit(0);
+//
+//                        cancelOrderListPost();
+//                    }
+//                });
+//
+//                alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface arg0, int arg1) {
+//                        // Nothing will be happened when clicked on no button
+//                        // of Dialog
+//                    }
+//                });
+//
+//                alertbox.show();
             }
 
 
@@ -186,14 +211,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
         try {
 
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
+       //     progressDialog.setMessage("loading...");
+      //      progressDialog.show();
             new PostCancelOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token);
 
         } catch (Exception e) {
 
             e.printStackTrace();
-            progressDialog.dismiss();
+     //       progressDialog.dismiss();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
 
         }
@@ -210,7 +235,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderStatusCancelPost/" + orderitem.OrderID);
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusCancelPost/" + orderitem.getOrderID());
                 builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -223,15 +248,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                progressDialog.dismiss();
-                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+          //      progressDialog.dismiss();
+//                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
         }
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-                progressDialog.dismiss();
+         progressDialog.dismiss();
                 Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
@@ -239,8 +264,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
+
                 }
-                progressDialog.dismiss();
+        //       progressDialog.dismiss();
             }
         }
     }

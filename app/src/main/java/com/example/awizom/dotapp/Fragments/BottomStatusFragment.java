@@ -15,7 +15,7 @@ import com.example.awizom.dotapp.R;
 
 public class BottomStatusFragment extends Fragment implements View.OnClickListener {
 
-    private TextView pendingttoPlaceOrder, holD, receIvedby, pendingtoPlaceOrder, pendingToreceivedMaterial, pendingtorecevefrometailor, cancelList, dispatchList;
+    private TextView pendingttoPlaceOrder, holD, handOverto, receivedby, pendingToreceivedMaterial, pendingtorecevefrometailor, cancelList, dispatchList;
     private Intent intent;
     private Fragment statuspendingOrderFragment;
     Fragment fragment = null;
@@ -32,20 +32,20 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 
         pendingttoPlaceOrder = view.findViewById(R.id.pendingtToPlaceOrder);
         holD = view.findViewById(R.id.hold);
-//        receIvedby = view.findViewById(R.id.receivedby);
-//        pendingtoPlaceOrder = view.findViewById(R.id.pendingToPlaceOrder);
-//        pendingToreceivedMaterial = view.findViewById(R.id.pendingtoreceivedMaterial);
-//        pendingtorecevefrometailor = view.findViewById(R.id.pendingTorecevefrometailor);
+       handOverto = view.findViewById(R.id.handOverTo);
+        receivedby = view.findViewById(R.id.receivedby);
+        pendingToreceivedMaterial = view.findViewById(R.id.pendingToreceivedMaterial);
+       pendingtorecevefrometailor = view.findViewById(R.id.receivedFromTailor);
 //        cancelList = view.findViewById(R.id.cancel);
 //        dispatchList = view.findViewById(R.id.dispatch);
 
         pendingttoPlaceOrder.setOnClickListener(this);
         holD.setOnClickListener(this);
-//        tailOr.setOnClickListener(this);
-//        receIvedby.setOnClickListener(this);
+        handOverto.setOnClickListener(this);
+       receivedby.setOnClickListener(this);
 //        pendingtoPlaceOrder.setOnClickListener(this);
-//        pendingToreceivedMaterial.setOnClickListener(this);
-//        pendingtorecevefrometailor.setOnClickListener(this);
+        pendingToreceivedMaterial.setOnClickListener(this);
+        pendingtorecevefrometailor.setOnClickListener(this);
 //        cancelList.setOnClickListener(this);
 //        dispatchList.setOnClickListener(this);
 
@@ -60,6 +60,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
+                intent = intent.putExtra("ButtonName","Place Order");
                 startActivity(intent);
 
 //                Bundle bundle = new Bundle();
@@ -84,57 +85,57 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 ////                getFragmentManager().beginTransaction().replace(R.id.container,myFragment1).commit();
 //
                 break;
-//
-//            case R.id.receivedby:
-//                intent = new Intent( getContext(), NewOrderListActivity.class );
-//                intent = intent.putExtra( "FilterKey" ,"PendingReceivedBy");
-//                startActivity( intent );
-//
-////                Bundle bundle12 = new Bundle();
-////                bundle12.putString("NAME_KEY", "PendingReceivedBy");
-////                OrderListFragment myFragment2 = new OrderListFragment();
-////                myFragment2.setArguments(bundle12);
-////                getFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
-//
-//                break;
-//
-//            case R.id.pendingToPlaceOrder:
-//                intent = new Intent( getContext(), NewOrderListActivity.class );
-//                intent = intent.putExtra( "FilterKey" ,"Pendingitemtoplaceholder");
-//                startActivity( intent );
-//
-////                Bundle bundle13 = new Bundle();
-////                bundle13.putString("NAME_KEY", "Pendingitemtoplaceholder");
-////                OrderListFragment myFragment3 = new OrderListFragment();
-////                myFragment3.setArguments(bundle13);
-////                getFragmentManager().beginTransaction().replace(R.id.container,myFragment3).commit();
-//
-//                break;
-//
-//            case R.id.pendingtoreceivedMaterial:
-//                intent = new Intent( getContext(), NewOrderListActivity.class );
-//                intent = intent.putExtra( "FilterKey" ,"PendingMaterialReceived");
-//                startActivity( intent );
-//
-////                Bundle bundle14 = new Bundle();
-////                bundle14.putString("NAME_KEY", "PendingMaterialReceived");
-////                OrderListFragment myFragment4 = new OrderListFragment();
-////                myFragment4.setArguments(bundle14);
-////                getFragmentManager().beginTransaction().replace(R.id.container,myFragment4).commit();
-//                break;
-//
-//            case R.id.cancel:
-//                intent = new Intent( getContext(), NewOrderListActivity.class );
-//                intent = intent.putExtra( "FilterKey" ,"CancelOrderlist");
-//                startActivity( intent );
-//
-//
-////                Bundle bundle15 = new Bundle();
-////                bundle15.putString("NAME_KEY", "CancelOrderlist");
-////                OrderListFragment myFragment5 = new OrderListFragment();
-////                myFragment5.setArguments(bundle15);
-////                getFragmentManager().beginTransaction().replace(R.id.container,myFragment5).commit();
-//                break;
+
+            case R.id.handOverTo:
+                intent = new Intent( getContext(), NewOrderListActivity.class );
+                intent = intent.putExtra( "FilterKey" ,"PandingToHandOverTo");
+                startActivity( intent );
+
+//                Bundle bundle12 = new Bundle();
+//                bundle12.putString("NAME_KEY", "PendingReceivedBy");
+//                OrderListFragment myFragment2 = new OrderListFragment();
+//                myFragment2.setArguments(bundle12);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
+
+                break;
+
+            case R.id.receivedFromTailor:
+                intent = new Intent( getContext(), NewOrderListActivity.class );
+                intent = intent.putExtra( "FilterKey" ,"PandingToReceivedFromTelor");
+                startActivity( intent );
+
+//                Bundle bundle13 = new Bundle();
+//                bundle13.putString("NAME_KEY", "Pendingitemtoplaceholder");
+//                OrderListFragment myFragment3 = new OrderListFragment();
+//                myFragment3.setArguments(bundle13);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment3).commit();
+
+                break;
+
+            case R.id.pendingToreceivedMaterial:
+                intent = new Intent( getContext(), NewOrderListActivity.class );
+                intent = intent.putExtra( "FilterKey" ,"PandingToPlaceOrder");
+                startActivity( intent );
+
+//                Bundle bundle14 = new Bundle();
+//                bundle14.putString("NAME_KEY", "PendingMaterialReceived");
+//                OrderListFragment myFragment4 = new OrderListFragment();
+//                myFragment4.setArguments(bundle14);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment4).commit();
+                break;
+
+            case R.id.receivedby:
+                intent = new Intent( getContext(), NewOrderListActivity.class );
+                intent = intent.putExtra( "FilterKey" ,"Dispatch");
+                startActivity( intent );
+
+
+//                Bundle bundle15 = new Bundle();
+//                bundle15.putString("NAME_KEY", "CancelOrderlist");
+//                OrderListFragment myFragment5 = new OrderListFragment();
+//                myFragment5.setArguments(bundle15);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment5).commit();
+                break;
 //
 //            case R.id.dispatch:
 //                intent = new Intent( getContext(), NewOrderListActivity.class );

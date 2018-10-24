@@ -140,7 +140,8 @@
                         android:layout_margin="5dp"
                         android:background="@drawable/add_cancel_button_shape"
                         android:textColor="@color/white"
-                        android:text="Cancel Order"
+                        android:text="Place Order"
+                        android:visibility="invisible"
                         android:textAllCaps="false"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"/>
 

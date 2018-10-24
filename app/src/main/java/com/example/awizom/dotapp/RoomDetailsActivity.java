@@ -237,14 +237,14 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         pageNo = dialogView.findViewById(R.id.pageNo);
         price = dialogView.findViewById(R.id.price);
         price2 = dialogView.findViewById(R.id.price2);
-        {
-                int weight = Integer.parseInt(price.getText().toString());
-                int bodyfat = Integer.parseInt(price2.getText().toString());
-                int lbm = (weight * bodyfat) / 100;
-                int res = weight - lbm;
-                price2.setText(String.valueOf(res));
-
-            }
+//        {
+//                int weight = Integer.parseInt(price.getText().toString());
+//                int bodyfat = Integer.parseInt(price2.getText().toString());
+//                int lbm = (weight * bodyfat) / 100;
+//                int res = weight - lbm;
+//                price2.setText(String.valueOf(res));
+//
+//            }
 
 
         materialType = dialogView.findViewById(R.id.materialType);
@@ -307,13 +307,17 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 String materialtype = materialType.getSelectedItem().toString();
                 String unIt = unitSpinner.getSelectedItem().toString();
 
-                {
-                        int weight = Integer.parseInt(price.getText().toString());
-                        int bodyfat = Integer.parseInt(price2.getText().toString());
-                        int lbm = (weight * bodyfat) / 100;
-                        int res = weight - lbm;
-                        price2.setText(String.valueOf(res));
-                    }
+                price2.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        int weight = Integer.parseInt(price.getText().toString());
+        int bodyfat = Integer.parseInt(price2.getText().toString());
+        int lbm = (weight * bodyfat) / 100;
+        int res = weight - lbm;
+        price2.setText(String.valueOf(res));
+  }
+});
+
 
 
 
@@ -337,7 +341,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 b.dismiss();
 
             }
-
 
         });
 

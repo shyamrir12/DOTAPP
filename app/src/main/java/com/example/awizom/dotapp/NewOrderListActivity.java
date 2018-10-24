@@ -27,6 +27,7 @@ public class NewOrderListActivity extends AppCompatActivity {
     OrderListAdapter adapter;
 
     String filterKey = "";
+    String valueButtonName = "";
 
 
     @Override
@@ -55,8 +56,14 @@ public class NewOrderListActivity extends AppCompatActivity {
 
 
         filterKey = getIntent().getExtras().getString( "FilterKey", "" );
-        if (!filterKey.equals( "PandingToPlaceOrder" ))
+        valueButtonName = getIntent().getExtras().getString("ButtonName","");
+
+        if (!filterKey.equals( "PandingToPlaceOrder" )){
             getOrderList();
+        }else if (filterKey.equals( "PandingToPlaceOrder" )){
+            getOrderList();
+        }
+
 
 
 
@@ -114,7 +121,7 @@ public class NewOrderListActivity extends AppCompatActivity {
                 Type listType = new TypeToken<List<DataOrder>>() {
                 }.getType();
                 orderList = new Gson().fromJson(result, listType);
-                adapter = new OrderListAdapter(getApplicationContext(), orderList,filterKey);
+                adapter = new OrderListAdapter(getApplicationContext(), orderList,filterKey,valueButtonName);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();
                 //mSwipeRefreshLayout.setRefreshing(false);
