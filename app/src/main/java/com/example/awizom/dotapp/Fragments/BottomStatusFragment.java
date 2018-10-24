@@ -1,17 +1,30 @@
 package com.example.awizom.dotapp.Fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.Models.DataOrder;
+import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.R;
+import com.google.gson.Gson;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 public class BottomStatusFragment extends Fragment implements View.OnClickListener {
 
@@ -19,7 +32,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     private Intent intent;
     private Fragment statuspendingOrderFragment;
     Fragment fragment = null;
-
+    DataOrder orderitem;
+    private static final String[] paths = {"Telor", "Sofa Karigar", "Self Customer", "wallpaper fitter"};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,6 +62,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
         pendingtorecevefrometailor.setOnClickListener(this);
 //        cancelList.setOnClickListener(this);
 //        dispatchList.setOnClickListener(this);
+          orderitem= new DataOrder();
 
         statuspendingOrderFragment = new CustomerListFrgment();
     }
@@ -89,12 +104,15 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 //
                 break;
 
-            case R.id.handOverTo:
-                intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"PandingToHandOverTo");
-                intent = intent.putExtra("ButtonName","");
 
-                startActivity( intent );
+            case R.id.handOverTo:
+
+
+//                intent = new Intent( getContext(), NewOrderListActivity.class );
+//                intent = intent.putExtra( "FilterKey" ,"PandingToHandOverTo");
+//                intent = intent.putExtra("ButtonName","");
+//
+//                startActivity( intent );
 
 //                Bundle bundle12 = new Bundle();
 //                bundle12.putString("NAME_KEY", "PendingReceivedBy");
@@ -171,4 +189,9 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 //            e.printStackTrace();
 //        }
     }
+
+
+
+
+
 }
