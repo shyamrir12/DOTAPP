@@ -235,12 +235,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderStatusCancelPost/" + orderitem.getOrderID());
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew" );
                 builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderID", String.valueOf(orderitem.getOrderID()));
+                parameters.add("RoomName","blank" );
+                parameters.add("OrderItemId" ,"0");
+                parameters.add("StatusName","Cancel");
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
