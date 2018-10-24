@@ -8,17 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
-
 import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -30,12 +27,13 @@ public class NewOrderListActivity extends AppCompatActivity {
     OrderListAdapter adapter;
 
     String filterKey = "";
+    String valueButtonName = "";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.panding_order_list);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.panding_order_list );
         initView();
     }
 
@@ -56,9 +54,17 @@ public class NewOrderListActivity extends AppCompatActivity {
 //        });
 
 
-        filterKey = getIntent().getExtras().getString("FilterKey", "");
-        if (!filterKey.equals("PandingToPlaceOrder"))
+
+        filterKey = getIntent().getExtras().getString( "FilterKey", "" );
+        valueButtonName = getIntent().getExtras().getString("ButtonName","");
+
+        if (!filterKey.equals( "PandingToPlaceOrder" )){
             getOrderList();
+        }else if (filterKey.equals( "PandingToPlaceOrder" )){
+            getOrderList();
+        }
+
+
 
 
     }
@@ -85,10 +91,10 @@ public class NewOrderListActivity extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
 
-                // String name= getArguments().getString("NAME_KEY").toString();
-                if (filterKey.equals("pandingForAdv")) {
-                    builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet");
-                } else {
+               // String name= getArguments().getString("NAME_KEY").toString();
+                if(filterKey.equals("pandingForAdv")) {
+                    builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet" );
+                }else {
                     builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet/" + filterKey);
                 }
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -115,7 +121,7 @@ public class NewOrderListActivity extends AppCompatActivity {
                 Type listType = new TypeToken<List<DataOrder>>() {
                 }.getType();
                 orderList = new Gson().fromJson(result, listType);
-                adapter = new OrderListAdapter(getApplicationContext(), orderList, filterKey);
+                adapter = new OrderListAdapter(getApplicationContext(), orderList,filterKey,valueButtonName);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();
                 //mSwipeRefreshLayout.setRefreshing(false);

@@ -175,7 +175,7 @@
                                 android:tint="@color/white"
                                 android:layout_marginLeft="10dp" />
                             <TextView
-                                android:id="@+id/pendingTorecevefrometailor"
+                                android:id="@+id/handOverTo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Hand Over to"
@@ -219,7 +219,7 @@
                                 android:layout_marginLeft="10dp" />
 
                             <TextView
-                                android:id="@+id/receivedby"
+                                android:id="@+id/receivedFromTailor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Received from Tailor"
@@ -265,7 +265,7 @@
                                 android:layout_marginLeft="10dp" />
 
                             <TextView
-                                android:id="@+id/dispatch"
+                                android:id="@+id/receivedby"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Received By"
