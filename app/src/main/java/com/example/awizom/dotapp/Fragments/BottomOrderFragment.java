@@ -109,6 +109,8 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "pandingForAdv");
                 intent = intent.putExtra("ButtonName","Cancel Order");
+                intent = intent.putExtra("StatusName", "Cancel");
+
                 startActivity(intent);
                 //  getActivity().getFragmentManager().popBackStack();
 

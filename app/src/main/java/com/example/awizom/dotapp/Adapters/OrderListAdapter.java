@@ -42,14 +42,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private String valueButtonname;
     private  DataOrder orderitem;
     DataOrder order;
+    private String statusName;
 
 
 
-    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey,String valueButtonname) {
+    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey,String valueButtonname,String statusName) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
         this.filterKey = filterKey;
         this.valueButtonname = valueButtonname;
+        this.statusName=statusName;
         progressDialog = new ProgressDialog(mCtx);
         String a = SharedPrefManager.getInstance(mCtx).getUser().access_token;
 
@@ -213,7 +215,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
        //     progressDialog.setMessage("loading...");
       //      progressDialog.show();
-            new PostCancelOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token);
+            new PostCancelOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,statusName);
 
         } catch (Exception e) {
 
@@ -230,7 +232,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
             // InputStream inputStream
             String accesstoken = params[0];
-
+           String statusname = params[1];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
@@ -244,7 +246,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 parameters.add("OrderID", String.valueOf(orderitem.getOrderID()));
                 parameters.add("RoomName","blank" );
                 parameters.add("OrderItemId" ,"0");
-                parameters.add("StatusName","Cancel");
+                parameters.add("StatusName",statusname);
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {

@@ -110,7 +110,7 @@ public class OrderListFragment extends Fragment {
                 Type listType = new TypeToken<List<DataOrder>>() {
                 }.getType();
                 orderList = new Gson().fromJson(result, listType);
-                adapter = new OrderListAdapter(getContext(), orderList, "","");
+                adapter = new OrderListAdapter(getContext(), orderList, "","","");
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();
                 //mSwipeRefreshLayout.setRefreshing(false);

@@ -61,6 +61,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
                 intent = intent.putExtra("ButtonName","Place Order");
+                intent = intent.putExtra("StatusName", "OrderPlaced");
                 startActivity(intent);
 
 //                Bundle bundle = new Bundle();
@@ -77,6 +78,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "Hold");
                 intent = intent.putExtra("ButtonName","Place Order");
+
                 startActivity(intent);
 
 ////                Bundle bundle11 = new Bundle();
@@ -91,6 +93,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = new Intent( getContext(), NewOrderListActivity.class );
                 intent = intent.putExtra( "FilterKey" ,"PandingToHandOverTo");
                 intent = intent.putExtra("ButtonName","Place Order");
+
                 startActivity( intent );
 
 //                Bundle bundle12 = new Bundle();
@@ -105,6 +108,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = new Intent( getContext(), NewOrderListActivity.class );
                 intent = intent.putExtra( "FilterKey" ,"PandingToReceivedFromTelor");
                 intent = intent.putExtra("ButtonName","Place Order");
+                intent = intent.putExtra("StatusName", "ReceivedFromTalor");
+
                 startActivity( intent );
 
 //                Bundle bundle13 = new Bundle();
@@ -155,15 +160,15 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 //                break;
 
         }
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.home_container, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            fragment = (Fragment) fragmentClass.newInstance();
+//            FragmentManager fragmentManager = getFragmentManager();
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.home_container, fragment);
+//            fragmentTransaction.addToBackStack(null);
+//            fragmentTransaction.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }
