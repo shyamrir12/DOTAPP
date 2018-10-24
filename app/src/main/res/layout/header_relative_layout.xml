@@ -78,8 +78,7 @@
             android:layout_below="@+id/customerinfo"
             android:text="     All"
             android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:visibility="gone"/>
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/allOkButtton"
@@ -88,8 +87,7 @@
             android:layout_alignEnd="@+id/customerinfo2"
             android:layout_below="@+id/customerinfo"
             android:background="@drawable/button_background_shape"
-            android:text="Ok"
-            android:visibility="gone"/>
+            android:text="Ok"/>
     </RelativeLayout>
 </RelativeLayout>
 </RelativeLayout>

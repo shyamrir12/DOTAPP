@@ -40,18 +40,17 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private List<DataOrder> orderitemList;
     String filterKey;
     private String valueButtonname;
-    private  DataOrder orderitem;
+    private DataOrder orderitem;
     DataOrder order;
     private String statusName;
 
 
-
-    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey,String valueButtonname,String statusName) {
+    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey, String valueButtonname, String statusName) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
         this.filterKey = filterKey;
         this.valueButtonname = valueButtonname;
-        this.statusName=statusName;
+        this.statusName = statusName;
         progressDialog = new ProgressDialog(mCtx);
         String a = SharedPrefManager.getInstance(mCtx).getUser().access_token;
 
@@ -120,33 +119,31 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             buttonActualOrder.setOnClickListener(this);
             canceLOrderButton.setOnClickListener(this);
             canceLOrderButton.setText(valueButtonname);
-            canceLOrderButton.setVisibility(View.GONE);
-
-            try {
-                if (!totalamount.getText().equals("0.0")) {
-                    canceLOrderButton.setVisibility(View.VISIBLE);
-
-                }
-                else if (totalamount.getText().equals("0.0")){
-                    canceLOrderButton.setVisibility(View.GONE);
-
-
-                }
-            }
-            catch (Exception e)
-            {e.printStackTrace();
-            }
+//         //   canceLOrderButton.setVisibility(View.GONE);
+//
+//            try {
+//                if (totalamount.getText().equals("0.0")) {
+//                    canceLOrderButton.setVisibility(View.VISIBLE);
+//
+//                }
+//                else if (!totalamount.getText().equals("0.0")){
+//                    canceLOrderButton.setVisibility(View.GONE);
+//
+//
+//                }
+//            }
+//            catch (Exception e)
+//            {e.printStackTrace();
+//            }
 
 
         }
 
 
-
-
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-          orderitem = this.orderitemList.get(position);
+            orderitem = this.orderitemList.get(position);
 
             if (v.getId() == buttonOrder.getId()) {
 
@@ -195,7 +192,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         @Override
         public boolean onLongClick(View v) {
             int position = getAdapterPosition();
-           orderitem = this.orderitemList.get(position);
+            orderitem = this.orderitemList.get(position);
             if (v.getId() == itemView.getId()) {
                 try {
                     //  Toast.makeText(mCtx,String.valueOf(  orderitem.OrderID), Toast.LENGTH_SHORT).show();
@@ -213,14 +210,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
         try {
 
-       //     progressDialog.setMessage("loading...");
-      //      progressDialog.show();
-            new PostCancelOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,statusName);
+            //     progressDialog.setMessage("loading...");
+            //      progressDialog.show();
+            new PostCancelOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token, statusName);
 
         } catch (Exception e) {
 
             e.printStackTrace();
-     //       progressDialog.dismiss();
+            //       progressDialog.dismiss();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
 
         }
@@ -232,21 +229,21 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
             // InputStream inputStream
             String accesstoken = params[0];
-           String statusname = params[1];
+            String statusname = params[1];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew" );
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew");
                 builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
                 parameters.add("OrderID", String.valueOf(orderitem.getOrderID()));
-                parameters.add("RoomName","blank" );
-                parameters.add("OrderItemId" ,"0");
-                parameters.add("StatusName",statusname);
+                parameters.add("RoomName", "blank");
+                parameters.add("OrderItemId", "0");
+                parameters.add("StatusName", statusname);
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
@@ -254,7 +251,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-          //      progressDialog.dismiss();
+                //      progressDialog.dismiss();
 //                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
@@ -262,7 +259,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-         progressDialog.dismiss();
+                progressDialog.dismiss();
                 Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
@@ -272,7 +269,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
 
                 }
-        //       progressDialog.dismiss();
+                //       progressDialog.dismiss();
             }
         }
     }

@@ -141,7 +141,7 @@
                         android:background="@drawable/add_cancel_button_shape"
                         android:textColor="@color/white"
                         android:text="Place Order"
-                        android:visibility="invisible"
+                        android:visibility="visible"
                         android:textAllCaps="false"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"/>
 

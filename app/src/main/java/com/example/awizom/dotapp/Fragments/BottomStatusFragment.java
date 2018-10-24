@@ -122,8 +122,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 
             case R.id.pendingToreceivedMaterial:
                 intent = new Intent( getContext(), NewOrderListActivity.class );
-                intent = intent.putExtra( "FilterKey" ,"PandingToPlaceOrder");
-                intent = intent.putExtra("ButtonName","Place Order");
+                intent = intent.putExtra( "FilterKey" ,"PandingToReceiveMaterial");
+                intent = intent.putExtra("ButtonName","Received Order");
                 startActivity( intent );
 
 //                Bundle bundle14 = new Bundle();
