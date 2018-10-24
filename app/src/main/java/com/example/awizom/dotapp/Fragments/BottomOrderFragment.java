@@ -108,6 +108,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
             case R.id.pendingOrder:
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "pandingForAdv");
+                intent = intent.putExtra("ButtonName","Cancel Order");
                 startActivity(intent);
                 //  getActivity().getFragmentManager().popBackStack();
 

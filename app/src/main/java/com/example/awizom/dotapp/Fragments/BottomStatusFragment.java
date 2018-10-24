@@ -76,6 +76,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             case R.id.hold:
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "Hold");
+                intent = intent.putExtra("ButtonName","Place Order");
                 startActivity(intent);
 
 ////                Bundle bundle11 = new Bundle();
@@ -89,6 +90,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             case R.id.handOverTo:
                 intent = new Intent( getContext(), NewOrderListActivity.class );
                 intent = intent.putExtra( "FilterKey" ,"PandingToHandOverTo");
+                intent = intent.putExtra("ButtonName","Place Order");
                 startActivity( intent );
 
 //                Bundle bundle12 = new Bundle();
@@ -102,6 +104,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             case R.id.receivedFromTailor:
                 intent = new Intent( getContext(), NewOrderListActivity.class );
                 intent = intent.putExtra( "FilterKey" ,"PandingToReceivedFromTelor");
+                intent = intent.putExtra("ButtonName","Place Order");
                 startActivity( intent );
 
 //                Bundle bundle13 = new Bundle();
@@ -115,6 +118,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             case R.id.pendingToreceivedMaterial:
                 intent = new Intent( getContext(), NewOrderListActivity.class );
                 intent = intent.putExtra( "FilterKey" ,"PandingToPlaceOrder");
+                intent = intent.putExtra("ButtonName","Place Order");
                 startActivity( intent );
 
 //                Bundle bundle14 = new Bundle();
@@ -127,6 +131,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             case R.id.receivedby:
                 intent = new Intent( getContext(), NewOrderListActivity.class );
                 intent = intent.putExtra( "FilterKey" ,"Dispatch");
+                intent = intent.putExtra("ButtonName","Place Order");
                 startActivity( intent );
 
 

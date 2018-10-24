@@ -99,7 +99,7 @@ public class CustomerListFrgment extends Fragment {
                 builder.url(AppConfig.BASE_URL_API + "CustomerGet");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                 builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
