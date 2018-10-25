@@ -44,7 +44,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 
 
         pendinOrderListFragment = new OrderListFragment();
-        orderCreate = new AfterCreateOrderoFragment();
+      //  orderCreate = new AfterCreateOrderoFragment();
 
         cardViewFirst.setOnClickListener(this);
         cardViewSecond.setOnClickListener(this);

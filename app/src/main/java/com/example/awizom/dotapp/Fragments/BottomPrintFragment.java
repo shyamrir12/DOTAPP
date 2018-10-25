@@ -34,7 +34,7 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
 
 
         pendinOrderListFragment = new OrderListFragment();
-        orderCreate = new AfterCreateOrderoFragment();
+       // orderCreate = new AfterCreateOrderoFragment();
 
         handOverList.setOnClickListener(this);
         ReceivedList.setOnClickListener(this);

@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.awizom.dotapp.Fragments.AfterCreateOrderoFragment;
 import com.example.awizom.dotapp.Fragments.OrderListFragment;
 
 public class OrderBottomActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,7 +43,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
 
 
         pendinOrderListFragment = new OrderListFragment();
-        orderCreate = new AfterCreateOrderoFragment();
+      //  orderCreate = new AfterCreateOrderoFragment();
 
         cardViewFirst.setOnClickListener(this);
         cardViewSecond.setOnClickListener(this);
@@ -90,7 +89,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
             case R.id.order_create_cardview:
                getSupportActionBar().setTitle("Order Create");
                 fragment = orderCreate;
-                fragmentClass = AfterCreateOrderoFragment.class;
+          //      fragmentClass = AfterCreateOrderoFragment.class;
                 break;
             case R.id.order_pending_cardview:
 
@@ -119,7 +118,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
             case R.id.orderCreate:
                 fragment = orderCreate;
                 getSupportActionBar().setTitle("Order Create");
-                fragmentClass = AfterCreateOrderoFragment.class;
+              //  fragmentClass = AfterCreateOrderoFragment.class;
 
                 break;
             case R.id.pendingOrder:

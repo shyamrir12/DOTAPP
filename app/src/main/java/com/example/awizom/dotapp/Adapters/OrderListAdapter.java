@@ -10,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -231,6 +233,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         handOvertoNameSpinner = dialogView.findViewById(R.id.handOverToNameSpinner);
         tailorListNameSpinner = dialogView.findViewById(R.id.tailorListSpinner);
         final Button buttonOk = dialogView.findViewById(R.id.buttonOk);
+        final LinearLayout l2 = dialogView.findViewById(R.id.l2);
 
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, handOverToListSpinnerData);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
@@ -243,14 +246,32 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         spinneArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         tailorListNameSpinner.setAdapter(spinneArrayAdapter);
 
-        if(handOvertoNameSpinner.getSelectedItem().equals("Telor")){
-            tailorListNameSpinner.setVisibility(View.VISIBLE);
-        }
+
 
 
         dialogBuilder.setTitle("Hand Over List");
         final AlertDialog b = dialogBuilder.create();
         b.show();
+
+        if(!handOvertoNameSpinner.getSelectedItem().equals("Telor")){
+            tailorListNameSpinner.setVisibility(View.GONE);
+        }
+
+//        handOvertoNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                tailorListNameSpinner.setVisibility(View.VISIBLE);
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+
 
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
