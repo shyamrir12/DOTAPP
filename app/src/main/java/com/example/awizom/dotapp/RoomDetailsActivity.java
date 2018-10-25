@@ -100,7 +100,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         customerMobileNo = findViewById(R.id.customer_mobile_no);
         customerOrder = findViewById(R.id.order_date);
         customerhall = findViewById(R.id.room_name);
-        allok=findViewById(R.id.allOkButtton);
+       // allok=findViewById(R.id.allOkButtton);
 
 
         customerName.setText(customernAME);
@@ -139,12 +139,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         getElightBottom();
 
         catelogOrderDetailModel = new CatelogOrderDetailModel();
-        allok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                allOkButtonRoomLevel();
-            }
-        });
+//        allok.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                allOkButtonRoomLevel();
+//            }
+//        });
 
     }
     private void allOkButtonRoomLevel() {
