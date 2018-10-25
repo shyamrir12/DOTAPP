@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:id="@+id/lenear1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+
+
+
+            <EditText
+                android:id="@+id/sNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Telor Name"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/lenear5"
+            android:layout_marginTop="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lenear1"
+            android:layout_margin="5dp">
+
+            <Button
+                android:id="@+id/add"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:text="Add"
+                android:textColor="@color/white"
+                android:background="@drawable/add_cancel_button_shape" />
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="2dp" />
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:textColor="@color/white"
+                android:background="@drawable/add_cancel_button_shape" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</ScrollView>

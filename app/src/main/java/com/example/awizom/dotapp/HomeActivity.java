@@ -27,6 +27,7 @@ import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
 import com.example.awizom.dotapp.Fragments.BottomReportFragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
+import com.example.awizom.dotapp.Fragments.TelorListFragment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 
@@ -35,7 +36,7 @@ import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
 public class HomeActivity extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment;
+    private Fragment telorListFragment, userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment;
     Fragment fragment = null;
     boolean doubleBackToExitPressedOnce = false;
     Context mContext;
@@ -143,11 +144,13 @@ public class HomeActivity extends AppCompatActivity {
                 fragmentClass = UserListFragment.class;
                 break;
 
-            //  case R.id.user1:
+              case R.id.user1:
+                  getSupportActionBar().setTitle("Telor List");
+                  fragment = telorListFragment;
+                  fragmentClass = TelorListFragment.class;
+                  break;
 
-            // Toast.makeText(this, "user is clicked ", Toast.LENGTH_LONG).show();
 
-            //     return (true);
             case R.id.about:
                 Intent i = new Intent(this, HomeActivity.class);
                 startActivity(i);

@@ -3,6 +3,7 @@ package com.example.awizom.dotapp.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,16 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
         pendinOrderListFragment = new OrderListFragment();
        // orderCreate = new AfterCreateOrderoFragment();
 
-        handOverList.setOnClickListener(this);
+        handOverList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment= new TelorList();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment); // fragment container id in first parameter is the  container(Main layout id) of Activity
+                transaction.addToBackStack(null);  // this will manage backstack
+                transaction.commit();
+            }
+        });
         ReceivedList.setOnClickListener(this);
 
     }

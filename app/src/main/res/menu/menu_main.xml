@@ -5,8 +5,8 @@
 
     <item
         android:id="@+id/admin1" android:icon="@drawable/user" app:showAsAction="always"   android:title="@string/add"/>
-    <!--<item-->
-        <!--android:id="@+id/user1" android:icon="@drawable/user" app:showAsAction="always|withText" android:title="reset"/>-->
+    <item
+        android:id="@+id/user1" android:icon="@drawable/ic_person_add_black_24dp" app:showAsAction="always|withText" android:title="reset"/>
     <item
         android:id="@+id/about" android:icon="@android:mipmap/sym_def_app_icon" app:showAsAction="never" android:title="Home">
     </item>

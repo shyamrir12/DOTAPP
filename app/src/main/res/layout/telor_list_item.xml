@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/relative_medium"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ListView
+                android:id="@+id/telorList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+            </ListView>
+
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="250dp">
+
+        <ImageButton
+            android:id="@+id/updateButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="visible"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/button_background_shape"
+            android:src="@drawable/ic_add_white_24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
