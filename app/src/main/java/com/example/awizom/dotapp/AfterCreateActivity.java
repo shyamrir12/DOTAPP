@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.OrderAdapter;
+import com.example.awizom.dotapp.Adapters.RoomListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
@@ -43,6 +44,7 @@ import com.example.awizom.dotapp.Models.DataOrder;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +54,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 import com.example.awizom.dotapp.Models.Result;
+import com.example.awizom.dotapp.Models.Room;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -59,8 +62,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     private TextView c_contact,i_name,i_contact,i_address,orderDateLabel,textViewATotalAmount;
     private EditText orderDate,amount;
-    private ListView roomname;
-    String[] roomName;
 
     private long cid=0;
     DataOrder catelogOrderDetailModel;
@@ -92,6 +93,12 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private AlertDialog b;
     private DataOrder data;
 
+   String[] roomName;
+    List<String> roomList;
+    RecyclerView recyclerView;
+    RoomListAdapter roomlistadapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,8 +126,11 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
        // addUserStatus = findViewById(R.id.addstatus);
         //addUserStatus.setOnClickListener(this);
 
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        roomname = findViewById(R.id.hallList);
+       // roomname = findViewById(R.id.hallList);
         addNewCustomerFragment = new AddCustomerFragment();
 
         progressDialog = new ProgressDialog(getApplicationContext());
@@ -129,24 +139,24 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
 
          orderDate.setOnClickListener( this );
-        roomname.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                // TODO Auto-generated method stub
-                Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
-                intent.putExtra("RoomName", roomName[position].split( "-" )[0].trim());
-                intent.putExtra("OrderID",Integer.valueOf( orderid));
-                intent.putExtra("CustomerName",c_name.getText().toString());
-                intent.putExtra("Mobile",c_contact.getText().toString());
-                intent.putExtra("OrderDate",orderDate.getText().toString());
-                intent.putExtra("Advance",Double.valueOf( amount.getText().toString()));
-                intent.putExtra("ActualOrder",actualorder);
-                startActivity(intent);
-            }
-        });
+//        roomname.setOnItemClickListener(new AdapterView.OnItemClickListener()
+//        {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//
+//                // TODO Auto-generated method stub
+//                Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
+//                intent.putExtra("RoomName", roomName[position].split( "-" )[0].trim());
+//                intent.putExtra("OrderID",Integer.valueOf( orderid));
+//                intent.putExtra("CustomerName",c_name.getText().toString());
+//                intent.putExtra("Mobile",c_contact.getText().toString());
+//                intent.putExtra("OrderDate",orderDate.getText().toString());
+//                intent.putExtra("Advance",Double.valueOf( amount.getText().toString()));
+//                intent.putExtra("ActualOrder",actualorder);
+//                startActivity(intent);
+//            }
+//        });
 
 
        try{
@@ -594,28 +604,36 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
                     if (actualorder.equals("ActualOrder")) {
                         textViewATotalAmount.setText(String.valueOf(morder.getATotalAmount()));
-                        roomName = morder.getActuRoomList().split(",");
+                       roomName = morder.getActuRoomList().split(",");
                     } else {
                         textViewATotalAmount.setText(String.valueOf(morder.getTotalAmount()));
                         roomName = morder.getRoomList().split(",");
                     }
 
                     actualRoomList = morder.getARoomList();
-                    ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist, R.id.label, roomName);
-                    roomname.setAdapter(spinnerArrayAdapter);
+
+                    roomList = Arrays.asList(roomName);
+
+//                    String StatusName,
+
+                            roomlistadapter  = new RoomListAdapter(getApplicationContext(), roomList,"Status",orderid
+                            ,c_name.getText().toString(),c_contact.getText().toString()
+                                    ,orderDate.getText().toString()
+                                    ,amount.getText().toString(),actualorder);
+                    recyclerView.setAdapter(roomlistadapter);
+                   // ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist, R.id.label, roomName);
+                    //roomname.setAdapter(spinnerArrayAdapter);
 
                 }
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
+
+
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.hallList:
-                    startActivity(intent = new Intent(getApplicationContext(),RoomDetailsActivity.class));
-                    break;
-            }
+
         }
     }
 
