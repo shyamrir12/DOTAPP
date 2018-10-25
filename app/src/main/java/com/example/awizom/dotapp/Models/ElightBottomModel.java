@@ -7,9 +7,36 @@ public class ElightBottomModel {
     public String Elight;
     public String Roman;
     public String APlat;
+    public String ElightPrice;
+    public String RomanPrice;
+    public String APlatPrice;
     public int OrderID;
     public Double TotalAmount;
     public Double ATotalAmount;
+
+    public String getElightPrice() {
+        return ElightPrice;
+    }
+
+    public void setElightPrice(String elightPrice) {
+        ElightPrice = elightPrice;
+    }
+
+    public String getRomanPrice() {
+        return RomanPrice;
+    }
+
+    public void setRomanPrice(String romanPrice) {
+        RomanPrice = romanPrice;
+    }
+
+    public String getAPlatPrice() {
+        return APlatPrice;
+    }
+
+    public void setAPlatPrice(String APlatPrice) {
+        this.APlatPrice = APlatPrice;
+    }
 
     public Double getATotalAmount() {
         return ATotalAmount;

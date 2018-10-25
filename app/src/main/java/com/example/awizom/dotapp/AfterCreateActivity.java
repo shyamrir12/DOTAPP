@@ -499,6 +499,15 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 parameters.add("OrderID", orderid);
                 parameters.add("RoomName", roomname);
 
+                parameters.add("Elight", "0");
+                parameters.add("Roman", "0");
+                parameters.add("APlat", "0");
+                parameters.add("RomanPrice", "0");
+                parameters.add("ElightPrice", "0");
+                parameters.add("APlatPrice", "0");
+
+
+
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
 

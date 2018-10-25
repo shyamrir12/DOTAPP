@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Elight"
+                android:hint="Elight Qty"
                 android:textSize="15sp" />
 
             <EditText
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Roman"
+                android:hint="Roman Qty"
                 android:textSize="15sp" />
 
             <EditText
@@ -41,7 +41,39 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
-                android:hint="A Plot"
+                android:hint="A Plot Qty"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lenearPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lenear1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ElightPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Elight Price"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/RomanPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Roman Price"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/APlotPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:hint="A Plot Price"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -49,7 +81,7 @@
             android:id="@+id/lenear2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lenear1"
+            android:layout_below="@+id/lenearPrice"
             android:layout_margin="5dp"
             android:orientation="horizontal">
 

@@ -45,11 +45,11 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
     private TextView customerName, customerMobileNo, customerSno, customerOrder, customerDate, customerhall;
     private ImageButton additionButton;
-    private TextView elight, roman, aPlat, totalAmount;
+    private TextView elight, roman, aPlat, elightPrice,romanPrice,aPlotPrice,totalAmount;
 
     private RelativeLayout relative_Layout_press, relativeLayout_edit_dailog, bottom_relative_press1;
     private RecyclerView recyclerView;
-    private EditText editElight, editRoman, editAplot;
+    private EditText editElight, editRoman, editAplot,ElightPrice,RomanPrice,APlotPrice;
     private Button updateBottom, cancelElight,allok;
 
     ProgressDialog progressDialog;
@@ -112,6 +112,10 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         elight = findViewById(R.id.elight_value);
         roman = findViewById(R.id.roman_value);
         aPlat = findViewById(R.id.aPlat_value);
+        //elightPrice,romanPrice,aPlotPrice
+        elightPrice = findViewById(R.id.elightprice_value);
+        romanPrice = findViewById(R.id.romanprice_value);
+        aPlotPrice = findViewById(R.id.aPlatprice_value);
         totalAmount = findViewById(R.id.total_value);
         additionButton = findViewById(R.id.updateButton);
 
@@ -237,12 +241,19 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         editElight = dialogView.findViewById(R.id.editElight);
         editRoman = dialogView.findViewById(R.id.editRoman);
         editAplot = dialogView.findViewById(R.id.editAplot);
+        ElightPrice = dialogView.findViewById(R.id.ElightPrice);
+        RomanPrice = dialogView.findViewById(R.id.RomanPrice);
+        APlotPrice= dialogView.findViewById(R.id.APlotPrice);
 
         updateBottom = dialogView.findViewById(R.id.updateElight);
         cancelElight = dialogView.findViewById(R.id.cancelElight);
         editElight.setText(morder.Elight.toString());
         editRoman.setText(morder.Roman.toString());
         editAplot.setText(morder.APlat.toString());
+
+        ElightPrice.setText(String.valueOf( morder.getElightPrice()));
+        RomanPrice.setText(String.valueOf(morder.Roman.toString()));
+        APlotPrice.setText(String.valueOf(morder.Roman.toString()));
         dialogBuilder.setTitle("Edit bottom");
         final AlertDialog b = dialogBuilder.create();
         b.show();
@@ -253,11 +264,14 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 String elight = editElight.getText().toString();
                 String roman = editRoman.getText().toString();
                 String aplot = editAplot.getText().toString();
+                String elightprice = ElightPrice.getText().toString();
+                String romanprice = RomanPrice.getText().toString();
+                String aplotprice = APlotPrice.getText().toString();
                 try {
 
                     progressDialog.setMessage("loading...");
                     progressDialog.show();
-                    new RoomDetailsActivity.POSTElight().execute(roomName.trim(), String.valueOf(orderID).trim(), elight, roman, aplot, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+                    new RoomDetailsActivity.POSTElight().execute(roomName.trim(), String.valueOf(orderID).trim(), elight, roman, aplot, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token,elightprice,romanprice,aplotprice);
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -638,11 +652,18 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 }.getType();
                 morder = new Gson().fromJson(result, getType);
 
-                elight.setText(morder.Elight.toString());
+                elight.setText("Q. "+morder.getElight());
 
-                roman.setText(morder.Roman.toString());
+                roman.setText("SF. "+morder.getRoman());
 
-                aPlat.setText(morder.APlat.toString());
+                aPlat.setText("Q. "+morder.getAPlat());
+
+                elightPrice.setText("P. "+morder.getElightPrice().toString());
+
+               romanPrice.setText("P. "+morder.getRomanPrice().toString());
+
+               aPlotPrice.setText("P. "+morder.getAPlatPrice().toString());
+
                 if (actualorder.equals("ActualOrder")) {
                     totalAmount.setText(Double.toString(morder.getATotalAmount()));
                 } else {
@@ -669,6 +690,11 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             String roman = params[3];
             String aPlat = params[4];
             String accesstoken = params[5];
+
+            String elightprice = params[6];
+            String romanprice = params[7];
+            String aPlatprice = params[8];
+
             String json = "";
             try {
 
@@ -685,6 +711,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 parameters.add("Elight", elight);
                 parameters.add("Roman", roman);
                 parameters.add("APlat", aPlat);
+                parameters.add("ElightPrice", elightprice);
+                parameters.add("RomanPrice", romanprice);
+                parameters.add("APlatPrice", aPlatprice);
 
 
                 builder.post(parameters.build());
