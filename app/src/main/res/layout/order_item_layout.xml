@@ -111,14 +111,14 @@
                     android:text="Unit"
                     android:layout_weight="1"
                     android:layout_marginLeft="15dp" />
-                <Button
-                    android:id="@+id/okButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="15dp"
-                    android:background="@drawable/add_cancel_button_shape"
-                    android:text="ok"/>
+                <!--<Button-->
+                    <!--android:id="@+id/okButton"-->
+                    <!--android:layout_width="30dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:background="@drawable/add_cancel_button_shape"-->
+                    <!--android:text="ok"/>-->
             </LinearLayout>
 
         </RelativeLayout>

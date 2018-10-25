@@ -134,13 +134,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             AQty = itemView.findViewById(R.id.aQty);
             unit = itemView.findViewById(R.id.unit);
 
-            okitem = itemView.findViewById(R.id.okButton);
-            okitem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    okButtonPost();
-                }
-            });
+           // okitem = itemView.findViewById(R.id.okButton);
+//            okitem.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    okButtonPost();
+//                }
+//            });
 
 
         }
