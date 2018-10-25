@@ -385,7 +385,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//ghkhj
                 String snumber = s_no.getText().toString();
                 String catlogname = catlogName.getText().toString();
                 String desiGn = design.getText().toString();
