@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
 import com.example.awizom.dotapp.Fragments.BottomCustomerFragment;
 import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
+import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
 import com.example.awizom.dotapp.Fragments.BottomReportFragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
@@ -34,7 +35,7 @@ import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
 public class HomeActivity extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment userListFragment, customerLayoutfragment, reportLayoutfragment, orderLayoutfragment, statusLayoutFragment;
+    private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment;
     Fragment fragment = null;
     boolean doubleBackToExitPressedOnce = false;
     Context mContext;
@@ -51,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
 //        }
         userListFragment = new UserListFragment();
         customerLayoutfragment = new BottomCustomerFragment();
-//        reportLayoutfragment = new BottomReportFragment();
+        printLayoutfragment = new BottomPrintFragment();
         orderLayoutfragment = new BottomOrderFragment();
         statusLayoutFragment = new BottomStatusFragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -206,6 +207,11 @@ public class HomeActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle("Status Details");
                     fragment = statusLayoutFragment;
                     fragmentClass = BottomStatusFragment.class;
+                    break;
+                case R.id.navigation_print:
+                    getSupportActionBar().setTitle("Print Details");
+                    fragment = printLayoutfragment;
+                    fragmentClass = BottomPrintFragment.class;
                     break;
 
             }

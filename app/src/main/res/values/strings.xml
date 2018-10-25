@@ -39,6 +39,7 @@
     <string name="title_order">Order</string>
     <string name="title_report">Report</string>
     <string name="title_status">Status</string>
+    <string name="title_print">Print</string>
     <string name="bottom1">Create user <u>click here</u></string>
     <string name="userContact">Contact</string>
     <string name="title_addCustomer">Add Customer</string>

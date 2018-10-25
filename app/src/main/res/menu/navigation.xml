@@ -17,13 +17,6 @@
         android:tooltipText="@string/title_order"
         android:visible="true"/>
 
-    <!--<item-->
-        <!--android:id="@+id/navigation_report"-->
-        <!--android:icon="@drawable/ic_report_black_24dp"-->
-        <!--android:title="@string/title_report"-->
-        <!--android:background="@drawable/button_background"-->
-        <!--android:tooltipText="@string/title_report"-->
-        <!--android:visible="true"/>-->
 
     <item
         android:id="@+id/navigation_status"
@@ -32,5 +25,13 @@
         android:tooltipText="@string/title_status"
         android:background="@drawable/button_background"
         android:visible="true"/>
+    <item
+        android:id="@+id/navigation_print"
+        android:icon="@drawable/ic_print_black_24dp"
+        android:title="@string/title_print"
+        android:background="@drawable/button_background"
+        android:tooltipText="@string/title_report"
+        android:visible="true"/>
+
 
 </menu>
