@@ -79,17 +79,16 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         userName = findViewById(R.id.customerName);
         passWord = findViewById(R.id.password);
         cnfrmPassWord = findViewById(R.id.confrmPassword);
-        spinner=findViewById( R.id.spinnerUserRole );
+        spinner = findViewById(R.id.spinnerUserRole);
         signupButton = findViewById(R.id.signupButton);
         signupButton.setOnClickListener(this);
         loginHere = findViewById(R.id.loginHere);
         loginHere.setOnClickListener(this);
-        String userrole[] = {"User","HandOverTo","MaterialReceived","OrderPlaced","Dispatch", "ReceivedFromTalor"};
+        String userrole[] = {"User", "HandOverTo", "MaterialReceived", "OrderPlaced", "Dispatch", "ReceivedFromTalor"};
 
 
-
-// Application of the Array to the Spinner
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, userrole);
+        // Application of the Array to the Spinner
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, userrole);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spinner.setAdapter(spinnerArrayAdapter);
         progressDialog = new ProgressDialog(this);
@@ -113,13 +112,13 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         String name = userName.getText().toString().trim();
         String pwd = passWord.getText().toString().trim();
         String cpwd = cnfrmPassWord.getText().toString().trim();
-        String ur="User";
-        if(spinner!=null)
-            ur=spinner.getSelectedItem().toString().trim();
+        String ur = "User";
+        if (spinner != null)
+            ur = spinner.getSelectedItem().toString().trim();
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new POSTRegister().execute(name, pwd, cpwd,ur);
+            new POSTRegister().execute(name, pwd, cpwd, ur);
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -128,14 +127,14 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private boolean validation() {
-        if (spinner.getSelectedItem().toString().isEmpty() &&userName.getText().toString().isEmpty() && passWord.getText().toString().isEmpty() && cnfrmPassWord.getText().toString().isEmpty()) {
+        if (spinner.getSelectedItem().toString().isEmpty() && userName.getText().toString().isEmpty() && passWord.getText().toString().isEmpty() && cnfrmPassWord.getText().toString().isEmpty()) {
             Toast.makeText(this, "Filed can't be blank", Toast.LENGTH_SHORT).show();
             return false;
-        }else if( !isValidPassword(passWord.getText().toString())) {
-            Toast.makeText(getApplicationContext(),"Password must contain mix of upper and lower case letters as well as digits and one special charecter(4-20)",Toast.LENGTH_SHORT);
+        } else if (!isValidPassword(passWord.getText().toString())) {
+            Toast.makeText(getApplicationContext(), "Password must contain mix of upper and lower case letters as well as digits and one special charecter(4-20)", Toast.LENGTH_SHORT);
             return false;
-        }else if(!passWord.getText().toString().contains(cnfrmPassWord.getText().toString())){
-            Toast.makeText(getApplicationContext(),"Password not match",Toast.LENGTH_SHORT);
+        } else if (!passWord.getText().toString().contains(cnfrmPassWord.getText().toString())) {
+            Toast.makeText(getApplicationContext(), "Password not match", Toast.LENGTH_SHORT);
 
             return false;
         }

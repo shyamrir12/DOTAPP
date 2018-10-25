@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Hand Over"
-            android:textColor="@color/black"
-            />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Hand Over"-->
+            <!--android:textColor="@color/black"-->
+            <!--/>-->
         <Spinner
             android:id="@+id/handOverToNameSpinner"
             android:layout_width="match_parent"
@@ -30,19 +30,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Tailor"
-            android:textColor="@color/black"
-            />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Tailor"-->
+            <!--android:textColor="@color/black"-->
+            <!--/>-->
     <Spinner
         android:id="@+id/tailorListSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:visibility="gone">
 
     </Spinner>
     </LinearLayout>
