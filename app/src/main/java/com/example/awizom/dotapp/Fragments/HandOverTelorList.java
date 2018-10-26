@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,15 +19,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.CustomerListAdapter;
+import com.example.awizom.dotapp.Adapters.HandOverAdapter;
+import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Adapters.TelorListAdapter;
 import com.example.awizom.dotapp.Adapters.UserListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
+import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.HandOverModel;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.Models.TelorModel;
@@ -49,15 +54,17 @@ public class HandOverTelorList extends Fragment {
     ListView lv;
     ImageButton btn;
 
-     List <HandOverModel> list1;
+    RecyclerView lv1;
+    List<HandOverModel> list1;
+    HandOverAdapter adapterh;
     SwipeRefreshLayout mSwipeRefreshLayout;
     Handler handler = new Handler();
     Runnable refresh;
     private Button add, cancel;
-    private EditText t_name,old_t_name;
+    private EditText t_name, old_t_name;
     ArrayAdapter<String> handoverListAapter;
     String[] telorlist;
-    private String telornamet,telorname_old,hTelor;
+    private String telornamet, telorname_old, hTelor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,20 +80,13 @@ public class HandOverTelorList extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait while loading telors");
         lv = view.findViewById(R.id.telorList);
-     btn=view.findViewById(R.id.updateButton);
-     btn.setVisibility(View.GONE);
+       lv1=view.findViewById(R.id.rcyclr);
+        lv1.setHasFixedSize(true);
+        lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        btn = view.findViewById(R.id.updateButton);
+        btn.setVisibility(View.GONE);
         //     lv = view.findViewById(R.id.telorList);
-
-
-
-
-
-
-
-
-
-
-
 
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -103,10 +103,11 @@ public class HandOverTelorList extends Fragment {
                                     int position, long id) {
 
 
-               // Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
-
-
+                // Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
+                hTelor = telorlist[position];
+                lv.setVisibility(View.GONE );
                 getHandoverItemlist();
+
 
 
             }
@@ -119,7 +120,7 @@ public class HandOverTelorList extends Fragment {
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new GetHandoverItemlist().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
+            new GetHandoverItemlist().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token, hTelor);
 
 
         } catch (Exception e) {
@@ -135,32 +136,32 @@ public class HandOverTelorList extends Fragment {
         @Override
         protected String doInBackground(String... params) {
 
-
-
             String accesstoken = params[0];
+            String telorname = params[1];
+
 
             String json = "";
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API +"HandOverItemlistGet/"+"Manoj"  );
-                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.url(AppConfig.BASE_URL_API + "HandOverItemlistGet/" + telorname.trim());
+                builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
+                builder.addHeader("Content-Length", "0");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
-                FormBody.Builder parameters = new FormBody.Builder();
-                builder.post(parameters.build());
 
                 okhttp3.Response response = client.newCall(builder.build()).execute();
-
                 if (response.isSuccessful()) {
                     json = response.body().string();
                 }
+
+
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
             return json;
@@ -172,101 +173,96 @@ public class HandOverTelorList extends Fragment {
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
+
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<HandOverModel>>() {
                 }.getType();
                 list1 = new Gson().fromJson(result, listType);
-
-                for (HandOverModel cm : list1) {
-
-                }
-
-                handoverListAapter = new ArrayAdapter<String>(getContext(), R.layout.layout_button_telorlist, R.id.label, telorlist);
-                lv.setAdapter(handoverListAapter);
+                adapterh = new HandOverAdapter(getContext(), list1);
+                lv1.setAdapter(adapterh);
                 progressDialog.dismiss();
-                handoverListAapter.notifyDataSetChanged();
-            }
 
-                progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
+//                Gson gson = new Gson();
+//                Type listType = new TypeToken<List<HandOverModel>>() {
+//                }.getType();
+//                list1 = new Gson().fromJson(result, listType);
+//                adapterh = new HandOverAdapter(getContext(), list1);
+//                lv.setAdapter((ListAdapter) adapterh);
+//                progressDialog.dismiss();
+
             }
 
 
         }
 
-
-
-
-
-
-
-
-
-    private void getTelorList() {
-        try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            new GetTelorDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            progressDialog.dismiss();
-            Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
-        }
     }
-
-
-    private class GetTelorDetails extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-
-            String accesstoken = params[0];
-            String json = "";
+        private void getTelorList() {
             try {
+                progressDialog.setMessage("loading...");
+                progressDialog.show();
+                new GetTelorDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "HandOverTelorlistGet");
-                builder.addHeader("Content-Type", "application/json");
-                builder.addHeader("Accept", "application/json");
-                builder.addHeader("Content-Length", "0");
-                builder.addHeader("Authorization", "Bearer " + accesstoken);
 
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-                if (response.isSuccessful()) {
-                    json = response.body().string();
-                }
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
-
-            return json;
         }
 
-        protected void onPostExecute(String result) {
 
-            if (result.isEmpty()) {
-                progressDialog.dismiss();
-                //progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
-            } else {
+        private class GetTelorDetails extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
 
-                Gson gson = new Gson();
-                Type listType = new TypeToken<String[]>() {
-                }.getType();
-                telorlist = new Gson().fromJson(result, listType);
+                String accesstoken = params[0];
+                String json = "";
+                try {
 
-                handoverListAapter = new ArrayAdapter<String>(getContext(), R.layout.layout_button_telorlist, R.id.label, telorlist);
-                lv.setAdapter(handoverListAapter);
+                    OkHttpClient client = new OkHttpClient();
+                    Request.Builder builder = new Request.Builder();
+                    builder.url(AppConfig.BASE_URL_API + "HandOverTelorlistGet");
+                    builder.addHeader("Content-Type", "application/json");
+                    builder.addHeader("Accept", "application/json");
+                    builder.addHeader("Content-Length", "0");
+                    builder.addHeader("Authorization", "Bearer " + accesstoken);
 
-                progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
+                    okhttp3.Response response = client.newCall(builder.build()).execute();
+                    if (response.isSuccessful()) {
+                        json = response.body().string();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
+                }
+
+                return json;
             }
 
+            protected void onPostExecute(String result) {
+
+                if (result.isEmpty()) {
+                    progressDialog.dismiss();
+                    //progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<String[]>() {
+                    }.getType();
+                    telorlist = new Gson().fromJson(result, listType);
+
+                    handoverListAapter = new ArrayAdapter<String>(getContext(), R.layout.layout_button_telorlist, R.id.label, telorlist);
+                    lv.setAdapter(handoverListAapter);
+
+                    progressDialog.dismiss();
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+
+            }
         }
     }
-}
+
+
