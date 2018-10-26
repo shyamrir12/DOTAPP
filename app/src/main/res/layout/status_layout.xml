@@ -23,8 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
-
                 <android.support.v7.widget.CardView
                     android:id="@+id/second_cardview"
                     android:layout_width="match_parent"
@@ -66,7 +64,6 @@
                         </LinearLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
-
                 <android.support.v7.widget.CardView
                     android:id="@+id/second_cardview1"
                     android:layout_width="match_parent"
@@ -98,7 +95,7 @@
                                 android:id="@+id/hold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Hold"
+                                android:text="Pending to Hold"
                                 android:gravity="left"
                                 android:textColor="@color/white"
                                 android:textSize="18sp"
@@ -109,7 +106,6 @@
                         </LinearLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
-
                 <android.support.v7.widget.CardView
                     android:id="@+id/third_cardview"
                     android:layout_width="match_parent"
@@ -147,8 +143,8 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginLeft="30dp" />
                         </LinearLayout>
-                    </RelativeLayout></android.support.v7.widget.CardView>
-
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
                 <android.support.v7.widget.CardView
                     android:id="@+id/five_cardview"
                     android:layout_width="match_parent"
@@ -178,7 +174,7 @@
                                 android:id="@+id/handOverTo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Hand Over to"
+                                android:text="Pending to Hand Over to"
                                 android:textAlignment="center"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/white"
@@ -188,9 +184,8 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginLeft="30dp" />
                         </LinearLayout>
-                    </RelativeLayout></android.support.v7.widget.CardView>
-
-
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
                 <android.support.v7.widget.CardView
                     android:id="@+id/six_cardview"
                     android:layout_width="match_parent"
@@ -222,7 +217,7 @@
                                 android:id="@+id/receivedFromTailor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Received from Tailor"
+                                android:text="Pending to Received from Tailor"
                                 android:textAlignment="center"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/white"
@@ -232,10 +227,8 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginLeft="30dp" />
                         </LinearLayout>
-                    </RelativeLayout></android.support.v7.widget.CardView>
-
-
-
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
                 <android.support.v7.widget.CardView
                     android:id="@+id/eight_cardview"
                     android:layout_width="match_parent"
@@ -268,7 +261,7 @@
                                 android:id="@+id/dispatch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Dispatch"
+                                android:text="Pending to Dispatch"
                                 android:textAlignment="center"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/white"

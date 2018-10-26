@@ -65,36 +65,26 @@ public class BottomCustomerFragment extends Fragment implements View.OnClickList
 
         Class fragmentClass = null;
         switch (v.getId()) {
-            case R.id.first_cardview:
-                getActivity().setTitle("Add Customer");
-                fragment = addCustomerFragment;
-                fragmentClass = AddCustomerFragment.class;
-                break;
-            case R.id.second_cardview:
 
-                fragment = modifyCustomerFragment;
-                fragmentClass = ModifyCustomerFragment.class;
-                break;
-            case R.id.third_cardview:
 
-                fragment = listCustomerFragment;
-                fragmentClass = CustomerListFrgment.class;
-                break;
-            case R.id.customerList:
-
-                fragmentClass = CustomerListFrgment.class;
-                break;
             case R.id.orderCreate:
-
+                getActivity().setTitle("Add Customer");
                 fragmentClass = AddCustomerFragment.class;
                 break;
 
             case R.id.modifyCustomer:
+                getActivity().setTitle("Modify Customer");
                 fragment = modifyCustomerFragment;
                 fragmentClass = ModifyCustomerFragment.class;
                 break;
-            case R.id.addCustomer:
 
+            case R.id.customerList:
+                getActivity().setTitle("Customer List");
+                fragmentClass = CustomerListFrgment.class;
+                break;
+
+
+            case R.id.addCustomer:
                 fragmentClass = AddCustomerFragment.class;
                 break;
         }

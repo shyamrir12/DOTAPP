@@ -66,6 +66,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
                 intent = intent.putExtra("ButtonName", "Place Order");
                 intent = intent.putExtra("StatusName", "OrderPlaced");
+                intent = intent.putExtra("DailogMessage","Do you want to place the order");
+
                 startActivity(intent);
                 break;
 
@@ -74,20 +76,20 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "Hold");
                 intent = intent.putExtra("ButtonName", "Place Order");
+                intent = intent.putExtra("StatusName", "Hold");
+                intent = intent.putExtra("DailogMessage","Do you want to hold the order");
                 startActivity(intent);
                 break;
 
 
             case R.id.handOverTo:
-                //  showDailog();
 
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "PandingToHandOverTo");
                 intent = intent.putExtra("ButtonName", "HandOverTo");
                 intent = intent.putExtra("StatusName", "HandOverTo");
+                intent = intent.putExtra("DailogMessage","Do you want to handover the order");
                 startActivity(intent);
-
-
                 break;
 
             case R.id.receivedFromTailor:
@@ -96,22 +98,27 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "PandingToReceivedFromTelor");
                 intent = intent.putExtra("ButtonName", "Received");
                 intent = intent.putExtra("StatusName", "ReceivedFromTelor");
+                intent = intent.putExtra("DailogMessage","Do you want to received the order");
                 startActivity(intent);
                 break;
 
             case R.id.pendingToreceivedMaterial:
+
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "PandingToReceiveMaterial");
                 intent = intent.putExtra("ButtonName", "Received Order");
                 intent = intent.putExtra("StatusName", "MaterialReceived");
+                intent = intent.putExtra("DailogMessage","Do you want to received material the order");
                 startActivity(intent);
                 break;
 
             case R.id.dispatch:
+
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "Dispatch");
                 intent = intent.putExtra("ButtonName", "Reset");
                 intent = intent.putExtra("StatusName", "Reset");
+                intent = intent.putExtra("DailogMessage","Do you want to dispatch the order");
                 startActivity(intent);
                 break;
 
@@ -142,7 +149,6 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
                 b.dismiss();
 

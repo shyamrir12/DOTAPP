@@ -11,27 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.awizom.dotapp.Adapters.OrderAdapter;
 import com.example.awizom.dotapp.Adapters.RoomListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
@@ -40,7 +33,6 @@ import com.example.awizom.dotapp.Fragments.DatePickerFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
-
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -48,13 +40,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-
 import com.example.awizom.dotapp.Models.Result;
-import com.example.awizom.dotapp.Models.Room;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -109,7 +98,8 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initView() {
-
+        getSupportActionBar().setTitle("Order Create");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c_name = findViewById(R.id.customerName);
         c_contact = findViewById(R.id.customerContact);
         i_address = findViewById(R.id.interiorAddress);

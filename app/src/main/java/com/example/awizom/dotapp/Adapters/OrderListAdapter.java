@@ -2,6 +2,7 @@ package com.example.awizom.dotapp.Adapters;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -10,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,21 +18,18 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.HomeActivity;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
-
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-
 
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.OrderItemViewHolder> {
 
@@ -44,19 +41,20 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private String valueButtonname;
     private DataOrder orderitem;
     DataOrder order;
-    private String statusName;
+    private String statusName,dailogMessage;
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     private Spinner handOvertoNameSpinner, tailorListNameSpinner;
     private EditText editReceivedBy;
-    private Button okRecevedButton;
+    private Button okRecevedButton,canceLOrderButton;
 
 
-    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey, String valueButtonname, String statusName) {
+    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey, String valueButtonname, String statusName,String dailogMessage) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
         this.filterKey = filterKey;
         this.valueButtonname = valueButtonname;
         this.statusName = statusName;
+        this.dailogMessage = dailogMessage;
         progressDialog = new ProgressDialog(mCtx);
         String a = SharedPrefManager.getInstance(mCtx).getUser().access_token;
 
@@ -82,7 +80,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             holder.orderdate.setText("Date\n " + order.getOrderDate().split("T")[0].trim());
             holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()).trim());
             holder.totalamount.setText("Amount\n " + Double.toString(order.getTotalAmount()).trim());
-
+            if( Double.toString(order.getTotalAmount()).equals("0.0")){
+                holder.canceLOrderButton.setVisibility(View.GONE);
+            }
 
         } catch (Exception E) {
             E.printStackTrace();
@@ -128,31 +128,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             canceLOrderButton.setText(valueButtonname);
 
 
-//         //   canceLOrderButton.setVisibility(View.GONE);
-//
-//            try {
-//                if (totalamount.getText().equals("0.0")) {
-//                    canceLOrderButton.setVisibility(View.VISIBLE);
-//
-//                }
-//                else if (!totalamount.getText().equals("0.0")){
-//                    canceLOrderButton.setVisibility(View.GONE);
-//
-//
-//                }
-//            }
-//            catch (Exception e)
-//            {e.printStackTrace();
-//            }
 
 
         }
 
 
         @Override
-        public void onClick(View v) {
+        public void onClick(final View v) {
             int position = getAdapterPosition();
             orderitem = this.orderitemList.get(position);
+
 
             if (v.getId() == buttonOrder.getId()) {
 
@@ -166,7 +151,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
             if (v.getId() == buttonActualOrder.getId()) {
 
-
                 Intent i = new Intent().setClass(mCtx, AfterCreateActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 i = i.putExtra("OrderID", String.valueOf(orderitem.OrderID));
@@ -178,11 +162,121 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             if (v.getId() == canceLOrderButton.getId()) {
 
                 if (filterKey.equals("PandingToHandOverTo")) {
-                    showDailogForHandOverTo(v);
+                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle(dailogMessage);
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            showDailogForHandOverTo(v);
+                        }
+                    });
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+
+
                 } else if (filterKey.equals("PandingToReceivedFromTelor")) {
-                    showdailogForreceivedBy(v);
+
+
+
+                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle(dailogMessage);
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            showdailogForreceivedBy(v);
+                        }
+                    });
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+
+
                 }else if (filterKey.equals("Dispatch")) {
-                    dispatchListPost();
+
+                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle(dailogMessage);
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            dispatchListPost();
+                        }
+                    });
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+
+
+
+
+                }else if (filterKey.equals("PandingToReceiveMaterial")) {
+
+                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle(dailogMessage);
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            cancelOrderListPost();
+                        }
+                    });
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+
+                }else if (filterKey.equals("Hold")) {
+
+                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle(dailogMessage);
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            cancelOrderListPost();
+                        }
+                    });
+
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+
+
+
+
+                }else if (filterKey.equals("PandingToPlaceOrder")) {
+
+                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle(dailogMessage);
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            cancelOrderListPost();
+                        }
+                    });
+
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+
+
+
+
                 }else {
                     cancelOrderListPost();
                 }
@@ -245,14 +339,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         handOvertoNameSpinner.setAdapter(spinnerArrayAdapter);
         progressDialog = new ProgressDialog(mCtx);
 
-
         String[] items = orderitem.getTelorList().split(",");
         ArrayAdapter<String> spinneArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
         spinneArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         tailorListNameSpinner.setAdapter(spinneArrayAdapter);
-
-
-
 
         dialogBuilder.setTitle("Hand Over List");
         final AlertDialog b = dialogBuilder.create();
@@ -283,7 +373,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             public void onClick(View view) {
                 if (String.valueOf(tailorListNameSpinner.getSelectedItem()).trim().length() > 0) {
                     try {
-                        handOverToListPost();
+                        if(!handOvertoNameSpinner.getSelectedItem().equals("")) {
+                            handOverToListPost();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -309,6 +401,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
         editReceivedBy = dialogView.findViewById(R.id.receivedEditText);
         okRecevedButton = dialogView.findViewById(R.id.okReceivedButton);
+        canceLOrderButton = dialogView.findViewById(R.id.cancelOrderButton);
 
         dialogBuilder.setTitle("Receibed By List");
         final AlertDialog b = dialogBuilder.create();
@@ -318,7 +411,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             @Override
             public void onClick(View v) {
                 try {
-                    receiFromeTailorToListPost();
+                    if(!editReceivedBy.getText().toString().isEmpty()) {
+                        receiFromeTailorToListPost();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -379,15 +474,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mCtx, "There is no data available", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                if (jsonbodyres.getStatus() == true) {
-
-
-                }
+                if (jsonbodyres.getStatus() == true) {}
                 //       progressDialog.dismiss();
             }
         }
@@ -446,7 +538,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mCtx, "There is no data available", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
@@ -510,7 +602,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mCtx, "There is no data available", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
@@ -573,7 +665,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mCtx, "There is no data available", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);

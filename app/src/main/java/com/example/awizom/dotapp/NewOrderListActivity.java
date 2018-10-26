@@ -29,6 +29,7 @@ public class NewOrderListActivity extends AppCompatActivity {
     String filterKey = "";
     String valueButtonName = "";
     String statusName ="";
+    String dailogMessage ="";
 
 
     @Override
@@ -39,6 +40,7 @@ public class NewOrderListActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
         progressDialog = new ProgressDialog(getApplicationContext());
         //  mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
@@ -59,7 +61,14 @@ public class NewOrderListActivity extends AppCompatActivity {
         filterKey = getIntent().getExtras().getString( "FilterKey", "" );
         valueButtonName = getIntent().getExtras().getString("ButtonName","");
         statusName = getIntent().getExtras().getString("StatusName","");
+        dailogMessage = getIntent().getExtras().getString("DailogMessage","");
 
+        if(statusName.equals("Cancel"))
+        {
+            getSupportActionBar().setTitle("Pending for Advance");
+        }else {
+            getSupportActionBar().setTitle(statusName);
+        }
         if (!filterKey.equals( "PandingToPlaceOrder" )){
             getOrderList();
         }else if (filterKey.equals( "PandingToPlaceOrder" )){
@@ -117,13 +126,14 @@ public class NewOrderListActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "There is no data available" +
+                        "", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<DataOrder>>() {
                 }.getType();
                 orderList = new Gson().fromJson(result, listType);
-                adapter = new OrderListAdapter(getApplicationContext(), orderList,filterKey,valueButtonName,statusName);
+                adapter = new OrderListAdapter(getApplicationContext(), orderList,filterKey,valueButtonName,statusName,dailogMessage);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();
                 //mSwipeRefreshLayout.setRefreshing(false);

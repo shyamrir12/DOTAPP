@@ -15,10 +15,11 @@
 
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".OrderActivity">  </activity>
+        <activity android:name=".OrderActivity" android:parentActivityName=".HomeActivity" >  </activity>
         <activity
             android:name=".RoomDetailsActivity" android:theme="@style/AppTheme"/>
-            <!--android:parentActivityName=".AfterCreateOrderActivity" />-->
+            <!--android:parentActivityName=
+            ".AfterCreateOrderActivity" />-->
         <activity android:name=".SinUpActivity" />
         <activity android:name=".SigninActivity" >
 
@@ -37,7 +38,7 @@
         <activity android:name=".StatusActivity" />
         <activity android:name=".OrderBottomActivity" />
         <activity android:name=".ReportActivity" />
-        <activity android:name=".NewOrderListActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".NewOrderListActivity" android:parentActivityName=".HomeActivity" android:theme="@style/AppTheme"/>
         <activity
             android:name=".AfterCreateActivity"
             android:theme="@style/AppTheme">

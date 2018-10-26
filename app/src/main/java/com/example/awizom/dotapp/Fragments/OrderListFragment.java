@@ -35,7 +35,7 @@ public class OrderListFragment extends Fragment {
     List<DataOrder> orderList;
     RecyclerView recyclerView;
     OrderListAdapter adapter;
-    //SwipeRefreshLayout mSwipeRefreshLayout;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,17 +47,17 @@ public class OrderListFragment extends Fragment {
 
     private void initView(View view) {
         progressDialog = new ProgressDialog(getActivity());
-        //  mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                // Refresh items
-//                getOrderList();
-//            }
-//        });
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                getOrderList();
+            }
+        });
         getOrderList();
     }
 
@@ -70,6 +70,7 @@ public class OrderListFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
+            mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -96,6 +97,7 @@ public class OrderListFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
                 //Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
@@ -104,16 +106,18 @@ public class OrderListFragment extends Fragment {
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<DataOrder>>() {
                 }.getType();
                 orderList = new Gson().fromJson(result, listType);
-                adapter = new OrderListAdapter(getContext(), orderList, "","","");
+                adapter = new OrderListAdapter(getContext(), orderList, "","","","");
                 recyclerView.setAdapter(adapter);
+                mSwipeRefreshLayout.setRefreshing(false);
                 progressDialog.dismiss();
-                //mSwipeRefreshLayout.setRefreshing(false);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         }
 

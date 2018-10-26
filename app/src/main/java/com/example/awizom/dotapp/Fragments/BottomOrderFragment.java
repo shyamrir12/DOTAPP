@@ -96,7 +96,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 //                fragmentClass = OrderListFragment.class;
 //                break;
             case R.id.orderCreate:
-
+                getActivity().setTitle("Order Create");
                 intent = new Intent(getContext(), AfterCreateActivity.class);
                 intent = intent.putExtra("FilterKey", "orderCreate");
                 // intent = intent.putExtra( "FilterKey" ,"PendingOrderList");
@@ -111,6 +111,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
                 intent = intent.putExtra("FilterKey", "pandingForAdv");
                 intent = intent.putExtra("ButtonName","Cancel Order");
                 intent = intent.putExtra("StatusName", "Cancel");
+                intent = intent.putExtra("DailogMessage","Do you want to place for advance");
 
                 startActivity(intent);
                 //  getActivity().getFragmentManager().popBackStack();
@@ -141,15 +142,15 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
                 fragmentClass = OrderListFragment.class;*/
 //                break;
         }
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.home_container, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            fragment = (Fragment) fragmentClass.newInstance();
+//            FragmentManager fragmentManager = getFragmentManager();
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.home_container, fragment);
+//            fragmentTransaction.addToBackStack(null);
+//            fragmentTransaction.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }

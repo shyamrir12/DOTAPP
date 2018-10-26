@@ -63,8 +63,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    public void checkNetworkConnection(){
-        AlertDialog.Builder builder =new AlertDialog.Builder(this);
+    public void checkNetworkConnection() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("No internet Connection");
         builder.setMessage("Please turn on internet connection to continue");
         builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
@@ -125,7 +125,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -144,11 +143,11 @@ public class HomeActivity extends AppCompatActivity {
                 fragmentClass = UserListFragment.class;
                 break;
 
-              case R.id.user1:
-                  getSupportActionBar().setTitle("Telor List");
-                  fragment = telorListFragment;
-                  fragmentClass = TelorListFragment.class;
-                  break;
+            case R.id.user1:
+                getSupportActionBar().setTitle("Telor List");
+                fragment = telorListFragment;
+                fragmentClass = TelorListFragment.class;
+                break;
 
 
             case R.id.about:
@@ -160,20 +159,15 @@ public class HomeActivity extends AppCompatActivity {
 
             case R.id.exit:
 
-
-                
-
-
-
                 SharedPrefManager.getInstance(this).logout();
                 Intent login = new Intent(getApplicationContext(), SigninActivity.class);
                 startActivity(login);
 
 
-             finish();
+                finish();
 
-             break;
-                //return (true);
+                break;
+            //return (true);
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
