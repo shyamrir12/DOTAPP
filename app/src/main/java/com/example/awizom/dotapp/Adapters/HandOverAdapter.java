@@ -8,10 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.HandOverModel;
 import com.example.awizom.dotapp.R;
 
@@ -22,6 +21,7 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
 
     private Context mCtx;
     ProgressDialog progressDialog;
+    private LinearLayout linearLayout;
 
     //we are storing all the products in a list
     private List<HandOverModel> handoveritemlist;
@@ -46,19 +46,16 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
         HandOverModel handover = handoveritemlist.get(position);
         try {
-            //holder.textViewPINo.setText("PINo \n"+Integer.toString( order.getPINo()));
-            holder.a_qty.setText((int) handover.getAQty());
+
+            holder.a_qty.setText(String.valueOf( handover.getAQty()));
             holder.catalog.setText(handover.getCatalogName());
             holder.design.setText(handover.getDesign());
-            holder.page_no.setText(handover.getPageNo());
-            holder.price.setText((int) handover.getPrice());
-            holder.price2.setText((int) handover.getPrice2());
-            holder.receivedBy.setText(handover.getReceivedBy());
-            holder.receivedFromTalor.setEnabled(true);
+            holder.page_no.setText(String.valueOf(handover.getPageNo()));
 
-            holder.serialNo.setText(handover.getSerialNo());
-            holder.telorname.setText(handover.getTelorName());
-            holder.unit.setText(handover.getUnit());
+            holder.price.setText(String.valueOf( handover.getPrice()).toString());
+            holder.price2.setText(String.valueOf(handover.getPrice2()));
+            holder.serialNo.setText(String.valueOf(handover.getSerialNo()));
+            holder.unit.setText(String.valueOf(handover.getUnit()));
 
         } catch (Exception E) {
             E.printStackTrace();
@@ -72,10 +69,9 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
     }
 
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
-        AlertDialog.Builder alert;
-        private Context mCtx;
 
-        TextView a_qty, catalog, design, page_no, price, price2,receivedBy,receivedFromTalor,serialNo,telorname,unit;
+        private Context mCtx;
+        TextView a_qty, catalog, design, page_no, price, price2,receivedBy,serialNo,unit;
 
         //we are storing all the products in a list
         private List<HandOverModel> orderitemList;
@@ -86,21 +82,16 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
             this.mCtx = mCtx;
             this.orderitemList = handoveritemlist;
 
-
-            // CatelogOrderDetailModel catelogOrderDetailModel = new CatelogOrderDetailModel();
-            a_qty = itemView.findViewById(R.id.aqty);
-            catalog = itemView.findViewById(R.id.c_name);
+            a_qty = itemView.findViewById(R.id.qty);
+            catalog = itemView.findViewById(R.id.catlogName);
             design = itemView.findViewById(R.id.design);
-            page_no = itemView.findViewById(R.id.pageno);
+            page_no = itemView.findViewById(R.id.pageo);
             price = itemView.findViewById(R.id.price);
-            price2 = itemView.findViewById(R.id.price2);
-
+            price2 = itemView.findViewById(R.id.pric2);
             receivedBy = itemView.findViewById(R.id.receivedby);
-            receivedFromTalor = itemView.findViewById(R.id.receivetelor);
             serialNo = itemView.findViewById(R.id.sno);
-
-            telorname = itemView.findViewById(R.id.tname);
             unit = itemView.findViewById(R.id.unt);
+
         }
 
 
@@ -117,7 +108,7 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
             HandOverModel orderitem = this.orderitemList.get(position);
 
             if (v.getId() == itemView.getId()) {
-                // showUpdateDeleteDialog(order);
+
                 try {
 
                 } catch (Exception E) {

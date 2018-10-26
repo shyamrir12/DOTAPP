@@ -1,209 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/half_white">
 
-    <android.support.v7.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:layout_margin="15dp">
 
-
-            <LinearLayout
-                android:id="@+id/l1"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-
-                <TextView
-                    android:id="@+id/aqty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="A qty"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/c_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Catalog name"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/design"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="design"
-                    android:textColor="@color/fab2_color"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/pageno"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="page no"
-                    android:textColor="@color/fab2_color"
-                    android:textColorLink="#000000"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/L2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/l1"
-
-                android:orientation="horizontal"
-
-                android:padding="5dp">
-
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Price"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/price2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Price 2"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/receivedby"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Received By"
-                    android:textColor="@color/fab2_color"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/receivetelor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Received From Telor"
-
-                  />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linerdept"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/L2"
-
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:padding="8dp">
 
                 <LinearLayout
-                    android:id="@+id/OP"
+                    android:id="@+id/l1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
                     <TextView
-                        android:id="@+id/sno"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/catlogName"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="S No." />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/MR"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:hint="Catalog Name"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tname"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/design"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Telor Nmae" />
+                        android:layout_weight="1"
+                        android:hint="design"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/RFT"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/qty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="12sp"
+                        android:hint="Qty"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/pric2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Catalog Name"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/unt"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Unit" />
+                        android:layout_weight="1"
+                        android:hint="design"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/pageo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="12sp"
+                        android:hint="Qty"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/receivedby"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="12sp"
+                        android:hint="Qty"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/L2"
+                    android:orientation="horizontal">
 
 
                 </LinearLayout>
+            </RelativeLayout>
 
-
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linerstatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/linerdept"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                android:padding="5dp">
-
-                <TextView
-                    android:id="@+id/textHandOverTo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Hand Over To" />
-
-                <TextView
-                    android:id="@+id/textTelorName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Telor Name" />
-
-                <TextView
-                    android:id="@+id/textReceivedBy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Received By" />
-            </LinearLayout>
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

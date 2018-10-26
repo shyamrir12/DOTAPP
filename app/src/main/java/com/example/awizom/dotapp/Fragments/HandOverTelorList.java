@@ -2,6 +2,10 @@ package com.example.awizom.dotapp.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,11 +29,13 @@ import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.CustomerListAdapter;
 import com.example.awizom.dotapp.Adapters.HandOverAdapter;
+import com.example.awizom.dotapp.Adapters.OrderItemAdapter;
 import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Adapters.TelorListAdapter;
 import com.example.awizom.dotapp.Adapters.UserListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.HandOverModel;
@@ -41,6 +47,9 @@ import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -80,7 +89,7 @@ public class HandOverTelorList extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait while loading telors");
         lv = view.findViewById(R.id.telorList);
-       lv1=view.findViewById(R.id.rcyclr);
+        lv1 = view.findViewById(R.id.rcyclr);
         lv1.setHasFixedSize(true);
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -97,6 +106,8 @@ public class HandOverTelorList extends Fragment {
             }
         });
         getTelorList();
+
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -105,13 +116,15 @@ public class HandOverTelorList extends Fragment {
 
                 // Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
                 hTelor = telorlist[position];
-                lv.setVisibility(View.GONE );
+                lv.setVisibility(View.GONE);
                 getHandoverItemlist();
-
 
 
             }
         });
+
+
+
     }
 
     private void getHandoverItemlist() {
@@ -168,35 +181,35 @@ public class HandOverTelorList extends Fragment {
         }
 
         protected void onPostExecute(String result) {
+            try {
 
-            if (result.isEmpty()) {
-                progressDialog.dismiss();
-                Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
-            } else {
+                if (result.isEmpty()) {
+                    progressDialog.dismiss();
 
-                Gson gson = new Gson();
-                Type listType = new TypeToken<List<HandOverModel>>() {
-                }.getType();
-                list1 = new Gson().fromJson(result, listType);
-                adapterh = new HandOverAdapter(getContext(), list1);
-                lv1.setAdapter(adapterh);
-                progressDialog.dismiss();
+                } else {
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<List<HandOverModel>>() {
+                    }.getType();
+                    list1 = new Gson().fromJson(result, listType);
+                    adapterh = new HandOverAdapter(getContext(), list1);
+                    lv1.setAdapter(adapterh);
+                    progressDialog.dismiss();
 
-//                Gson gson = new Gson();
-//                Type listType = new TypeToken<List<HandOverModel>>() {
-//                }.getType();
-//                list1 = new Gson().fromJson(result, listType);
-//                adapterh = new HandOverAdapter(getContext(), list1);
-//                lv.setAdapter((ListAdapter) adapterh);
-//                progressDialog.dismiss();
-
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
 
         }
 
     }
-        private void getTelorList() {
+
+
+
+
+
+
+    private void getTelorList() {
             try {
                 progressDialog.setMessage("loading...");
                 progressDialog.show();
@@ -257,6 +270,7 @@ public class HandOverTelorList extends Fragment {
                     handoverListAapter = new ArrayAdapter<String>(getContext(), R.layout.layout_button_telorlist, R.id.label, telorlist);
                     lv.setAdapter(handoverListAapter);
 
+
                     progressDialog.dismiss();
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
@@ -264,5 +278,6 @@ public class HandOverTelorList extends Fragment {
             }
         }
     }
+
 
 

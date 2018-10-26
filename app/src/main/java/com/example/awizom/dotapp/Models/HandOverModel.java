@@ -13,8 +13,6 @@ public class HandOverModel {
     public boolean ReceivedFromTalor;
     public String ReceivedBy;
 
-
-
     public String getCatalogName() {
         return CatalogName;
     }
@@ -22,7 +20,6 @@ public class HandOverModel {
     public void setCatalogName(String catalogName) {
         CatalogName = catalogName;
     }
-
 
     public String getSerialNo() {
         return SerialNo;
@@ -103,7 +100,4 @@ public class HandOverModel {
     public void setReceivedBy(String receivedBy) {
         ReceivedBy = receivedBy;
     }
-
-
-
 }
