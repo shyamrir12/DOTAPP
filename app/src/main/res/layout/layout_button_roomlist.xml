@@ -29,21 +29,23 @@
                 <TextView
                     android:id="@+id/label"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
                     android:hint="Room Name"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <Button
                     android:id="@+id/button_status"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:text="Status"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="Place Order"
                     android:background="@drawable/add_cancel_button_shape"
                     android:layout_weight="1"
                     android:textSize="13sp"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:visibility="gone"/>
                 <!--<TextView-->
                     <!--android:layout_width="20dp"-->
                     <!--android:layout_height="40dp" />-->

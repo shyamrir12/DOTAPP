@@ -159,6 +159,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 i = i.putExtra("OrderID", String.valueOf(orderitem.OrderID));
                 i = i.putExtra("ActualOrder", "");
+                i = i.putExtra("FilterKey", filterKey);
+                i = i.putExtra("StatusName", statusName);
                 mCtx.startActivity(i);
             }
             if (v.getId() == buttonActualOrder.getId()) {
@@ -168,6 +170,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 i = i.putExtra("OrderID", String.valueOf(orderitem.OrderID));
                 i = i.putExtra("ActualOrder", "ActualOrder");
+                i = i.putExtra("FilterKey", filterKey);
+                i = i.putExtra("StatusName", statusName);
                 mCtx.startActivity(i);
             }
             if (v.getId() == canceLOrderButton.getId()) {

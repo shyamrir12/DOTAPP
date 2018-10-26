@@ -84,6 +84,8 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     String orderid="";
     String actualorder="";
+    String filterkey="";
+    String stausname="";
     String[] orderidPart;
     Intent intent;
     String actualRoomList;
@@ -161,7 +163,9 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
        try{
         orderid = getIntent().getExtras().getString( "OrderID", "" );
-           actualorder=getIntent().getExtras().getString( "ActualOrder", "" );}
+           actualorder=getIntent().getExtras().getString( "ActualOrder", "" );
+           filterkey = getIntent().getExtras().getString( "FilterKey", "" );
+           stausname=getIntent().getExtras().getString( "StatusName", "" );}
 
         catch (Exception e)
         {
@@ -315,7 +319,12 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                         //String res="";
                         progressDialog.setMessage("loading...");
                         progressDialog.show();
-                        new AfterCreateActivity.POSTStatus().execute(orderid, "0", "0", "0", "0", "0", "", "", "",SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+                                if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" ))
+
+                                    new AfterCreateActivity.POSTStatus().execute(orderid, "0", "0", "0", "0", "0", "", "", "",SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+                                else
+                                    Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
@@ -461,7 +470,10 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
                 if (String.valueOf(spinner.getSelectedItem()).trim().length()>0) {
                     try {
+                        if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" ))
                         new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim(),SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+                    else
+                            Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -616,11 +628,11 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
 //                    String StatusName,
 
-                            roomlistadapter  = new RoomListAdapter(getApplicationContext(), roomList,"Status",orderid
+                            roomlistadapter  = new RoomListAdapter(getApplicationContext(), roomList,stausname,orderid
                             ,c_name.getText().toString(),c_contact.getText().toString()
                                     ,orderDate.getText().toString()
-                                    ,amount.getText().toString(),actualorder);
-                    recyclerView.setAdapter(roomlistadapter);
+                                    ,amount.getText().toString(),actualorder,filterkey);
+                                     recyclerView.setAdapter(roomlistadapter);
                    // ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist, R.id.label, roomName);
                     //roomname.setAdapter(spinnerArrayAdapter);
 
@@ -761,10 +773,15 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         String date = orderDate.getText().toString();
         String advance = amount.getText().toString();
         try {
+            if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" ))
+
+                new POSTOrder().execute(String.valueOf(cid),date,advance,SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+
+            else
+                Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
 
             //String
-            new POSTOrder().execute(String.valueOf(cid),date,advance,SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
-        } catch (Exception e) {
+            } catch (Exception e) {
             e.printStackTrace();
 
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();

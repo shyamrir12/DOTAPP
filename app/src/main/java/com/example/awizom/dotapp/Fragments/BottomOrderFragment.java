@@ -98,6 +98,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
             case R.id.orderCreate:
 
                 intent = new Intent(getContext(), AfterCreateActivity.class);
+                intent = intent.putExtra("FilterKey", "orderCreate");
                 // intent = intent.putExtra( "FilterKey" ,"PendingOrderList");
                 startActivity(intent);
                 // getActivity().setTitle("Order Create");
