@@ -141,8 +141,9 @@ public class TelorListFragment extends Fragment {
                 final AlertDialog b = alertbox.create();
                 b.show();
 
-
-                Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
+               old_t_name.setText(telorlist[position]);
+               old_t_name.setVisibility(View.GONE);
+               // Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
 
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -290,6 +291,7 @@ public class TelorListFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -332,6 +334,7 @@ public class TelorListFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
+            mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -370,6 +373,7 @@ public class TelorListFragment extends Fragment {
 
             if (result.isEmpty()) {
                 progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
                 //progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
@@ -383,6 +387,7 @@ public class TelorListFragment extends Fragment {
                 lv.setAdapter(telorListAapter);
 
                 progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
 
         }

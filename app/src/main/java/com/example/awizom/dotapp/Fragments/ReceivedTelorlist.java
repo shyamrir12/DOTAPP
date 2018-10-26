@@ -40,7 +40,7 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class TelorList extends Fragment {
+public class ReceivedTelorlist extends Fragment {
 
     ProgressDialog progressDialog;
     ListView lv;
@@ -168,13 +168,11 @@ public class TelorList extends Fragment {
     }
 
     private void postTelorListEdit() {
-        telornamet=t_name.getText().toString();
-        telorname_old=old_t_name.getText().toString();
 
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new PostTelorDetailsEdit().execute(telornamet.trim(),telorname_old.trim(),SharedPrefManager.getInstance(getContext()).getUser().access_token);
+            new PostTelorDetailsEdit().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
@@ -190,16 +188,16 @@ public class TelorList extends Fragment {
         @Override
         protected String doInBackground(String... params) {
 
-            String telorname = params[0];
 
-            String accesstoken = params[2];
+
+            String accesstoken = params[0];
 
             String json = "";
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "HandOverItemlistGet/" + telorname );
+                builder.url(AppConfig.BASE_URL_API + "HandOverTelorListGet" );
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -348,7 +346,7 @@ public class TelorList extends Fragment {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "TelorListGet");
+                builder.url(AppConfig.BASE_URL_API + "ReceivedTelorlistGet");
                 builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Content-Length", "0");
