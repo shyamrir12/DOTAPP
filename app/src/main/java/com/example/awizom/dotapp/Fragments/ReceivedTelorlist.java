@@ -40,18 +40,18 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class TelorListFragment extends Fragment {
+public class ReceivedTelorlist extends Fragment {
 
     ProgressDialog progressDialog;
     ListView lv;
     ImageButton img;
     // List <TelorModel> list1;
-     SwipeRefreshLayout mSwipeRefreshLayout;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     Handler handler = new Handler();
     Runnable refresh;
     private Button add, cancel;
     private EditText t_name,old_t_name;
-     ArrayAdapter<String> telorListAapter;
+    ArrayAdapter<String> telorListAapter;
     String[] telorlist;
     private String telornamet,telorname_old;
 
@@ -70,7 +70,8 @@ public class TelorListFragment extends Fragment {
         progressDialog.setMessage("Please wait while loading telors");
         lv = view.findViewById(R.id.telorList);
         img = view.findViewById(R.id.updateButton);
-   //     lv = view.findViewById(R.id.telorList);
+        //     lv = view.findViewById(R.id.telorList);
+        img.setVisibility(View.GONE);
 
 
         img.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +89,7 @@ public class TelorListFragment extends Fragment {
                 alertbox.setTitle("Add telor");
                 final AlertDialog b = alertbox.create();
                 b.show();
-             //   telorname=t_name.getText().toString();
+                //   telorname=t_name.getText().toString();
 
 
                 add.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +104,7 @@ public class TelorListFragment extends Fragment {
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                   b.dismiss();
+                        b.dismiss();
                     }
                 });
 
@@ -121,8 +122,8 @@ public class TelorListFragment extends Fragment {
                 getTelorList();
             }
         });
-               getTelorList();
-               lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        getTelorList();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -141,9 +142,8 @@ public class TelorListFragment extends Fragment {
                 final AlertDialog b = alertbox.create();
                 b.show();
 
-               old_t_name.setText(telorlist[position]);
-               old_t_name.setVisibility(View.GONE);
-               // Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
 
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -168,13 +168,11 @@ public class TelorListFragment extends Fragment {
     }
 
     private void postTelorListEdit() {
-        telornamet=t_name.getText().toString();
-        telorname_old=old_t_name.getText().toString();
 
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new PostTelorDetailsEdit().execute(telornamet.trim(),telorname_old.trim(),SharedPrefManager.getInstance(getContext()).getUser().access_token);
+            new PostTelorDetailsEdit().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
@@ -190,16 +188,16 @@ public class TelorListFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
 
-            String telorname = params[0];
-            String telorname_old = params[1];
-            String accesstoken = params[2];
+
+
+            String accesstoken = params[0];
 
             String json = "";
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "TelorPost/" + telorname + "/" + telorname_old);
+                builder.url(AppConfig.BASE_URL_API + "HandOverTelorListGet" );
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -291,7 +289,6 @@ public class TelorListFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -334,7 +331,6 @@ public class TelorListFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
-            mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -350,7 +346,7 @@ public class TelorListFragment extends Fragment {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "TelorListGet");
+                builder.url(AppConfig.BASE_URL_API + "ReceivedTelorlistGet");
                 builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Content-Length", "0");
@@ -373,7 +369,6 @@ public class TelorListFragment extends Fragment {
 
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
                 //progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
@@ -387,7 +382,6 @@ public class TelorListFragment extends Fragment {
                 lv.setAdapter(telorListAapter);
 
                 progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
             }
 
         }
