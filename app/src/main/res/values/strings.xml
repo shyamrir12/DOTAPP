@@ -35,7 +35,7 @@
     </string-array>
 
     <string name="title_activity_home">Decor Order Tracker</string>
-    <string name="title_customer">Customer</string>
+    <string name="title_customer">Party</string>
     <string name="title_order">Order</string>
     <string name="title_report">Report</string>
     <string name="title_status">Status</string>

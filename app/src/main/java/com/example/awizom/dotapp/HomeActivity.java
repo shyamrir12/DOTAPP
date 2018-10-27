@@ -25,6 +25,7 @@ import com.example.awizom.dotapp.Fragments.BottomCustomerFragment;
 import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
 import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
 import com.example.awizom.dotapp.Fragments.BottomReportFragment;
+import com.example.awizom.dotapp.Fragments.BottomSearchfragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Fragments.OrderListFragment;
@@ -37,7 +38,7 @@ import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
 public class HomeActivity extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment telorListFragment, userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment;
+    private Fragment telorListFragment, userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment,searchfragment;
     private Fragment fragment = null;
     boolean doubleBackToExitPressedOnce = false;
     private Context mContext;
@@ -58,10 +59,9 @@ public class HomeActivity extends AppCompatActivity {
         printLayoutfragment = new BottomPrintFragment();
         orderLayoutfragment = new BottomOrderFragment();
         statusLayoutFragment = new BottomStatusFragment();
+        searchfragment = new BottomSearchfragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        countValue = getIntent().getExtras().getString("Count", "");
 
 
     }
@@ -216,6 +216,12 @@ public class HomeActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle("Print Details");
                     fragment = printLayoutfragment;
                     fragmentClass = BottomPrintFragment.class;
+                    break;
+
+                case R.id.navigation_search:
+                    getSupportActionBar().setTitle("Status Details");
+                    fragment = searchfragment;
+                    fragmentClass = BottomSearchfragment.class;
                     break;
 
             }

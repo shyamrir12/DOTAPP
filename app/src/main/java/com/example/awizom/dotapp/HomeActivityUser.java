@@ -23,6 +23,7 @@ import com.example.awizom.dotapp.Fragments.BottomCustomerFragment;
 import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
 import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
 import com.example.awizom.dotapp.Fragments.BottomReportFragment;
+import com.example.awizom.dotapp.Fragments.BottomSearchfragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
@@ -32,7 +33,7 @@ import com.example.awizom.dotapp.R;
 public class HomeActivityUser extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment;
+    private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment,searchfragment;
     Fragment fragment = null;
 
 
@@ -46,6 +47,7 @@ public class HomeActivityUser extends AppCompatActivity {
         printLayoutfragment = new BottomPrintFragment();
         orderLayoutfragment = new BottomOrderFragment();
         statusLayoutFragment = new BottomStatusFragment();
+        searchfragment = new BottomSearchfragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -156,6 +158,11 @@ public class HomeActivityUser extends AppCompatActivity {
                     getSupportActionBar().setTitle("Status Details");
                     fragment = statusLayoutFragment;
                     fragmentClass = BottomStatusFragment.class;
+                    break;
+                case R.id.navigation_search:
+                    getSupportActionBar().setTitle("Status Details");
+                    fragment = searchfragment;
+                    fragmentClass = BottomSearchfragment.class;
                     break;
 
             }

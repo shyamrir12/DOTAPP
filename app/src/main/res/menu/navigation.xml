@@ -26,6 +26,14 @@
         android:background="@drawable/button_background"
         android:visible="true"/>
 
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_status"
+        android:tooltipText="@string/title_status"
+        android:background="@drawable/button_background"
+        android:visible="false" />
+
 
     <item
         android:id="@+id/navigation_print"
