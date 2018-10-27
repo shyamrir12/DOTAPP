@@ -165,7 +165,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                 if (filterKey.equals("PandingToHandOverTo")) {
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle(dailogMessage);
+                    alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             showDailogForHandOverTo(v);
@@ -185,7 +185,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle(dailogMessage);
+                    alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             showdailogForreceivedBy(v);
@@ -203,7 +203,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 }else if (filterKey.equals("Dispatch")) {
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle(dailogMessage);
+                    alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             dispatchListPost();
@@ -223,7 +223,24 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 }else if (filterKey.equals("PandingToReceiveMaterial")) {
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle(dailogMessage);
+                    alertbox.setTitle("Do you want to change the status");
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            cancelOrderListPost();
+                        }
+                    });
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+
+                }else if (filterKey.equals("pandingForAdv")) {
+
+                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             cancelOrderListPost();
@@ -240,7 +257,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 }else if (filterKey.equals("Hold")) {
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle(dailogMessage);
+                    alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             cancelOrderListPost();
@@ -261,7 +278,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 }else if (filterKey.equals("PandingToPlaceOrder")) {
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle(dailogMessage);
+                    alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             cancelOrderListPost();

@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.awizom.dotapp.AfterCreateActivity;
+import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.R;
+import com.example.awizom.dotapp.SearchDetailListActivity;
 
 public class BottomSearchfragment extends Fragment implements View.OnClickListener {
 
@@ -39,7 +42,20 @@ public class BottomSearchfragment extends Fragment implements View.OnClickListen
         Class fragmentClass = null;
         switch (v.getId()) {
 
-
+            case R.id.searchbyName:
+                getActivity().setTitle("Order Create");
+                intent = new Intent(getContext(), SearchDetailListActivity.class);
+                intent = intent.putExtra("FilterKey", "orderCreate");
+                startActivity(intent);
+                break;
+            case R.id.searchbyNumber:
+                intent = new Intent(getContext(), SearchDetailListActivity.class);
+                intent = intent.putExtra("FilterKey", "pandingForAdv");
+                intent = intent.putExtra("ButtonName","Cancel Order");
+                intent = intent.putExtra("StatusName", "Cancel");
+                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+                startActivity(intent);
+                break;
         }
     }
 }
