@@ -2,6 +2,7 @@ package com.example.awizom.dotapp.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -12,20 +13,38 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.R;
+import com.example.awizom.dotapp.SigninActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 public class BottomStatusFragment extends Fragment implements View.OnClickListener {
 
-    private TextView pendingttoPlaceOrder, holD, handOverto, receivedby, pendingToreceivedMaterial, pendingtorecevefrometailor, cancelList, dispatchList;
+    private TextView pendingttoPlaceOrder, holD, handOverto, dispatch, pendingToreceivedMaterial, pendingtorecevefrometailor, cancelList, dispatchList;
     private Intent intent;
     private Fragment statuspendingOrderFragment;
     Fragment fragment = null;
     DataOrder orderitem;
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     private ProgressDialog progressDialog;
+    private String countValue = "";
+    private TextView countValuependingToHandOverShow,countValueDispatchShow,
+            countValueHoldShow,countValueReceeMaterialShow,countValuependingToRefromtailorShow,countValuePlaceHolderShow;
+    private String[] countValueSplitData;
+    String[] values;
+    String PandingToPlaceOrder="0",Hold="0",PandingToReceiveMaterial="0",PandingToHandOverTo="0",PandingToReceivedFromTelor="0",Dispatch="0";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,24 +55,30 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     }
 
     private void initView(View view) {
+statusCountGETmethodCall();
 
         pendingttoPlaceOrder = view.findViewById(R.id.pendingtToPlaceOrder);
         holD = view.findViewById(R.id.hold);
         handOverto = view.findViewById(R.id.handOverTo);
-        receivedby = view.findViewById(R.id.dispatch);
+        dispatch = view.findViewById(R.id.dispatch);
         pendingToreceivedMaterial = view.findViewById(R.id.pendingToreceivedMaterial);
         pendingtorecevefrometailor = view.findViewById(R.id.receivedFromTailor);
+
+
 
 
         pendingttoPlaceOrder.setOnClickListener(this);
         holD.setOnClickListener(this);
         handOverto.setOnClickListener(this);
-        receivedby.setOnClickListener(this);
+        dispatch.setOnClickListener(this);
         pendingToreceivedMaterial.setOnClickListener(this);
         pendingtorecevefrometailor.setOnClickListener(this);
         orderitem = new DataOrder();
 
         statuspendingOrderFragment = new CustomerListFrgment();
+
+
+
     }
 
     @Override
@@ -66,7 +91,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
                 intent = intent.putExtra("ButtonName", "Place Order");
                 intent = intent.putExtra("StatusName", "OrderPlaced");
-                intent = intent.putExtra("DailogMessage","Do you want to place the order");
+                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+
 
                 startActivity(intent);
                 break;
@@ -77,7 +103,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "Hold");
                 intent = intent.putExtra("ButtonName", "Place Order");
                 intent = intent.putExtra("StatusName", "Hold");
-                intent = intent.putExtra("DailogMessage","Do you want to hold the order");
+                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+
                 startActivity(intent);
                 break;
 
@@ -88,7 +115,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "PandingToHandOverTo");
                 intent = intent.putExtra("ButtonName", "HandOverTo");
                 intent = intent.putExtra("StatusName", "HandOverTo");
-                intent = intent.putExtra("DailogMessage","Do you want to handover the order");
+                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+
                 startActivity(intent);
                 break;
 
@@ -98,7 +126,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "PandingToReceivedFromTelor");
                 intent = intent.putExtra("ButtonName", "Received");
                 intent = intent.putExtra("StatusName", "ReceivedFromTelor");
-                intent = intent.putExtra("DailogMessage","Do you want to received the order");
+                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+
                 startActivity(intent);
                 break;
 
@@ -108,7 +137,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "PandingToReceiveMaterial");
                 intent = intent.putExtra("ButtonName", "Received Order");
                 intent = intent.putExtra("StatusName", "MaterialReceived");
-                intent = intent.putExtra("DailogMessage","Do you want to received material the order");
+                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+
                 startActivity(intent);
                 break;
 
@@ -118,7 +148,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "Dispatch");
                 intent = intent.putExtra("ButtonName", "Reset");
                 intent = intent.putExtra("StatusName", "Reset");
-                intent = intent.putExtra("DailogMessage","Do you want to dispatch the order");
+                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+
                 startActivity(intent);
                 break;
 
@@ -158,6 +189,93 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
         });
 
 
+    }
+
+    private void statusCountGETmethodCall() {
+
+        try {
+
+            new statusCountGET().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private class statusCountGET extends AsyncTask<String, Void, String> implements View.OnClickListener {
+        @Override
+        protected String doInBackground(String... params) {
+
+            String json = "";
+            String accesstoken = params[0];
+
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "StatusCountGet");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                SharedPrefManager.getInstance(getContext()).logout();
+                Intent login = new Intent(getContext(), SigninActivity.class);
+                startActivity(login);
+
+
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+
+            try {
+                if (result.isEmpty()) {
+                    Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+
+
+                } else {
+
+
+
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<String[]>(){}.getType();
+                    values= gson.fromJson(result, listType);
+
+                    PandingToPlaceOrder =pendingttoPlaceOrder.getText()+" ("+ values[1].split("=")[1] +")";
+                    pendingttoPlaceOrder.setText(PandingToPlaceOrder);
+
+                    Hold =holD.getText()+" ("+ values[2].split("=")[1] +")";
+                    holD.setText(Hold);
+
+                    PandingToReceiveMaterial =pendingToreceivedMaterial.getText()+" ("+ values[3].split("=")[1] +")";
+                    pendingToreceivedMaterial.setText(PandingToReceiveMaterial);
+
+                    PandingToHandOverTo =handOverto.getText()+" ("+ values[4].split("=")[1] +")";
+                    handOverto.setText(PandingToHandOverTo);
+
+                    PandingToReceivedFromTelor =pendingtorecevefrometailor.getText()+" ("+ values[4].split("=")[1] +")";
+                    pendingtorecevefrometailor.setText(PandingToReceivedFromTelor);
+
+                    Dispatch =dispatch.getText()+" ("+ values[5].split("=")[1] +")";
+                    dispatch.setText(Dispatch);
+
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+
+        }
     }
 
 

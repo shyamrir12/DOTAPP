@@ -27,6 +27,7 @@ import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
 import com.example.awizom.dotapp.Fragments.BottomReportFragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
+import com.example.awizom.dotapp.Fragments.OrderListFragment;
 import com.example.awizom.dotapp.Fragments.TelorListFragment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
@@ -37,9 +38,10 @@ public class HomeActivity extends AppCompatActivity {
 
     private Intent intent;
     private Fragment telorListFragment, userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment;
-    Fragment fragment = null;
+    private Fragment fragment = null;
     boolean doubleBackToExitPressedOnce = false;
-    Context mContext;
+    private Context mContext;
+    private String countValue = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class HomeActivity extends AppCompatActivity {
         statusLayoutFragment = new BottomStatusFragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        countValue = getIntent().getExtras().getString("Count", "");
 
 
     }
@@ -198,12 +202,15 @@ public class HomeActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle("Order Details");
                     fragment = orderLayoutfragment;
                     fragmentClass = BottomOrderFragment.class;
+
                     break;
 
                 case R.id.navigation_status:
                     getSupportActionBar().setTitle("Status Details");
                     fragment = statusLayoutFragment;
                     fragmentClass = BottomStatusFragment.class;
+
+
                     break;
                 case R.id.navigation_print:
                     getSupportActionBar().setTitle("Print Details");

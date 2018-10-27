@@ -61,6 +61,8 @@
                                 android:layout_gravity="left"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginLeft="30dp" />
+
+
                         </LinearLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -95,7 +97,7 @@
                                 android:id="@+id/hold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Pending to Hold"
+                                android:text="Hold"
                                 android:gravity="left"
                                 android:textColor="@color/white"
                                 android:textSize="18sp"
@@ -103,6 +105,7 @@
                                 android:layout_gravity="left"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginLeft="30dp" />
+
                         </LinearLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -135,13 +138,14 @@
                                 android:id="@+id/pendingToreceivedMaterial"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Pending to Received Meterial"
+                                android:text="Pending to Received Material"
                                 android:gravity="left"
                                 android:textColor="@color/white"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginLeft="30dp" />
+
                         </LinearLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -183,6 +187,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginLeft="30dp" />
+
                         </LinearLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -217,7 +222,7 @@
                                 android:id="@+id/receivedFromTailor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Pending to Received from Tailor"
+                                android:text="Pending to Received"
                                 android:textAlignment="center"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/white"
@@ -226,6 +231,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginLeft="30dp" />
+
                         </LinearLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -261,7 +267,7 @@
                                 android:id="@+id/dispatch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Pending to Dispatch"
+                                android:text=" Dispatch"
                                 android:textAlignment="center"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/white"
@@ -270,6 +276,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginLeft="30dp" />
+
                         </LinearLayout></RelativeLayout>
                 </android.support.v7.widget.CardView>
 

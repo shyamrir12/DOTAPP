@@ -30,6 +30,7 @@ public class NewOrderListActivity extends AppCompatActivity {
     String valueButtonName = "";
     String statusName ="";
     String dailogMessage ="";
+    String countvalue = "";
 
 
     @Override
@@ -62,6 +63,7 @@ public class NewOrderListActivity extends AppCompatActivity {
         valueButtonName = getIntent().getExtras().getString("ButtonName","");
         statusName = getIntent().getExtras().getString("StatusName","");
         dailogMessage = getIntent().getExtras().getString("DailogMessage","");
+        countvalue = getIntent().getExtras().getString("Count","");
 
         if(statusName.equals("Cancel"))
         {
@@ -133,7 +135,7 @@ public class NewOrderListActivity extends AppCompatActivity {
                 Type listType = new TypeToken<List<DataOrder>>() {
                 }.getType();
                 orderList = new Gson().fromJson(result, listType);
-                adapter = new OrderListAdapter(getApplicationContext(), orderList,filterKey,valueButtonName,statusName,dailogMessage);
+                adapter = new OrderListAdapter(getApplicationContext(), orderList,filterKey,valueButtonName,statusName);
                 recyclerView.setAdapter(adapter);
                 progressDialog.dismiss();
                 //mSwipeRefreshLayout.setRefreshing(false);

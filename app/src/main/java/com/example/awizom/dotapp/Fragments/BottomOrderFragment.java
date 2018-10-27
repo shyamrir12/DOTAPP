@@ -1,6 +1,7 @@
 package com.example.awizom.dotapp.Fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,10 +11,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.awizom.dotapp.AfterCreateActivity;
+import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.R;
+import com.example.awizom.dotapp.SigninActivity;
+import com.example.awizom.dotapp.SplashScreenActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 public class BottomOrderFragment extends Fragment implements View.OnClickListener {
 
@@ -22,6 +35,8 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
     private Intent intent;
     private Fragment pendinOrderListFragment, orderCreate;
     Fragment fragment = null;
+    String[] values;
+    String pandingForAdv="0";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,6 +48,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 
     private void initView(View view) {
 
+        statusCountGETmethodCall();
         cardViewFirst = view.findViewById(R.id.order_pending_cardview);
         cardViewSecond = view.findViewById(R.id.order_create_cardview);
 //        cardViewthird = view.findViewById(R.id.order_cancel_cardview);
@@ -111,7 +127,8 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
                 intent = intent.putExtra("FilterKey", "pandingForAdv");
                 intent = intent.putExtra("ButtonName","Cancel Order");
                 intent = intent.putExtra("StatusName", "Cancel");
-                intent = intent.putExtra("DailogMessage","Do you want to place for advance");
+                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+
 
                 startActivity(intent);
                 //  getActivity().getFragmentManager().popBackStack();
@@ -153,4 +170,76 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 //            e.printStackTrace();
 //        }
     }
+    private void statusCountGETmethodCall() {
+
+        try {
+
+            new statusCountGET().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private class statusCountGET extends AsyncTask<String, Void, String> implements View.OnClickListener {
+        @Override
+        protected String doInBackground(String... params) {
+
+            String json = "";
+            String accesstoken = params[0];
+
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "StatusCountGet");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                SharedPrefManager.getInstance(getContext()).logout();
+                Intent login = new Intent(getContext(), SigninActivity.class);
+                startActivity(login);
+
+
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+
+            try {
+                if (result.isEmpty()) {
+                    Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+
+
+                } else {
+
+
+
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<String[]>(){}.getType();
+                    values= gson.fromJson(result, listType);
+
+                  pandingForAdv =pendingOrderList.getText()+" ("+ values[0].split("=")[1] +")";
+
+                    pendingOrderList.setText(pandingForAdv);
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+
 }

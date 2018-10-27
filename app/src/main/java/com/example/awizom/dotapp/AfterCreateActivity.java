@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Adapters.RoomListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
@@ -33,6 +34,7 @@ import com.example.awizom.dotapp.Fragments.DatePickerFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
+
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -40,41 +42,43 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+
 import com.example.awizom.dotapp.Models.Result;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class AfterCreateActivity extends AppCompatActivity implements View.OnClickListener ,DatePickerDialog.OnDateSetListener  {
+public class AfterCreateActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
-    private TextView c_contact,i_name,i_contact,i_address,orderDateLabel,textViewATotalAmount;
-    private EditText orderDate,amount;
+    private TextView c_contact, i_name, i_contact, i_address, orderDateLabel, textViewATotalAmount;
+    private EditText orderDate, amount;
 
-    private long cid=0;
+    private long cid = 0;
     DataOrder catelogOrderDetailModel;
     List<DataOrder> orderList;
-    public  int hour = 0,minute = 0;
+    public int hour = 0, minute = 0;
     public DatePicker datePicker;
     public Calendar calendar;
     public int year, month, day;
-    public  String dateOb;
-    public Calendar myCalendar ;
+    public String dateOb;
+    public Calendar myCalendar;
     public Date date;
     private AutoCompleteTextView c_name;
     private List<CustomerModel> customerlist;
     private CustomerModel customer;
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
-    private Button addorder,addroom,actualRead,simpleRead,addUserStatus;
+    private Button addorder, addroom, actualRead, simpleRead, addUserStatus;
     private ImageButton addNewCustomer;
-    int morderid=0;
+    int morderid = 0;
 
-    String orderid="";
-    String actualorder="";
-    String filterkey="";
-    String stausname="";
+    String orderid = "";
+    String actualorder = "";
+    String filterkey = "";
+    String stausname = "";
     String[] orderidPart;
     Intent intent;
     String actualRoomList;
@@ -84,7 +88,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private AlertDialog b;
     private DataOrder data;
 
-   String[] roomName;
+    String[] roomName;
     List<String> roomList;
     RecyclerView recyclerView;
     RoomListAdapter roomlistadapter;
@@ -99,14 +103,14 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     private void initView() {
         getSupportActionBar().setTitle("Order Create");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c_name = findViewById(R.id.customerName);
         c_contact = findViewById(R.id.customerContact);
         i_address = findViewById(R.id.interiorAddress);
         orderDate = findViewById(R.id.orderDatePicker);
         amount = findViewById(R.id.amountValue);
-        textViewATotalAmount=findViewById(R.id.textViewATotalAmount);
-        orderDate.setInputType( InputType.TYPE_NULL);
+        textViewATotalAmount = findViewById(R.id.textViewATotalAmount);
+        orderDate.setInputType(InputType.TYPE_NULL);
 
         addorder = findViewById(R.id.addOrder);
         addorder.setOnClickListener(this);
@@ -115,22 +119,21 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         addNewCustomer = findViewById(R.id.addnewCustomerButton);
         addNewCustomer.setOnClickListener(this);
 
-       // addUserStatus = findViewById(R.id.addstatus);
+        // addUserStatus = findViewById(R.id.addstatus);
         //addUserStatus.setOnClickListener(this);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-       // roomname = findViewById(R.id.hallList);
+        // roomname = findViewById(R.id.hallList);
         addNewCustomerFragment = new AddCustomerFragment();
 
         progressDialog = new ProgressDialog(getApplicationContext());
         progressDialog = new ProgressDialog(this);
 
 
-
-         orderDate.setOnClickListener( this );
+        orderDate.setOnClickListener(this);
 //        roomname.setOnItemClickListener(new AdapterView.OnItemClickListener()
 //        {
 //            @Override
@@ -151,47 +154,43 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 //        });
 
 
-       try{
-        orderid = getIntent().getExtras().getString( "OrderID", "" );
-           actualorder=getIntent().getExtras().getString( "ActualOrder", "" );
-           filterkey = getIntent().getExtras().getString( "FilterKey", "" );
-           stausname=getIntent().getExtras().getString( "StatusName", "" );}
-
-        catch (Exception e)
-        {
+        try {
+            orderid = getIntent().getExtras().getString("OrderID", "");
+            actualorder = getIntent().getExtras().getString("ActualOrder", "");
+            filterkey = getIntent().getExtras().getString("FilterKey", "");
+            stausname = getIntent().getExtras().getString("StatusName", "");
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if(!orderid.equals( "" )){
-            getMyOrder( orderid );
-            addroom.setVisibility( View.VISIBLE );
+        if (!orderid.equals("")) {
+            getMyOrder(orderid);
+            addroom.setVisibility(View.VISIBLE);
 
-        }
-        else {
+        } else {
             c_name.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(c_name.getText().length()==0)
-                    {
-                        cid=0;
+                    if (c_name.getText().length() == 0) {
+                        cid = 0;
                         c_contact.setText("");
                         i_address.setText("");
-                    }
-                    else
-                    {
+                    } else {
                         getCustomerDetail(c_name.getText().toString());
                     }
 
                 }
 
                 @Override
-                public void afterTextChanged(Editable s) { }
+                public void afterTextChanged(Editable s) {
+                }
             });
             getCustomerDetailList();
             loadData();
-            orderDate.setText( DateFormat.getDateInstance().format(new Date()) );
+            orderDate.setText(DateFormat.getDateInstance().format(new Date()));
         }
 
     }
@@ -215,10 +214,10 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c=Calendar.getInstance();
-        c.set(Calendar.YEAR,year);
-        c.set(Calendar.MONTH,month);
-        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         //String dateString= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(c.getTime());
         // Date date = new Date();
@@ -290,9 +289,9 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             case R.id.addnewCustomerButton:
                 openUpdateDailoge();
                 break;
-            case  R.id.orderDatePicker:
-                DialogFragment datepicker=new DatePickerFragment();
-                datepicker.show(getSupportFragmentManager(),"date picker");
+            case R.id.orderDatePicker:
+                DialogFragment datepicker = new DatePickerFragment();
+                datepicker.show(getSupportFragmentManager(), "date picker");
                 break;
 //            case  R.id.addstatus:
 //                    addStatusUser();
@@ -304,23 +303,23 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void addStatusUser() {
-                            try {
+        try {
 
-                        //String res="";
-                        progressDialog.setMessage("loading...");
-                        progressDialog.show();
-                                if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" )||filterkey.equals( "PandingToPlaceOrder" ))
+            //String res="";
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            if (filterkey.equals("pandingForAdv") || filterkey.equals("orderCreate") || filterkey.equals("PandingToPlaceOrder"))
 
-                                    new AfterCreateActivity.POSTStatus().execute(orderid, "0", "0", "0", "0", "0", "", "", "",SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
-                                else
-                                    Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
+                new AfterCreateActivity.POSTStatus().execute(orderid, "0", "0", "0", "0", "0", "", "", "", SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+            else
+                Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-                        // System.out.println("Error: " + e);
-                    }
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            // System.out.println("Error: " + e);
+        }
     }
 
     private void openUpdateDailoge() {
@@ -340,7 +339,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         cAddress = dialogView.findViewById(R.id.password);
         interioName = dialogView.findViewById(R.id.confrmPassword);
         interioContact = dialogView.findViewById(R.id.interiormobile);
-
 
 
         final Button buttonCreate = dialogView.findViewById(R.id.customerButton);
@@ -432,7 +430,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     /*Room Add*/
 
-    private void addroomdailogueOpen(final long orderid,String aroomlist){
+    private void addroomdailogueOpen(final long orderid, String aroomlist) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -458,11 +456,11 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
 
-                if (String.valueOf(spinner.getSelectedItem()).trim().length()>0) {
+                if (String.valueOf(spinner.getSelectedItem()).trim().length() > 0) {
                     try {
-                        if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" )||filterkey.equals( "PandingToPlaceOrder" ))
-                        new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim(),SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
-                    else
+                        if (filterkey.equals("pandingForAdv") || filterkey.equals("orderCreate") || filterkey.equals("PandingToPlaceOrder"))
+                            new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim(), SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+                        else
                             Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -485,7 +483,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         });
 
     }
-
 
 
     private class postAddRoom extends AsyncTask<String, Void, String> {
@@ -517,7 +514,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 parameters.add("RomanPrice", "0");
                 parameters.add("ElightPrice", "0");
                 parameters.add("APlatPrice", "0");
-
 
 
                 builder.post(parameters.build());
@@ -554,24 +550,25 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private void getMyOrder(String orderId) {
         try {
 
-            new GETOrderList().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token,orderId);
+            new GETOrderList().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token, orderId);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             // System.out.println("Error: " + e);
         }
     }
+
     private class GETOrderList extends AsyncTask<String, Void, String> implements View.OnClickListener {
         @Override
         protected String doInBackground(String... params) {
 
             String json = "";
             String accesstoken = params[0];
-            String orderid=params[1];
+            String orderid = params[1];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API+"OrderGet/"+orderid);
+                builder.url(AppConfig.BASE_URL_API + "OrderGet/" + orderid);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -586,6 +583,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             }
             return json;
         }
+
         protected void onPostExecute(String result) {
 
             try {
@@ -606,7 +604,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
                     if (actualorder.equals("ActualOrder")) {
                         textViewATotalAmount.setText(String.valueOf(morder.getATotalAmount()));
-                       roomName = morder.getActuRoomList().split(",");
+                        roomName = morder.getActuRoomList().split(",");
                     } else {
                         textViewATotalAmount.setText(String.valueOf(morder.getTotalAmount()));
                         roomName = morder.getRoomList().split(",");
@@ -618,16 +616,16 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
 //                    String StatusName,
 
-                            roomlistadapter  = new RoomListAdapter(getApplicationContext(), roomList,stausname,orderid
-                            ,c_name.getText().toString(),c_contact.getText().toString()
-                                    ,orderDate.getText().toString()
-                                    ,amount.getText().toString(),actualorder,filterkey);
-                                     recyclerView.setAdapter(roomlistadapter);
-                   // ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist, R.id.label, roomName);
+                    roomlistadapter = new RoomListAdapter(getApplicationContext(), roomList, stausname, orderid
+                            , c_name.getText().toString(), c_contact.getText().toString()
+                            , orderDate.getText().toString()
+                            , amount.getText().toString(), actualorder, filterkey);
+                    recyclerView.setAdapter(roomlistadapter);
+                    // ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist, R.id.label, roomName);
                     //roomname.setAdapter(spinnerArrayAdapter);
 
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -642,7 +640,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     /*customer get*/
     private void getCustomerDetailList() {
         try {
-
             new getCustomerList().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
@@ -652,15 +649,13 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     private void getCustomerDetail(String cusname) {
 
-            try {
+        try {
 
-                new getCustomer().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token,cusname);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            }
-
-
+            new getCustomer().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token, cusname);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
 
 
     }
@@ -723,7 +718,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "CustomerGet/"+cusname);
+                builder.url(AppConfig.BASE_URL_API + "CustomerGet/" + cusname);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -745,11 +740,12 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 Gson gson = new Gson();
                 Type listType = new TypeToken<CustomerModel>() {
                 }.getType();
-                customer= new Gson().fromJson(result, listType);
-                if(customer!=null){
-                cid=customer.getCustomerID();
-                c_contact.setText(customer.getMobile());
-                i_address.setText(customer.getAddress());}
+                customer = new Gson().fromJson(result, listType);
+                if (customer != null) {
+                    cid = customer.getCustomerID();
+                    c_contact.setText(customer.getMobile());
+                    i_address.setText(customer.getAddress());
+                }
 
 
             }
@@ -757,27 +753,29 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
         }
     }
+
     /*customer List get*/
     private void postOrder() {
 
         String date = orderDate.getText().toString();
         String advance = amount.getText().toString();
         try {
-            if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" )||filterkey.equals( "PandingToPlaceOrder" ))
+            if (filterkey.equals("pandingForAdv") || filterkey.equals("orderCreate") || filterkey.equals("PandingToPlaceOrder"))
 
-                new POSTOrder().execute(String.valueOf(cid),date,advance,SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+                new POSTOrder().execute(String.valueOf(cid), date, advance, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
 
             else
                 Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
 
             //String
-            } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
 
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             // System.out.println("Error: " + e);
         }
     }
+
     private class POSTOrder extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -799,7 +797,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
-                if(!orderid.equals( "" )){
+                if (!orderid.equals("")) {
                     parameters.add("OrderID", orderid);
                 }
                 parameters.add("CustomerID", customerid);
@@ -827,9 +825,9 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 //System.out.println("CONTENIDO:  " + result);
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
-                orderidPart =  jsonbodyres.getMessage().split(",");
-                orderid=orderidPart[1];
-                Toast.makeText(getApplicationContext(),jsonbodyres.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                orderidPart = jsonbodyres.getMessage().split(",");
+                orderid = orderidPart[1];
+                Toast.makeText(getApplicationContext(), jsonbodyres.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
                     addorder.setEnabled(false);
@@ -837,7 +835,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     getMyOrder(orderid);
                     //addorder.setVisibility( View.GONE );
                     addroom.setVisibility(View.VISIBLE);
-                  //  addUserStatus.setVisibility(View.VISIBLE);
+                    //  addUserStatus.setVisibility(View.VISIBLE);
                     //post status
 //                    try {
 //
@@ -856,6 +854,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         }
 
     }
+
     private class POSTStatus extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {

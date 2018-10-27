@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
-import com.example.awizom.dotapp.HomeActivity;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
@@ -40,7 +39,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
     private String valueButtonname;
     private DataOrder orderitem;
-    DataOrder order;
+    private DataOrder order;
     private String statusName,dailogMessage;
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     private Spinner handOvertoNameSpinner, tailorListNameSpinner;
@@ -48,13 +47,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private Button okRecevedButton,canceLOrderButton;
 
 
-    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey, String valueButtonname, String statusName,String dailogMessage) {
+
+
+    public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey, String valueButtonname, String statusName) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
         this.filterKey = filterKey;
         this.valueButtonname = valueButtonname;
         this.statusName = statusName;
         this.dailogMessage = dailogMessage;
+
         progressDialog = new ProgressDialog(mCtx);
         String a = SharedPrefManager.getInstance(mCtx).getUser().access_token;
 

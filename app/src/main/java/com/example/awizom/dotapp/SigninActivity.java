@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -43,6 +44,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 
         initView();
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
@@ -54,7 +56,6 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                     // finish used for destroyed activity
                     finishAffinity();
                     System.exit(0);
-
 
 
                 }
@@ -81,24 +82,23 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         signinButton.setOnClickListener(this);
         signupHere = findViewById(R.id.signupHere);
         signupHere.setOnClickListener(this);
-       try {
-           if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
-               if(SharedPrefManager.getInstance(SigninActivity.this).getUser().userRole.contains("Admin")) {
-                   Intent log = new Intent(getApplicationContext(), HomeActivity.class);
-                   startActivity(log);
+        try {
+            if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
+                if (SharedPrefManager.getInstance(SigninActivity.this).getUser().userRole.contains("Admin")) {
+                    Intent log = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(log);
 
-               }
-               else {
+                } else {
 
-                   Intent log = new Intent(getApplicationContext(), HomeActivityUser.class);
-                   startActivity(log);
+                    Intent log = new Intent(getApplicationContext(), HomeActivityUser.class);
+                    startActivity(log);
 
 
-               }
+                }
             }
-       }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-       }
+        }
 
     }
 
@@ -121,8 +121,8 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         if (userName.getText().toString().isEmpty() && passWord.getText().toString().isEmpty()) {
             Toast.makeText(this, "Filed can't be blank", Toast.LENGTH_SHORT).show();
             return false;
-        }else if( !isValidPassword(passWord.getText().toString())) {
-            Toast.makeText(getApplicationContext(),"Password incorrect",Toast.LENGTH_SHORT);
+        } else if (!isValidPassword(passWord.getText().toString())) {
+            Toast.makeText(getApplicationContext(), "Password incorrect", Toast.LENGTH_SHORT);
             return false;
         }
         return true;
@@ -196,48 +196,46 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         protected void onPostExecute(String result) {
-           try{
-            if (result.isEmpty()) {
-                progressDialog.dismiss();
-
-                Toast.makeText(getApplicationContext(), "Invalid user id or password", Toast.LENGTH_SHORT).show();
-            } else {
-                Gson gson = new Gson();
-                UserLogin.RootObject jsonbody = gson.fromJson(result, UserLogin.RootObject.class);
-
-                if (jsonbody.isStatus()) {
-                    Token user = new Token();
-                    user.userRole = jsonbody.Role;
-                    user.access_token = jsonbody.login.access_token;
-                    user.userName = jsonbody.login.userName;
-                    user.token_type = jsonbody.login.token_type;
-                    user.expires_in = jsonbody.login.expires_in;
-
-                    SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
-                    if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
-
-                        if(user.getUserRole().contains("Admin")) {
-                            Intent log = new Intent(getApplicationContext(), HomeActivity.class);
-                            startActivity(log);
-
-                        }
-                        else {
-
-                            Intent log = new Intent(getApplicationContext(), HomeActivityUser.class);
-                            startActivity(log);
-
-
-                        }
-
-                    }
+            try {
+                if (result.isEmpty()) {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Invalid user id or password", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), jsonbody.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+                    Gson gson = new Gson();
+                    UserLogin.RootObject jsonbody = gson.fromJson(result, UserLogin.RootObject.class);
 
+                    if (jsonbody.isStatus()) {
+                        Token user = new Token();
+                        user.userRole = jsonbody.Role;
+                        user.access_token = jsonbody.login.access_token;
+                        user.userName = jsonbody.login.userName;
+                        user.token_type = jsonbody.login.token_type;
+                        user.expires_in = jsonbody.login.expires_in;
+
+                        SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
+                        if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
+
+                            if (user.getUserRole().contains("Admin")) {
+                                Intent log = new Intent(getApplicationContext(), HomeActivity.class);
+                                startActivity(log);
+
+                            } else {
+
+                                Intent log = new Intent(getApplicationContext(), HomeActivityUser.class);
+                                startActivity(log);
+
+
+                            }
+
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Invalid user id or password", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-           }catch (Exception e){
-               e.printStackTrace();
-           }
 
         }
     }
