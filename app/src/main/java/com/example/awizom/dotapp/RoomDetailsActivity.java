@@ -700,7 +700,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderRoomPost");
+                builder.url(AppConfig.BASE_URL_API + "OrderRoomUpdatePost");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);

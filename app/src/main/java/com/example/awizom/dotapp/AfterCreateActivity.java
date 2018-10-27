@@ -309,7 +309,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                         //String res="";
                         progressDialog.setMessage("loading...");
                         progressDialog.show();
-                                if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" ))
+                                if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" )||filterkey.equals( "PandingToPlaceOrder" ))
 
                                     new AfterCreateActivity.POSTStatus().execute(orderid, "0", "0", "0", "0", "0", "", "", "",SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
                                 else
@@ -460,7 +460,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
                 if (String.valueOf(spinner.getSelectedItem()).trim().length()>0) {
                     try {
-                        if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" ))
+                        if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" )||filterkey.equals( "PandingToPlaceOrder" ))
                         new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim(),SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
                     else
                             Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
@@ -763,7 +763,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         String date = orderDate.getText().toString();
         String advance = amount.getText().toString();
         try {
-            if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" ))
+            if(filterkey.equals( "pandingForAdv" )||filterkey.equals( "orderCreate" )||filterkey.equals( "PandingToPlaceOrder" ))
 
                 new POSTOrder().execute(String.valueOf(cid),date,advance,SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
 
