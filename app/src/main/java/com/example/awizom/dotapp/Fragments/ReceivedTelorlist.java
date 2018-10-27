@@ -46,7 +46,7 @@ public class ReceivedTelorlist extends Fragment {
 
     ProgressDialog progressDialog;
     ListView lv;
-    ImageButton img;
+
     RecyclerView lv1;
     // List <TelorModel> list1;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -63,7 +63,7 @@ public class ReceivedTelorlist extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.telor_list_item, container, false);
+        View view = inflater.inflate(R.layout.received_telor_list, container, false);
         initView(view);
         return view;
 
@@ -79,9 +79,9 @@ public class ReceivedTelorlist extends Fragment {
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-        img = view.findViewById(R.id.updateButton);
+
         //     lv = view.findViewById(R.id.telorList);
-        img.setVisibility(View.GONE);
+
 
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

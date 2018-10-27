@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.CustomerListAdapter;
@@ -47,6 +48,8 @@ import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -61,8 +64,8 @@ public class HandOverTelorList extends Fragment {
 
     ProgressDialog progressDialog;
     ListView lv;
-    ImageButton btn;
-
+    // TextView telornam;
+     ImageButton print;
     RecyclerView lv1;
     List<HandOverModel> list1;
     HandOverAdapter adapterh;
@@ -78,7 +81,7 @@ public class HandOverTelorList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.telor_list_item, container, false);
+        View view = inflater.inflate(R.layout.handover_telor_list, container, false);
         initView(view);
         return view;
 
@@ -90,11 +93,11 @@ public class HandOverTelorList extends Fragment {
         progressDialog.setMessage("Please wait while loading telors");
         lv = view.findViewById(R.id.telorList);
         lv1 = view.findViewById(R.id.rcyclr);
+        //telornam=view.findViewById(R.id.tlr1);
         lv1.setHasFixedSize(true);
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        btn = view.findViewById(R.id.updateButton);
-        btn.setVisibility(View.GONE);
+
         //     lv = view.findViewById(R.id.telorList);
 
 
@@ -103,6 +106,7 @@ public class HandOverTelorList extends Fragment {
             public void onRefresh() {
                 // Refresh items
                 getTelorList();
+
             }
         });
         getTelorList();
@@ -164,6 +168,7 @@ public class HandOverTelorList extends Fragment {
                 builder.addHeader("Content-Length", "0");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
 
+
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();
@@ -192,8 +197,12 @@ public class HandOverTelorList extends Fragment {
                     }.getType();
                     list1 = new Gson().fromJson(result, listType);
                     adapterh = new HandOverAdapter(getContext(), list1);
+                  //   telornam.setText(hTelor);
                     lv1.setAdapter(adapterh);
+
+
                     progressDialog.dismiss();
+
 
                 }
             } catch (Exception e) {

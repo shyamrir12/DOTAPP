@@ -8,19 +8,18 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Models.HandOverModel;
+import com.example.awizom.dotapp.Models.ReceivedModel;
 import com.example.awizom.dotapp.R;
 
 import java.io.File;
@@ -29,20 +28,20 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderItemViewHolder> {
+public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderItemViewHolder> {
 
     private Context mCtx;
     ProgressDialog progressDialog;
     private LinearLayout linearLayout;
     private String[] handoveritemList;
-TextView telor;
+    TextView telor;
     //we are storing all the products in a list
-    private List<HandOverModel> handoveritemlist;
+    private List<ReceivedModel> receivedlist;
 
 
-    public HandOverAdapter(Context mCtx, List<HandOverModel> handoverlist) {
+    public ReceivedAdapter(Context mCtx, List<ReceivedModel> receivedlist) {
         this.mCtx = mCtx;
-        this.handoveritemlist = handoverlist;
+        this.receivedlist = receivedlist;
         progressDialog = new ProgressDialog(mCtx);
     }
 
@@ -51,17 +50,17 @@ TextView telor;
     public OrderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.handoverlist, null);
-        return new OrderItemViewHolder(view, mCtx, handoveritemlist);
+        View view = inflater.inflate(R.layout.received_telor, null);
+        return new OrderItemViewHolder(view, mCtx, receivedlist);
 
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
-        HandOverModel handover = handoveritemlist.get(position);
+        ReceivedModel handover = receivedlist.get(position);
         try {
-           // holder.telor.setText(handover.getTelorName());
+            // holder.telor.setText(handover.getTelorName());
             holder.snum.setText(handover.getSerialNo());
             holder.a_qty.setText(String.valueOf( handover.getAQty()));
             holder.catalog.setText(handover.getCatalogName());
@@ -69,9 +68,9 @@ TextView telor;
             holder.page_no.setText(String.valueOf(handover.getPageNo()));
             holder.aunt.setText(handover.getUnit());
 
-          //  holder.price.setText(String.valueOf( handover.getPrice()).toString());
+            //  holder.price.setText(String.valueOf( handover.getPrice()).toString());
             holder.price.setText(String.valueOf(handover.getPrice2()));
-          //  holder.serialNo.setText(String.valueOf(handover.getSerialNo()));
+            //  holder.serialNo.setText(String.valueOf(handover.getSerialNo()));
 
 
         } catch (Exception E) {
@@ -84,7 +83,7 @@ TextView telor;
 
     @Override
     public int getItemCount() {
-        return handoveritemlist.size();
+        return receivedlist.size();
     }
 
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
@@ -93,17 +92,17 @@ TextView telor;
         TextView a_qty, catalog, design, page_no, price, price2,telor,snum,aunt;
 
         //we are storing all the products in a list
-        private List<HandOverModel> hndovritemList;
+        private List<ReceivedModel> receivedModels;
 
 
-        public OrderItemViewHolder(View itemView, final Context mCtx, List<HandOverModel> handoveritemlist) {
+        public OrderItemViewHolder(View itemView, final Context mCtx, List<ReceivedModel> receivedModelList) {
             super(itemView);
             this.mCtx = mCtx;
-            this.hndovritemList = handoveritemlist;
+            this.receivedModels = receivedModelList;
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
-         //   telor = itemView.findViewById(R.id.tlr);
+            //   telor = itemView.findViewById(R.id.tlr);
             snum = itemView.findViewById(R.id.snum);
             aunt = itemView.findViewById(R.id.unt3);
             a_qty = itemView.findViewById(R.id.qty);
@@ -111,8 +110,8 @@ TextView telor;
             design = itemView.findViewById(R.id.design);
             page_no = itemView.findViewById(R.id.pgn);
             price = itemView.findViewById(R.id.princ);
-         //   price2 = itemView.findViewById(R.id.princ2);
-           // receivedBy = itemView.findViewById(R.id.receivedby);
+            //   price2 = itemView.findViewById(R.id.princ2);
+            // receivedBy = itemView.findViewById(R.id.receivedby);
 
 
             //Button btn1 = itemView.findViewById(R.id.bton1);
@@ -124,18 +123,13 @@ TextView telor;
         public void onClick(View v) {
 
             int position = getAdapterPosition();
-            HandOverModel hndoitem = this.hndovritemList.get(position);
+            ReceivedModel rcvitem = this.receivedModels.get(position);
             //createPdf(handoveritemlist.get(position).toString());
 
 
 
 
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, "Let's go for a trip to "
-                    + hndoitem );
-            intent.setType("text/plain");
-            mCtx.startActivity(Intent.createChooser(intent, "Send To"));
-                }
+        }
 
 
 
@@ -177,31 +171,31 @@ TextView telor;
             File filePath = new File(targetPdf);
             try {
                 document.writeTo(new FileOutputStream(filePath));
-            //    Toast.makeText(this, "Done", Toast.LENGTH_LONG).show();
+                //    Toast.makeText(this, "Done", Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 Log.e("main", "error "+e.toString());
-           //     Toast.makeText(this, "Something wrong: " + e.toString(),  Toast.LENGTH_LONG).show();
+                //     Toast.makeText(this, "Something wrong: " + e.toString(),  Toast.LENGTH_LONG).show();
             }
             // close the document
             document.close();
         }
 
-    @Override
+        @Override
         public boolean onLongClick(View v) {
             int position = getAdapterPosition();
-            HandOverModel hndoitem = this.hndovritemList.get(position);
+            ReceivedModel rcvitem = this.receivedModels.get(position);
 
 
-        if (v.getId() == itemView.getId()) {
-            // showUpdateDeleteDialog(order);
-            try {
+            if (v.getId() == itemView.getId()) {
+                // showUpdateDeleteDialog(order);
+                try {
 
-            } catch (Exception E) {
-                E.printStackTrace();
+                } catch (Exception E) {
+                    E.printStackTrace();
+                }
+                Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
-        }
-        return true;
-    }
+            return true;
         }
     }
+}
