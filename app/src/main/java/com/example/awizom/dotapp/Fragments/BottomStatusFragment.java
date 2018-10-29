@@ -250,22 +250,22 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                     Type listType = new TypeToken<String[]>(){}.getType();
                     values= gson.fromJson(result, listType);
 
-                    PandingToPlaceOrder =pendingttoPlaceOrder.getText()+" ("+ values[1].split("=")[1] +")";
+                    PandingToPlaceOrder ="Panding To Place Order "+" ("+ values[1].split("=")[1] +")";
                     pendingttoPlaceOrder.setText(PandingToPlaceOrder);
 
-                    Hold =holD.getText()+" ("+ values[2].split("=")[1] +")";
+                    Hold ="Hold"+" ("+ values[2].split("=")[1] +")";
                     holD.setText(Hold);
 
-                    PandingToReceiveMaterial =pendingToreceivedMaterial.getText()+" ("+ values[3].split("=")[1] +")";
+                    PandingToReceiveMaterial ="Panding To Receive Material "+" ("+ values[3].split("=")[1] +")";
                     pendingToreceivedMaterial.setText(PandingToReceiveMaterial);
 
-                    PandingToHandOverTo =handOverto.getText()+" ("+ values[4].split("=")[1] +")";
+                    PandingToHandOverTo ="Panding To Hand Over "+" ("+ values[4].split("=")[1] +")";
                     handOverto.setText(PandingToHandOverTo);
 
-                    PandingToReceivedFromTelor =pendingtorecevefrometailor.getText()+" ("+ values[5].split("=")[1] +")";
+                    PandingToReceivedFromTelor ="Panding To Received "+" ("+ values[5].split("=")[1] +")";
                     pendingtorecevefrometailor.setText(PandingToReceivedFromTelor);
 
-                    Dispatch =dispatch.getText()+" ("+ values[6].split("=")[1] +")";
+                    Dispatch ="Dispatch "+" ("+ values[6].split("=")[1] +")";
                     dispatch.setText(Dispatch);
                     mSwipeRefreshLayout.setRefreshing(false);
 

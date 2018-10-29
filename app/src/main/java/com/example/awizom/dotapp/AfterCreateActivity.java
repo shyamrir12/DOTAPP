@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,7 +56,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     private TextView c_contact, i_name, i_contact, i_address, orderDateLabel, textViewATotalAmount;
     private EditText orderDate, amount;
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
     private long cid = 0;
     DataOrder catelogOrderDetailModel;
     List<DataOrder> orderList;
@@ -105,7 +106,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
 
             getSupportActionBar().setTitle("Create Order");
-
+        mSwipeRefreshLayout =findViewById(R.id.swipeRefreshLayout);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c_name = findViewById(R.id.customerName);
         c_contact = findViewById(R.id.customerContact);
@@ -167,6 +168,13 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         }
 
         if (!orderid.equals("")) {
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    // Refresh items
+                    getMyOrder(orderid);
+                }
+            });
             getMyOrder(orderid);
             addroom.setVisibility(View.VISIBLE);
 
@@ -554,11 +562,12 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     private void getMyOrder(String orderId) {
         try {
-
+            mSwipeRefreshLayout.setRefreshing(true);
             new GETOrderList().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token, orderId);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            mSwipeRefreshLayout.setRefreshing(false);
             // System.out.println("Error: " + e);
         }
     }
@@ -583,6 +592,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                mSwipeRefreshLayout.setRefreshing(false);
                 // System.out.println("Error: " + e);
 //                Toast.makeText(getContext(),"Error: " + e,Toast.LENGTH_SHORT).show();
             }
@@ -626,6 +636,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                             , orderDate.getText().toString()
                             , amount.getText().toString(), actualorder, filterkey);
                     recyclerView.setAdapter(roomlistadapter);
+                    mSwipeRefreshLayout.setRefreshing(false);
                     // ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist, R.id.label, roomName);
                     //roomname.setAdapter(spinnerArrayAdapter);
 

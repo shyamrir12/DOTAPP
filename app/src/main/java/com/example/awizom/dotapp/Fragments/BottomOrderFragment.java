@@ -240,7 +240,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
                     Type listType = new TypeToken<String[]>() {
                     }.getType();
                     values = gson.fromJson(result, listType);
-                    pandingForAdv = pendingOrderList.getText() + " (" + values[0].split("=")[1] + ")";
+                    pandingForAdv = "Panding For Advance "+ " (" + values[0].split("=")[1] + ")";
                     pendingOrderList.setText(pandingForAdv);
                     mSwipeRefreshLayout.setRefreshing(false);
                 }

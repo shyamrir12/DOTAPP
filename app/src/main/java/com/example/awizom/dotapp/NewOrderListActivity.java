@@ -59,9 +59,13 @@ public class NewOrderListActivity extends AppCompatActivity {
         dailogMessage = getIntent().getExtras().getString("DailogMessage","");
         countvalue = getIntent().getExtras().getString("Count","");
 
+        if(statusName.equals("Reset"))
+        {
+            getSupportActionBar().setTitle("Dispatch");
+        }else
         if(statusName.equals("Cancel"))
         {
-            getSupportActionBar().setTitle("Pending for Advance");
+            getSupportActionBar().setTitle("panding For Adv");
         }else {
             getSupportActionBar().setTitle(statusName);
         }
