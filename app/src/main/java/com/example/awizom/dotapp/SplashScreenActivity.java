@@ -35,7 +35,7 @@ import okhttp3.Request;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 2000;
-    String[] values,data,hold,dispatch,placeorder,recedMaterial,pendinfradvance,pendinHandOver,recdfromtailor;
+
     String sendParam;
     private Intent intent;
 
@@ -80,12 +80,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                     alertbox.setTitle("Internet Connection Is Not Available");
                     alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                            //   startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
-                            // Intent intent = new Intent(Intent.ACTION_MAIN);
-                            //   intent.setClassName("com.android.phone", "com.android.phone.NetworkSetting");
-                            //   startActivity(intent);
-
-
                             finishAffinity();
                             System.exit(0);
 
@@ -159,31 +153,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                     startActivity(intent);
                     finish();
-
-//                    Gson gson = new Gson();
-//                    Type listType = new TypeToken<String[]>(){}.getType();
-//                    values= gson.fromJson(result, listType);
-//
-//                    pendinfradvance = values[0].split("=");
-//                    placeorder= values[1].split("=");
-//                    hold = values[2].split("=");
-//                    recedMaterial = values[3].split("=");
-//                    pendinHandOver = values[4].split("=");
-//                    recdfromtailor = values[5].split("=");
-//                    dispatch = values[6].split("=");
-//
-////                    for (int i = 0; i < values.length; i++) {
-////                        dataitem = values[i].split("=");
-////                        sendParam = dataitem[1];
-////                    }
-//                    intent = new Intent(getApplicationContext(),HomeActivity.class);
-//                    intent = intent.putExtra("placeorder",sendParam);
-//                    intent = intent.putExtra("dispatch",dispatch);
-//                    intent = intent.putExtra("hold",hold);
-//                    intent = intent.putExtra("material",recedMaterial);
-//                    intent = intent.putExtra("tailor",recdfromtailor);
-//                    intent = intent.putExtra("material",recedMaterial);
-//                    startActivity(intent);
 
                 }
             } catch (Exception e) {

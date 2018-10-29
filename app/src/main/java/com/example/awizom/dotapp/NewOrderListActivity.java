@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,11 +22,11 @@ import okhttp3.Request;
 
 public class NewOrderListActivity extends AppCompatActivity {
     private Intent intent;
-    ProgressDialog progressDialog;
+    //ProgressDialog progressDialog;
     List<DataOrder> orderList;
     RecyclerView recyclerView;
     OrderListAdapter adapter;
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
     String filterKey = "";
     String valueButtonName = "";
     String statusName ="";
@@ -42,20 +43,13 @@ public class NewOrderListActivity extends AppCompatActivity {
 
     private void initView() {
 
-        progressDialog = new ProgressDialog(getApplicationContext());
-        //  mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+       // progressDialog = new ProgressDialog(getApplicationContext());
+          mSwipeRefreshLayout =findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        progressDialog = new ProgressDialog(this);
-//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                // Refresh items
-//                getOrderList();
-//            }
-//        });
+        //progressDialog = new ProgressDialog(this);
 
 
 
@@ -71,6 +65,19 @@ public class NewOrderListActivity extends AppCompatActivity {
         }else {
             getSupportActionBar().setTitle(statusName);
         }
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                if (!filterKey.equals( "PandingToPlaceOrder" )){
+                    getOrderList();
+                }else if (filterKey.equals( "PandingToPlaceOrder" )){
+                    getOrderList();
+                }
+            }
+        });
+
         if (!filterKey.equals( "PandingToPlaceOrder" )){
             getOrderList();
         }else if (filterKey.equals( "PandingToPlaceOrder" )){
@@ -79,18 +86,18 @@ public class NewOrderListActivity extends AppCompatActivity {
 
 
 
-
     }
 
     private void getOrderList() {
         try {
-
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
+            mSwipeRefreshLayout.setRefreshing(true);
+//            progressDialog.setMessage("loading...");
+//            progressDialog.show();
             new NewOrderListActivity.GetOrderDetails().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
+            mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -119,7 +126,8 @@ public class NewOrderListActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
                 //Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
@@ -127,7 +135,7 @@ public class NewOrderListActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "There is no data available" +
                         "", Toast.LENGTH_SHORT).show();
             } else {
@@ -137,7 +145,8 @@ public class NewOrderListActivity extends AppCompatActivity {
                 orderList = new Gson().fromJson(result, listType);
                 adapter = new OrderListAdapter(getApplicationContext(), orderList,filterKey,valueButtonName,statusName);
                 recyclerView.setAdapter(adapter);
-                progressDialog.dismiss();
+              //  progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
                 //mSwipeRefreshLayout.setRefreshing(false);
             }
         }
