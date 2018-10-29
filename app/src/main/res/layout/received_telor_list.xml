@@ -44,6 +44,26 @@
 
 
     </RelativeLayout>
+    <ImageButton
+        android:id="@+id/updateButton1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/updateButton"
+        android:visibility="visible"
+        android:src="@drawable/ic_add_white_24dp"
+
+        android:layout_alignParentRight="true"
+        />
+    <ImageButton
+        android:id="@+id/updateButton2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/updateButton1"
+        android:visibility="visible"
+        android:src="@drawable/ic_add_white_24dp"
+
+        android:layout_alignParentRight="true"
+        />
 
 
 

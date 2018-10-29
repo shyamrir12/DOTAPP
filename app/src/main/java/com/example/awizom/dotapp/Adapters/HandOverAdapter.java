@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
 
     private Context mCtx;
     ProgressDialog progressDialog;
+    ImageButton img2,img3;
     private LinearLayout linearLayout;
     private String[] handoveritemList;
 TextView telor;

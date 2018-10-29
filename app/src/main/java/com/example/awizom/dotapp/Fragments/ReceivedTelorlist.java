@@ -2,14 +2,20 @@ package com.example.awizom.dotapp.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +40,21 @@ import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -46,7 +66,7 @@ public class ReceivedTelorlist extends Fragment {
 
     ProgressDialog progressDialog;
     ListView lv;
-
+    ImageButton img2,img3;
     RecyclerView lv1;
     // List <TelorModel> list1;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -59,6 +79,8 @@ public class ReceivedTelorlist extends Fragment {
     private String telornamet,telorname_old,hTelor;
     List<HandOverModel> list1;
     HandOverAdapter adapterh;
+    private  String r;
+    private String title;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +92,7 @@ public class ReceivedTelorlist extends Fragment {
     }
 
     private void initView(View view) {
+
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait while loading telors");
@@ -77,8 +100,25 @@ public class ReceivedTelorlist extends Fragment {
         lv1=view.findViewById(R.id.rcyclr);
         lv1.setHasFixedSize(true);
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
+        img2=view.findViewById(R.id.updateButton1);
+        img3=view.findViewById(R.id.updateButton2);
 
+//        title = getArguments().getString("NAME_KEY").toString();
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                createPDF();
+
+            }
+        });
+
+        img3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPdf();
+            }
+        });
 
         //     lv = view.findViewById(R.id.telorList);
 
@@ -103,6 +143,90 @@ public class ReceivedTelorlist extends Fragment {
                            getreceivedTelorList();
             }
         });
+    }
+
+    void openPdf()
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+
+        File file = new File(path, "demo.pdf");
+
+        intent.setDataAndType( Uri.fromFile( file ), "application/pdf" );
+        startActivity(intent);
+    }
+    private void createPDF() {
+
+
+        Document doc = new Document();
+
+        try {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+
+            File dir = new File(path);
+            if(!dir.exists())
+                dir.mkdirs();
+
+            Log.d("PDFCreator", "PDF Path: " + path);
+
+            File file = new File(dir, "demo.pdf");
+            FileOutputStream fOut = new FileOutputStream(file);
+
+            PdfWriter.getInstance(doc, fOut);
+
+            //open the document
+            doc.open();
+            //     t=t_name.getText();
+            /* Create Paragraph and Set Font */
+            Paragraph p1 = new Paragraph(r.toString());
+
+            /* Create Set Font and its Size */
+            Font paraFont= new Font(Font.FontFamily.COURIER);
+            paraFont.setSize(16);
+            p1.setAlignment(Paragraph.ALIGN_CENTER);
+            p1.setFont(paraFont);
+
+            //add paragraph to document
+            doc.add(p1);
+
+
+            Paragraph p2 = new Paragraph("This is an example of a simple paragraph");
+
+            /* You can also SET FONT and SIZE like this */
+            Font paraFont2= new Font(Font.FontFamily.HELVETICA , 14.0f, Color.GREEN);
+            p2.setAlignment(Paragraph.ALIGN_CENTER);
+            p2.setFont(paraFont2);
+
+            doc.add(p2);
+
+            /* Inserting Image in PDF */
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.green_warning);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100 , stream);
+            Image myImg = Image.getInstance(stream.toByteArray());
+            myImg.setAlignment(Image.MIDDLE);
+
+            //add image to document
+            doc.add(myImg);
+
+            //set footer
+            Phrase footerText = new Phrase("This is an example of a footer");
+            HeaderFooter pdfFooter = new HeaderFooter();
+            doc.newPage();
+
+            Toast.makeText(getContext(), "Created...", Toast.LENGTH_LONG).show();
+
+        } catch (DocumentException de) {
+            Log.e("PDFCreator", "DocumentException:" + de);
+        } catch (IOException e) {
+            Log.e("PDFCreator", "ioException:" + e);
+        } finally
+        {
+            doc.close();
+        }
+
+
+
     }
 
     private void getreceivedTelorList() {
@@ -163,12 +287,14 @@ public class ReceivedTelorlist extends Fragment {
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
+
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<HandOverModel>>() {
                 }.getType();
                 list1 = new Gson().fromJson(result, listType);
                 adapterh = new HandOverAdapter(getContext(), list1);
                 lv1.setAdapter(adapterh);
+                r = result.toString().replaceAll("   ", "");
 
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -237,6 +363,8 @@ public class ReceivedTelorlist extends Fragment {
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
+
+
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getContext()
@@ -295,7 +423,7 @@ public class ReceivedTelorlist extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
+
             }
 
             return json;
@@ -320,6 +448,68 @@ public class ReceivedTelorlist extends Fragment {
                 progressDialog.dismiss();
             }
 
+        }
+    }
+
+    private class HeaderFooter {
+
+        Phrase[] header = new Phrase[2];
+        /** Current page number (will be reset for every chapter). */
+        int pagenumber;
+
+        /**
+         * Initialize one of the headers.
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onOpenDocument(
+         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+         */
+        public void onOpenDocument(PdfWriter writer, Document document) {
+            header[0] = new Phrase("Movie history");
+        }
+
+        /**
+         * Initialize one of the headers, based on the chapter title;
+         * reset the page number.
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onChapter(
+         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document, float,
+         *      com.itextpdf.text.Paragraph)
+         */
+        public void onChapter(PdfWriter writer, Document document,
+                              float paragraphPosition, Paragraph title) {
+            header[1] = new Phrase(title.getContent());
+            pagenumber = 1;
+        }
+
+        /**
+         * Increase the page number.
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onStartPage(
+         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+         */
+        public void onStartPage(PdfWriter writer, Document document) {
+            pagenumber++;
+        }
+
+        /**
+         * Adds the header and the footer.
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onEndPage(
+         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+         */
+        public void onEndPage(PdfWriter writer, Document document) {
+            Rectangle rect = writer.getBoxSize("art");
+            switch(writer.getPageNumber() % 2) {
+                case 0:
+                    ColumnText.showTextAligned(writer.getDirectContent(),
+                            Element.ALIGN_RIGHT, header[0],
+                            rect.getRight(), rect.getTop(), 0);
+                    break;
+                case 1:
+                    ColumnText.showTextAligned(writer.getDirectContent(),
+                            Element.ALIGN_LEFT, header[1],
+                            rect.getLeft(), rect.getTop(), 0);
+                    break;
+            }
+            ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_CENTER, new Phrase(String.format("page %d", pagenumber)),
+                    (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
         }
     }
 }
