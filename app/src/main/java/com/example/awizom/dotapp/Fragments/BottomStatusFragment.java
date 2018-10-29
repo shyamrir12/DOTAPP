@@ -80,7 +80,6 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
         dispatch.setOnClickListener(this);
         pendingToreceivedMaterial.setOnClickListener(this);
         pendingtorecevefrometailor.setOnClickListener(this);
-        orderitem = new DataOrder();
         statuspendingOrderFragment = new CustomerListFrgment();
 
     }
