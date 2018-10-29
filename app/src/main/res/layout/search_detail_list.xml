@@ -27,10 +27,10 @@
                 android:layout_width="190dp"
                 android:layout_height="45dp"
                 android:layout_weight="1"
-                android:layout_marginTop="25dp"
+                android:layout_margin="25dp"
                 android:text="Go"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:background="@drawable/add_cancel_button_shape"/>
         </LinearLayout>
 

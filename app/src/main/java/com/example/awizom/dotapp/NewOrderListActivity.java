@@ -8,6 +8,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
@@ -32,6 +34,7 @@ public class NewOrderListActivity extends AppCompatActivity {
     String statusName ="";
     String dailogMessage ="";
     String countvalue = "";
+    TextView errorMsg ;
 
 
     @Override
@@ -44,6 +47,7 @@ public class NewOrderListActivity extends AppCompatActivity {
     private void initView() {
 
        // progressDialog = new ProgressDialog(getApplicationContext());
+        errorMsg = findViewById(R.id.errorMessage);
           mSwipeRefreshLayout =findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -101,6 +105,7 @@ public class NewOrderListActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
 //            progressDialog.dismiss();
+            errorMsg.setVisibility(View.VISIBLE);
             mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
@@ -129,6 +134,7 @@ public class NewOrderListActivity extends AppCompatActivity {
                     json = response.body().string();
                 }
             } catch (Exception e) {
+                errorMsg.setVisibility(View.VISIBLE);
                 e.printStackTrace();
                // progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -139,6 +145,7 @@ public class NewOrderListActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
+                errorMsg.setVisibility(View.VISIBLE);
                // progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "There is no data available" +
                         "", Toast.LENGTH_SHORT).show();
