@@ -32,7 +32,7 @@
         android:title="@string/title_status"
         android:tooltipText="@string/title_status"
         android:background="@drawable/button_background"
-        android:visible="false" />
+        android:visible="true" />
 
 
     <item

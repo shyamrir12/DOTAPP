@@ -102,7 +102,10 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initView() {
-        getSupportActionBar().setTitle("Order Create");
+
+
+            getSupportActionBar().setTitle("Create Order");
+
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c_name = findViewById(R.id.customerName);
         c_contact = findViewById(R.id.customerContact);
@@ -162,6 +165,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         if (!orderid.equals("")) {
             getMyOrder(orderid);
             addroom.setVisibility(View.VISIBLE);
@@ -192,6 +196,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             loadData();
             orderDate.setText(DateFormat.getDateInstance().format(new Date()));
         }
+
 
     }
 

@@ -7,8 +7,8 @@
     <string name="search">Search</string>
     <string name="room_detail">Room Details</string>
     <string name="elight">Elight</string>
-    <string name="password">Password</string>
-    <string name="userid">User Name</string>
+    <string name="password">Password*</string>
+    <string name="userid">User Name*</string>
     <string name="signup">Sign Up</string>
     <string name="bottom"><u>Already have an account login Here</u></string>
     <string name="signin">Sign In</string>
@@ -56,10 +56,10 @@
     <string name="cancel">Cancel</string>
     <string name="addCustomer">Add Customer</string>
 
-    <string name="customername">Customer Name</string>
-    <string name="customercontact">Customer Contact</string>
-    <string name="address">Address</string>
-    <string name="name">Interior Name</string>
+    <string name="customername">Customer Name*</string>
+    <string name="customercontact">Customer Contact*</string>
+    <string name="address">Address*</string>
+    <string name="name">Interior Name*</string>
     <string name="edit">Update</string>
     <string name="modifyCustomer">Modify Customer</string>
     <string name="order_date">Order_date</string>
@@ -72,8 +72,8 @@
     <string name="receivedt">Received from tailor</string>
     <string name="receivedby">Received By</string>
     <string name="dispatch">Dispatch</string>
-    <string name="interioMobile">Interior contact</string>
-    <string name="cpassword">Confirm Password</string>
+    <string name="interioMobile">Interior contact*</string>
+    <string name="cpassword">Confirm Password*</string>
     <string name="pendinTorecevFromTailor">Pending to Receive from Tailor</string>
     <string name="tailor">Tailor Name</string>
 

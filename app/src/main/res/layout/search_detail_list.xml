@@ -8,17 +8,43 @@
         android:id="@+id/relative_medium"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/searchItem"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="25dp"
+                android:textColor="@color/black"
+                android:drawableRight="@drawable/ic_search_black_24dp"
+                android:hint="Enter the value*"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/goButton"
+                android:layout_width="190dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:layout_marginTop="25dp"
+                android:text="Go"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:background="@drawable/add_cancel_button_shape"/>
+        </LinearLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/toolbar" />
+                android:layout_below="@+id/layout" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

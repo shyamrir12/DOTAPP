@@ -132,7 +132,7 @@
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/white" />
                     <Button
-                        android:id="@+id/cancelOrderButton"
+                        android:id="@+id/checkStatusButton"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:textSize="12sp"
@@ -140,7 +140,7 @@
                         android:layout_margin="5dp"
                         android:background="@drawable/add_cancel_button_shape"
                         android:textColor="@color/white"
-                        android:text="Place Order"
+                        android:text="Check Status"
                         android:visibility="visible"
                         android:textAllCaps="false"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"/>

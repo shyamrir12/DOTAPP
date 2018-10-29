@@ -20,7 +20,7 @@
             <AutoCompleteTextView
                 android:id="@+id/customerName"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/customername"
                 android:textSize="15sp"
@@ -41,7 +41,7 @@
             <EditText
                 android:id="@+id/contact"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/customercontact"
                 android:textSize="15sp"
@@ -55,7 +55,7 @@
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:hint="@string/address"
@@ -69,7 +69,7 @@
             <EditText
                 android:id="@+id/confrmPassword"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:hint="@string/name"
@@ -82,7 +82,7 @@
             <EditText
                 android:id="@+id/interiormobile"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
+                android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
                 android:hint="@string/interioMobile"
                 android:inputType="number"
@@ -95,7 +95,7 @@
             <Button
                 android:id="@+id/updateButton"
                 android:layout_width="230dp"
-                android:layout_height="45dp"
+                android:layout_height="50dp"
                 android:text="@string/edit"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

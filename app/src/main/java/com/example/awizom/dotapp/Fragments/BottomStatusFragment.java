@@ -63,10 +63,6 @@ statusCountGETmethodCall();
         dispatch = view.findViewById(R.id.dispatch);
         pendingToreceivedMaterial = view.findViewById(R.id.pendingToreceivedMaterial);
         pendingtorecevefrometailor = view.findViewById(R.id.receivedFromTailor);
-
-
-
-
         pendingttoPlaceOrder.setOnClickListener(this);
         holD.setOnClickListener(this);
         handOverto.setOnClickListener(this);
@@ -74,10 +70,7 @@ statusCountGETmethodCall();
         pendingToreceivedMaterial.setOnClickListener(this);
         pendingtorecevefrometailor.setOnClickListener(this);
         orderitem = new DataOrder();
-
         statuspendingOrderFragment = new CustomerListFrgment();
-
-
 
     }
 
@@ -102,7 +95,7 @@ statusCountGETmethodCall();
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "Hold");
                 intent = intent.putExtra("ButtonName", "Place Order");
-                intent = intent.putExtra("StatusName", "Hold");
+                intent = intent.putExtra("StatusName", "OrderPlaced");
                 intent = intent.putExtra("DailogMessage","Do you want to change the status");
 
                 startActivity(intent);
@@ -238,10 +231,7 @@ statusCountGETmethodCall();
                 if (result.isEmpty()) {
                     Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
 
-
                 } else {
-
-
 
                     Gson gson = new Gson();
                     Type listType = new TypeToken<String[]>(){}.getType();
@@ -259,12 +249,11 @@ statusCountGETmethodCall();
                     PandingToHandOverTo =handOverto.getText()+" ("+ values[4].split("=")[1] +")";
                     handOverto.setText(PandingToHandOverTo);
 
-                    PandingToReceivedFromTelor =pendingtorecevefrometailor.getText()+" ("+ values[4].split("=")[1] +")";
+                    PandingToReceivedFromTelor =pendingtorecevefrometailor.getText()+" ("+ values[5].split("=")[1] +")";
                     pendingtorecevefrometailor.setText(PandingToReceivedFromTelor);
 
-                    Dispatch =dispatch.getText()+" ("+ values[5].split("=")[1] +")";
+                    Dispatch =dispatch.getText()+" ("+ values[6].split("=")[1] +")";
                     dispatch.setText(Dispatch);
-
 
                 }
             } catch (Exception e) {
