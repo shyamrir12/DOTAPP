@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     private String[] countValueSplitData;
     String[] values;
     String PandingToPlaceOrder="0",Hold="0",PandingToReceiveMaterial="0",PandingToHandOverTo="0",PandingToReceivedFromTelor="0",Dispatch="0";
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +56,17 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     }
 
     private void initView(View view) {
-statusCountGETmethodCall();
+
+        mSwipeRefreshLayout =view.findViewById(R.id.swipeRefreshLayout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                statusCountGETmethodCall();
+            }
+        });
+        statusCountGETmethodCall();
 
         pendingttoPlaceOrder = view.findViewById(R.id.pendingtToPlaceOrder);
         holD = view.findViewById(R.id.hold);
@@ -187,9 +198,10 @@ statusCountGETmethodCall();
     private void statusCountGETmethodCall() {
 
         try {
-
+            mSwipeRefreshLayout.setRefreshing(true);
             new statusCountGET().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
         } catch (Exception e) {
+            mSwipeRefreshLayout.setRefreshing(false);
             e.printStackTrace();
             Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
 
@@ -229,7 +241,9 @@ statusCountGETmethodCall();
 
             try {
                 if (result.isEmpty()) {
+
                     Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                    mSwipeRefreshLayout.setRefreshing(false);
 
                 } else {
 
@@ -254,10 +268,12 @@ statusCountGETmethodCall();
 
                     Dispatch =dispatch.getText()+" ("+ values[6].split("=")[1] +")";
                     dispatch.setText(Dispatch);
+                    mSwipeRefreshLayout.setRefreshing(false);
 
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         }
 

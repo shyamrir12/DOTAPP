@@ -1,11 +1,13 @@
 package com.example.awizom.dotapp.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +38,8 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
     private Fragment pendinOrderListFragment, orderCreate;
     Fragment fragment = null;
     String[] values;
-    String pandingForAdv="0";
+    String pandingForAdv = "0";
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,8 +50,17 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
     }
 
     private void initView(View view) {
+        mSwipeRefreshLayout =view.findViewById(R.id.swipeRefreshLayout);
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                statusCountGETmethodCall();
+            }
+        });
         statusCountGETmethodCall();
+
         cardViewFirst = view.findViewById(R.id.order_pending_cardview);
         cardViewSecond = view.findViewById(R.id.order_create_cardview);
 //        cardViewthird = view.findViewById(R.id.order_cancel_cardview);
@@ -60,7 +72,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 
 
         pendinOrderListFragment = new OrderListFragment();
-      //  orderCreate = new AfterCreateOrderoFragment();
+        //  orderCreate = new AfterCreateOrderoFragment();
 
         cardViewFirst.setOnClickListener(this);
         cardViewSecond.setOnClickListener(this);
@@ -126,9 +138,9 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
             case R.id.pendingOrder:
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "pandingForAdv");
-                intent = intent.putExtra("ButtonName","Cancel Order");
+                intent = intent.putExtra("ButtonName", "Cancel Order");
                 intent = intent.putExtra("StatusName", "Cancel");
-                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
 
                 startActivity(intent);
@@ -171,12 +183,14 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 //            e.printStackTrace();
 //        }
     }
+
     private void statusCountGETmethodCall() {
 
         try {
-
+            mSwipeRefreshLayout.setRefreshing(true);
             new statusCountGET().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
         } catch (Exception e) {
+            mSwipeRefreshLayout.setRefreshing(false);
             e.printStackTrace();
             Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
 
@@ -216,21 +230,19 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 
             try {
                 if (result.isEmpty()) {
-                    Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
 
+                    Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                    mSwipeRefreshLayout.setRefreshing(false);
 
                 } else {
 
-
-
                     Gson gson = new Gson();
-                    Type listType = new TypeToken<String[]>(){}.getType();
-                    values= gson.fromJson(result, listType);
-
-                  pandingForAdv =pendingOrderList.getText()+" ("+ values[0].split("=")[1] +")";
-
+                    Type listType = new TypeToken<String[]>() {
+                    }.getType();
+                    values = gson.fromJson(result, listType);
+                    pandingForAdv = pendingOrderList.getText() + " (" + values[0].split("=")[1] + ")";
                     pendingOrderList.setText(pandingForAdv);
-
+                    mSwipeRefreshLayout.setRefreshing(false);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
