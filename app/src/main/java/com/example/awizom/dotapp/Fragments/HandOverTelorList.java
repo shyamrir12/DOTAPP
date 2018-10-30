@@ -64,7 +64,7 @@ public class HandOverTelorList extends Fragment {
 
     ProgressDialog progressDialog;
     ListView lv;
-    // TextView telornam;
+     TextView telornam;
      ImageButton print;
     RecyclerView lv1;
     List<HandOverModel> list1;
@@ -95,6 +95,7 @@ public class HandOverTelorList extends Fragment {
         lv1 = view.findViewById(R.id.rcyclr);
         //telornam=view.findViewById(R.id.tlr1);
         lv1.setHasFixedSize(true);
+        telornam=view.findViewById(R.id.telorname);
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
@@ -122,7 +123,7 @@ public class HandOverTelorList extends Fragment {
                 hTelor = telorlist[position];
                 lv.setVisibility(View.GONE);
                 getHandoverItemlist();
-
+           telornam.setText(hTelor);
 
             }
         });

@@ -7,8 +7,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.awizom.dotapp.Fragments.HandOverTelorList;
+import com.example.awizom.dotapp.Fragments.ReceivedTelorlist;
 import com.example.awizom.dotapp.Models.HandOverModel;
 import com.example.awizom.dotapp.Models.ReceivedModel;
 import com.example.awizom.dotapp.R;
@@ -33,7 +38,7 @@ public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderI
     private Context mCtx;
     ProgressDialog progressDialog;
     private LinearLayout linearLayout;
-    private String[] handoveritemList;
+
     TextView telor;
     //we are storing all the products in a list
     private List<ReceivedModel> receivedlist;
@@ -58,19 +63,22 @@ public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderI
 
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
-        ReceivedModel handover = receivedlist.get(position);
+        ReceivedModel rcvd = receivedlist.get(position);
         try {
             // holder.telor.setText(handover.getTelorName());
-            holder.snum.setText(handover.getSerialNo());
-            holder.a_qty.setText(String.valueOf( handover.getAQty()));
-            holder.catalog.setText(handover.getCatalogName());
-            holder.design.setText(handover.getDesign());
-            holder.page_no.setText(String.valueOf(handover.getPageNo()));
-            holder.aunt.setText(handover.getUnit());
+            holder.snum.setText(rcvd.getSerialNo());
+            holder.a_qty.setText(String.valueOf( rcvd.getAQty()));
+            holder.catalog.setText(rcvd.getCatalogName());
+            holder.design.setText(rcvd.getDesign());
+            holder.page_no.setText(String.valueOf(rcvd.getPageNo()));
+            holder.aunt.setText(rcvd.getUnit());
 
             //  holder.price.setText(String.valueOf( handover.getPrice()).toString());
-            holder.price.setText(String.valueOf(handover.getPrice2()));
+            holder.price.setText(String.valueOf(rcvd.getPrice2()));
             //  holder.serialNo.setText(String.valueOf(handover.getSerialNo()));
+
+
+
 
 
         } catch (Exception E) {
@@ -110,8 +118,18 @@ public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderI
             design = itemView.findViewById(R.id.design);
             page_no = itemView.findViewById(R.id.pgn);
             price = itemView.findViewById(R.id.princ);
+
+
+
             //   price2 = itemView.findViewById(R.id.princ2);
             // receivedBy = itemView.findViewById(R.id.receivedby);
+        //    String s=catalog.getText().toString();
+          //  Bundle basket= new Bundle();
+          //  basket.putString("abc", s);
+          //  Fragment fragment= new ReceivedTelorlist();
+          //  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        //    fragment.setArguments(basket);
+
 
 
             //Button btn1 = itemView.findViewById(R.id.bton1);
@@ -130,11 +148,6 @@ public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderI
 
 
         }
-
-
-
-
-
 
         private void createPdf(String sometext){
             // create a new document

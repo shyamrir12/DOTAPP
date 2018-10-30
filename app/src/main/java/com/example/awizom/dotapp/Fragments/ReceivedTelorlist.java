@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.CustomerListAdapter;
@@ -40,6 +41,7 @@ import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -49,6 +51,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
@@ -62,11 +66,11 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class ReceivedTelorlist extends Fragment {
+public class ReceivedTelorlist extends Fragment  {
 
     ProgressDialog progressDialog;
     ListView lv;
-    ImageButton img2,img3;
+   // ImageButton img2,img3;
     RecyclerView lv1;
     // List <TelorModel> list1;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -78,10 +82,18 @@ public class ReceivedTelorlist extends Fragment {
     String[] telorlist;
     private String telornamet,telorname_old,hTelor;
     List<HandOverModel> list1;
+    private String[] catalogname;
     HandOverAdapter adapterh;
-    private  String r;
-    private String title;
+    private  String r,str;
+    Type listType;
 
+    HandOverModel handover = new HandOverModel();
+
+    private String title;
+    PdfPCell cell;
+    Bundle gt;
+    View rootView;
+    TextView telornam;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,6 +105,8 @@ public class ReceivedTelorlist extends Fragment {
 
     private void initView(View view) {
 
+
+
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait while loading telors");
@@ -100,25 +114,29 @@ public class ReceivedTelorlist extends Fragment {
         lv1=view.findViewById(R.id.rcyclr);
         lv1.setHasFixedSize(true);
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
-        img2=view.findViewById(R.id.updateButton1);
-        img3=view.findViewById(R.id.updateButton2);
+        getActivity().setTitle("Telor");
+         telornam = view.findViewById(R.id.telorname);
+
+
+         //  img2=view.findViewById(R.id.updateButton1);
+      //  img3=view.findViewById(R.id.updateButton2);
 
 //        title = getArguments().getString("NAME_KEY").toString();
-        img2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //img2.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+         //   public void onClick(View v) {
 
-                createPDF();
+         ///       createPDF();
 
-            }
-        });
+       ///     }
+     //   });
 
-        img3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openPdf();
-            }
-        });
+//        img3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openPdf();
+//            }
+//        });
 
         //     lv = view.findViewById(R.id.telorList);
 
@@ -141,93 +159,135 @@ public class ReceivedTelorlist extends Fragment {
                       //     Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
 
                            getreceivedTelorList();
+                           telornam.setText(hTelor);
             }
         });
     }
 
-    void openPdf()
-    {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
-
-        File file = new File(path, "demo.pdf");
-
-        intent.setDataAndType( Uri.fromFile( file ), "application/pdf" );
-        startActivity(intent);
-    }
-    private void createPDF() {
-
-
-        Document doc = new Document();
-
-        try {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
-
-            File dir = new File(path);
-            if(!dir.exists())
-                dir.mkdirs();
-
-            Log.d("PDFCreator", "PDF Path: " + path);
-
-            File file = new File(dir, "demo.pdf");
-            FileOutputStream fOut = new FileOutputStream(file);
-
-            PdfWriter.getInstance(doc, fOut);
-
-            //open the document
-            doc.open();
-            //     t=t_name.getText();
-            /* Create Paragraph and Set Font */
-            Paragraph p1 = new Paragraph(r.toString());
-
-            /* Create Set Font and its Size */
-            Font paraFont= new Font(Font.FontFamily.COURIER);
-            paraFont.setSize(16);
-            p1.setAlignment(Paragraph.ALIGN_CENTER);
-            p1.setFont(paraFont);
-
-            //add paragraph to document
-            doc.add(p1);
-
-
-            Paragraph p2 = new Paragraph("This is an example of a simple paragraph");
-
-            /* You can also SET FONT and SIZE like this */
-            Font paraFont2= new Font(Font.FontFamily.HELVETICA , 14.0f, Color.GREEN);
-            p2.setAlignment(Paragraph.ALIGN_CENTER);
-            p2.setFont(paraFont2);
-
-            doc.add(p2);
-
-            /* Inserting Image in PDF */
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.green_warning);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100 , stream);
-            Image myImg = Image.getInstance(stream.toByteArray());
-            myImg.setAlignment(Image.MIDDLE);
-
-            //add image to document
-            doc.add(myImg);
-
-            //set footer
-            Phrase footerText = new Phrase("This is an example of a footer");
-            HeaderFooter pdfFooter = new HeaderFooter();
-            doc.newPage();
-
-            Toast.makeText(getContext(), "Created...", Toast.LENGTH_LONG).show();
-
-        } catch (DocumentException de) {
-            Log.e("PDFCreator", "DocumentException:" + de);
-        } catch (IOException e) {
-            Log.e("PDFCreator", "ioException:" + e);
-        } finally
-        {
-            doc.close();
-        }
-
-
-
-    }
+//    void openPdf()
+//    {
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+//
+//        File file = new File(path, "demo.pdf");
+//
+//        intent.setDataAndType( Uri.fromFile( file ), "application/pdf" );
+//        startActivity(intent);
+//    }
+////    private void createPDF() {
+//
+//        Document doc = new Document();
+//
+//        PdfPTable table = new PdfPTable(new float[]{2, 1, 2, 2, 1, 2});
+//        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+//        table.addCell("Catalog Name");
+//        table.addCell("Design");
+//        table.addCell("SerialNo");
+//        table.addCell("Price");
+//        table.addCell("ReceivedBy");
+//        table.addCell("Unit");
+//        //   table.addCell("Price");
+//        table.setHeaderRows(1);
+//        PdfPCell[] cells = table.getRow(0).getCells();
+//        for (int j = 0; j < cells.length; j++) {
+//            cells[j].setBackgroundColor(BaseColor.GRAY);
+//        }
+//
+//
+//
+//
+//
+//        for (int i = 1; i < 5; i++) {
+//            table.addCell(catalogname.toString() + i);
+//            table.addCell("Design:" + i);
+//            table.addCell("SerialNo:" + i);
+//            table.addCell("Price:" + i);
+//            table.addCell("ReceivedBy:" + i);
+//            table.addCell("Unit:" + i);
+//        }
+//
+//        try {
+//            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+//
+//            File dir = new File(path);
+//            if (!dir.exists())
+//                dir.mkdirs();
+//
+//            Log.d("PDFCreator", "PDF Path: " + path);
+//
+//            File file = new File(dir, "demo.pdf");
+//            FileOutputStream fOut = new FileOutputStream(file);
+//
+//            PdfWriter.getInstance(doc, fOut);
+//
+//            //open the document
+//            doc.open();
+//
+//            Paragraph p1 = new Paragraph(hTelor);
+//
+//            /* You can also SET FONT and SIZE like this */
+//            Font paraFont1 = new Font(Font.FontFamily.HELVETICA, 50, Color.GREEN);
+//            p1.setAlignment(Paragraph.ALIGN_CENTER);
+//
+//            p1.setFont(paraFont1);
+//
+//            doc.add(p1);
+//
+//            doc.add(table);
+//            //     t=t_name.getText();
+//            /* Create Paragraph and Set Font */
+//            Paragraph p2 = new Paragraph(r.toString());
+//
+//            /* Create Set Font and its Size */
+//            Font paraFont = new Font(Font.FontFamily.COURIER);
+//            paraFont.setSize(16);
+//            p2.setAlignment(Paragraph.ALIGN_CENTER);
+//            p2.setFont(paraFont);
+//
+//            //add paragraph to document
+//            doc.add(p2);
+//
+//
+//            Paragraph p3 = new Paragraph("This is an example of a simple paragraph");
+//
+//            /* You can also SET FONT and SIZE like this */
+//            Font paraFont3 = new Font(Font.FontFamily.HELVETICA, 14.0f, Color.GREEN);
+//            p3.setAlignment(Paragraph.ALIGN_CENTER);
+//            p3.setFont(paraFont3);
+//
+//            doc.add(p3);
+//
+//            /* Inserting Image in PDF */
+////            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+////            Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.green_warning);
+////            bitmap.compress(Bitmap.CompressFormat.JPEG, 100 , stream);
+////            Image myImg = Image.getInstance(stream.toByteArray());
+////            myImg.setAlignment(Image.MIDDLE);
+////
+////            //add image to document
+////            doc.add(myImg);
+//
+//            //set footer
+//            Phrase footerText = new Phrase("This is an example of a footer");
+//            HeaderFooter pdfFooter = new HeaderFooter();
+//            doc.newPage();
+//
+//            Toast.makeText(getContext(), "Created...", Toast.LENGTH_LONG).show();
+//
+//
+//
+//
+//
+//        } catch (DocumentException de) {
+//            Log.e("PDFCreator", "DocumentException:" + de);
+//        } catch (IOException e) {
+//            Log.e("PDFCreator", "ioException:" + e);
+//        } finally {
+//            doc.close();
+//        }
+//
+//
+//    }
 
     private void getreceivedTelorList() {
 
@@ -288,16 +348,34 @@ public class ReceivedTelorlist extends Fragment {
                 Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
 
+
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<HandOverModel>>() {
+                 listType = new TypeToken<List<HandOverModel>>() {
+
                 }.getType();
+
                 list1 = new Gson().fromJson(result, listType);
                 adapterh = new HandOverAdapter(getContext(), list1);
+
                 lv1.setAdapter(adapterh);
-                r = result.toString().replaceAll("   ", "");
+
+
+
+//                catalogname = new String[list1.size()];
+//
+//                for (int i = 0; i < list1.size(); i++) {
+//                    catalogname[i] = String.valueOf(list1.get(i).getCatalogName());
+//
+//                }
+
+
+
+//                r = result.toString().replaceAll("   ", "");
 
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
+
+
             }
 
         }

@@ -66,7 +66,11 @@ public class NewOrderListActivity extends AppCompatActivity {
         if(statusName.equals("Reset"))
         {
             getSupportActionBar().setTitle("Dispatch");
-        }else
+        }
+
+
+
+
         if(statusName.equals("Cancel"))
         {
             getSupportActionBar().setTitle("panding For Adv");
@@ -95,6 +99,26 @@ public class NewOrderListActivity extends AppCompatActivity {
 
 
     }
+
+//    private boolean validation() {
+//        if (!SharedPrefManager.getInstance(NewOrderListActivity.this).getUser().userRole.contains("Admin"))
+//        {
+//
+//        return true;
+//        }
+//        else
+//        {
+//            Toast toast = Toast.makeText(getApplicationContext(),
+//                    "User is not permitted for reset",
+//                    Toast.LENGTH_SHORT);
+//
+//            toast.show();
+//            return false;
+//
+//        }
+//
+//    }
+
 
     private void getOrderList() {
         try {
