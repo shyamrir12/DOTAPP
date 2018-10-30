@@ -59,7 +59,6 @@ public class RoomListAdapter  extends RecyclerView.Adapter<RoomListAdapter.RoomV
         View view = inflater.inflate(R.layout.layout_button_roomlist, null);
         return new RoomViewHolder(view, mCtx, roomList);
     }
-
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         String room = roomList.get(position);

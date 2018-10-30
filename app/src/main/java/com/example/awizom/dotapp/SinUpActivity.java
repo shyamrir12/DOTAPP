@@ -93,7 +93,6 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         spinner.setAdapter(spinnerArrayAdapter);
         progressDialog = new ProgressDialog(this);
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

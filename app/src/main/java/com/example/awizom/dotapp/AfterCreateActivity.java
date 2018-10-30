@@ -288,7 +288,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.addOrder:
 
-
                 if (!c_name.getText().toString().isEmpty()) {
                     try {
                         if (c_name.getText().length() > 0) {

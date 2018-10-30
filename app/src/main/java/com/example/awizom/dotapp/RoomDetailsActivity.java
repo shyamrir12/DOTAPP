@@ -370,7 +370,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                     getDesignList();
             }
         });
-
         design.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
