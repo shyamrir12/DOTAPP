@@ -18,7 +18,7 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
 
     private TextView handOverList, ReceivedList;
     private Intent intent;
-    private Fragment handover, orderCreate;
+    private Fragment handoverFragment, tailorListfragment;
     Fragment fragment = null;
 
     @Override
@@ -37,6 +37,9 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
 
         handOverList.setOnClickListener(this);
         ReceivedList.setOnClickListener(this);
+
+        handoverFragment = new HandOverTelorList();
+        tailorListfragment = new TelorListFragment();
 
 
         //    pendinOrderListFragment = new OrderListFragment();
@@ -79,13 +82,27 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
 
 
             case R.id.handOverList:
-                getActivity().setTitle("Handover Telor List");
-
+               // getActivity().setTitle("Handover Telor List");
+//
+//                Bundle bundle2 = new Bundle();
+//                bundle2.putString("NAME_KEY", "Handover Telor List");
+//                HandOverTelorList myFragment2 = new HandOverTelorList();
+//               myFragment2.setArguments(bundle2);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
+//
                 fragmentClass = HandOverTelorList.class;
+
                 break;
 
             case R.id.receivedItemList:
-                getActivity().setTitle("Telor List");
+ //               getActivity().setTitle("Telor List");
+
+//                Bundle bundle = new Bundle();
+//                bundle.putString("NAME_KEY", "Handover Telor List");
+//                HandOverTelorList myFragment = new HandOverTelorList();
+//                myFragment.setArguments(bundle);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment).commit();
+//
                 fragmentClass = ReceivedTelorlist.class;
                 break;
 

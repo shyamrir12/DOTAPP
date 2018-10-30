@@ -102,6 +102,7 @@ public class UserListFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
+
             }
 
             return json;

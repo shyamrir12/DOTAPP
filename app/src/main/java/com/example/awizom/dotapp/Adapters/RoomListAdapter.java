@@ -65,6 +65,8 @@ public class RoomListAdapter  extends RecyclerView.Adapter<RoomListAdapter.RoomV
         try {
 
             holder.roomname.setText(room);
+            String v1 = room.split("Total")[1].trim();
+
             if(filterkey.equals( "PandingToPlaceOrder" ))
             {
                 holder.button_status.setVisibility( View.VISIBLE );
@@ -72,6 +74,9 @@ public class RoomListAdapter  extends RecyclerView.Adapter<RoomListAdapter.RoomV
             else  if(filterkey.equals( "Hold" ) && room.split( "~"  )[1].trim().equals( "Hold" ) )
             {
                 holder.button_status.setVisibility( View.VISIBLE );
+            }
+            else if(filterkey.equals( "PandingToPlaceOrder" ) && v1.trim().equals("0.00") ){
+                holder.button_status.setVisibility( View.INVISIBLE );
             }
 
 

@@ -105,7 +105,7 @@ public class ReceivedTelorlist extends Fragment  {
 
     private void initView(View view) {
 
-
+        getActivity().setTitle("Telor");
 
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         progressDialog = new ProgressDialog(getActivity());
@@ -114,7 +114,7 @@ public class ReceivedTelorlist extends Fragment  {
         lv1=view.findViewById(R.id.rcyclr);
         lv1.setHasFixedSize(true);
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
-        getActivity().setTitle("Telor");
+
          telornam = view.findViewById(R.id.telorname);
 
 
