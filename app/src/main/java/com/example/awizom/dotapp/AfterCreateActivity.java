@@ -105,8 +105,8 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private void initView() {
 
 
-            getSupportActionBar().setTitle("Create Order");
-        mSwipeRefreshLayout =findViewById(R.id.swipeRefreshLayout);
+        getSupportActionBar().setTitle("Create Order");
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c_name = findViewById(R.id.customerName);
         c_contact = findViewById(R.id.customerContact);
@@ -193,7 +193,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     } else {
                         getCustomerDetail(c_name.getText().toString());
                     }
-
                 }
 
                 @Override
@@ -288,13 +287,21 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addOrder:
-                try {
-                    if (c_name.getText().length() > 0) {
-                        postOrder();
+
+
+                if (!c_name.getText().toString().isEmpty()) {
+                    try {
+                        if (c_name.getText().length() > 0) {
+                            postOrder();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                }else {
+                    c_name.setError("Please enter customer name");
                 }
+
                 break;
             case R.id.addRoom:
                 addroomdailogueOpen(Long.parseLong(orderid), actualRoomList);
@@ -313,6 +320,17 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
         }
 
+    }
+
+    private boolean validation() {
+
+        if (c_name.getText().toString().isEmpty() || c_contact.getText().toString().isEmpty() || i_address.getText().toString().isEmpty() ||
+                i_name.getText().toString().isEmpty() || i_contact.getText().toString().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please insert the field", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return false;
     }
 
     private void addStatusUser() {

@@ -32,7 +32,6 @@ public class CustomerListFrgment extends Fragment {
 
     private TextView customername, customeraddress, customercontact, interiorname, interiorcontact;
     private Intent intent;
-    ProgressDialog progressDialog;
     List<CustomerModel> orderList;
     RecyclerView recyclerView;
     CustomerListAdapter adapter;
@@ -50,7 +49,6 @@ public class CustomerListFrgment extends Fragment {
     private void initView(View view) {
 
 //        ((CustomerListFrgment) getContext()).setActionBarTitle("Customer List Details");
-        progressDialog = new ProgressDialog(getActivity());
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -58,8 +56,7 @@ public class CustomerListFrgment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Refresh items
-//                getMyOrder();
+                getCustomerList();
             }
         });
 
@@ -69,17 +66,13 @@ public class CustomerListFrgment extends Fragment {
     private void getCustomerList() {
         try {
             //String res="";
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
+           mSwipeRefreshLayout.setRefreshing(true);
             new GetCustomerDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
-
-            //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
-            progressDialog.dismiss();
+            mSwipeRefreshLayout.setRefreshing(false);;
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            // System.out.println("Error: " + e);
         }
     }
 
@@ -106,7 +99,7 @@ public class CustomerListFrgment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
                 // System.out.println("Error: " + e);
                 Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
@@ -117,8 +110,7 @@ public class CustomerListFrgment extends Fragment {
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
-                progressDialog.dismiss();
-                //progressBar.setVisibility(View.INVISIBLE);
+                mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
 
@@ -129,7 +121,7 @@ public class CustomerListFrgment extends Fragment {
                 orderList = new Gson().fromJson(result, listType);
                 adapter = new CustomerListAdapter(getContext(), orderList);
                 recyclerView.setAdapter(adapter);
-                progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
 
 

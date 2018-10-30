@@ -15,14 +15,16 @@
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="CustomerName" />
+            android:hint="CustomerName"
+            android:inputType="textPersonName"/>
 
         <EditText
             android:id="@+id/editMobile"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Mobile" />
+            android:hint="Mobile"
+            android:inputType="phone"/>
 
 
     </LinearLayout>
@@ -37,7 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Address" />
+            android:hint="Address"
+            android:inputType="text"/>
 
 
     </LinearLayout>
@@ -52,14 +55,16 @@
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="InteriorName" />
+            android:hint="InteriorName"
+            android:inputType="textPersonName"/>
 
         <EditText
             android:id="@+id/editInteriorMobile"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="InteriorMobile" />
+            android:hint="InteriorMobile"
+            android:inputType="number"/>
 
 
     </LinearLayout>

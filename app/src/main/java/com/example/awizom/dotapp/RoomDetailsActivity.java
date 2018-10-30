@@ -45,12 +45,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
     private TextView customerName, customerMobileNo, customerSno, customerOrder, customerDate, customerhall;
     private ImageButton additionButton;
-    private TextView elight, roman, aPlat, elightPrice,romanPrice,aPlotPrice,totalAmount;
+    private TextView elight, roman, aPlat, elightPrice, romanPrice, aPlotPrice, totalAmount;
 
     private RelativeLayout relative_Layout_press, relativeLayout_edit_dailog, bottom_relative_press1;
     private RecyclerView recyclerView;
-    private EditText editElight, editRoman, editAplot,ElightPrice,RomanPrice,APlotPrice;
-    private Button updateBottom, cancelElight,allok;
+    private EditText editElight, editRoman, editAplot, ElightPrice, RomanPrice, APlotPrice;
+    private Button updateBottom, cancelElight, allok;
 
     ProgressDialog progressDialog;
     CatelogOrderDetailModel catelogOrderDetailModel;
@@ -100,7 +100,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         customerMobileNo = findViewById(R.id.customer_mobile_no);
         customerOrder = findViewById(R.id.order_date);
         customerhall = findViewById(R.id.room_name);
-       // allok=findViewById(R.id.allOkButtton);
+        // allok=findViewById(R.id.allOkButtton);
 
 
         customerName.setText(customernAME);
@@ -147,6 +147,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 //        });
 
     }
+
     private void allOkButtonRoomLevel() {
 
         try {
@@ -167,23 +168,23 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private class allokButtonRoomLevel extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            orderitem=new DataOrder();
-            catelogOrderDetailModel= new CatelogOrderDetailModel();
+            orderitem = new DataOrder();
+            catelogOrderDetailModel = new CatelogOrderDetailModel();
             String accesstoken = params[0];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew" );
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew");
                 builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
-                parameters.add("OrderID" , String.valueOf(orderitem.getOrderID()));
-                parameters.add("RoomName" ,catelogOrderDetailModel.getRoomName() );
-                parameters.add("OrderItemID"  ,"0" );
-                parameters.add("StatusName"  ,"OrderPlaced");
+                parameters.add("OrderID", String.valueOf(orderitem.getOrderID()));
+                parameters.add("RoomName", catelogOrderDetailModel.getRoomName());
+                parameters.add("OrderItemID", "0");
+                parameters.add("StatusName", "OrderPlaced");
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
@@ -243,7 +244,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         editAplot = dialogView.findViewById(R.id.editAplot);
         ElightPrice = dialogView.findViewById(R.id.ElightPrice);
         RomanPrice = dialogView.findViewById(R.id.RomanPrice);
-        APlotPrice= dialogView.findViewById(R.id.APlotPrice);
+        APlotPrice = dialogView.findViewById(R.id.APlotPrice);
 
         updateBottom = dialogView.findViewById(R.id.updateElight);
         cancelElight = dialogView.findViewById(R.id.cancelElight);
@@ -251,7 +252,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         editRoman.setText(morder.Roman.toString());
         editAplot.setText(morder.APlat.toString());
 
-        ElightPrice.setText(String.valueOf( morder.getElightPrice()));
+        ElightPrice.setText(String.valueOf(morder.getElightPrice()));
         RomanPrice.setText(String.valueOf(morder.Roman.toString()));
         APlotPrice.setText(String.valueOf(morder.Roman.toString()));
         dialogBuilder.setTitle("Edit bottom");
@@ -261,25 +262,28 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         updateBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String elight = editElight.getText().toString();
-                String roman = editRoman.getText().toString();
-                String aplot = editAplot.getText().toString();
-                String elightprice = ElightPrice.getText().toString();
-                String romanprice = RomanPrice.getText().toString();
-                String aplotprice = APlotPrice.getText().toString();
-                try {
+                if ((editElight.getText().toString().isEmpty()) || (editRoman.getText().toString().isEmpty())
+                        || (editRoman.getText().toString().isEmpty()) || (editAplot.getText().toString().isEmpty())) {
+                    editElight.setError("Field is required!");
+                    String elight = editElight.getText().toString();
+                    String roman = editRoman.getText().toString();
+                    String aplot = editAplot.getText().toString();
+                    String elightprice = ElightPrice.getText().toString();
+                    String romanprice = RomanPrice.getText().toString();
+                    String aplotprice = APlotPrice.getText().toString();
+                    try {
 
-                    progressDialog.setMessage("loading...");
-                    progressDialog.show();
-                    new RoomDetailsActivity.POSTElight().execute(roomName.trim(), String.valueOf(orderID).trim(), elight, roman, aplot, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token,elightprice,romanprice,aplotprice);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+                        progressDialog.setMessage("loading...");
+                        progressDialog.show();
+                        new RoomDetailsActivity.POSTElight().execute(roomName.trim(), String.valueOf(orderID).trim(), elight, roman, aplot, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token, elightprice, romanprice, aplotprice);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+                    }
+
+                    b.dismiss();
                 }
-
-                b.dismiss();
-
             }
 
 
@@ -291,6 +295,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 b.dismiss();
             }
         });
+
 
     }
 
@@ -365,6 +370,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                     getDesignList();
             }
         });
+
         design.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -382,10 +388,11 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                     getCatalogDesignSingle();
             }
         });
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (!validation()) {
                 String snumber = s_no.getText().toString();
                 String catlogname = catlogName.getText().toString();
                 String desiGn = design.getText().toString();
@@ -398,41 +405,39 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 String unIt = unitSpinner.getSelectedItem().toString();
 
                 price2.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        int weight = Integer.parseInt(price.getText().toString());
-        int bodyfat = Integer.parseInt(price2.getText().toString());
-        int lbm = (weight * bodyfat) / 100;
-        int res = weight - lbm;
-        price2.setText(String.valueOf(res));
-  }
-});
-
-
-
-
-
-
-                try {
-                    progressDialog.setMessage("loading...");
-                    progressDialog.show();
-                    if (actualorder.equals("ActualOrder")) {
-                        new POSTOrder().execute("0", materialtype, priCe2, "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                                unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
-
-                    } else {
-                        new POSTOrder().execute("0", materialtype, priCe2, qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                                unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
-
+                    @Override
+                    public void onClick(View v) {
+                        int weight = Integer.parseInt(price.getText().toString());
+                        int bodyfat = Integer.parseInt(price2.getText().toString());
+                        int lbm = (weight * bodyfat) / 100;
+                        int res = weight - lbm;
+                        price2.setText(String.valueOf(res));
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-                }
-                b.dismiss();
+                });
 
+
+                    try {
+                        progressDialog.setMessage("loading...");
+                        progressDialog.show();
+                        if (actualorder.equals("ActualOrder")) {
+                            new POSTOrder().execute("0", materialtype, priCe2, "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                                    unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
+
+                        } else {
+                            new POSTOrder().execute("0", materialtype, priCe2, qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                                    unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+                    }
+                    b.dismiss();
+
+                }
             }
+
 
         });
 
@@ -447,7 +452,28 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+
+
     }
+
+    private boolean validation( ) {
+
+
+        if ((catlogName.getText().toString().isEmpty())){
+            catlogName.setError( "Catlog name is required!" );
+        }else if(design.getText().toString().isEmpty()){
+            design.setError( "Design is required!" );
+        }else if(qty.getText().toString().isEmpty()){
+            qty.setError( "Qty is required!" );
+        }else if((price.getText().toString().isEmpty())){
+            price.setError( "password is not match!" );
+        }else if((price2.getText().toString().isEmpty())){
+            price2.setError( "password is not match!" );
+        }
+        return true;
+
+    }
+
 
     private void getFunctioncall() {
 
@@ -652,17 +678,17 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 }.getType();
                 morder = new Gson().fromJson(result, getType);
 
-                elight.setText("Q. "+morder.getElight());
+                elight.setText("Q. " + morder.getElight());
 
-                roman.setText("SF. "+morder.getRoman());
+                roman.setText("SF. " + morder.getRoman());
 
-                aPlat.setText("Q. "+morder.getAPlat());
+                aPlat.setText("Q. " + morder.getAPlat());
 
-                elightPrice.setText("P. "+morder.getElightPrice().toString());
+                elightPrice.setText("P. " + morder.getElightPrice().toString());
 
-               romanPrice.setText("P. "+morder.getRomanPrice().toString());
+                romanPrice.setText("P. " + morder.getRomanPrice().toString());
 
-               aPlotPrice.setText("P. "+morder.getAPlatPrice().toString());
+                aPlotPrice.setText("P. " + morder.getAPlatPrice().toString());
 
                 if (actualorder.equals("ActualOrder")) {
                     totalAmount.setText(Double.toString(morder.getATotalAmount()));

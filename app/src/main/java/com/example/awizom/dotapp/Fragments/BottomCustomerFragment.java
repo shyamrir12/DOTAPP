@@ -41,10 +41,6 @@ public class BottomCustomerFragment extends Fragment implements View.OnClickList
         customerModify = view.findViewById(R.id.modifyCustomer);
         customerAdd = view.findViewById(R.id.addCustomer);
 
-        cardViewFirst = view.findViewById(R.id.first_cardview);
-        cardViewSecond = view.findViewById(R.id.second_cardview);
-        cardViewthird = view.findViewById(R.id.third_cardview);
-
         addCustomerFragment = new AddCustomerFragment();
         modifyCustomerFragment = new ModifyCustomerFragment();
         listCustomerFragment = new CustomerListFrgment();
@@ -53,9 +49,6 @@ public class BottomCustomerFragment extends Fragment implements View.OnClickList
         customerModify.setOnClickListener(this);
         customerAdd.setOnClickListener(this);
 
-        cardViewFirst.setOnClickListener(this);
-        cardViewSecond.setOnClickListener(this);
-        cardViewthird.setOnClickListener(this);
 
     }
 

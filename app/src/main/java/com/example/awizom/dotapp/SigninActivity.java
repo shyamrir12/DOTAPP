@@ -106,7 +106,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.signinButton:
-                if (validation()) {
+                if (!validation()) {
                     userLogin();
                     // startActivity(intent = new Intent(this,HomeActivity.class));
                 }
@@ -118,20 +118,15 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private boolean validation() {
-        if (userName.getText().toString().isEmpty() && passWord.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Filed can't be blank", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (!isValidPassword(passWord.getText().toString())) {
-            Toast.makeText(getApplicationContext(), "Password incorrect", Toast.LENGTH_SHORT);
-            return false;
+        if ((userName.getText().toString().isEmpty())){
+            userName.setError( "User name is required!" );
+        }else if(passWord.getText().toString().isEmpty()){
+            passWord.setError( "password is required!" );
         }
-        return true;
+            return false;
+
     }
 
-    public static boolean isValidPassword(String password) {
-        Matcher matcher = Pattern.compile("((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{4,20})").matcher(password);
-        return matcher.matches();
-    }
 
     public void userLogin() {
 

@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="CatalogName *"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="text"/>
 
             <AutoCompleteTextView
                 android:id="@+id/design"
@@ -30,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Design *"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="text"/>
 
             <EditText
                 android:id="@+id/sNo"
@@ -38,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="S.No"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="number"/>
 
 
         </LinearLayout>
@@ -56,7 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Page No"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="number"/>
 
             <EditText
                 android:id="@+id/qTy"
@@ -64,7 +68,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Qty *"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="number"/>
 
             <EditText
                 android:id="@+id/aQty"
@@ -73,7 +78,8 @@
                 android:layout_weight="1"
                 android:hint="AQty"
                 android:textSize="15sp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:inputType="number"/>
 
             <EditText
                 android:id="@+id/price"
@@ -81,7 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="MRP *"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="number"/>
 
             <EditText
                 android:id="@+id/price2"
@@ -89,7 +96,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Price *"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="number"/>
         </LinearLayout>
 
         <LinearLayout

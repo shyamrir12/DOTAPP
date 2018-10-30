@@ -35,6 +35,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Customer Name"
                     android:textSize="14sp"
+                    android:inputType="text"
                     android:layout_weight="1"
                     android:paddingLeft="8dp"/>
                 <ImageButton
@@ -80,7 +81,8 @@
                         android:textSize="14sp"
                         android:layout_weight="1"
                         android:paddingLeft="15dp"
-                        android:layout_marginRight="5dp"/>
+                        android:layout_marginRight="5dp"
+                        android:inputType="none"/>
 
                     <EditText
                         android:id="@+id/amountValue"
@@ -91,6 +93,7 @@
                         android:textSize="14sp"
                         android:paddingLeft="15dp"
                         android:layout_weight="1"
+                        android:inputType="number"
                         android:layout_marginLeft="5dp"/>
                     <TextView
                         android:id="@+id/textViewATotalAmount"

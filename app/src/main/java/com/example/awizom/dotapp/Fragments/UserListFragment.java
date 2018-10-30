@@ -102,7 +102,6 @@ public class UserListFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
             return json;

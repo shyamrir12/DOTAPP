@@ -20,6 +20,9 @@ import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.SigninActivity;
 import com.google.gson.Gson;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -58,11 +61,26 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.customerButton:
-                customerAddPost();
+                if (!validation()) {
+                    customerAddPost();
+                }
                 break;
         }
     }
 
+
+
+
+    private boolean validation() {
+
+        if(cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty() || cAddress.getText().toString().isEmpty()||
+                interioName.getText().toString().isEmpty() || interioContact.getText().toString().isEmpty() ){
+            Toast.makeText(getContext(), "Please insert the field", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return false;
+    }
 
     private void customerAddPost() {
 

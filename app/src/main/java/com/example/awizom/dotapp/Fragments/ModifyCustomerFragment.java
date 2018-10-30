@@ -90,11 +90,25 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.updateButton:
-                customerUpdatePost();
+                if (!validation()) {
+                    customerUpdatePost();
+                }
                 break;
 
         }
     }
+
+    private boolean validation() {
+
+        if(cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty() || cAddress.getText().toString().isEmpty()||
+                interioName.getText().toString().isEmpty() || interioContact.getText().toString().isEmpty() ){
+            Toast.makeText(getContext(), "Please insert the field", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return false;
+    }
+
 
     private void getCustomerDetail(String cusname) {
         try {

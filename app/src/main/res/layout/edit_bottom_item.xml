@@ -25,7 +25,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Elight Qty"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="number"/>
 
             <EditText
                 android:id="@+id/editRoman"
@@ -33,14 +34,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Roman Qty"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="number"/>
 
             <EditText
                 android:id="@+id/editAplot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
+                android:inputType="number"
                 android:hint="A Plot Qty"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -57,7 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Elight Price"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="number"/>
 
             <EditText
                 android:id="@+id/RomanPrice"
@@ -65,14 +68,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Roman Price"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="number"/>
 
             <EditText
                 android:id="@+id/APlotPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
+                android:inputType="number"
                 android:hint="A Plot Price"
                 android:textSize="15sp" />
         </LinearLayout>
