@@ -17,14 +17,14 @@
 
 
             <ListView
-            android:id="@+id/telorList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+                android:id="@+id/telorList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
             </ListView>
 
 
-</android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,11 +32,7 @@
 
 
         >
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rcyclr"></android.support.v7.widget.RecyclerView>
-   <ImageButton
+        <ImageButton
             android:id="@+id/updateButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -47,6 +43,7 @@
 
             android:layout_alignParentRight="true"
             android:layout_margin="5dp" />
+
 
     </RelativeLayout>
 </RelativeLayout>

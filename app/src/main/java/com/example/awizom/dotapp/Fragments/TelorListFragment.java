@@ -2,14 +2,20 @@ package com.example.awizom.dotapp.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +38,22 @@ import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -40,20 +61,29 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+import static com.itextpdf.text.Font.UNDEFINED;
+
 public class TelorListFragment extends Fragment {
+
+
+
+
+
+ //   String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Dir";
 
     ProgressDialog progressDialog;
     ListView lv;
     ImageButton img;
     // List <TelorModel> list1;
-     SwipeRefreshLayout mSwipeRefreshLayout;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     Handler handler = new Handler();
     Runnable refresh;
     private Button add, cancel;
     private EditText t_name,old_t_name;
-     ArrayAdapter<String> telorListAapter;
+    ArrayAdapter<String> telorListAapter;
     String[] telorlist;
     private String telornamet,telorname_old;
+    Document doc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +100,13 @@ public class TelorListFragment extends Fragment {
         progressDialog.setMessage("Please wait while loading telors");
         lv = view.findViewById(R.id.telorList);
         img = view.findViewById(R.id.updateButton);
-   //     lv = view.findViewById(R.id.telorList);
+        //img2=view.findViewById(R.id.updateButton1);
+     //   img3=view.findViewById(R.id.updateButton2);
+        //     lv = view.findViewById(R.id.telorList);
+        doc = new Document();
+
+
+
 
 
         img.setOnClickListener(new View.OnClickListener() {
@@ -82,13 +118,16 @@ public class TelorListFragment extends Fragment {
                 final View dialogView = inflater.inflate(R.layout.telor_dialog, null);
                 alertbox.setView(dialogView);
 
+
+
                 t_name = dialogView.findViewById(R.id.sNo);
                 add = dialogView.findViewById(R.id.add);
                 cancel = dialogView.findViewById(R.id.cancelButton);
                 alertbox.setTitle("Add telor");
                 final AlertDialog b = alertbox.create();
                 b.show();
-             //   telorname=t_name.getText().toString();
+
+                //   telorname=t_name.getText().toString();
 
 
                 add.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +142,10 @@ public class TelorListFragment extends Fragment {
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                   b.dismiss();
+                        b.dismiss();
+
+
+
                     }
                 });
 
@@ -121,8 +163,8 @@ public class TelorListFragment extends Fragment {
                 getTelorList();
             }
         });
-               getTelorList();
-               lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        getTelorList();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -137,19 +179,19 @@ public class TelorListFragment extends Fragment {
 
                 add = dialogView.findViewById(R.id.add);
                 cancel = dialogView.findViewById(R.id.cancelButton);
-                alertbox.setTitle("Add telor");
+                alertbox.setTitle("Modify telor");
                 final AlertDialog b = alertbox.create();
                 b.show();
 
-               old_t_name.setText(telorlist[position]);
-               old_t_name.setVisibility(View.GONE);
-               // Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
+
+                t_name.setText(telorlist[position]);
+                old_t_name.setHint(telorlist[position]);
+                old_t_name.setVisibility(View.GONE);
+                // Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
 
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-
                         postTelorListEdit();
                     }
                 });
@@ -166,6 +208,12 @@ public class TelorListFragment extends Fragment {
             }
         });
     }
+
+
+
+
+
+
 
     private void postTelorListEdit() {
         telornamet=t_name.getText().toString();
@@ -392,4 +440,9 @@ public class TelorListFragment extends Fragment {
 
         }
     }
+
+
+
+
+
 }
