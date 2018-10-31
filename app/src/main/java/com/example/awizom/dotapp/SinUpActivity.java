@@ -199,8 +199,8 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                     progressDialog.dismiss();
                     Toast.makeText(SinUpActivity.this, "Invalid request", Toast.LENGTH_SHORT).show();
                 } else {
+                    progressDialog.dismiss();
                     Gson gson = new Gson();
-
                     UserRegister.RootObject jsonbody = gson.fromJson(result, UserRegister.RootObject.class);
                     if (jsonbody.isStatus()) {
                         Token user = new Token();
@@ -217,7 +217,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                     } else {
                         Toast.makeText(SinUpActivity.this, jsonbody.dataIdentityResult.getErrors().get(0), Toast.LENGTH_SHORT).show();
                     }
-                    progressDialog.dismiss();
+
                 }
 
             } catch (Exception e) {

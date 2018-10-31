@@ -138,7 +138,6 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 
             new GetLogin().execute(userName.getText().toString(), passWord.getText().toString());
 
-
         } catch (Exception e) {
             e.printStackTrace();
             progressDialog.dismiss();
@@ -196,6 +195,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Invalid user id or password", Toast.LENGTH_SHORT).show();
                 } else {
+                    progressDialog.dismiss();
                     Gson gson = new Gson();
                     UserLogin.RootObject jsonbody = gson.fromJson(result, UserLogin.RootObject.class);
 
@@ -215,10 +215,8 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                                 startActivity(log);
 
                             } else {
-
                                 Intent log = new Intent(getApplicationContext(), HomeActivityUser.class);
                                 startActivity(log);
-
 
                             }
 

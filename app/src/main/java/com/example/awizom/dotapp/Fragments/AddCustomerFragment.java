@@ -17,11 +17,7 @@ import com.example.awizom.dotapp.CustomerActivity;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
-import com.example.awizom.dotapp.SigninActivity;
 import com.google.gson.Gson;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -71,38 +67,43 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
 
     private boolean validation() {
 
-        if (cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty() || cAddress.getText().toString().isEmpty() ||
-                interioName.getText().toString().isEmpty() || interioContact.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "Please insert the field", Toast.LENGTH_SHORT).show();
-            return true;
+        if ((cName.getText().toString().isEmpty())) {
+            cName.setError("Customer Name is required!");
+        } else if (cContact.getText().toString().isEmpty()) {
+            cContact.setError("Customer Contact is required!");
+        }else if (cAddress.getText().toString().isEmpty()) {
+            cAddress.setError("Customer Address is required!");
+        }else if (interioName.getText().toString().isEmpty()) {
+            interioName.setError("Interior Name is required!");
+        }else if (interioContact.getText().toString().isEmpty()) {
+            interioContact.setError("Interior Contact is required!");
         }
-
         return false;
+
     }
 
     private void customerAddPost() {
 
-        String name = cName.getText().toString().trim();
-        String contact = cContact.getText().toString().trim();
-        String address = cAddress.getText().toString().trim();
-        String intename = interioName.getText().toString().trim();
-        String intecontact = interioContact.getText().toString().trim();
+            String name = cName.getText().toString().trim();
+            String contact = cContact.getText().toString().trim();
+            String address = cAddress.getText().toString().trim();
+            String intename = interioName.getText().toString().trim();
+            String intecontact = interioContact.getText().toString().trim();
 
-        try {
-            //String res="";
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            new POSTOrder().execute(name, contact, address, intename, intecontact, SharedPrefManager.getInstance(getContext()).getUser().access_token);
-        } catch (Exception e) {
-            e.printStackTrace();
-            progressDialog.dismiss();
-            Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            // System.out.println("Error: " + e);
-        }
+            try {
+                //String res="";
+                progressDialog.setMessage("loading...");
+                progressDialog.show();
+                new POSTCustomerAdd().execute(name, contact, address, intename, intecontact, SharedPrefManager.getInstance(getContext()).getUser().access_token);
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+            }
+
 
     }
 
-    private class POSTOrder extends AsyncTask<String, Void, String> {
+    private class POSTCustomerAdd extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
 
@@ -151,13 +152,14 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
                 startActivity(intent = new Intent(getActivity(), CustomerListFrgment.class));
             } else {
+                progressDialog.dismiss();
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getActivity(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
                 }
-                progressDialog.dismiss();
+              
             }
         }
     }

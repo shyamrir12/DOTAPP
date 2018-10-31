@@ -100,14 +100,18 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
 
     private boolean validation() {
         if (SharedPrefManager.getInstance(getActivity()).getUser().userRole.contains("Admin")) {
-            if (cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty() || cAddress.getText().toString().isEmpty() ||
-                    interioName.getText().toString().isEmpty() || interioContact.getText().toString().isEmpty()) {
-
-                Toast.makeText(getContext(), "Please insert the field", Toast.LENGTH_SHORT).show();
-                return true;
-            } else {
-                return false;
+            if ((cName.getText().toString().isEmpty())) {
+                cName.setError("Customer Name is required!");
+            } else if (cContact.getText().toString().isEmpty()) {
+                cContact.setError("Customer Contact is required!");
+            }else if (cAddress.getText().toString().isEmpty()) {
+                cAddress.setError("Customer Address is required!");
+            }else if (interioName.getText().toString().isEmpty()) {
+                interioName.setError("Interior Name is required!");
+            }else if (interioContact.getText().toString().isEmpty()) {
+                interioContact.setError("Interior Contact is required!");
             }
+            return false;
         } else
 
         {
