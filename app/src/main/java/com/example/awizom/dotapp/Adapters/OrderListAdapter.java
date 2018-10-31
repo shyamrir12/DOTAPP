@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
@@ -26,9 +25,7 @@ import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
-
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -43,11 +40,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private String valueButtonname;
     private DataOrder orderitem;
     private DataOrder order;
-    private String statusName, dailogMessage;
+    private String statusName,dailogMessage;
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     private Spinner handOvertoNameSpinner, tailorListNameSpinner;
     private EditText editReceivedBy;
-    private Button okRecevedButton, canceLOrderButton;
+    private Button okRecevedButton,canceLOrderButton;
+
+
 
 
     public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey, String valueButtonname, String statusName) {
@@ -83,7 +82,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             holder.orderdate.setText("Date\n " + order.getOrderDate().split("T")[0].trim());
             holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()).trim());
             holder.totalamount.setText("Amount\n " + Double.toString(order.getTotalAmount()).trim());
-            if (Double.toString(order.getTotalAmount()).equals("0.0")) {
+            if( Double.toString(order.getTotalAmount()).equals("0.0")){
                 holder.canceLOrderButton.setVisibility(View.GONE);
             }
 
@@ -131,6 +130,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             canceLOrderButton.setText(valueButtonname);
 
 
+
+
         }
 
 
@@ -162,6 +163,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
             if (v.getId() == canceLOrderButton.getId()) {
 
+                
 
                 if (filterKey.equals("PandingToHandOverTo")) {
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
@@ -183,6 +185,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 } else if (filterKey.equals("PandingToReceivedFromTelor")) {
 
 
+
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
                     alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -199,7 +202,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     alertbox.show();
 
 
-                } else if (filterKey.equals("Dispatch")) {
+                }else if (filterKey.equals("Dispatch")) {
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
                     alertbox.setTitle("Do you want to change the status");
@@ -217,7 +220,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     alertbox.show();
 
 
-                } else if (filterKey.equals("PandingToReceiveMaterial")) {
+
+
+                }else if (filterKey.equals("PandingToReceiveMaterial")) {
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
                     alertbox.setTitle("Do you want to change the status");
@@ -234,7 +239,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                     alertbox.show();
 
-                } else if (filterKey.equals("pandingForAdv")) {
+                }else if (filterKey.equals("pandingForAdv")) {
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
                     alertbox.setTitle("Do you want to change the status");
@@ -251,26 +256,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                     alertbox.show();
 
-                } else if (filterKey.equals("Hold")) {
-
-                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle("Do you want to change the status");
-                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            cancelOrderListPost();
-                        }
-                    });
-
-                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-
-                        }
-                    });
-
-                    alertbox.show();
-
-
-                } else if (filterKey.equals("PandingToPlaceOrder")) {
+                }else if (filterKey.equals("Hold")) {
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
                     alertbox.setTitle("Do you want to change the status");
@@ -289,7 +275,30 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     alertbox.show();
 
 
-                } else {
+
+
+                }else if (filterKey.equals("PandingToPlaceOrder")) {
+
+                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle("Do you want to change the status");
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            cancelOrderListPost();
+                        }
+                    });
+
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+
+
+
+
+                }else {
                     cancelOrderListPost();
                 }
 //                AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
@@ -360,7 +369,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         final AlertDialog b = dialogBuilder.create();
         b.show();
 
-        if (!handOvertoNameSpinner.getSelectedItem().equals("Telor")) {
+        if(!handOvertoNameSpinner.getSelectedItem().equals("Telor")){
             tailorListNameSpinner.setVisibility(View.GONE);
         }
 
@@ -385,7 +394,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             public void onClick(View view) {
                 if (String.valueOf(tailorListNameSpinner.getSelectedItem()).trim().length() > 0) {
                     try {
-                        if (!handOvertoNameSpinner.getSelectedItem().equals("")) {
+                        if(!handOvertoNameSpinner.getSelectedItem().equals("")) {
                             handOverToListPost();
                         }
                     } catch (Exception e) {
@@ -423,7 +432,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             @Override
             public void onClick(View v) {
                 try {
-                    if (!editReceivedBy.getText().toString().isEmpty()) {
+                    if(!editReceivedBy.getText().toString().isEmpty()) {
                         receiFromeTailorToListPost();
                     }
                 } catch (Exception e) {
@@ -491,8 +500,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                if (jsonbodyres.getStatus() == true) {
-                }
+                if (jsonbodyres.getStatus() == true) {}
                 //       progressDialog.dismiss();
             }
         }
@@ -661,6 +669,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 parameters.add("RoomName", "blank");
                 parameters.add("OrderItemID", "0");
                 parameters.add("StatusName", statusname);
+
 
 
                 builder.post(parameters.build());
