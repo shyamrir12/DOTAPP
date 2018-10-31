@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.SearchDetailListActivity;
 
@@ -16,6 +17,7 @@ public class BottomSearchfragment extends Fragment implements View.OnClickListen
     private TextView searchByName, searchByNumber;
     private Intent intent;
     Fragment fragment = null;
+    private DataOrder orderitem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,6 +28,7 @@ public class BottomSearchfragment extends Fragment implements View.OnClickListen
     }
 
     private void initView(View view) {
+        orderitem = new DataOrder();
         searchByName = view.findViewById(R.id.searchbyName);
         searchByNumber = view.findViewById(R.id.searchbyNumber);
         searchByName.setOnClickListener(this);
@@ -39,11 +42,14 @@ public class BottomSearchfragment extends Fragment implements View.OnClickListen
             case R.id.searchbyName:
                 intent = new Intent(getContext(), SearchDetailListActivity.class);
                 intent = intent.putExtra("StatusName", "Search By Name");
+                intent = intent.putExtra("OrderID", String.valueOf(orderitem.OrderID));
+
                 startActivity(intent);
                 break;
             case R.id.searchbyNumber:
                 intent = new Intent(getContext(), SearchDetailListActivity.class);
                 intent = intent.putExtra("StatusName", "Search By Number");
+                intent = intent.putExtra("OrderID", String.valueOf(orderitem.OrderID));
                 startActivity(intent);
                 break;
         }

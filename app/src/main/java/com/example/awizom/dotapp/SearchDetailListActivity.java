@@ -34,6 +34,7 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
     private EditText searchItem;
     private Button go;
     private String statusName = "";
+    private String orderId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
         go = findViewById(R.id.goButton);
         go.setOnClickListener(this);
         statusName = getIntent().getExtras().getString("StatusName", "");
+        orderId = getIntent().getExtras().getString("OrderID", "");
         getSupportActionBar().setTitle(statusName);
     }
 
