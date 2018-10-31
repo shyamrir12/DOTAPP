@@ -2,7 +2,7 @@ package com.example.awizom.dotapp.Models;
 
 public class TelorModel {
 
-private String TelorName;
+    private String TelorName;
 
     public String getTelorName() {
         return TelorName;

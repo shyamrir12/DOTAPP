@@ -11,14 +11,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.List;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -31,24 +34,24 @@ public class NewOrderListActivity extends AppCompatActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
     String filterKey = "";
     String valueButtonName = "";
-    String statusName ="";
-    String dailogMessage ="";
+    String statusName = "";
+    String dailogMessage = "";
     String countvalue = "";
-    TextView errorMsg ;
+    TextView errorMsg;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.panding_order_list );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.panding_order_list);
         initView();
     }
 
     private void initView() {
 
-       // progressDialog = new ProgressDialog(getApplicationContext());
+        // progressDialog = new ProgressDialog(getApplicationContext());
         errorMsg = findViewById(R.id.errorMessage);
-          mSwipeRefreshLayout =findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -56,25 +59,20 @@ public class NewOrderListActivity extends AppCompatActivity {
         //progressDialog = new ProgressDialog(this);
 
 
+        filterKey = getIntent().getExtras().getString("FilterKey", "");
+        valueButtonName = getIntent().getExtras().getString("ButtonName", "");
+        statusName = getIntent().getExtras().getString("StatusName", "");
+        dailogMessage = getIntent().getExtras().getString("DailogMessage", "");
+        countvalue = getIntent().getExtras().getString("Count", "");
 
-        filterKey = getIntent().getExtras().getString( "FilterKey", "" );
-        valueButtonName = getIntent().getExtras().getString("ButtonName","");
-        statusName = getIntent().getExtras().getString("StatusName","");
-        dailogMessage = getIntent().getExtras().getString("DailogMessage","");
-        countvalue = getIntent().getExtras().getString("Count","");
-
-        if(statusName.equals("Reset"))
-        {
+        if (statusName.equals("Reset")) {
             getSupportActionBar().setTitle("Dispatch");
         }
 
 
-
-
-        if(statusName.equals("Cancel"))
-        {
+        if (statusName.equals("Cancel")) {
             getSupportActionBar().setTitle("panding For Adv");
-        }else {
+        } else {
             getSupportActionBar().setTitle(statusName);
         }
 
@@ -82,20 +80,19 @@ public class NewOrderListActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 // Refresh items
-                if (!filterKey.equals( "PandingToPlaceOrder" )){
+                if (!filterKey.equals("PandingToPlaceOrder")) {
                     getOrderList();
-                }else if (filterKey.equals( "PandingToPlaceOrder" )){
+                } else if (filterKey.equals("PandingToPlaceOrder")) {
                     getOrderList();
                 }
             }
         });
 
-        if (!filterKey.equals( "PandingToPlaceOrder" )){
+        if (!filterKey.equals("PandingToPlaceOrder")) {
             getOrderList();
-        }else if (filterKey.equals( "PandingToPlaceOrder" )){
+        } else if (filterKey.equals("PandingToPlaceOrder")) {
             getOrderList();
         }
-
 
 
     }
@@ -144,10 +141,10 @@ public class NewOrderListActivity extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
 
-               // String name= getArguments().getString("NAME_KEY").toString();
-                if(filterKey.equals("pandingForAdv")) {
-                    builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet" );
-                }else {
+                // String name= getArguments().getString("NAME_KEY").toString();
+                if (filterKey.equals("pandingForAdv")) {
+                    builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet");
+                } else {
                     builder.url(AppConfig.BASE_URL_API + "OrderDetailsByFilterGet/" + filterKey);
                 }
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -160,7 +157,7 @@ public class NewOrderListActivity extends AppCompatActivity {
             } catch (Exception e) {
                 errorMsg.setVisibility(View.VISIBLE);
                 e.printStackTrace();
-               // progressDialog.dismiss();
+                // progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
                 //Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
@@ -170,7 +167,7 @@ public class NewOrderListActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 errorMsg.setVisibility(View.VISIBLE);
-               // progressDialog.dismiss();
+                // progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "There is no data available" +
                         "", Toast.LENGTH_SHORT).show();
             } else {
@@ -178,9 +175,9 @@ public class NewOrderListActivity extends AppCompatActivity {
                 Type listType = new TypeToken<List<DataOrder>>() {
                 }.getType();
                 orderList = new Gson().fromJson(result, listType);
-                adapter = new OrderListAdapter(getApplicationContext(), orderList,filterKey,valueButtonName,statusName);
+                adapter = new OrderListAdapter(getApplicationContext(), orderList, filterKey, valueButtonName, statusName);
                 recyclerView.setAdapter(adapter);
-              //  progressDialog.dismiss();
+                //  progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
                 //mSwipeRefreshLayout.setRefreshing(false);
             }

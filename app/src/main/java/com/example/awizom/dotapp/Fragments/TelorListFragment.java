@@ -66,10 +66,7 @@ import static com.itextpdf.text.Font.UNDEFINED;
 public class TelorListFragment extends Fragment {
 
 
-
-
-
- //   String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Dir";
+    //   String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Dir";
 
     ProgressDialog progressDialog;
     ListView lv;
@@ -79,10 +76,10 @@ public class TelorListFragment extends Fragment {
     Handler handler = new Handler();
     Runnable refresh;
     private Button add, cancel;
-    private EditText t_name,old_t_name;
+    private EditText t_name, old_t_name;
     ArrayAdapter<String> telorListAapter;
     String[] telorlist;
-    private String telornamet,telorname_old;
+    private String telornamet, telorname_old;
     Document doc;
 
     @Override
@@ -101,12 +98,9 @@ public class TelorListFragment extends Fragment {
         lv = view.findViewById(R.id.telorList);
         img = view.findViewById(R.id.updateButton);
         //img2=view.findViewById(R.id.updateButton1);
-     //   img3=view.findViewById(R.id.updateButton2);
+        //   img3=view.findViewById(R.id.updateButton2);
         //     lv = view.findViewById(R.id.telorList);
         doc = new Document();
-
-
-
 
 
         img.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +111,6 @@ public class TelorListFragment extends Fragment {
                 LayoutInflater inflater = getLayoutInflater();
                 final View dialogView = inflater.inflate(R.layout.telor_dialog, null);
                 alertbox.setView(dialogView);
-
 
 
                 t_name = dialogView.findViewById(R.id.sNo);
@@ -145,15 +138,11 @@ public class TelorListFragment extends Fragment {
                         b.dismiss();
 
 
-
                     }
                 });
 
             }
         });
-
-
-
 
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -210,19 +199,14 @@ public class TelorListFragment extends Fragment {
     }
 
 
-
-
-
-
-
     private void postTelorListEdit() {
-        telornamet=t_name.getText().toString();
-        telorname_old=old_t_name.getText().toString();
+        telornamet = t_name.getText().toString();
+        telorname_old = old_t_name.getText().toString();
 
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new PostTelorDetailsEdit().execute(telornamet.trim(),telorname_old.trim(),SharedPrefManager.getInstance(getContext()).getUser().access_token);
+            new PostTelorDetailsEdit().execute(telornamet.trim(), telorname_old.trim(), SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
@@ -295,12 +279,12 @@ public class TelorListFragment extends Fragment {
 
 
     private void postTelorList() {
-        telornamet=t_name.getText().toString();
+        telornamet = t_name.getText().toString();
 
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new PostTelorDetails().execute(telornamet.trim(),SharedPrefManager.getInstance(getContext()).getUser().access_token);
+            new PostTelorDetails().execute(telornamet.trim(), SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
@@ -440,9 +424,6 @@ public class TelorListFragment extends Fragment {
 
         }
     }
-
-
-
 
 
 }

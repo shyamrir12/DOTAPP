@@ -38,7 +38,7 @@ import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
 public class HomeActivity extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment telorListFragment, userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment,searchfragment;
+    private Fragment telorListFragment, userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment, searchfragment;
     private Fragment fragment = null;
     boolean doubleBackToExitPressedOnce = false;
     private Context mContext;

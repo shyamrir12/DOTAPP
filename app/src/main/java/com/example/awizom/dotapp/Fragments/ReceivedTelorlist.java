@@ -66,25 +66,25 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class ReceivedTelorlist extends Fragment  {
+public class ReceivedTelorlist extends Fragment {
 
     ProgressDialog progressDialog;
     ListView lv;
-   // ImageButton img2,img3;
+    // ImageButton img2,img3;
     RecyclerView lv1;
     // List <TelorModel> list1;
     SwipeRefreshLayout mSwipeRefreshLayout;
     Handler handler = new Handler();
     Runnable refresh;
     private Button add, cancel;
-    private EditText t_name,old_t_name;
+    private EditText t_name, old_t_name;
     ArrayAdapter<String> telorListAapter;
     String[] telorlist;
-    private String telornamet,telorname_old,hTelor;
+    private String telornamet, telorname_old, hTelor;
     List<HandOverModel> list1;
     private String[] catalogname;
     HandOverAdapter adapterh;
-    private  String r,str;
+    private String r, str;
     Type listType;
 
     HandOverModel handover = new HandOverModel();
@@ -94,6 +94,7 @@ public class ReceivedTelorlist extends Fragment  {
     Bundle gt;
     View rootView;
     TextView telornam;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -111,25 +112,25 @@ public class ReceivedTelorlist extends Fragment  {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait while loading telors");
         lv = view.findViewById(R.id.telorList);
-        lv1=view.findViewById(R.id.rcyclr);
+        lv1 = view.findViewById(R.id.rcyclr);
         lv1.setHasFixedSize(true);
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-         telornam = view.findViewById(R.id.telorname);
+        telornam = view.findViewById(R.id.telorname);
 
 
-         //  img2=view.findViewById(R.id.updateButton1);
-      //  img3=view.findViewById(R.id.updateButton2);
+        //  img2=view.findViewById(R.id.updateButton1);
+        //  img3=view.findViewById(R.id.updateButton2);
 
 //        title = getArguments().getString("NAME_KEY").toString();
         //img2.setOnClickListener(new View.OnClickListener() {
         //    @Override
-         //   public void onClick(View v) {
+        //   public void onClick(View v) {
 
-         ///       createPDF();
+        ///       createPDF();
 
-       ///     }
-     //   });
+        ///     }
+        //   });
 
 //        img3.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -139,7 +140,6 @@ public class ReceivedTelorlist extends Fragment  {
 //        });
 
         //     lv = view.findViewById(R.id.telorList);
-
 
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -154,12 +154,12 @@ public class ReceivedTelorlist extends Fragment  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                       lv.setVisibility(View.GONE);
-                           hTelor=telorlist[position];
-                      //     Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
+                lv.setVisibility(View.GONE);
+                hTelor = telorlist[position];
+                //     Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
 
-                           getreceivedTelorList();
-                           telornam.setText(hTelor);
+                getreceivedTelorList();
+                telornam.setText(hTelor);
             }
         });
     }
@@ -294,7 +294,7 @@ public class ReceivedTelorlist extends Fragment  {
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new GetReceivedTelorDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token,hTelor);
+            new GetReceivedTelorDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token, hTelor);
 
 
         } catch (Exception e) {
@@ -311,7 +311,6 @@ public class ReceivedTelorlist extends Fragment  {
         protected String doInBackground(String... params) {
 
 
-
             String accesstoken = params[0];
             String telorname = params[1];
 
@@ -320,7 +319,7 @@ public class ReceivedTelorlist extends Fragment  {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "ReceivedItemlistGet/"+ telorname );
+                builder.url(AppConfig.BASE_URL_API + "ReceivedItemlistGet/" + telorname);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -350,7 +349,7 @@ public class ReceivedTelorlist extends Fragment  {
 
 
                 Gson gson = new Gson();
-                 listType = new TypeToken<List<HandOverModel>>() {
+                listType = new TypeToken<List<HandOverModel>>() {
 
                 }.getType();
 
@@ -360,14 +359,12 @@ public class ReceivedTelorlist extends Fragment  {
                 lv1.setAdapter(adapterh);
 
 
-
 //                catalogname = new String[list1.size()];
 //
 //                for (int i = 0; i < list1.size(); i++) {
 //                    catalogname[i] = String.valueOf(list1.get(i).getCatalogName());
 //
 //                }
-
 
 
 //                r = result.toString().replaceAll("   ", "");
@@ -385,12 +382,12 @@ public class ReceivedTelorlist extends Fragment  {
 
 
     private void postTelorList() {
-        telornamet=t_name.getText().toString();
+        telornamet = t_name.getText().toString();
 
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new PostTelorDetails().execute(telornamet.trim(),SharedPrefManager.getInstance(getContext()).getUser().access_token);
+            new PostTelorDetails().execute(telornamet.trim(), SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
@@ -532,13 +529,16 @@ public class ReceivedTelorlist extends Fragment  {
     private class HeaderFooter {
 
         Phrase[] header = new Phrase[2];
-        /** Current page number (will be reset for every chapter). */
+        /**
+         * Current page number (will be reset for every chapter).
+         */
         int pagenumber;
 
         /**
          * Initialize one of the headers.
+         *
          * @see com.itextpdf.text.pdf.PdfPageEventHelper#onOpenDocument(
-         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+         *com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
          */
         public void onOpenDocument(PdfWriter writer, Document document) {
             header[0] = new Phrase("Movie history");
@@ -547,9 +547,10 @@ public class ReceivedTelorlist extends Fragment  {
         /**
          * Initialize one of the headers, based on the chapter title;
          * reset the page number.
+         *
          * @see com.itextpdf.text.pdf.PdfPageEventHelper#onChapter(
-         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document, float,
-         *      com.itextpdf.text.Paragraph)
+         *com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document, float,
+         * com.itextpdf.text.Paragraph)
          */
         public void onChapter(PdfWriter writer, Document document,
                               float paragraphPosition, Paragraph title) {
@@ -559,8 +560,9 @@ public class ReceivedTelorlist extends Fragment  {
 
         /**
          * Increase the page number.
+         *
          * @see com.itextpdf.text.pdf.PdfPageEventHelper#onStartPage(
-         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+         *com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
          */
         public void onStartPage(PdfWriter writer, Document document) {
             pagenumber++;
@@ -568,12 +570,13 @@ public class ReceivedTelorlist extends Fragment  {
 
         /**
          * Adds the header and the footer.
+         *
          * @see com.itextpdf.text.pdf.PdfPageEventHelper#onEndPage(
-         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+         *com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
          */
         public void onEndPage(PdfWriter writer, Document document) {
             Rectangle rect = writer.getBoxSize("art");
-            switch(writer.getPageNumber() % 2) {
+            switch (writer.getPageNumber() % 2) {
                 case 0:
                     ColumnText.showTextAligned(writer.getDirectContent(),
                             Element.ALIGN_RIGHT, header[0],

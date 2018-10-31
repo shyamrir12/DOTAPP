@@ -8,11 +8,13 @@
         android:id="@+id/relative_medium"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/searchItem"
                 android:layout_width="match_parent"
@@ -21,7 +23,8 @@
                 android:textColor="@color/black"
                 android:drawableRight="@drawable/ic_search_black_24dp"
                 android:hint="Enter the value*"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <Button
                 android:id="@+id/goButton"
                 android:layout_width="190dp"
@@ -31,7 +34,7 @@
                 android:text="Go"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:background="@drawable/add_cancel_button_shape"/>
+                android:background="@drawable/add_cancel_button_shape" />
         </LinearLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout

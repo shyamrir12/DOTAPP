@@ -84,7 +84,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         signupButton.setOnClickListener(this);
         loginHere = findViewById(R.id.loginHere);
         loginHere.setOnClickListener(this);
-        String userrole[] = {"User","Advance","PlaceOrder", "Hold", "MaterialReceive","HandOver","Receive","Dispatch"};
+        String userrole[] = {"User", "Advance", "PlaceOrder", "Hold", "MaterialReceive", "HandOver", "Receive", "Dispatch"};
 
 
         // Application of the Array to the Spinner
@@ -93,6 +93,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         spinner.setAdapter(spinnerArrayAdapter);
         progressDialog = new ProgressDialog(this);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -110,14 +111,14 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
     private boolean validation() {
 
 
-        if ((userName.getText().toString().isEmpty())){
-            userName.setError( "User name is required!" );
-        }else if(passWord.getText().toString().isEmpty()){
-            passWord.setError( "password is required!" );
-        }else if(cnfrmPassWord.getText().toString().isEmpty()){
-            cnfrmPassWord.setError( "password is required!" );
-        }else if(!cnfrmPassWord.getText().toString().equals(passWord.getText().toString())){
-            cnfrmPassWord.setError( "password is not match!" );
+        if ((userName.getText().toString().isEmpty())) {
+            userName.setError("User name is required!");
+        } else if (passWord.getText().toString().isEmpty()) {
+            passWord.setError("password is required!");
+        } else if (cnfrmPassWord.getText().toString().isEmpty()) {
+            cnfrmPassWord.setError("password is required!");
+        } else if (!cnfrmPassWord.getText().toString().equals(passWord.getText().toString())) {
+            cnfrmPassWord.setError("password is not match!");
         }
         return false;
 
@@ -219,7 +220,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                     progressDialog.dismiss();
                 }
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

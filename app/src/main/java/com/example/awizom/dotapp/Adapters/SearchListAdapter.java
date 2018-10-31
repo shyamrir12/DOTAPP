@@ -30,18 +30,20 @@ import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.SearchItemViewHolder>{
+public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.SearchItemViewHolder> {
     private Context mCtx;
     private List<DataOrder> searchDataOrders;
     private String statusName;
     private DataOrder searchViewData;
     private String statusMessage;
     AlertDialog.Builder alertbox;
-    public SearchListAdapter(Context mCtx, List<DataOrder> searchItemsDataOrders,String statusName) {
+
+    public SearchListAdapter(Context mCtx, List<DataOrder> searchItemsDataOrders, String statusName) {
         this.mCtx = mCtx;
         this.statusName = statusName;
         this.searchDataOrders = searchItemsDataOrders;
     }
+
     @NonNull
     @Override
     public SearchItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,7 +55,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Se
 
 
     public void onBindViewHolder(@NonNull SearchItemViewHolder holder, int position) {
-            searchViewData = searchDataOrders.get(position);
+        searchViewData = searchDataOrders.get(position);
         try {
             holder.c_name.setText("Name\n" + searchViewData.getCustomerName().trim());
             holder.c_contact.setText("Address\n " + searchViewData.getMobile().trim());
@@ -73,12 +75,12 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Se
         return searchDataOrders.size();
     }
 
-    class SearchItemViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
+    class SearchItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         AlertDialog.Builder alert;
         private Context mCtx;
         private List<DataOrder> searchDataOrdersList;
-        private TextView c_name, c_contact, c_address, c_oredrDate, c_advance,  c_totalAmount;
-        Button orderButton,actualOrderButton,checkstatusButton;
+        private TextView c_name, c_contact, c_address, c_oredrDate, c_advance, c_totalAmount;
+        Button orderButton, actualOrderButton, checkstatusButton;
 
         public SearchItemViewHolder(View itemView, Context mCtx, List<DataOrder> searchItemsDataOrders) {
             super(itemView);
@@ -128,7 +130,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Se
 
 
         }
-
 
 
     }

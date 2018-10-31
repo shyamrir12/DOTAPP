@@ -66,12 +66,13 @@ public class CustomerListFrgment extends Fragment {
     private void getCustomerList() {
         try {
             //String res="";
-           mSwipeRefreshLayout.setRefreshing(true);
+            mSwipeRefreshLayout.setRefreshing(true);
             new GetCustomerDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
         } catch (Exception e) {
             e.printStackTrace();
-            mSwipeRefreshLayout.setRefreshing(false);;
+            mSwipeRefreshLayout.setRefreshing(false);
+            ;
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -92,7 +93,7 @@ public class CustomerListFrgment extends Fragment {
                 builder.url(AppConfig.BASE_URL_API + "CustomerGet");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
-                 builder.addHeader("Authorization", "Bearer " + accesstoken);
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();

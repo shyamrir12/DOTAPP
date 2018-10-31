@@ -45,7 +45,7 @@ public class UserLogin {
         public String Message;
         public boolean Status;
         public String Role;
-        public boolean Active ;
+        public boolean Active;
 
         public boolean isActive() {
             return Active;

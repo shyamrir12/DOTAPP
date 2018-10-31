@@ -69,12 +69,10 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     }
 
 
-
-
     private boolean validation() {
 
-        if(cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty() || cAddress.getText().toString().isEmpty()||
-                interioName.getText().toString().isEmpty() || interioContact.getText().toString().isEmpty() ){
+        if (cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty() || cAddress.getText().toString().isEmpty() ||
+                interioName.getText().toString().isEmpty() || interioContact.getText().toString().isEmpty()) {
             Toast.makeText(getContext(), "Please insert the field", Toast.LENGTH_SHORT).show();
             return true;
         }

@@ -2,116 +2,127 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
-        <FrameLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/home_container" />
-        <android.support.v7.widget.CardView
-            android:id="@+id/customercardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
+            android:layout_marginTop="10dp">
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="15dp">
-            <LinearLayout
-                android:id="@+id/customerLayout"
+                android:id="@+id/home_container" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/customercardView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
+                android:layout_height="wrap_content">
 
-                <AutoCompleteTextView
-                    android:id="@+id/customerName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Customer Name"
-                    android:textSize="14sp"
-                    android:inputType="text"
-                    android:layout_weight="1"
-                    android:paddingLeft="8dp"/>
-                <ImageButton
-                    android:id="@+id/addnewCustomerButton"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_add_white_24dp"
-                    android:background="@color/white"
-                    android:tint="@color/colorAccent"
-                    android:layout_margin="10dp"/>
-                <TextView
-                    android:id="@+id/customerContact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mobile"
-                    android:textSize="14sp"
-                    android:layout_weight="1"
-                    android:paddingLeft="8dp"/>
-                <TextView
-                    android:id="@+id/interiorAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Address"
-                    android:textSize="14sp"
-                    android:layout_weight="1"
-                    android:paddingLeft="8dp"/>
-
-
-            </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/dateLayout"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:layout_below="@+id/customerLayout"
-                    android:layout_marginTop="10dp">
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp">
 
-                    <EditText
-                        android:id="@+id/orderDatePicker"
+                    <LinearLayout
+                        android:id="@+id/customerLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Date"
-                        android:textSize="14sp"
-                        android:layout_weight="1"
-                        android:paddingLeft="15dp"
-                        android:layout_marginRight="5dp"
-                        android:inputType="none"/>
+                        android:gravity="center_horizontal">
 
-                    <EditText
-                        android:id="@+id/amountValue"
+                        <AutoCompleteTextView
+                            android:id="@+id/customerName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="Customer Name"
+                            android:textSize="14sp"
+                            android:inputType="text"
+                            android:layout_weight="1"
+                            android:paddingLeft="8dp" />
+
+                        <ImageButton
+                            android:id="@+id/addnewCustomerButton"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_add_white_24dp"
+                            android:background="@color/white"
+                            android:tint="@color/colorAccent"
+                            android:layout_margin="10dp" />
+
+                        <TextView
+                            android:id="@+id/customerContact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mobile"
+                            android:textSize="14sp"
+                            android:layout_weight="1"
+                            android:paddingLeft="8dp" />
+
+                        <TextView
+                            android:id="@+id/interiorAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Address"
+                            android:textSize="14sp"
+                            android:layout_weight="1"
+                            android:paddingLeft="8dp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/dateLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Amount"
-                        android:text="0.0"
-                        android:textSize="14sp"
-                        android:paddingLeft="15dp"
-                        android:layout_weight="1"
-                        android:inputType="number"
-                        android:layout_marginLeft="5dp"/>
-                    <TextView
-                        android:id="@+id/textViewATotalAmount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Total Amount"
-                        android:textSize="14sp"
-                        android:layout_weight="1"
-                        />
-                </LinearLayout>
-            <!--<LinearLayout-->
-                <!--android:id="@+id/interiorLayout"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@+id/customerLayout"-->
-                <!--android:gravity="center_horizontal">-->
+                        android:gravity="center_horizontal"
+                        android:layout_below="@+id/customerLayout"
+                        android:layout_marginTop="10dp">
 
-                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                        <EditText
+                            android:id="@+id/orderDatePicker"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Date"
+                            android:textSize="14sp"
+                            android:layout_weight="1"
+                            android:paddingLeft="15dp"
+                            android:layout_marginRight="5dp"
+                            android:inputType="none" />
+
+                        <EditText
+                            android:id="@+id/amountValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Amount"
+                            android:text="0.0"
+                            android:textSize="14sp"
+                            android:paddingLeft="15dp"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:id="@+id/textViewATotalAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Total Amount"
+                            android:textSize="14sp"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                    <!--<LinearLayout-->
+                    <!--android:id="@+id/interiorLayout"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/customerLayout"-->
+                    <!--android:gravity="center_horizontal">-->
+
+                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
                     <!--&lt;!&ndash;android:id="@+id/interiorName"&ndash;&gt;-->
                     <!--&lt;!&ndash;android:layout_width="100dp"&ndash;&gt;-->
                     <!--&lt;!&ndash;android:layout_height="30dp"&ndash;&gt;-->
@@ -121,7 +132,7 @@
                     <!--&lt;!&ndash;android:layout_margin="15dp"&ndash;&gt;-->
                     <!--&lt;!&ndash;android:textSize="14sp"/>&ndash;&gt;-->
 
-                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
                     <!--&lt;!&ndash;android:id="@+id/interiorMobile"&ndash;&gt;-->
                     <!--&lt;!&ndash;android:layout_width="110dp"&ndash;&gt;-->
                     <!--&lt;!&ndash;android:layout_height="30dp"&ndash;&gt;-->
@@ -131,99 +142,107 @@
                     <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
                     <!--&lt;!&ndash;android:textSize="14sp"/>&ndash;&gt;-->
 
-              <!---->
-            <!--</LinearLayout>-->
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:id="@+id/orderCardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/customercardView"
-            android:layout_marginTop="10dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal">
+                    <!---->
+                    <!--</LinearLayout>-->
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-                <!--<LinearLayout-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/orderCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/customercardView"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal">
+
+                    <!--<LinearLayout-->
                     <!--android:id="@+id/dateLayout"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->
                     <!--android:gravity="center_horizontal">-->
 
                     <!--<EditText-->
-                        <!--android:id="@+id/orderDatePicker"-->
-                        <!--android:layout_width="140dp"-->
-                        <!--android:layout_height="30dp"-->
-                        <!--android:hint="Date"-->
-                        <!--android:textSize="14sp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:paddingLeft="14dp"-->
-                        <!--android:layout_marginRight="5dp"/>-->
+                    <!--android:id="@+id/orderDatePicker"-->
+                    <!--android:layout_width="140dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:hint="Date"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:paddingLeft="14dp"-->
+                    <!--android:layout_marginRight="5dp"/>-->
 
                     <!--<EditText-->
-                        <!--android:id="@+id/amountValue"-->
-                        <!--android:layout_width="140dp"-->
-                        <!--android:layout_height="30dp"-->
-                        <!--android:hint="Amount"-->
-                        <!--android:text="0.0"-->
-                        <!--android:textSize="14sp"-->
-                        <!--android:paddingLeft="14dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:layout_marginLeft="5dp"/>-->
-                <!--</LinearLayout>-->
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
+                    <!--android:id="@+id/amountValue"-->
+                    <!--android:layout_width="140dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:hint="Amount"-->
+                    <!--android:text="0.0"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:paddingLeft="14dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_marginLeft="5dp"/>-->
+                    <!--</LinearLayout>-->
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/buttonHallCardView"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/customercardView">
-            <RelativeLayout
+            <android.support.v7.widget.CardView
+                android:id="@+id/buttonHallCardView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
-                <LinearLayout
-                    android:id="@+id/buttonHallLayout"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/customercardView">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                   android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/addOrder"
+                    android:layout_gravity="center_horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/buttonHallLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:text="Submit Order"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="center"
-                        android:layout_margin="10dp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:background="@drawable/add_cancel_button_shape"/></LinearLayout>
-                <LinearLayout
-                    android:id="@+id/buttonRoomAddLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/buttonHallLayout">
-                    <Button
-                        android:id="@+id/addRoom"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/addOrder"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text="Submit Order"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:layout_margin="10dp"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:background="@drawable/add_cancel_button_shape" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/buttonRoomAddLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/add_cancel_button_shape"
-                        android:text="Add Room"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:visibility="gone"
-                        android:layout_weight="1"
-                        android:layout_alignParentRight="true"
-                        android:layout_margin="5dp" />
-                    <!--<Button-->
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/buttonHallLayout">
+
+                        <Button
+                            android:id="@+id/addRoom"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/add_cancel_button_shape"
+                            android:text="Add Room"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:visibility="gone"
+                            android:layout_weight="1"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="5dp" />
+                        <!--<Button-->
                         <!--android:id="@+id/addstatus"-->
                         <!--android:layout_width="match_parent"-->
                         <!--android:layout_height="40dp"-->
@@ -234,42 +253,45 @@
                         <!--android:visibility="gone"-->
                         <!--android:layout_alignParentRight="true"-->
                         <!--android:layout_margin="5dp"/>-->
-                </LinearLayout>
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:id="@+id/listHallCardView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/buttonHallCardView">
-            <RelativeLayout
-                android:id="@+id/rlayout"
+                    </LinearLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/listHallCardView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="15dp">
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/buttonHallCardView">
+
+                <RelativeLayout
+                    android:id="@+id/rlayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/toolbar" />
-                <!--<ListView-->
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="15dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/toolbar" />
+                    <!--<ListView-->
                     <!--android:id="@+id/hallList"-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="match_parent"-->
-                   <!--&gt;-->
-                <!--</ListView>-->
-            </RelativeLayout>
+                    <!--&gt;-->
+                    <!--</ListView>-->
+                </RelativeLayout>
 
-        </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
-    </RelativeLayout>
+        </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
     <!--<include-->
-        <!--android:id="@+id/header_relative_inclue"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--layout="@layout/layout_button_roomlist"-->
-        <!--android:visibility="gone"/>-->
+    <!--android:id="@+id/header_relative_inclue"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--layout="@layout/layout_button_roomlist"-->
+    <!--android:visibility="gone"/>-->
 </android.support.constraint.ConstraintLayout>

@@ -1,7 +1,6 @@
 package com.example.awizom.dotapp.Models;
 
-public class ReceivedModel
-{
+public class ReceivedModel {
     public String CatalogName;
     public String SerialNo;
     public String Design;

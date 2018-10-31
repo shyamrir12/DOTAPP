@@ -40,11 +40,11 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     private ProgressDialog progressDialog;
     private String countValue = "";
-    private TextView countValuependingToHandOverShow,countValueDispatchShow,
-            countValueHoldShow,countValueReceeMaterialShow,countValuependingToRefromtailorShow,countValuePlaceHolderShow;
+    private TextView countValuependingToHandOverShow, countValueDispatchShow,
+            countValueHoldShow, countValueReceeMaterialShow, countValuependingToRefromtailorShow, countValuePlaceHolderShow;
     private String[] countValueSplitData;
     String[] values;
-    String PandingToPlaceOrder="0",Hold="0",PandingToReceiveMaterial="0",PandingToHandOverTo="0",PandingToReceivedFromTelor="0",Dispatch="0";
+    String PandingToPlaceOrder = "0", Hold = "0", PandingToReceiveMaterial = "0", PandingToHandOverTo = "0", PandingToReceivedFromTelor = "0", Dispatch = "0";
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -57,7 +57,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 
     private void initView(View view) {
 
-        mSwipeRefreshLayout =view.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -94,7 +94,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
                 intent = intent.putExtra("ButtonName", "Place Order");
                 intent = intent.putExtra("StatusName", "OrderPlaced");
-                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
 
                 startActivity(intent);
@@ -106,7 +106,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "Hold");
                 intent = intent.putExtra("ButtonName", "Place Order");
                 intent = intent.putExtra("StatusName", "OrderPlaced");
-                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                 startActivity(intent);
                 break;
@@ -118,7 +118,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "PandingToHandOverTo");
                 intent = intent.putExtra("ButtonName", "HandOverTo");
                 intent = intent.putExtra("StatusName", "HandOverTo");
-                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                 startActivity(intent);
                 break;
@@ -129,7 +129,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "PandingToReceivedFromTelor");
                 intent = intent.putExtra("ButtonName", "Received");
                 intent = intent.putExtra("StatusName", "ReceivedFromTelor");
-                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                 startActivity(intent);
                 break;
@@ -140,7 +140,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "PandingToReceiveMaterial");
                 intent = intent.putExtra("ButtonName", "Received Order");
                 intent = intent.putExtra("StatusName", "MaterialReceived");
-                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                 startActivity(intent);
                 break;
@@ -151,7 +151,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 intent = intent.putExtra("FilterKey", "Dispatch");
                 intent = intent.putExtra("ButtonName", "Reset");
                 intent = intent.putExtra("StatusName", "Reset");
-                intent = intent.putExtra("DailogMessage","Do you want to change the status");
+                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                 startActivity(intent);
                 break;
@@ -247,25 +247,26 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 } else {
 
                     Gson gson = new Gson();
-                    Type listType = new TypeToken<String[]>(){}.getType();
-                    values= gson.fromJson(result, listType);
+                    Type listType = new TypeToken<String[]>() {
+                    }.getType();
+                    values = gson.fromJson(result, listType);
 
-                    PandingToPlaceOrder ="Panding To Place Order "+" ("+ values[1].split("=")[1] +")";
+                    PandingToPlaceOrder = "Panding To Place Order " + " (" + values[1].split("=")[1] + ")";
                     pendingttoPlaceOrder.setText(PandingToPlaceOrder);
 
-                    Hold ="Hold"+" ("+ values[2].split("=")[1] +")";
+                    Hold = "Hold" + " (" + values[2].split("=")[1] + ")";
                     holD.setText(Hold);
 
-                    PandingToReceiveMaterial ="Panding To Receive Material "+" ("+ values[3].split("=")[1] +")";
+                    PandingToReceiveMaterial = "Panding To Receive Material " + " (" + values[3].split("=")[1] + ")";
                     pendingToreceivedMaterial.setText(PandingToReceiveMaterial);
 
-                    PandingToHandOverTo ="Panding To Hand Over "+" ("+ values[4].split("=")[1] +")";
+                    PandingToHandOverTo = "Panding To Hand Over " + " (" + values[4].split("=")[1] + ")";
                     handOverto.setText(PandingToHandOverTo);
 
-                    PandingToReceivedFromTelor ="Panding To Received "+" ("+ values[5].split("=")[1] +")";
+                    PandingToReceivedFromTelor = "Panding To Received " + " (" + values[5].split("=")[1] + ")";
                     pendingtorecevefrometailor.setText(PandingToReceivedFromTelor);
 
-                    Dispatch ="Dispatch "+" ("+ values[6].split("=")[1] +")";
+                    Dispatch = "Dispatch " + " (" + values[6].split("=")[1] + ")";
                     dispatch.setText(Dispatch);
                     mSwipeRefreshLayout.setRefreshing(false);
 

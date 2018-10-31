@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
@@ -19,7 +20,9 @@ import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.SigninActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -43,7 +46,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
     }
 
     private void initView(View view) {
-        mSwipeRefreshLayout =view.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -233,7 +236,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
                     Type listType = new TypeToken<String[]>() {
                     }.getType();
                     values = gson.fromJson(result, listType);
-                    pandingForAdv = "Panding For Advance "+ " (" + values[0].split("=")[1] + ")";
+                    pandingForAdv = "Panding For Advance " + " (" + values[0].split("=")[1] + ")";
                     pendingOrderList.setText(pandingForAdv);
                     mSwipeRefreshLayout.setRefreshing(false);
                 }

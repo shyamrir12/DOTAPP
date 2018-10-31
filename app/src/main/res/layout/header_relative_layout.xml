@@ -2,74 +2,78 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorAccent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:layout_margin="15dp">
+        android:background="@color/colorAccent">
 
-        <LinearLayout
-            android:id="@+id/customerinfo"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true">
+            android:background="@color/colorAccent"
+            android:layout_margin="15dp">
 
-            <TextView
-                android:id="@+id/customer_name"
+            <LinearLayout
+                android:id="@+id/customerinfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Customer Name"
-                android:textColor="@color/white"
-                android:textSize="@dimen/room_text_size"
-                android:gravity="left"/>
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true">
 
-            <TextView
-                android:id="@+id/customer_mobile_no"
+                <TextView
+                    android:id="@+id/customer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Customer Name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/room_text_size"
+                    android:gravity="left" />
+
+                <TextView
+                    android:id="@+id/customer_mobile_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Room Name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/room_text_size"
+                    android:gravity="left" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/customerinfo2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Room Name"
-                android:textColor="@color/white"
-                android:textSize="@dimen/room_text_size"
-                android:gravity="left"/>
+                android:layout_below="@+id/customerinfo"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true">
 
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/customerinfo2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/customerinfo"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true">
+                <TextView
+                    android:id="@+id/order_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Customer Name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/room_text_size"
+                    android:gravity="left" />
 
-            <TextView
-                android:id="@+id/order_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Customer Name"
-                android:textColor="@color/white"
-                android:textSize="@dimen/room_text_size"
-                android:gravity="left"/>
-            <TextView
-                android:id="@+id/room_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Room Name"
-                android:textColor="@color/white"
-                android:textSize="@dimen/room_text_size"
-                android:gravity="left"/>
+                <TextView
+                    android:id="@+id/room_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Room Name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/room_text_size"
+                    android:gravity="left" />
 
-        </LinearLayout>
-        <!--<TextView-->
+            </LinearLayout>
+            <!--<TextView-->
             <!--android:layout_width="45dp"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:layout_alignEnd="@+id/customerinfo2"-->
@@ -80,14 +84,14 @@
             <!--android:layout_gravity="center"-->
             <!--android:textColor="@color/white"/>-->
 
-        <ImageButton
-            android:id="@+id/updateButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/button_background_shape"
-            android:src="@drawable/ic_add_white_24dp" />
+            <ImageButton
+                android:id="@+id/updateButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/button_background_shape"
+                android:src="@drawable/ic_add_white_24dp" />
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
 </RelativeLayout>

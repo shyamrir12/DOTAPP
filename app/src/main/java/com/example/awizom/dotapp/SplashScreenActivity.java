@@ -100,7 +100,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         try {
 
-        new statusCountGET().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+            new statusCountGET().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();

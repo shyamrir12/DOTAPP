@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Models.HandOverModel;
 import com.example.awizom.dotapp.R;
 
@@ -34,10 +35,10 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
 
     private Context mCtx;
     ProgressDialog progressDialog;
-    ImageButton img2,img3;
+    ImageButton img2, img3;
     private LinearLayout linearLayout;
     private String[] handoveritemList;
-TextView telor;
+    TextView telor;
     //we are storing all the products in a list
     private List<HandOverModel> handoveritemlist;
 
@@ -63,17 +64,17 @@ TextView telor;
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
         HandOverModel handover = handoveritemlist.get(position);
         try {
-           // holder.telor.setText(handover.getTelorName());
+            // holder.telor.setText(handover.getTelorName());
             holder.snum.setText(handover.getSerialNo());
-            holder.a_qty.setText(String.valueOf( handover.getAQty()));
+            holder.a_qty.setText(String.valueOf(handover.getAQty()));
             holder.catalog.setText(handover.getCatalogName());
             holder.design.setText(handover.getDesign());
             holder.page_no.setText(String.valueOf(handover.getPageNo()));
             holder.aunt.setText(handover.getUnit());
 
-          //  holder.price.setText(String.valueOf( handover.getPrice()).toString());
+            //  holder.price.setText(String.valueOf( handover.getPrice()).toString());
             holder.price.setText(String.valueOf(handover.getPrice2()));
-          //  holder.serialNo.setText(String.valueOf(handover.getSerialNo()));
+            //  holder.serialNo.setText(String.valueOf(handover.getSerialNo()));
 
 
         } catch (Exception E) {
@@ -92,7 +93,7 @@ TextView telor;
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         private Context mCtx;
-        TextView a_qty, catalog, design, page_no, price, price2,telor,snum,aunt;
+        TextView a_qty, catalog, design, page_no, price, price2, telor, snum, aunt;
 
         //we are storing all the products in a list
         private List<HandOverModel> hndovritemList;
@@ -105,7 +106,7 @@ TextView telor;
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
-         //   telor = itemView.findViewById(R.id.tlr);
+            //   telor = itemView.findViewById(R.id.tlr);
             snum = itemView.findViewById(R.id.snum);
             aunt = itemView.findViewById(R.id.unt3);
             a_qty = itemView.findViewById(R.id.qty);
@@ -113,8 +114,8 @@ TextView telor;
             design = itemView.findViewById(R.id.design);
             page_no = itemView.findViewById(R.id.pgn);
             price = itemView.findViewById(R.id.princ);
-         //   price2 = itemView.findViewById(R.id.princ2);
-           // receivedBy = itemView.findViewById(R.id.receivedby);
+            //   price2 = itemView.findViewById(R.id.princ2);
+            // receivedBy = itemView.findViewById(R.id.receivedby);
 
 
             //Button btn1 = itemView.findViewById(R.id.bton1);
@@ -130,21 +131,15 @@ TextView telor;
             //createPdf(handoveritemlist.get(position).toString());
 
 
-
-
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_TEXT, "Let's go for a trip to "
-                    + hndoitem );
+                    + hndoitem);
             intent.setType("text/plain");
             mCtx.startActivity(Intent.createChooser(intent, "Send To"));
-                }
+        }
 
 
-
-
-
-
-        private void createPdf(String sometext){
+        private void createPdf(String sometext) {
             // create a new document
             PdfDocument document = new PdfDocument();
             // crate a page description
@@ -175,35 +170,35 @@ TextView telor;
             if (!file.exists()) {
                 file.mkdirs();
             }
-            String targetPdf = directory_path+"test-2.pdf";
+            String targetPdf = directory_path + "test-2.pdf";
             File filePath = new File(targetPdf);
             try {
                 document.writeTo(new FileOutputStream(filePath));
-            //    Toast.makeText(this, "Done", Toast.LENGTH_LONG).show();
+                //    Toast.makeText(this, "Done", Toast.LENGTH_LONG).show();
             } catch (IOException e) {
-                Log.e("main", "error "+e.toString());
-           //     Toast.makeText(this, "Something wrong: " + e.toString(),  Toast.LENGTH_LONG).show();
+                Log.e("main", "error " + e.toString());
+                //     Toast.makeText(this, "Something wrong: " + e.toString(),  Toast.LENGTH_LONG).show();
             }
             // close the document
             document.close();
         }
 
-    @Override
+        @Override
         public boolean onLongClick(View v) {
             int position = getAdapterPosition();
             HandOverModel hndoitem = this.hndovritemList.get(position);
 
 
-        if (v.getId() == itemView.getId()) {
-            // showUpdateDeleteDialog(order);
-            try {
+            if (v.getId() == itemView.getId()) {
+                // showUpdateDeleteDialog(order);
+                try {
 
-            } catch (Exception E) {
-                E.printStackTrace();
+                } catch (Exception E) {
+                    E.printStackTrace();
+                }
+                Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
-        }
-        return true;
-    }
+            return true;
         }
     }
+}

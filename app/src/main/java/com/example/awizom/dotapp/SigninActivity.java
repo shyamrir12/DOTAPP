@@ -118,12 +118,12 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private boolean validation() {
-        if ((userName.getText().toString().isEmpty())){
-            userName.setError( "User name is required!" );
-        }else if(passWord.getText().toString().isEmpty()){
-            passWord.setError( "password is required!" );
+        if ((userName.getText().toString().isEmpty())) {
+            userName.setError("User name is required!");
+        } else if (passWord.getText().toString().isEmpty()) {
+            passWord.setError("password is required!");
         }
-            return false;
+        return false;
 
     }
 

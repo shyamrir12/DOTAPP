@@ -39,7 +39,6 @@ public class DataOrder {
     }
 
 
-
     public String getTelorList() {
         return TelorList;
     }
@@ -103,8 +102,6 @@ public class DataOrder {
     public void setInteriorMobile(String interiorMobile) {
         InteriorMobile = interiorMobile;
     }
-
-
 
 
     public int getOrderID() {

@@ -178,5 +178,5 @@
         app:itemTextColor="@color/colorPrimaryDark"
         android:fitsSystemWindows="false"
         android:layoutMode="clipBounds"
-        app:labelVisibilityMode="labeled"/>
+        app:labelVisibilityMode="labeled" />
 </android.support.constraint.ConstraintLayout>

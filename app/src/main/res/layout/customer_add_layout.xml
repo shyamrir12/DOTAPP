@@ -8,10 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true">
 
             <RelativeLayout
                 android:id="@+id/centre_layout"
@@ -87,7 +87,7 @@
                     android:textSize="15sp"
                     android:layout_below="@+id/confrmPassword"
                     android:background="@drawable/signin_sinup_button_shape"
-                    android:paddingLeft="14dp"/>
+                    android:paddingLeft="14dp" />
 
                 <Button
                     android:id="@+id/customerButton"
@@ -105,12 +105,12 @@
 
             </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
     </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="              "/>
+        android:text="              " />
 
 </RelativeLayout>

@@ -17,8 +17,6 @@
             android:layout_margin="10dp">
 
 
-
-
             <EditText
                 android:id="@+id/sNo"
                 android:layout_width="wrap_content"
@@ -26,6 +24,7 @@
                 android:layout_weight="1"
                 android:hint="New Name"
                 android:textSize="15sp" />
+
             <EditText
                 android:id="@+id/oldname"
                 android:layout_width="wrap_content"
@@ -36,9 +35,6 @@
 
 
         </LinearLayout>
-
-
-
 
 
         <LinearLayout

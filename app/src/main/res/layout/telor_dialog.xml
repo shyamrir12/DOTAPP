@@ -17,8 +17,6 @@
             android:layout_margin="10dp">
 
 
-
-
             <EditText
                 android:id="@+id/sNo"
                 android:layout_width="wrap_content"
@@ -29,9 +27,6 @@
 
 
         </LinearLayout>
-
-
-
 
 
         <LinearLayout

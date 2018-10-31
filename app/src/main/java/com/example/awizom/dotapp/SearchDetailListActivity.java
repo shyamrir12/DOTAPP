@@ -11,14 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.example.awizom.dotapp.Adapters.SearchListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.List;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -30,12 +33,12 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
     private SearchListAdapter adapter;
     private EditText searchItem;
     private Button go;
-    private String statusName ="";
+    private String statusName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.search_detail_list );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_detail_list);
         initView();
     }
 
@@ -48,20 +51,19 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
 //        searchItem.setOnClickListener(this);
         go = findViewById(R.id.goButton);
         go.setOnClickListener(this);
-        statusName = getIntent().getExtras().getString("StatusName","");
+        statusName = getIntent().getExtras().getString("StatusName", "");
         getSupportActionBar().setTitle(statusName);
     }
 
 
-
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.goButton:
 
-                if(!searchItem.getText().toString().isEmpty()) {
+                if (!searchItem.getText().toString().isEmpty()) {
                     getSearchList();
-                }else {
+                } else {
                     Toast.makeText(getApplicationContext(), "Please fill the field", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -109,7 +111,7 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
                 Type listType = new TypeToken<List<DataOrder>>() {
                 }.getType();
                 searchList = new Gson().fromJson(result, listType);
-                adapter = new SearchListAdapter(getApplicationContext(),searchList,statusName);
+                adapter = new SearchListAdapter(getApplicationContext(), searchList, statusName);
                 recyclerView.setAdapter(adapter);
 
 
@@ -117,10 +119,6 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
         }
 
     }
-
-
-
-
 
 
 }

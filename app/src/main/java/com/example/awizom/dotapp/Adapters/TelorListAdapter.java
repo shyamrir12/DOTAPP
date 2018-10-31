@@ -120,7 +120,7 @@ public class TelorListAdapter extends RecyclerView.Adapter<TelorListAdapter.Orde
                             // finish used for destroyed activity
 
                             // System.exit(0);
-                      postTelorList();
+                            postTelorList();
 
                         }
                     });
@@ -154,7 +154,7 @@ public class TelorListAdapter extends RecyclerView.Adapter<TelorListAdapter.Orde
 
                             OkHttpClient client = new OkHttpClient();
                             Request.Builder builder = new Request.Builder();
-                            builder.url(AppConfig.BASE_URL_API + "TelorPost/" +  "TelorName/" + "OldName");
+                            builder.url(AppConfig.BASE_URL_API + "TelorPost/" + "TelorName/" + "OldName");
                             builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                             builder.addHeader("Accept", "application/json");
                             builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -199,9 +199,6 @@ public class TelorListAdapter extends RecyclerView.Adapter<TelorListAdapter.Orde
 
 
                 }
-
-
-
 
 
             });

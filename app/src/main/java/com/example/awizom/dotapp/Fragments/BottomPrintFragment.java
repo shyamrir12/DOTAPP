@@ -14,7 +14,7 @@ import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.R;
 
-public class BottomPrintFragment extends Fragment implements View.OnClickListener{
+public class BottomPrintFragment extends Fragment implements View.OnClickListener {
 
     private TextView handOverList, ReceivedList;
     private Intent intent;
@@ -82,7 +82,7 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
 
 
             case R.id.handOverList:
-               // getActivity().setTitle("Handover Telor List");
+                // getActivity().setTitle("Handover Telor List");
 //
 //                Bundle bundle2 = new Bundle();
 //                bundle2.putString("NAME_KEY", "Handover Telor List");
@@ -95,7 +95,7 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.receivedItemList:
- //               getActivity().setTitle("Telor List");
+                //               getActivity().setTitle("Telor List");
 
 //                Bundle bundle = new Bundle();
 //                bundle.putString("NAME_KEY", "Handover Telor List");
@@ -120,7 +120,6 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
         }
 
     }
-
 
 
 }

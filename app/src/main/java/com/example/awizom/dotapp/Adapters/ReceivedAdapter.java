@@ -67,7 +67,7 @@ public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderI
         try {
             // holder.telor.setText(handover.getTelorName());
             holder.snum.setText(rcvd.getSerialNo());
-            holder.a_qty.setText(String.valueOf( rcvd.getAQty()));
+            holder.a_qty.setText(String.valueOf(rcvd.getAQty()));
             holder.catalog.setText(rcvd.getCatalogName());
             holder.design.setText(rcvd.getDesign());
             holder.page_no.setText(String.valueOf(rcvd.getPageNo()));
@@ -76,9 +76,6 @@ public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderI
             //  holder.price.setText(String.valueOf( handover.getPrice()).toString());
             holder.price.setText(String.valueOf(rcvd.getPrice2()));
             //  holder.serialNo.setText(String.valueOf(handover.getSerialNo()));
-
-
-
 
 
         } catch (Exception E) {
@@ -97,7 +94,7 @@ public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderI
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         private Context mCtx;
-        TextView a_qty, catalog, design, page_no, price, price2,telor,snum,aunt;
+        TextView a_qty, catalog, design, page_no, price, price2, telor, snum, aunt;
 
         //we are storing all the products in a list
         private List<ReceivedModel> receivedModels;
@@ -120,16 +117,14 @@ public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderI
             price = itemView.findViewById(R.id.princ);
 
 
-
             //   price2 = itemView.findViewById(R.id.princ2);
             // receivedBy = itemView.findViewById(R.id.receivedby);
-        //    String s=catalog.getText().toString();
-          //  Bundle basket= new Bundle();
-          //  basket.putString("abc", s);
-          //  Fragment fragment= new ReceivedTelorlist();
-          //  FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        //    fragment.setArguments(basket);
-
+            //    String s=catalog.getText().toString();
+            //  Bundle basket= new Bundle();
+            //  basket.putString("abc", s);
+            //  Fragment fragment= new ReceivedTelorlist();
+            //  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            //    fragment.setArguments(basket);
 
 
             //Button btn1 = itemView.findViewById(R.id.bton1);
@@ -145,11 +140,9 @@ public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderI
             //createPdf(handoveritemlist.get(position).toString());
 
 
-
-
         }
 
-        private void createPdf(String sometext){
+        private void createPdf(String sometext) {
             // create a new document
             PdfDocument document = new PdfDocument();
             // crate a page description
@@ -180,13 +173,13 @@ public class ReceivedAdapter extends RecyclerView.Adapter<ReceivedAdapter.OrderI
             if (!file.exists()) {
                 file.mkdirs();
             }
-            String targetPdf = directory_path+"test-2.pdf";
+            String targetPdf = directory_path + "test-2.pdf";
             File filePath = new File(targetPdf);
             try {
                 document.writeTo(new FileOutputStream(filePath));
                 //    Toast.makeText(this, "Done", Toast.LENGTH_LONG).show();
             } catch (IOException e) {
-                Log.e("main", "error "+e.toString());
+                Log.e("main", "error " + e.toString());
                 //     Toast.makeText(this, "Something wrong: " + e.toString(),  Toast.LENGTH_LONG).show();
             }
             // close the document

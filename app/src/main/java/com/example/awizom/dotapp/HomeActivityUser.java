@@ -33,7 +33,7 @@ import com.example.awizom.dotapp.R;
 public class HomeActivityUser extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment,searchfragment;
+    private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment, searchfragment;
     Fragment fragment = null;
 
 
@@ -42,7 +42,7 @@ public class HomeActivityUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-      userListFragment = new UserListFragment();
+        userListFragment = new UserListFragment();
         customerLayoutfragment = new BottomCustomerFragment();
         printLayoutfragment = new BottomPrintFragment();
         orderLayoutfragment = new BottomOrderFragment();
@@ -79,19 +79,20 @@ public class HomeActivityUser extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-   @Override
-   public boolean onCreateOptionsMenu(Menu menu) {
-       // Inflate the menu; this adds items to the action bar if it is present.
-      getMenuInflater().inflate(R.menu.menu_main_user, menu);
-       return true;
-   }
 
-   @Override
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main_user, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Class fragmentClass = null;
 
-       switch (item.getItemId()) {
-  //          case R.id.admin1:
+        switch (item.getItemId()) {
+            //          case R.id.admin1:
 //                getSupportActionBar().setTitle("User List");
 //                fragment = userListFragment;
 //                fragmentClass = UserListFragment.class;
@@ -102,7 +103,7 @@ public class HomeActivityUser extends AppCompatActivity {
 //            // Toast.makeText(this, "user is clicked ", Toast.LENGTH_LONG).show();
 //
 //            //     return (true);
-        case R.id.about:
+            case R.id.about:
                 Intent i = new Intent(this, HomeActivityUser.class);
                 startActivity(i);
                 finish();
@@ -110,23 +111,23 @@ public class HomeActivityUser extends AppCompatActivity {
 //
 //
 //
-          case R.id.exit:
-              SharedPrefManager.getInstance(this).logout();
-              Intent login = new Intent(getApplicationContext(), SigninActivity.class);
-              startActivity(login);
-              //
-              break;
+            case R.id.exit:
+                SharedPrefManager.getInstance(this).logout();
+                Intent login = new Intent(getApplicationContext(), SigninActivity.class);
+                startActivity(login);
+                //
+                break;
 
 
-       }
+        }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
-           fragmentManager.beginTransaction().replace(R.id.home_container, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.home_container, fragment).commit();
             setTitle("");
         } catch (Exception e) {
-           e.printStackTrace();
-       }
+            e.printStackTrace();
+        }
 
         return (super.onOptionsItemSelected(item));
     }

@@ -49,7 +49,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     CatelogOrderDetailModel catelogOrderDetailModel;
 
 
-
     public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
@@ -106,7 +105,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
         TextView catlogName, serialNo, design, pageNo, price, unit;
         TextView OrderItemID, MaterialType, Price2, Qty, AQty;
-        Button okitem,allok;
+        Button okitem, allok;
 
         //we are storing all the products in a list
         private List<CatelogOrderDetailModel> orderitemList;
@@ -134,7 +133,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             AQty = itemView.findViewById(R.id.aQty);
             unit = itemView.findViewById(R.id.unit);
 
-           // okitem = itemView.findViewById(R.id.okButton);
+            // okitem = itemView.findViewById(R.id.okButton);
 //            okitem.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -296,7 +295,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     }
 
 
-
     private void okButtonPost() {
 
         try {
@@ -317,23 +315,23 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private class PostOkItemButton extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-    orderitem=new DataOrder();
-    catelogOrderDetailModel= new CatelogOrderDetailModel();
+            orderitem = new DataOrder();
+            catelogOrderDetailModel = new CatelogOrderDetailModel();
             String accesstoken = params[0];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew" );
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew");
                 builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
 
                 FormBody.Builder parameters = new FormBody.Builder();
-                parameters.add("OrderID" , "0");
-                parameters.add("RoomName" ,"blank" );
-                parameters.add("OrderItemID"  , String.valueOf(orderitem.getOrderID()));
-                parameters.add("StatusName"  ,"OrderPlaced");
+                parameters.add("OrderID", "0");
+                parameters.add("RoomName", "blank");
+                parameters.add("OrderItemID", String.valueOf(orderitem.getOrderID()));
+                parameters.add("StatusName", "OrderPlaced");
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
@@ -524,7 +522,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 parameters.add("OrderUnit", orderUnit);
                 parameters.add("OrderRoomID", orderRoomId);
 
-             parameters.add("CatalogName", catlogname);
+                parameters.add("CatalogName", catlogname);
                 parameters.add("SerialNo", snumber);
                 parameters.add("Design", desiGn);
                 parameters.add("PageNo", page_no);

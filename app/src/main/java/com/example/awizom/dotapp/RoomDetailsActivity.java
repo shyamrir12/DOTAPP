@@ -392,27 +392,27 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
                 if (!validation()) {
-                String snumber = s_no.getText().toString();
-                String catlogname = catlogName.getText().toString();
-                String desiGn = design.getText().toString();
-                String page_no = pageNo.getText().toString();
-                String priCe = price.getText().toString();
-                String priCe2 = price2.getText().toString();
-                String qTy = qty.getText().toString();
-                String aqty = aQty.getText().toString();
-                String materialtype = materialType.getSelectedItem().toString();
-                String unIt = unitSpinner.getSelectedItem().toString();
+                    String snumber = s_no.getText().toString();
+                    String catlogname = catlogName.getText().toString();
+                    String desiGn = design.getText().toString();
+                    String page_no = pageNo.getText().toString();
+                    String priCe = price.getText().toString();
+                    String priCe2 = price2.getText().toString();
+                    String qTy = qty.getText().toString();
+                    String aqty = aQty.getText().toString();
+                    String materialtype = materialType.getSelectedItem().toString();
+                    String unIt = unitSpinner.getSelectedItem().toString();
 
-                price2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int weight = Integer.parseInt(price.getText().toString());
-                        int bodyfat = Integer.parseInt(price2.getText().toString());
-                        int lbm = (weight * bodyfat) / 100;
-                        int res = weight - lbm;
-                        price2.setText(String.valueOf(res));
-                    }
-                });
+                    price2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int weight = Integer.parseInt(price.getText().toString());
+                            int bodyfat = Integer.parseInt(price2.getText().toString());
+                            int lbm = (weight * bodyfat) / 100;
+                            int res = weight - lbm;
+                            price2.setText(String.valueOf(res));
+                        }
+                    });
 
 
                     try {
@@ -452,22 +452,21 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         });
 
 
-
     }
 
-    private boolean validation( ) {
+    private boolean validation() {
 
 
-        if ((catlogName.getText().toString().isEmpty())){
-            catlogName.setError( "Catlog name is required!" );
-        }else if(design.getText().toString().isEmpty()){
-            design.setError( "Design is required!" );
-        }else if(qty.getText().toString().isEmpty()){
-            qty.setError( "Qty is required!" );
-        }else if((price.getText().toString().isEmpty())){
-            price.setError( "password is not match!" );
-        }else if((price2.getText().toString().isEmpty())){
-            price2.setError( "password is not match!" );
+        if ((catlogName.getText().toString().isEmpty())) {
+            catlogName.setError("Catlog name is required!");
+        } else if (design.getText().toString().isEmpty()) {
+            design.setError("Design is required!");
+        } else if (qty.getText().toString().isEmpty()) {
+            qty.setError("Qty is required!");
+        } else if ((price.getText().toString().isEmpty())) {
+            price.setError("password is not match!");
+        } else if ((price2.getText().toString().isEmpty())) {
+            price2.setError("password is not match!");
         }
         return true;
 

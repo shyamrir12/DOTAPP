@@ -29,6 +29,7 @@ public class CatelogOrderDetailModel {
     public String ReceivedBy;
     public boolean Cancel;
     public boolean Dispatch;
+
     public String getRoomName() {
         return RoomName;
     }
@@ -221,6 +222,7 @@ public class CatelogOrderDetailModel {
     public void setDispatch(boolean dispatch) {
         Dispatch = dispatch;
     }
+
     public int getOrderStatusID() {
         return OrderStatusID;
     }

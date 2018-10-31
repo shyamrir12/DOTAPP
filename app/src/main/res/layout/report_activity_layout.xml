@@ -202,10 +202,12 @@
 
         </RelativeLayout>
     </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_container" />
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
@@ -220,5 +222,5 @@
         app:itemTextColor="@color/colorPrimaryDark"
         android:fitsSystemWindows="false"
         android:layoutMode="clipBounds"
-        app:labelVisibilityMode="labeled"/>
+        app:labelVisibilityMode="labeled" />
 </android.support.constraint.ConstraintLayout>

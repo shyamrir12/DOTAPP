@@ -19,7 +19,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
     private CardView cardViewFirst, cardViewSecond, cardViewthird;
     private TextView pendingOrderList, pendingOrderCreate, cancelOrder;
     private Intent intent;
-    private Fragment pendinOrderListFragment,orderCreate;
+    private Fragment pendinOrderListFragment, orderCreate;
     Fragment fragment = null;
 
     @Override
@@ -43,7 +43,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
 
 
         pendinOrderListFragment = new OrderListFragment();
-      //  orderCreate = new AfterCreateOrderoFragment();
+        //  orderCreate = new AfterCreateOrderoFragment();
 
         cardViewFirst.setOnClickListener(this);
         cardViewSecond.setOnClickListener(this);
@@ -87,9 +87,9 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
 
             case R.id.order_create_cardview:
-               getSupportActionBar().setTitle("Order Create");
+                getSupportActionBar().setTitle("Order Create");
                 fragment = orderCreate;
-          //      fragmentClass = AfterCreateOrderoFragment.class;
+                //      fragmentClass = AfterCreateOrderoFragment.class;
                 break;
             case R.id.order_pending_cardview:
 
@@ -97,7 +97,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
                 bundle2.putString("NAME_KEY", "PendingOrderList");
                 OrderListFragment myFragment2 = new OrderListFragment();
                 myFragment2.setArguments(bundle2);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, myFragment2).commit();
 
                 getSupportActionBar().setTitle("Pending List");
                 fragment = pendinOrderListFragment;
@@ -118,7 +118,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
             case R.id.orderCreate:
                 fragment = orderCreate;
                 getSupportActionBar().setTitle("Order Create");
-              //  fragmentClass = AfterCreateOrderoFragment.class;
+                //  fragmentClass = AfterCreateOrderoFragment.class;
 
                 break;
             case R.id.pendingOrder:
@@ -127,7 +127,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
                 bundle3.putString("NAME_KEY", "PendingOrderList");
                 OrderListFragment myFragment3 = new OrderListFragment();
                 myFragment3.setArguments(bundle3);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment3).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, myFragment3).commit();
 
 
                 getSupportActionBar().setTitle("Pending List");

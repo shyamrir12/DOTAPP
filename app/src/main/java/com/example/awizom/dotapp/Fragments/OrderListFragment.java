@@ -47,7 +47,7 @@ public class OrderListFragment extends Fragment {
 
     private void initView(View view) {
         progressDialog = new ProgressDialog(getActivity());
-         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -113,7 +113,7 @@ public class OrderListFragment extends Fragment {
                 Type listType = new TypeToken<List<DataOrder>>() {
                 }.getType();
                 orderList = new Gson().fromJson(result, listType);
-                adapter = new OrderListAdapter(getContext(), orderList, "","","");
+                adapter = new OrderListAdapter(getContext(), orderList, "", "", "");
                 recyclerView.setAdapter(adapter);
                 mSwipeRefreshLayout.setRefreshing(false);
                 progressDialog.dismiss();

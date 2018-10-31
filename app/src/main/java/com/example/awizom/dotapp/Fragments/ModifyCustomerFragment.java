@@ -108,17 +108,15 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
             } else {
                 return false;
             }
-        }
-
-        else
+        } else
 
         {
 
             if (cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty() || cAddress.getText().toString().isEmpty() ||
                     interioName.getText().toString().isEmpty() || interioContact.getText().toString().isEmpty()) {
 
-             //   Toast.makeText(getContext(), "Please insert the field", Toast.LENGTH_SHORT).show();
-         //       return true;
+                //   Toast.makeText(getContext(), "Please insert the field", Toast.LENGTH_SHORT).show();
+                //       return true;
 
 
                 Toast.makeText(getContext(), "User Is not permitted for Modify", Toast.LENGTH_SHORT).show();
@@ -127,9 +125,8 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
             }
         }
 
-       return true;
+        return true;
     }
-
 
 
     private void getCustomerDetail(String cusname) {

@@ -33,7 +33,6 @@ public class UserModel {
     }
 
 
-
     public String getUserId() {
         return UserId;
     }
@@ -43,7 +42,6 @@ public class UserModel {
     }
 
 
-
     public String getRoleId() {
         return RoleId;
     }
@@ -51,7 +49,6 @@ public class UserModel {
     public void setRoleId(String roleId) {
         RoleId = roleId;
     }
-
 
 
 }

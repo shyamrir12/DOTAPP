@@ -32,8 +32,7 @@
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:hint="Room Name"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/button_status"
@@ -45,21 +44,20 @@
                     android:textSize="13sp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
                 <!--<TextView-->
-                    <!--android:layout_width="20dp"-->
-                    <!--android:layout_height="40dp" />-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="40dp" />-->
                 <!--<Button-->
-                    <!--android:id="@+id/simple_read"-->
-                    <!--android:layout_width="50dp"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:text="Simple read"-->
-                    <!--android:background="@drawable/add_cancel_button_shape"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:textSize="13sp"-->
-                    <!--android:textColor="@color/white"-->
-                    <!--android:textAllCaps="false"/>-->
-
+                <!--android:id="@+id/simple_read"-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:text="Simple read"-->
+                <!--android:background="@drawable/add_cancel_button_shape"-->
+                <!--android:layout_weight="1"-->
+                <!--android:textSize="13sp"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textAllCaps="false"/>-->
 
 
             </LinearLayout>

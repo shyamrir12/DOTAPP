@@ -15,7 +15,7 @@ import com.example.awizom.dotapp.Fragments.OrderListFragment;
 
 public class StatusActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView handOver, tailOr, receIvedby, pendingtoPlaceOrder,pendingToreceivedMaterial,pendingtorecevefrometailor,cancelList,dispatchList;
+    private TextView handOver, tailOr, receIvedby, pendingtoPlaceOrder, pendingToreceivedMaterial, pendingtorecevefrometailor, cancelList, dispatchList;
     private Intent intent;
     private Fragment statuspendingOrderFragment;
     Fragment fragment = null;
@@ -148,5 +148,5 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
 //                break;
 //
 //        }
-   }
+    }
 }

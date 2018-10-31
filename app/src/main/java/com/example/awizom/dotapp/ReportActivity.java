@@ -78,13 +78,13 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         Class fragmentClass = null;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.pendingOrder:
                 Bundle bundle = new Bundle();
                 bundle.putString("NAME_KEY", "PendingOrderwithadvance");
                 OrderListFragment myFragment = new OrderListFragment();
                 myFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, myFragment).commit();
                 getSupportActionBar().setTitle("Pending Order with advance");
                 fragment = reportpendingOrderFragment;
                 fragmentClass = OrderListFragment.class;
@@ -95,7 +95,7 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
                 bundle11.putString("NAME_KEY", "PendingCustomerwithnoadvance");
                 OrderListFragment myFragment1 = new OrderListFragment();
                 myFragment1.setArguments(bundle11);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment1).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, myFragment1).commit();
 
                 getSupportActionBar().setTitle("Pending Customer with no advance");
                 fragment = reportpendingOrderFragment;
@@ -108,7 +108,7 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
                 bundle12.putString("NAME_KEY", "PendingMaterialReceived");
                 OrderListFragment myFragment2 = new OrderListFragment();
                 myFragment2.setArguments(bundle12);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, myFragment2).commit();
 
                 getSupportActionBar().setTitle("Pending Material Received");
                 fragment = reportpendingOrderFragment;
@@ -121,7 +121,7 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
                 bundle13.putString("NAME_KEY", "Pendingitemtoplaceholder");
                 OrderListFragment myFragment3 = new OrderListFragment();
                 myFragment3.setArguments(bundle13);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,myFragment3).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, myFragment3).commit();
 
                 getSupportActionBar().setTitle("Pending item to placeholder");
                 fragment = reportpendingOrderFragment;

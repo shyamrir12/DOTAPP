@@ -30,15 +30,16 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class RoomListAdapter  extends RecyclerView.Adapter<RoomListAdapter.RoomViewHolder> {
+public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomViewHolder> {
 
     private Context mCtx;
     ProgressDialog progressDialog;
-    String StatusName,orderid,customername,mobile,orderdate,advance,actualorder,filterkey;
+    String StatusName, orderid, customername, mobile, orderdate, advance, actualorder, filterkey;
 
     //we are storing all the products in a list
     private List<String> roomList;
-    public RoomListAdapter(Context mCtx, List<String> roomList,String StatusName,String orderid,String customername,String mobile,String orderdate,String advance,String actualorder ,String filterkey) {
+
+    public RoomListAdapter(Context mCtx, List<String> roomList, String StatusName, String orderid, String customername, String mobile, String orderdate, String advance, String actualorder, String filterkey) {
         this.mCtx = mCtx;
         this.roomList = roomList;
         this.StatusName = StatusName;
@@ -52,6 +53,7 @@ public class RoomListAdapter  extends RecyclerView.Adapter<RoomListAdapter.RoomV
         this.filterkey = filterkey;
         progressDialog = new ProgressDialog(mCtx);
     }
+
     @NonNull
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -59,6 +61,7 @@ public class RoomListAdapter  extends RecyclerView.Adapter<RoomListAdapter.RoomV
         View view = inflater.inflate(R.layout.layout_button_roomlist, null);
         return new RoomViewHolder(view, mCtx, roomList);
     }
+
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         String room = roomList.get(position);
@@ -67,16 +70,12 @@ public class RoomListAdapter  extends RecyclerView.Adapter<RoomListAdapter.RoomV
             holder.roomname.setText(room);
             String v1 = room.split("Total")[1].trim();
 
-            if(filterkey.equals( "PandingToPlaceOrder" ))
-            {
-                holder.button_status.setVisibility( View.VISIBLE );
-            }
-            else  if(filterkey.equals( "Hold" ) && room.split( "~"  )[1].trim().equals( "Hold" ) )
-            {
-                holder.button_status.setVisibility( View.VISIBLE );
-            }
-            else if(filterkey.equals( "PandingToPlaceOrder" ) && v1.trim().equals("0.00") ){
-                holder.button_status.setVisibility( View.INVISIBLE );
+            if (filterkey.equals("PandingToPlaceOrder")) {
+                holder.button_status.setVisibility(View.VISIBLE);
+            } else if (filterkey.equals("Hold") && room.split("~")[1].trim().equals("Hold")) {
+                holder.button_status.setVisibility(View.VISIBLE);
+            } else if (filterkey.equals("PandingToPlaceOrder") && v1.trim().equals("0.00")) {
+                holder.button_status.setVisibility(View.INVISIBLE);
             }
 
 
@@ -101,57 +100,57 @@ public class RoomListAdapter  extends RecyclerView.Adapter<RoomListAdapter.RoomV
 
 
         public RoomViewHolder(View view, Context mCtx, List<String> roomList) {
-            super( view );
+            super(view);
             this.mCtx = mCtx;
             this.roomList = roomList;
 
-            itemView.setOnClickListener( this );
+            itemView.setOnClickListener(this);
 
-            roomname = itemView.findViewById( R.id.label );
-            button_status = itemView.findViewById( R.id.button_status );
+            roomname = itemView.findViewById(R.id.label);
+            button_status = itemView.findViewById(R.id.button_status);
 
 
-            roomname.setOnClickListener( this );
-            button_status.setOnClickListener( this );
+            roomname.setOnClickListener(this);
+            button_status.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
 
             int position = getAdapterPosition();
-            String room = this.roomList.get( position );
+            String room = this.roomList.get(position);
 
             if (v.getId() == roomname.getId()) {
 
                 Intent i = new Intent().setClass(mCtx, RoomDetailsActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                i = i.putExtra("RoomName",room.split( "-" )[0].trim());
+                i = i.putExtra("RoomName", room.split("-")[0].trim());
                 i = i.putExtra("OrderID", Integer.valueOf(orderid));
-                i = i.putExtra("CustomerName",customername);
-                i = i.putExtra("Mobile",mobile);
-                i = i.putExtra("OrderDate",orderdate);
-                i = i.putExtra("Advance",Double.valueOf(advance));
-                i = i.putExtra("ActualOrder",actualorder);
+                i = i.putExtra("CustomerName", customername);
+                i = i.putExtra("Mobile", mobile);
+                i = i.putExtra("OrderDate", orderdate);
+                i = i.putExtra("Advance", Double.valueOf(advance));
+                i = i.putExtra("ActualOrder", actualorder);
 
 
                 mCtx.startActivity(i);
-
 
 
             }
             if (v.getId() == button_status.getId()) {
 
                 //Toast.makeText(mCtx, StatusName, Toast.LENGTH_SHORT).show();
-                placeOrderPost(room.split( "-" )[0].trim());
+                placeOrderPost(room.split("-")[0].trim());
             }
 
 
         }
     }
+
     private void placeOrderPost(String roomname) {
 
         try {
-            new RoomListAdapter.PostPlaceOrderList().execute( SharedPrefManager.getInstance(mCtx).getUser().access_token, "OrderPlaced",roomname);
+            new RoomListAdapter.PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token, "OrderPlaced", roomname);
 
         } catch (Exception e) {
 
@@ -173,7 +172,7 @@ public class RoomListAdapter  extends RecyclerView.Adapter<RoomListAdapter.RoomV
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url( AppConfig.BASE_URL_API + "OrderStatusPostNew");
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew");
                 builder.addHeader("Content-Type", "application/json");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);

@@ -238,7 +238,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             //String res="";
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new OrderActivity.GETOrderList().execute( SharedPrefManager.getInstance(this).getUser().access_token);
+            new OrderActivity.GETOrderList().execute(SharedPrefManager.getInstance(this).getUser().access_token);
 
             //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
 

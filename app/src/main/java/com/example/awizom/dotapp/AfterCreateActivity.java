@@ -297,7 +297,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                         e.printStackTrace();
                     }
 
-                }else {
+                } else {
                     c_name.setError("Please enter customer name");
                 }
 

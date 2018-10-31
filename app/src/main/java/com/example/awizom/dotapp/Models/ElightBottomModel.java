@@ -47,7 +47,6 @@ public class ElightBottomModel {
     }
 
 
-
     public int getOrderRoomId() {
         return OrderRoomId;
     }
