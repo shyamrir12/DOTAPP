@@ -149,6 +149,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 i = i.putExtra("ActualOrder", "");
                 i = i.putExtra("FilterKey", filterKey);
                 i = i.putExtra("StatusName", statusName);
+                i = i.putExtra("ButtonName", valueButtonname);
                 mCtx.startActivity(i);
             }
             if (v.getId() == buttonActualOrder.getId()) {
@@ -159,6 +160,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 i = i.putExtra("ActualOrder", "ActualOrder");
                 i = i.putExtra("FilterKey", filterKey);
                 i = i.putExtra("StatusName", statusName);
+                i = i.putExtra("ButtonName", valueButtonname);
                 mCtx.startActivity(i);
             }
             if (v.getId() == canceLOrderButton.getId()) {

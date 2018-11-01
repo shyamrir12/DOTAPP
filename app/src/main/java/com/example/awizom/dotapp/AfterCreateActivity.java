@@ -75,7 +75,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private Button addorder, addroom, actualRead, simpleRead, addUserStatus;
     private ImageButton addNewCustomer;
     int morderid = 0;
-
+    String buttonname="";
     String orderid = "";
     String actualorder = "";
     String filterkey = "";
@@ -163,6 +163,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             actualorder = getIntent().getExtras().getString("ActualOrder", "");
             filterkey = getIntent().getExtras().getString("FilterKey", "");
             stausname = getIntent().getExtras().getString("StatusName", "");
+            buttonname = getIntent().getExtras().getString("ButtonName", "");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -651,7 +652,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     roomlistadapter = new RoomListAdapter(getApplicationContext(), roomList, stausname, orderid
                             , c_name.getText().toString(), c_contact.getText().toString()
                             , orderDate.getText().toString()
-                            , amount.getText().toString(), actualorder, filterkey);
+                            , amount.getText().toString(), actualorder, filterkey,buttonname,morder.getTelorList());
                     recyclerView.setAdapter(roomlistadapter);
                     mSwipeRefreshLayout.setRefreshing(false);
                     // ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist, R.id.label, roomName);

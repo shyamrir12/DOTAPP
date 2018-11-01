@@ -35,7 +35,7 @@
                 android:layout_weight="1"
                 android:hint="Roman Qty"
                 android:textSize="15sp"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/editAplot"

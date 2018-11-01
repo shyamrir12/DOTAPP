@@ -264,7 +264,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             public void onClick(View view) {
                 if ((editElight.getText().toString().isEmpty()) || (editRoman.getText().toString().isEmpty())
                         || (editRoman.getText().toString().isEmpty()) || (editAplot.getText().toString().isEmpty())) {
+
                     editElight.setError("Field is required!");
+
+                }
+                else
+                {
                     String elight = editElight.getText().toString();
                     String roman = editRoman.getText().toString();
                     String aplot = editAplot.getText().toString();
