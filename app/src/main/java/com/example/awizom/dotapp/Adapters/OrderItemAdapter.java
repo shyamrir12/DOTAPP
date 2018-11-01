@@ -54,9 +54,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private Spinner handOvertoNameSpinner, tailorListNameSpinner;
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     String orderItemId;
-    private Button buttonStatus;
+
     public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder,
-                            String StatusName,String filterkey,String tailorList, String buttonname) {
+                            String filterkey, String StatusName, String buttonname,String tailorList) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
         this.actualorder = actualorder;
@@ -97,7 +97,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 holder.AQty.setVisibility(View.VISIBLE);
                 holder.Qty.setVisibility(View.GONE);
             }
-
+            holder.buttonStatus.setVisibility( View.VISIBLE );
+            holder.buttonStatus.setText( buttonname );
         } catch (Exception E) {
             E.printStackTrace();
         }
@@ -112,10 +113,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
         AlertDialog.Builder alert;
         private Context mCtx;
-
+        Button buttonStatus;
         TextView catlogName, serialNo, design, pageNo, price, unit;
         TextView OrderItemID, MaterialType, Price2, Qty, AQty;
-        Button okitem, allok;
+
 
         //we are storing all the products in a list
         private List<CatelogOrderDetailModel> orderitemList;
@@ -136,7 +137,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             pageNo = itemView.findViewById(R.id.c_pageNo);
             price = itemView.findViewById(R.id.c_pricec);
 
-            buttonStatus = itemView.findViewById(R.id.button_status);
+            buttonStatus = itemView.findViewById(R.id.buttonstatus);
             buttonStatus.setOnClickListener(this);
 
 
@@ -146,13 +147,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             AQty = itemView.findViewById(R.id.aQty);
             unit = itemView.findViewById(R.id.unit);
 
-            // okitem = itemView.findViewById(R.id.okButton);
-//            okitem.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    okButtonPost();
-//                }
-//            });
 
 
         }

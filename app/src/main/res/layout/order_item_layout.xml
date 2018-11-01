@@ -120,8 +120,8 @@
                 <!--android:background="@drawable/add_cancel_button_shape"-->
                 <!--android:text="ok"/>-->
                 <Button
-                    android:id="@+id/button_status"
-                    android:layout_width="30dp"
+                    android:id="@+id/buttonstatus"
+                    android:layout_width="80dp"
                     android:layout_height="30dp"
                     android:text="Place Order"
                     android:background="@drawable/add_cancel_button_shape"
