@@ -119,6 +119,18 @@
                 <!--android:layout_marginLeft="15dp"-->
                 <!--android:background="@drawable/add_cancel_button_shape"-->
                 <!--android:text="ok"/>-->
+                <Button
+                    android:id="@+id/button_status"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="Place Order"
+                    android:background="@drawable/add_cancel_button_shape"
+                    android:layout_weight="1"
+                    android:textSize="13sp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="15dp"
+                    android:visibility="visible" />
             </LinearLayout>
 
         </RelativeLayout>

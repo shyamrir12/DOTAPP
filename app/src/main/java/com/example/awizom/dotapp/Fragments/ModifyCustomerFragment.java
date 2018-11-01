@@ -95,8 +95,9 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
         switch (v.getId()) {
             case R.id.updateButton:
 
-                if ((cName.getText().toString().isEmpty())) {
+                if ((cName.getText().toString().isEmpty()) || (cContact.getText().toString().isEmpty())) {
                     cName.setError("Customer Name is required!");
+                    cContact.setError("Customer Contact is required!");
                 }else {
                     customerUpdatePost();
                 }

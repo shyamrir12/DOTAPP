@@ -167,6 +167,11 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
                 i = i.putExtra("Advance", Double.valueOf(advance));
                 i = i.putExtra("ActualOrder", actualorder);
 
+                i = i.putExtra("StatusName", StatusName);
+                i = i.putExtra("FilterKey", filterkey);
+                i = i.putExtra("ButtonName", buttonname);
+                i = i.putExtra("TailorList",telorlist);
+
 
                 mCtx.startActivity(i);
 
@@ -322,7 +327,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     private void placeOrderPost(String roomname) {
 
         try {
-            new RoomListAdapter.PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token, "OrderPlaced", roomname);
+            new RoomListAdapter.PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,StatusName, roomname);
 
         } catch (Exception e) {
 

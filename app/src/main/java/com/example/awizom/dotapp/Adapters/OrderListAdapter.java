@@ -210,7 +210,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                            dispatchListPost();
+                             dispatchListPost();
                         }
                     });
                     alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {

@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,13 +48,22 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private List<CatelogOrderDetailModel> orderitemList;
     DataOrder orderitem;
     CatelogOrderDetailModel catelogOrderDetailModel;
-
-
-    public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder) {
+    private String StatusName,filterkey,buttonname,tailorList;
+    private EditText editReceivedBy;
+    private Button okRecevedButton,canceLOrderButton;
+    private Spinner handOvertoNameSpinner, tailorListNameSpinner;
+    private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
+    String orderItemId;
+    private Button buttonStatus;
+    public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder,
+                            String StatusName,String filterkey,String tailorList, String buttonname) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
         this.actualorder = actualorder;
-        //this.statusName=statusName;
+        this.StatusName=StatusName;
+        this.filterkey=filterkey;
+        this.tailorList=tailorList;
+        this.buttonname=buttonname;
         progressDialog = new ProgressDialog(mCtx);
     }
 
@@ -126,6 +136,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             pageNo = itemView.findViewById(R.id.c_pageNo);
             price = itemView.findViewById(R.id.c_pricec);
 
+            buttonStatus = itemView.findViewById(R.id.button_status);
+            buttonStatus.setOnClickListener(this);
+
 
             MaterialType = itemView.findViewById(R.id.materialtype);
             Price2 = itemView.findViewById(R.id.price2);
@@ -145,9 +158,155 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(final View v) {
             int position = getAdapterPosition();
             CatelogOrderDetailModel orderitem = this.orderitemList.get(position);
+
+            orderItemId=String.valueOf(orderitem.getOrderItemID());
+            if (v.getId() == buttonStatus.getId()) {
+
+                if( filterkey.equals("PandingToPlaceOrder")||filterkey.equals("PandingToReceiveMaterial")||filterkey.equals("Hold"))
+                {
+                    placeOrderPost();
+                }
+                else if(filterkey.equals("PandingToHandOverTo"))
+                {
+                    android.support.v7.app.AlertDialog.Builder alertbox = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle("Do you want to change the status");
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            showDailogForHandOverTo(v);
+                        }
+                    });
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+
+                }
+                else if (filterkey.equals("PandingToReceivedFromTelor"))
+                {
+                    android.app.AlertDialog.Builder alertbox = new android.app.AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle("Do you want to change the status");
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            showdailogForreceivedBy(v);
+                        }
+                    });
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+                }
+
+            }
+
+
+        }
+
+        private void showdailogForreceivedBy(View v) {
+
+            android.support.v7.app.AlertDialog.Builder dialogBuilder = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext());
+            LayoutInflater inflater = LayoutInflater.from(v.getRootView().getContext());
+            final View dialogView = inflater.inflate(R.layout.alert_for_received_tailor, null);
+            dialogBuilder.setView(dialogView);
+
+            editReceivedBy = dialogView.findViewById(R.id.receivedEditText);
+            okRecevedButton = dialogView.findViewById(R.id.okReceivedButton);
+            canceLOrderButton = dialogView.findViewById(R.id.cancelOrderButton);
+
+            dialogBuilder.setTitle("Receibed By List");
+            final android.support.v7.app.AlertDialog b = dialogBuilder.create();
+            b.show();
+
+            okRecevedButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        if(!editReceivedBy.getText().toString().isEmpty()) {
+                            receiFromeTailorToListPost();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    b.dismiss();
+                }
+            });
+
+
+        }
+        private void showDailogForHandOverTo(View v) {
+
+            android.support.v7.app.AlertDialog.Builder dialogBuilder = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext());
+            LayoutInflater inflater = LayoutInflater.from(v.getRootView().getContext());
+            final View dialogView = inflater.inflate(R.layout.handover_to_show_telo, null);
+            dialogBuilder.setView(dialogView);
+
+            handOvertoNameSpinner = dialogView.findViewById(R.id.handOverToNameSpinner);
+            tailorListNameSpinner = dialogView.findViewById(R.id.tailorListSpinner);
+            final Button buttonOk = dialogView.findViewById(R.id.buttonOk);
+            final LinearLayout l2 = dialogView.findViewById(R.id.l2);
+
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, handOverToListSpinnerData);
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+            handOvertoNameSpinner.setAdapter(spinnerArrayAdapter);
+            progressDialog = new ProgressDialog(mCtx);
+
+            String[] items =tailorList.split(",");
+            ArrayAdapter<String> spinneArrayAdapter = new ArrayAdapter<String>(mCtx, android.R.layout.simple_spinner_item, items);
+            spinneArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+            tailorListNameSpinner.setAdapter(spinneArrayAdapter);
+
+            dialogBuilder.setTitle("Hand Over List");
+            final android.support.v7.app.AlertDialog b = dialogBuilder.create();
+            b.show();
+
+            if(!handOvertoNameSpinner.getSelectedItem().equals("Telor")){
+                tailorListNameSpinner.setVisibility(View.GONE);
+            }
+
+//        handOvertoNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                tailorListNameSpinner.setVisibility(View.VISIBLE);
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+
+
+            buttonOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (String.valueOf(tailorListNameSpinner.getSelectedItem()).trim().length() > 0) {
+                        try {
+                            if(!handOvertoNameSpinner.getSelectedItem().equals("")) {
+                                handOverToListPost(); // handOverToListPost();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        b.dismiss();
+                    }
+
+
+                }
+
+
+            });
+
 
         }
 
@@ -295,72 +454,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     }
 
 
-    private void okButtonPost() {
-
-        try {
-
-            //     progressDialog.setMessage("loading...");
-            //      progressDialog.show();
-            new PostOkItemButton().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token);
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            //       progressDialog.dismiss();
-            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
-    private class PostOkItemButton extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            orderitem = new DataOrder();
-            catelogOrderDetailModel = new CatelogOrderDetailModel();
-            String accesstoken = params[0];
-            String json = "";
-            try {
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew");
-                builder.addHeader("Content-Type", "application/json");
-                builder.addHeader("Accept", "application/json");
-                builder.addHeader("Authorization", "Bearer " + accesstoken);
-
-                FormBody.Builder parameters = new FormBody.Builder();
-                parameters.add("OrderID", "0");
-                parameters.add("RoomName", "blank");
-                parameters.add("OrderItemID", String.valueOf(orderitem.getOrderID()));
-                parameters.add("StatusName", "OrderPlaced");
-                builder.post(parameters.build());
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-                if (response.isSuccessful()) {
-                    json = response.body().string();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                //      progressDialog.dismiss();
-//                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-            }
-            return json;
-        }
-
-        protected void onPostExecute(String result) {
-            if (result.isEmpty()) {
-                progressDialog.dismiss();
-                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
-            } else {
-                Gson gson = new Gson();
-                final Result jsonbodyres = gson.fromJson(result, Result.class);
-                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                if (jsonbodyres.getStatus() == true) {
 
 
-                }
-                //       progressDialog.dismiss();
-            }
-        }
-    }
 
     private void getCatalogDesignSingle() {
         try {
@@ -563,6 +658,202 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     //   getMyOrder();
                 }
                 // progressDialog.dismiss();
+            }
+        }
+    }
+
+
+
+    private void placeOrderPost() {
+
+        try {
+            new PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,StatusName,orderItemId);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private class PostPlaceOrderList extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            // InputStream inputStream
+            String accesstoken = params[0];
+            String statusname = params[1];
+            String orderItemId = params[2];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew");
+                builder.addHeader("Content-Type", "application/json");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderID", "0");
+                parameters.add("RoomName", "blank");
+                parameters.add("OrderItemID", orderItemId);
+                parameters.add("StatusName", statusname);
+
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                //      progressDialog.dismiss();
+//                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+
+
+                }
+                //       progressDialog.dismiss();
+            }
+        }
+    }
+
+    private void receiFromeTailorToListPost() {
+        try {
+
+            new receivedFrometailorToListPost().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token, StatusName,orderItemId, editReceivedBy.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private class receivedFrometailorToListPost extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            // InputStream inputStream
+            String accesstoken = params[0];
+            String statusname = params[1];
+            String orderItemId = params[2];
+            String name = params[3];
+
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew");
+                builder.addHeader("Content-Type", "application/json");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderID", "0");
+                parameters.add("RoomName", "blank");
+                parameters.add("OrderItemID", orderItemId);
+                parameters.add("StatusName", statusname);
+                parameters.add("ReceivedBy", name);
+
+
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(mCtx, "There is no data available", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+                }
+            }
+        }
+
+    }
+
+
+    private void handOverToListPost() {
+        try {
+            new PostHandOverToList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,StatusName,orderItemId,String.valueOf(handOvertoNameSpinner.getSelectedItem()), String.valueOf(tailorListNameSpinner.getSelectedItem()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private class PostHandOverToList extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            // InputStream inputStream
+            String accesstoken = params[0];
+            String statusname = params[1];
+            String orderItemId = params[2];
+            String handoverto = params[3];
+            String tailorname = params[4];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew");
+                builder.addHeader("Content-Type", "application/json");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderID", "0");
+                parameters.add("RoomName", "blank");
+                parameters.add("OrderItemID", orderItemId);
+                parameters.add("StatusName", statusname);
+                parameters.add("HandOverTo", handoverto);
+                parameters.add("TelorName", tailorname);
+
+
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(mCtx, "There is no data available", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+                }
             }
         }
     }

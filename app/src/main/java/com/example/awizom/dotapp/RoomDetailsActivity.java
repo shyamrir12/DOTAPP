@@ -66,7 +66,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private Button addButton, cancelButton;
     String actualorder = "";
     //  private AlertDialog b;
-    private String roomName, orderID, customernAME, mobileNumber, orderDate, advance;
+    private String roomName, orderID, customernAME, mobileNumber, orderDate, advance,StatusName,filterkey,buttonname,tailorList;
     DataOrder orderitem;
 
 
@@ -96,6 +96,13 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         orderDate = getIntent().getExtras().getString("OrderDate", "");
         advance = String.valueOf(getIntent().getDoubleExtra("Advance", 0));
         actualorder = getIntent().getExtras().getString("ActualOrder", "");
+
+        filterkey = getIntent().getExtras().getString("FilterKey", "");
+        StatusName = getIntent().getExtras().getString("StatusName", "");
+        buttonname = getIntent().getExtras().getString("ButtonName", "");
+        tailorList = getIntent().getExtras().getString("TailorList", "");
+
+
         customerName = findViewById(R.id.customer_name);
         customerMobileNo = findViewById(R.id.customer_mobile_no);
         customerOrder = findViewById(R.id.order_date);
@@ -532,7 +539,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                     Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
                     }.getType();
                     orderList = new Gson().fromJson(result, listType);
-                    adapter = new OrderItemAdapter(getBaseContext(), orderList, actualorder);
+                    adapter = new OrderItemAdapter(getBaseContext(), orderList, actualorder,filterkey,StatusName,buttonname,tailorList);
                     recyclerView.setAdapter(adapter);
                     progressDialog.dismiss();
                 }
