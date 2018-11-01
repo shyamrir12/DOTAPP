@@ -16,10 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.CustomerActivity;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
+import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
@@ -41,6 +43,8 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
     private List<CustomerModel> customerlist;
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
+    private CustomerModel dataOrderValue;
+    private long cid = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,7 +85,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
             @Override
             public void afterTextChanged(Editable s) {
                 if (cName.getText().length() > 0)
-                    getCustomerDetail(cName.getText().toString());
+                    getCustomerName(cName.getText().toString());
             }
         });
     }
@@ -90,7 +94,10 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.updateButton:
-                if (!validation()) {
+
+                if ((cName.getText().toString().isEmpty())) {
+                    cName.setError("Customer Name is required!");
+                }else {
                     customerUpdatePost();
                 }
                 break;
@@ -98,45 +105,11 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
         }
     }
 
-    private boolean validation() {
-        if (SharedPrefManager.getInstance(getActivity()).getUser().userRole.contains("Admin")) {
-            if ((cName.getText().toString().isEmpty())) {
-                cName.setError("Customer Name is required!");
-            } else if (cContact.getText().toString().isEmpty()) {
-                cContact.setError("Customer Contact is required!");
-            }else if (cAddress.getText().toString().isEmpty()) {
-                cAddress.setError("Customer Address is required!");
-            }else if (interioName.getText().toString().isEmpty()) {
-                interioName.setError("Interior Name is required!");
-            }else if (interioContact.getText().toString().isEmpty()) {
-                interioContact.setError("Interior Contact is required!");
-            }
-            return false;
-        } else
 
-        {
-
-            if (cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty() || cAddress.getText().toString().isEmpty() ||
-                    interioName.getText().toString().isEmpty() || interioContact.getText().toString().isEmpty()) {
-
-                //   Toast.makeText(getContext(), "Please insert the field", Toast.LENGTH_SHORT).show();
-                //       return true;
-
-
-                Toast.makeText(getContext(), "User Is not permitted for Modify", Toast.LENGTH_SHORT).show();
-
-                return true;
-            }
-        }
-
-        return true;
-    }
-
-
-    private void getCustomerDetail(String cusname) {
+    private void getCustomerDetail() {
         try {
             for (CustomerModel cm : customerlist) {
-                if (cm.getCustomerName().equals(cusname)) {
+                if (cm.getCustomerName().equals(cName)) {
                     cContact.setText(cm.getMobile());
                     cAddress.setText(cm.getAddress());
                     interioName.setText(cm.getInteriorName());
@@ -292,6 +265,64 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
                 progressDialog.dismiss();
 
 
+            }
+        }
+    }
+
+
+    private void getCustomerName(String cusname) {
+
+        try {
+
+            new getCustomer().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token, cusname);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    private class getCustomer extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String accesstoken = strings[0];
+            String cusname = strings[1];
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "CustomerGet/" + cusname);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+                Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<CustomerModel>() {
+                }.getType();
+                dataOrderValue = new Gson().fromJson(result, listType);
+                if (dataOrderValue != null) {
+                    cid = dataOrderValue.getCustomerID();
+                    cContact.setText(dataOrderValue.getMobile());
+                    cAddress.setText(dataOrderValue.getAddress());
+                    interioName.setText(dataOrderValue.getInteriorName());
+                    interioContact.setText(dataOrderValue.getInteriorMobile());
+                }
             }
         }
     }

@@ -98,9 +98,17 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.signupButton:
-                if (!validation()) {
+                if (validation()) {
                     createUser();
                 }
+//                if ((userName.getText().toString().isEmpty()) || (passWord.getText().toString().isEmpty()) ||
+//                (cnfrmPassWord.getText().toString().isEmpty()) ||  (!cnfrmPassWord.getText().toString().equals(passWord.getText().toString()))  ) {
+//                    userName.setError("User name is required!"); passWord.setError("password is required!");
+//                    cnfrmPassWord.setError("password is required!"); cnfrmPassWord.setError("password is not match!");
+//                }else {
+//                    createUser();
+//
+//                }
                 break;
             case R.id.loginHere:
                 startActivity(intent = new Intent(this, SigninActivity.class));
@@ -120,7 +128,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
         } else if (!cnfrmPassWord.getText().toString().equals(passWord.getText().toString())) {
             cnfrmPassWord.setError("password is not match!");
         }
-        return false;
+        return true;
 
     }
 

@@ -683,7 +683,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private void getCustomerDetail(String cusname) {
 
         try {
-
             new getCustomer().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token, cusname);
         } catch (Exception e) {
             e.printStackTrace();

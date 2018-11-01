@@ -106,10 +106,17 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.signinButton:
-                if (!validation()) {
+
+                if(validation()){
                     userLogin();
-                    // startActivity(intent = new Intent(this,HomeActivity.class));
                 }
+//                if ((userName.getText().toString().isEmpty()) || (passWord.getText().toString().isEmpty())) {
+//                    userName.setError("User name is required!"); passWord.setError("password is required!");
+//
+//                }else {
+//                    userLogin();
+//
+//                }
                 break;
             case R.id.signupHere:
                 startActivity(intent = new Intent(this, SinUpActivity.class));
@@ -123,7 +130,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         } else if (passWord.getText().toString().isEmpty()) {
             passWord.setError("password is required!");
         }
-        return false;
+        return true;
 
     }
 
@@ -193,7 +200,6 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
             try {
                 if (result.isEmpty()) {
                     progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Invalid user id or password", Toast.LENGTH_SHORT).show();
                 } else {
                     progressDialog.dismiss();
                     Gson gson = new Gson();
