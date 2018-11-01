@@ -403,7 +403,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!validation()) {
+                if (validation()) {
                     String snumber = s_no.getText().toString();
                     String catlogname = catlogName.getText().toString();
                     String desiGn = design.getText().toString();
@@ -468,19 +468,18 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
     private boolean validation() {
 
-
+boolean status=true;
         if ((catlogName.getText().toString().isEmpty())) {
-            catlogName.setError("Catlog name is required!");
+            catlogName.setError("Catalog name is required!");
+            status=false;
         } else if (design.getText().toString().isEmpty()) {
-            design.setError("Design is required!");
+            design.setError("Design is required!");status=false;
         } else if (qty.getText().toString().isEmpty()) {
-            qty.setError("Qty is required!");
+            qty.setError("Qty is required!");status=false;
         } else if ((price.getText().toString().isEmpty())) {
-            price.setError("password is not match!");
-        } else if ((price2.getText().toString().isEmpty())) {
-            price2.setError("password is not match!");
+            price.setError("price is required!");status=false;
         }
-        return true;
+        return status;
 
     }
 
