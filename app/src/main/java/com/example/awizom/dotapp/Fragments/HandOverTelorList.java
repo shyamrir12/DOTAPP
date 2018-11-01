@@ -80,7 +80,7 @@ public class HandOverTelorList extends Fragment {
 
     ProgressDialog progressDialog;
     ListView lv;
-    TextView telornam,nodata;
+    TextView telornam, nodata;
     ImageButton img2;
     RecyclerView lv1;
     List<HandOverModel> handOverlist1;
@@ -95,7 +95,7 @@ public class HandOverTelorList extends Fragment {
     private String r, str;
     private String[] catalogname, data;
     Type listType;
-    private String  hTelor;
+    private String hTelor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -128,7 +128,6 @@ public class HandOverTelorList extends Fragment {
 
             }
         });
-
 
 
         //     lv = view.findViewById(R.id.telorList);
@@ -167,7 +166,7 @@ public class HandOverTelorList extends Fragment {
 
         Document doc = new Document();
 
-        PdfPTable table = new PdfPTable(new float[]{2, 1, 2, 2, 1,1,2});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 2, 2, 1, 1, 2});
         table.getDefaultCell().
 
                 setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -177,7 +176,7 @@ public class HandOverTelorList extends Fragment {
         table.addCell("PageNo");
         table.addCell("Unit");
         table.addCell("Aqty");
-       // table.addCell("ReceivedBy");
+        // table.addCell("ReceivedBy");
         table.addCell("Price");
         //   table.addCell("Price");
         table.setHeaderRows(1);

@@ -90,7 +90,7 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
         return handoveritemlist.size();
     }
 
-    class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
+    class OrderItemViewHolder extends RecyclerView.ViewHolder {
 
         private Context mCtx;
         TextView a_qty, catalog, design, page_no, price, price2, telor, snum, aunt;
@@ -104,8 +104,8 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
             this.mCtx = mCtx;
             this.hndovritemList = handoveritemlist;
 
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+//            itemView.setOnClickListener(this);
+//            itemView.setOnLongClickListener(this);
             //   telor = itemView.findViewById(R.id.tlr);
             snum = itemView.findViewById(R.id.snum);
             aunt = itemView.findViewById(R.id.unt3);
@@ -123,20 +123,20 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
         }
 
 
-        @Override
-        public void onClick(View v) {
-
-            int position = getAdapterPosition();
-            HandOverModel hndoitem = this.hndovritemList.get(position);
-            //createPdf(handoveritemlist.get(position).toString());
-
-
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, "Let's go for a trip to "
-                    + hndoitem);
-            intent.setType("text/plain");
-            mCtx.startActivity(Intent.createChooser(intent, "Send To"));
-        }
+//        @Override
+//        public void onClick(View v) {
+//
+//            int position = getAdapterPosition();
+//            HandOverModel hndoitem = this.hndovritemList.get(position);
+//            //createPdf(handoveritemlist.get(position).toString());
+//
+//
+//            Intent intent = new Intent(Intent.ACTION_SEND);
+//            intent.putExtra(Intent.EXTRA_TEXT, "Let's go for a trip to "
+//                    + hndoitem);
+//            intent.setType("text/plain");
+//            mCtx.startActivity(Intent.createChooser(intent, "Send To"));
+//        }
 
 
         private void createPdf(String sometext) {
@@ -183,22 +183,22 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
             document.close();
         }
 
-        @Override
-        public boolean onLongClick(View v) {
-            int position = getAdapterPosition();
-            HandOverModel hndoitem = this.hndovritemList.get(position);
-
-
-            if (v.getId() == itemView.getId()) {
-                // showUpdateDeleteDialog(order);
-                try {
-
-                } catch (Exception E) {
-                    E.printStackTrace();
-                }
-                Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
-            }
-            return true;
-        }
+//        @Override
+//        public boolean onLongClick(View v) {
+//            int position = getAdapterPosition();
+//            HandOverModel hndoitem = this.hndovritemList.get(position);
+//
+//
+//            if (v.getId() == itemView.getId()) {
+//                // showUpdateDeleteDialog(order);
+//                try {
+//
+//                } catch (Exception E) {
+//                    E.printStackTrace();
+//                }
+//                Toast.makeText(mCtx, "lc: ", Toast.LENGTH_SHORT).show();
+//            }
+//            return true;
+//        }
     }
 }
