@@ -1,10 +1,8 @@
 package com.example.awizom.dotapp.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,17 +25,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.awizom.dotapp.Adapters.CustomerListAdapter;
 import com.example.awizom.dotapp.Adapters.HandOverAdapter;
-import com.example.awizom.dotapp.Adapters.TelorListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
-import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.HandOverModel;
 import com.example.awizom.dotapp.Models.Result;
-import com.example.awizom.dotapp.Models.TelorModel;
 import com.example.awizom.dotapp.R;
-import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.itextpdf.text.BaseColor;
@@ -46,7 +38,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
@@ -55,7 +46,6 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -70,7 +60,7 @@ public class ReceivedTelorlist extends Fragment {
 
     ProgressDialog progressDialog;
     ListView lv;
-    // ImageButton img2,img3;
+    ImageButton img2, img3;
     RecyclerView lv1;
     // List <TelorModel> list1;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -81,8 +71,8 @@ public class ReceivedTelorlist extends Fragment {
     ArrayAdapter<String> telorListAapter;
     String[] telorlist;
     private String telornamet, telorname_old, hTelor;
-    List<HandOverModel> list1;
-    private String[] catalogname;
+    List<HandOverModel> handOverlist1;
+    private String[] catalogname, data;
     HandOverAdapter adapterh;
     private String r, str;
     Type listType;
@@ -94,6 +84,7 @@ public class ReceivedTelorlist extends Fragment {
     Bundle gt;
     View rootView;
     TextView telornam;
+    FileOutputStream fout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,27 +110,28 @@ public class ReceivedTelorlist extends Fragment {
         telornam = view.findViewById(R.id.telorname);
 
 
-        //  img2=view.findViewById(R.id.updateButton1);
-        //  img3=view.findViewById(R.id.updateButton2);
+        img2 = view.findViewById(R.id.updateButton1);
+        //img3 = view.findViewById(R.id.updateButton2);
 
 //        title = getArguments().getString("NAME_KEY").toString();
-        //img2.setOnClickListener(new View.OnClickListener() {
-        //    @Override
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                createPDF();
+
+            }
+        });
+
+        //img3.setOnClickListener(new View.OnClickListener() {
+        //   @Override
         //   public void onClick(View v) {
-
-        ///       createPDF();
-
-        ///     }
+        //       openPdf();
+        //    }
         //   });
 
-//        img3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                openPdf();
-//            }
-//        });
-
-        //     lv = view.findViewById(R.id.telorList);
+        lv = view.findViewById(R.id.telorList);
 
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -164,130 +156,158 @@ public class ReceivedTelorlist extends Fragment {
         });
     }
 
-//    void openPdf()
-//    {
+    void openPdf() {
 //        Intent intent = new Intent(Intent.ACTION_VIEW);
-//        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+//        String path =getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+//        File file = new File(path, "ItemList.pdf");
 //
-//        File file = new File(path, "demo.pdf");
-//
-//        intent.setDataAndType( Uri.fromFile( file ), "application/pdf" );
+//         intent.setDataAndType(Uri.fromFile(file), "application/pdf");
 //        startActivity(intent);
-//    }
-////    private void createPDF() {
+
+
+        File file = new File(getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath(),
+                "/ReceivedItemList.pdf");
+        Uri path = Uri.fromFile(file);
+        Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+        pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        pdfOpenintent.setDataAndType(path, "application/pdf");
+        try {
+            startActivity(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
+        } catch (ActivityNotFoundException e) {
+
+        }
+
+
+    }
+
+    private void createPDF() {
+
+        Document doc = new Document();
+
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 2, 2, 1, 2});
+        table.getDefaultCell().
+
+                setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell("Catalog Name");
+        table.addCell("Design");
+        table.addCell("SerialNo");
+        table.addCell("Price");
+        table.addCell("ReceivedBy");
+        table.addCell("Unit");
+        //   table.addCell("Price");
+        table.setHeaderRows(1);
+        PdfPCell[] cells = table.getRow(0).getCells();
+        for (
+                int j = 0;
+                j < cells.length; j++)
+
+        {
+            cells[j].setBackgroundColor(BaseColor.GRAY);
+        }
+
+
+        for (
+                int i = 0;
+                i < handOverlist1.size(); i++)
+
+        {
+            table.addCell(handOverlist1.get(i).getCatalogName().toString());
+            table.addCell(handOverlist1.get(i).getDesign().toString());
+            table.addCell(handOverlist1.get(i).getSerialNo().toString());
+            table.addCell(String.valueOf(handOverlist1.get(i).getPrice2()));
+            table.addCell(handOverlist1.get(i).getReceivedBy().toString());
+            table.addCell(handOverlist1.get(i).getUnit().toString());
+        }
+
+        try
+
+        {
+            // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+
+            String path = getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+
+            File dir = new File(String.valueOf(path));
+            if (!dir.exists())
+                dir.mkdirs();
+
+            Log.d("PDFCreator", "PDF Path: " + path);
+
+            File file = new File(dir, "ReceivedItemList.pdf");
+
+            FileOutputStream fOut = new FileOutputStream(file);
+
+
+            PdfWriter.getInstance(doc, fOut);
+
+            //open the document
+            doc.open();
+
+            Paragraph p1 = new Paragraph(hTelor);
+
+            /* You can also SET FONT and SIZE like this */
+            Font paraFont1 = new Font(Font.FontFamily.HELVETICA, 50.0f, Font.BOLD, BaseColor.BLACK);
+            p1.setAlignment(Paragraph.ALIGN_CENTER);
+
+
+            p1.setFont(paraFont1);
+            doc.add(p1);
+
+            /* You can also SET FONT and SIZE like this */
+
+
+            doc.setMargins(0, 0, 5, 5);
+            doc.add(table);
+            //     t=t_name.getText();
+            /* Create Paragraph and Set Font */
+
+
+
+
+
+
+
+
+
+
+            /* Inserting Image in PDF */
+//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//            Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.green_warning);
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100 , stream);
+//            Image myImg = Image.getInstance(stream.toByteArray());
+//            myImg.setAlignment(Image.MIDDLE);
 //
-//        Document doc = new Document();
-//
-//        PdfPTable table = new PdfPTable(new float[]{2, 1, 2, 2, 1, 2});
-//        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-//        table.addCell("Catalog Name");
-//        table.addCell("Design");
-//        table.addCell("SerialNo");
-//        table.addCell("Price");
-//        table.addCell("ReceivedBy");
-//        table.addCell("Unit");
-//        //   table.addCell("Price");
-//        table.setHeaderRows(1);
-//        PdfPCell[] cells = table.getRow(0).getCells();
-//        for (int j = 0; j < cells.length; j++) {
-//            cells[j].setBackgroundColor(BaseColor.GRAY);
-//        }
-//
-//
-//
-//
-//
-//        for (int i = 1; i < 5; i++) {
-//            table.addCell(catalogname.toString() + i);
-//            table.addCell("Design:" + i);
-//            table.addCell("SerialNo:" + i);
-//            table.addCell("Price:" + i);
-//            table.addCell("ReceivedBy:" + i);
-//            table.addCell("Unit:" + i);
-//        }
-//
-//        try {
-//            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
-//
-//            File dir = new File(path);
-//            if (!dir.exists())
-//                dir.mkdirs();
-//
-//            Log.d("PDFCreator", "PDF Path: " + path);
-//
-//            File file = new File(dir, "demo.pdf");
-//            FileOutputStream fOut = new FileOutputStream(file);
-//
-//            PdfWriter.getInstance(doc, fOut);
-//
-//            //open the document
-//            doc.open();
-//
-//            Paragraph p1 = new Paragraph(hTelor);
-//
-//            /* You can also SET FONT and SIZE like this */
-//            Font paraFont1 = new Font(Font.FontFamily.HELVETICA, 50, Color.GREEN);
-//            p1.setAlignment(Paragraph.ALIGN_CENTER);
-//
-//            p1.setFont(paraFont1);
-//
-//            doc.add(p1);
-//
-//            doc.add(table);
-//            //     t=t_name.getText();
-//            /* Create Paragraph and Set Font */
-//            Paragraph p2 = new Paragraph(r.toString());
-//
-//            /* Create Set Font and its Size */
-//            Font paraFont = new Font(Font.FontFamily.COURIER);
-//            paraFont.setSize(16);
-//            p2.setAlignment(Paragraph.ALIGN_CENTER);
-//            p2.setFont(paraFont);
-//
-//            //add paragraph to document
-//            doc.add(p2);
-//
-//
-//            Paragraph p3 = new Paragraph("This is an example of a simple paragraph");
-//
-//            /* You can also SET FONT and SIZE like this */
-//            Font paraFont3 = new Font(Font.FontFamily.HELVETICA, 14.0f, Color.GREEN);
-//            p3.setAlignment(Paragraph.ALIGN_CENTER);
-//            p3.setFont(paraFont3);
-//
-//            doc.add(p3);
-//
-//            /* Inserting Image in PDF */
-////            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-////            Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.green_warning);
-////            bitmap.compress(Bitmap.CompressFormat.JPEG, 100 , stream);
-////            Image myImg = Image.getInstance(stream.toByteArray());
-////            myImg.setAlignment(Image.MIDDLE);
-////
-////            //add image to document
-////            doc.add(myImg);
-//
-//            //set footer
-//            Phrase footerText = new Phrase("This is an example of a footer");
-//            HeaderFooter pdfFooter = new HeaderFooter();
-//            doc.newPage();
-//
-//            Toast.makeText(getContext(), "Created...", Toast.LENGTH_LONG).show();
-//
-//
-//
-//
-//
-//        } catch (DocumentException de) {
-//            Log.e("PDFCreator", "DocumentException:" + de);
-//        } catch (IOException e) {
-//            Log.e("PDFCreator", "ioException:" + e);
-//        } finally {
-//            doc.close();
-//        }
-//
-//
-//    }
+//            //add image to document
+//            doc.add(myImg);
+
+            //set footer
+            Phrase footerText = new Phrase("This is an example of a footer");
+            HeaderFooter pdfFooter = new HeaderFooter();
+            doc.newPage();
+
+            Toast.makeText(getContext(), "Created...", Toast.LENGTH_LONG).show();
+
+
+        } catch (
+                DocumentException de)
+
+        {
+            Log.e("PDFCreator", "DocumentException:" + de);
+        } catch (
+                IOException e)
+
+        {
+            Log.e("PDFCreator", "ioException:" + e);
+        } finally
+
+        {
+            doc.close();
+        }
+
+
+        openPdf();
+
+    }
+
 
     private void getreceivedTelorList() {
 
@@ -350,24 +370,27 @@ public class ReceivedTelorlist extends Fragment {
 
                 Gson gson = new Gson();
                 listType = new TypeToken<List<HandOverModel>>() {
-
                 }.getType();
 
-                list1 = new Gson().fromJson(result, listType);
-                adapterh = new HandOverAdapter(getContext(), list1);
+                handOverlist1 = new Gson().fromJson(result, listType);
+                catalogname = new String[handOverlist1.size()];
+                for (int i = 0; i < handOverlist1.size(); i++) {
+                    catalogname[i] = String.valueOf(handOverlist1.get(i).getCatalogName());
+
+                }
+                data = new String[handOverlist1.size()];
+                for (int i = 0; i < handOverlist1.size(); i++) {
+                    data[i] = String.valueOf(handOverlist1.get(i).toString());
+
+                }
+
+
+                adapterh = new HandOverAdapter(getContext(), handOverlist1);
 
                 lv1.setAdapter(adapterh);
 
 
-//                catalogname = new String[list1.size()];
-//
-//                for (int i = 0; i < list1.size(); i++) {
-//                    catalogname[i] = String.valueOf(list1.get(i).getCatalogName());
-//
-//                }
-
-
-//                r = result.toString().replaceAll("   ", "");
+                r = result.toString().replaceAll("   ", "");
 
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);

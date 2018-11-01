@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
+import com.example.awizom.dotapp.SigninActivity;
 import com.google.gson.Gson;
 import java.util.List;
 import okhttp3.FormBody;
@@ -163,11 +165,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 i = i.putExtra("ButtonName", valueButtonname);
                 mCtx.startActivity(i);
             }
-            if (v.getId() == canceLOrderButton.getId()) {
+            if (v.getId() == canceLOrderButton.getId())
 
-                
 
-                if (filterKey.equals("PandingToHandOverTo")) {
+                {
+                if (filterKey.equals("PandingToHandOverTo"))
+
+                {
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
                     alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -205,8 +209,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
 
                 }else if (filterKey.equals("Dispatch")) {
-
-                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                    if(SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Admin"))
+                    { AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
                     alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
@@ -224,7 +228,18 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
 
 
-                }else if (filterKey.equals("PandingToReceiveMaterial")) {
+                }
+                else {
+
+                        Toast.makeText(v.getContext(), "User is Not Permitted ", Toast.LENGTH_SHORT).show();
+                       return;
+
+
+                    }
+                }
+
+
+                else if (filterKey.equals("PandingToReceiveMaterial")) {
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
                     alertbox.setTitle("Do you want to change the status");
@@ -258,7 +273,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                     alertbox.show();
 
-                }else if (filterKey.equals("Hold")) {
+                }else if (filterKey.equals("Hold"))
+
+
+                {
 
                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
                     alertbox.setTitle("Do you want to change the status");

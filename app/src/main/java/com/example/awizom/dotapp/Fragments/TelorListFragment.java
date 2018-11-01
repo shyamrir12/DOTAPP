@@ -68,7 +68,7 @@ public class TelorListFragment extends Fragment {
 
     //   String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Dir";
 
-    ProgressDialog progressDialog;
+  //  ProgressDialog progressDialog;
     ListView lv;
     ImageButton img;
     // List <TelorModel> list1;
@@ -93,8 +93,8 @@ public class TelorListFragment extends Fragment {
 
     private void initView(View view) {
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Please wait while loading telors");
+    //    progressDialog = new ProgressDialog(getActivity());
+      //  progressDialog.setMessage("Please wait while loading telors");
         lv = view.findViewById(R.id.telorList);
         img = view.findViewById(R.id.updateButton);
         //img2=view.findViewById(R.id.updateButton1);
@@ -204,14 +204,14 @@ public class TelorListFragment extends Fragment {
         telorname_old = old_t_name.getText().toString();
 
         try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
+        //    progressDialog.setMessage("loading...");
+          //  progressDialog.show();
             new PostTelorDetailsEdit().execute(telornamet.trim(), telorname_old.trim(), SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
             Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -245,7 +245,7 @@ public class TelorListFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                progressDialog.dismiss();
+              //  progressDialog.dismiss();
                 Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -255,7 +255,7 @@ public class TelorListFragment extends Fragment {
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
                 Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
@@ -265,10 +265,10 @@ public class TelorListFragment extends Fragment {
                 if (jsonbodyres.getStatus() == true) {
                     // modifyItem(pos,um);
 
-                    progressDialog.dismiss();
+                  //  progressDialog.dismiss();
                 }
 
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
             }
 
 
@@ -282,14 +282,14 @@ public class TelorListFragment extends Fragment {
         telornamet = t_name.getText().toString();
 
         try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
+            //progressDialog.setMessage("loading...");
+            //progressDialog.show();
             new PostTelorDetails().execute(telornamet.trim(), SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
             Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -322,7 +322,7 @@ public class TelorListFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                progressDialog.dismiss();
+              //  progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
@@ -333,7 +333,7 @@ public class TelorListFragment extends Fragment {
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
                 Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
@@ -343,10 +343,10 @@ public class TelorListFragment extends Fragment {
                 if (jsonbodyres.getStatus() == true) {
                     // modifyItem(pos,um);
 
-                    progressDialog.dismiss();
+                  //  progressDialog.dismiss();
                 }
 
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
             }
 
 
@@ -358,14 +358,14 @@ public class TelorListFragment extends Fragment {
 
     private void getTelorList() {
         try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
+            //progressDialog.setMessage("loading...");
+            //progressDialog.show();
             new GetTelorDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
             mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
@@ -394,7 +394,7 @@ public class TelorListFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                progressDialog.dismiss();
+              //  progressDialog.dismiss();
                 Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -404,7 +404,7 @@ public class TelorListFragment extends Fragment {
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
                 //progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
@@ -418,7 +418,7 @@ public class TelorListFragment extends Fragment {
                 telorListAapter = new ArrayAdapter<String>(getContext(), R.layout.layout_button_telorlist, R.id.label, telorlist);
                 lv.setAdapter(telorListAapter);
 
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
 
