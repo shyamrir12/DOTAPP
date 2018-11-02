@@ -96,7 +96,6 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
                     getCustomerDetail(searchItem.getText().toString());
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
