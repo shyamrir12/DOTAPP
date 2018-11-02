@@ -157,24 +157,27 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
 
             if (v.getId() == roomname.getId()) {
 
-                Intent i = new Intent().setClass(mCtx, RoomDetailsActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                i = i.putExtra("RoomName", room.split("-")[0].trim());
-                i = i.putExtra("OrderID", Integer.valueOf(orderid));
-                i = i.putExtra("CustomerName", customername);
-                i = i.putExtra("Mobile", mobile);
-                i = i.putExtra("OrderDate", orderdate);
-                i = i.putExtra("Advance", Double.valueOf(advance));
-                i = i.putExtra("ActualOrder", actualorder);
+                if(room.trim().equals("Room Name")){
+                    Toast.makeText(mCtx,"Please add rooms in this order",Toast.LENGTH_SHORT);
+                }else {
+                    Intent i = new Intent().setClass(mCtx, RoomDetailsActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                    i = i.putExtra("RoomName", room.split("-")[0].trim());
+                    i = i.putExtra("OrderID", Integer.valueOf(orderid));
+                    i = i.putExtra("CustomerName", customername);
+                    i = i.putExtra("Mobile", mobile);
+                    i = i.putExtra("OrderDate", orderdate);
+                    i = i.putExtra("Advance", Double.valueOf(advance));
+                    i = i.putExtra("ActualOrder", actualorder);
 
-                i = i.putExtra("StatusName", StatusName);
-                i = i.putExtra("FilterKey", filterkey);
-                i = i.putExtra("ButtonName", buttonname);
-                i = i.putExtra("TailorList",telorlist);
+                    i = i.putExtra("StatusName", StatusName);
+                    i = i.putExtra("FilterKey", filterkey);
+                    i = i.putExtra("ButtonName", buttonname);
+                    i = i.putExtra("TailorList", telorlist);
 
 
-                mCtx.startActivity(i);
-
+                    mCtx.startActivity(i);
+                }
 
             }
             if (v.getId() == button_status.getId()) {

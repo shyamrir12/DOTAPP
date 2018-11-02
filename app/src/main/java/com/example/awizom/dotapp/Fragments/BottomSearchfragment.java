@@ -37,7 +37,6 @@ public class BottomSearchfragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.searchbyName:
                 intent = new Intent(getContext(), SearchDetailListActivity.class);

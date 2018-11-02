@@ -87,7 +87,6 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.goButton:
-
                 if (!searchItem.getText().toString().isEmpty()) {
                     getSearchList();
                 } else {

@@ -307,10 +307,11 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 addroomdailogueOpen(Long.parseLong(orderid), actualRoomList);
                 break;
             case R.id.addnewCustomerButton:
-                openUpdateDailoge();
+                    openUpdateDailoge();
                 break;
             case R.id.orderDatePicker:
                 DialogFragment datepicker = new DatePickerFragment();
+
                 datepicker.show(getSupportFragmentManager(), "date picker");
                 break;
 //            case  R.id.addstatus:
@@ -322,16 +323,8 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private boolean validation() {
 
-        if (c_name.getText().toString().isEmpty() || c_contact.getText().toString().isEmpty() || i_address.getText().toString().isEmpty() ||
-                i_name.getText().toString().isEmpty() || i_contact.getText().toString().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Please insert the field", Toast.LENGTH_SHORT).show();
-            return true;
-        }
 
-        return false;
-    }
 
     private void addStatusUser() {
         try {
