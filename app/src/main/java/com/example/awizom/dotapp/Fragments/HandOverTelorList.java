@@ -119,6 +119,7 @@ public class HandOverTelorList extends Fragment {
         img2 = view.findViewById(R.id.updateButton1);
         nodata = view.findViewById(R.id.nodata);
         nodata.setVisibility(View.GONE);
+        img2.setVisibility(View.GONE);
         img2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,11 +232,12 @@ public class HandOverTelorList extends Fragment {
 
             Paragraph p1 = new Paragraph(hTelor);
 
+
             /* You can also SET FONT and SIZE like this */
-            Font paraFont1 = new Font(Font.FontFamily.HELVETICA, 50.0f, Font.BOLD, BaseColor.BLACK);
+            Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN,20,Font.UNDERLINE,BaseColor.BLACK);
             p1.setAlignment(Paragraph.ALIGN_CENTER);
 
-
+            p1.setSpacingAfter(20);
             p1.setFont(paraFont1);
             doc.add(p1);
 
@@ -386,6 +388,7 @@ public class HandOverTelorList extends Fragment {
                     r = result.toString().replaceAll("   ", "");
 
                     progressDialog.dismiss();
+                    img2.setVisibility(View.VISIBLE);
                     mSwipeRefreshLayout.setRefreshing(false);
 
 
