@@ -15,25 +15,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
+import com.example.awizom.dotapp.Fragments.AboutFragment;
 import com.example.awizom.dotapp.Fragments.BottomCustomerFragment;
 import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
 import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
-import com.example.awizom.dotapp.Fragments.BottomReportFragment;
 import com.example.awizom.dotapp.Fragments.BottomSearchfragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
-import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
-import com.example.awizom.dotapp.R;
 
 public class HomeActivityUser extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment, searchfragment;
+    private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment,
+            statusLayoutFragment, searchfragment,aboutfragment;
     Fragment fragment = null;
 
 
@@ -48,6 +44,7 @@ public class HomeActivityUser extends AppCompatActivity {
         orderLayoutfragment = new BottomOrderFragment();
         statusLayoutFragment = new BottomStatusFragment();
         searchfragment = new BottomSearchfragment();
+        aboutfragment = new AboutFragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -103,7 +100,7 @@ public class HomeActivityUser extends AppCompatActivity {
 //            // Toast.makeText(this, "user is clicked ", Toast.LENGTH_LONG).show();
 //
 //            //     return (true);
-            case R.id.about:
+            case R.id.home:
                 Intent i = new Intent(this, HomeActivityUser.class);
                 startActivity(i);
                 finish();
@@ -116,6 +113,11 @@ public class HomeActivityUser extends AppCompatActivity {
                 Intent login = new Intent(getApplicationContext(), SigninActivity.class);
                 startActivity(login);
                 //
+                break;
+            case R.id.aboutApp:
+                getSupportActionBar().setTitle("About Details");
+                fragment = aboutfragment;
+                fragmentClass = AboutFragment.class;
                 break;
 
 
@@ -165,6 +167,7 @@ public class HomeActivityUser extends AppCompatActivity {
                     fragment = searchfragment;
                     fragmentClass = BottomSearchfragment.class;
                     break;
+
 
             }
 

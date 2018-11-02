@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -17,28 +16,22 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
+import com.example.awizom.dotapp.Fragments.AboutFragment;
 import com.example.awizom.dotapp.Fragments.BottomCustomerFragment;
 import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
 import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
-import com.example.awizom.dotapp.Fragments.BottomReportFragment;
 import com.example.awizom.dotapp.Fragments.BottomSearchfragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
-import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
-import com.example.awizom.dotapp.Fragments.OrderListFragment;
 import com.example.awizom.dotapp.Fragments.TelorListFragment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 
-import static com.example.awizom.dotapp.MainActivity.isConnectingToInternet;
-
 public class HomeActivity extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment telorListFragment, userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment, statusLayoutFragment, searchfragment;
+    private Fragment telorListFragment, userListFragment, customerLayoutfragment,
+            printLayoutfragment, orderLayoutfragment, statusLayoutFragment, searchfragment,aboutfragment;
     private Fragment fragment = null;
     boolean doubleBackToExitPressedOnce = false;
     private Context mContext;
@@ -60,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         orderLayoutfragment = new BottomOrderFragment();
         statusLayoutFragment = new BottomStatusFragment();
         searchfragment = new BottomSearchfragment();
+        aboutfragment = new AboutFragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -154,7 +148,7 @@ public class HomeActivity extends AppCompatActivity {
                 break;
 
 
-            case R.id.about:
+            case R.id.home:
                 Intent i = new Intent(this, HomeActivity.class);
                 startActivity(i);
                 finish();
@@ -170,6 +164,11 @@ public class HomeActivity extends AppCompatActivity {
 
                 finish();
 
+                break;
+            case R.id.aboutApp:
+                getSupportActionBar().setTitle("About Details");
+                fragment = aboutfragment;
+                fragmentClass = AboutFragment.class;
                 break;
             //return (true);
         }
@@ -223,6 +222,7 @@ public class HomeActivity extends AppCompatActivity {
                     fragment = searchfragment;
                     fragmentClass = BottomSearchfragment.class;
                     break;
+
 
             }
 

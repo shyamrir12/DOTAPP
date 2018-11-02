@@ -8,9 +8,13 @@
     <item
         android:id="@+id/user1" android:icon="@drawable/ic_people_black_24dp" app:showAsAction="always|withText" android:title="reset"/>
     <item
-        android:id="@+id/about" android:icon="@android:mipmap/sym_def_app_icon" app:showAsAction="never" android:title="Home">
+        android:id="@+id/home" android:icon="@android:mipmap/sym_def_app_icon" app:showAsAction="never" android:title="Home">
+    </item>
+    <item
+        android:id="@+id/aboutApp"  app:showAsAction="never" android:title="about">
     </item>
     <item
         android:id="@+id/exit"  app:showAsAction="never" android:title="sign out">
     </item>
+
 </menu>
