@@ -157,8 +157,8 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
 
             if (v.getId() == roomname.getId()) {
 
-                if(room.trim().equals("Room Name")){
-                    Toast.makeText(mCtx,"Please add rooms in this order",Toast.LENGTH_SHORT);
+                if(room.trim().equals("")){
+                    Toast.makeText(mCtx,"Please add rooms in this order",Toast.LENGTH_SHORT).show();
                 }else {
                     Intent i = new Intent().setClass(mCtx, RoomDetailsActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);

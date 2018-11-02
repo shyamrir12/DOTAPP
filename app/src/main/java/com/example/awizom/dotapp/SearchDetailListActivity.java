@@ -62,6 +62,8 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
         orderId = getIntent().getExtras().getString("OrderID", "");
         getSupportActionBar().setTitle(statusName);
         dataOrderValue = new DataOrder();
+
+
         searchItem.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -70,7 +72,8 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (searchItem.getText().length() == 0) {
-
+                    cid = 0;
+                    searchItem.setText("");
                 } else {
                     getCustomerDetail(searchItem.getText().toString());
                 }
@@ -87,6 +90,7 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.goButton:
+
                 if (!searchItem.getText().toString().isEmpty()) {
                     getSearchList();
                 } else {
@@ -191,6 +195,7 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
                 if (dataOrderValue != null) {
                     cid = dataOrderValue.getCustomerID();
                 }
+
             }
 
 

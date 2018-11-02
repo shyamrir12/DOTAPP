@@ -75,7 +75,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private Button addorder, addroom, actualRead, simpleRead, addUserStatus;
     private ImageButton addNewCustomer;
     int morderid = 0;
-    String buttonname="";
+    String buttonname = "";
     String orderid = "";
     String actualorder = "";
     String filterkey = "";
@@ -307,7 +307,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 addroomdailogueOpen(Long.parseLong(orderid), actualRoomList);
                 break;
             case R.id.addnewCustomerButton:
-                    openUpdateDailoge();
+                openUpdateDailoge();
                 break;
             case R.id.orderDatePicker:
                 DialogFragment datepicker = new DatePickerFragment();
@@ -322,8 +322,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         }
 
     }
-
-
 
 
     private void addStatusUser() {
@@ -346,6 +344,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+
     private void openUpdateDailoge() {
 
 
@@ -365,29 +364,38 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         interioContact = dialogView.findViewById(R.id.interiormobile);
 
 
-        final Button buttonCreate = dialogView.findViewById(R.id.customerButton);
-        buttonCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = cName.getText().toString().trim();
-                String contact = cContact.getText().toString().trim();
-                String address = cAddress.getText().toString().trim();
-                String intename = interioName.getText().toString().trim();
-                String intecontact = interioContact.getText().toString().trim();
 
-                try {
-                    //String res="";
-                    progressDialog.setMessage("loading...");
-                    progressDialog.show();
-                    new POSTAddCustomer().execute(name, contact, address, intename, intecontact, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-                    // System.out.println("Error: " + e);
+            final Button buttonCreate = dialogView.findViewById(R.id.customerButton);
+            buttonCreate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty()) {
+                        cName.setError("customer name is required!");
+                        cContact.setError("customer contact is required!");
+                    }else {
+                    String name = cName.getText().toString().trim();
+                    String contact = cContact.getText().toString().trim();
+                    String address = cAddress.getText().toString().trim();
+                    String intename = interioName.getText().toString().trim();
+                    String intecontact = interioContact.getText().toString().trim();
+
+                    try {
+                        //String res="";
+                        progressDialog.setMessage("loading...");
+                        progressDialog.show();
+                        new POSTAddCustomer().execute(name, contact, address, intename, intecontact, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+                        // System.out.println("Error: " + e);
+                    }
+
                 }
-            }
-        });
+                }
+            });
+
     }
 
     private class POSTAddCustomer extends AsyncTask<String, Void, String> {
@@ -645,7 +653,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     roomlistadapter = new RoomListAdapter(getApplicationContext(), roomList, stausname, orderid
                             , c_name.getText().toString(), c_contact.getText().toString()
                             , orderDate.getText().toString()
-                            , amount.getText().toString(), actualorder, filterkey,buttonname,morder.getTelorList());
+                            , amount.getText().toString(), actualorder, filterkey, buttonname, morder.getTelorList());
                     recyclerView.setAdapter(roomlistadapter);
                     mSwipeRefreshLayout.setRefreshing(false);
                     // ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_button_roomlist, R.id.label, roomName);

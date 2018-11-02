@@ -42,7 +42,6 @@ public class BottomSearchfragment extends Fragment implements View.OnClickListen
                 intent = new Intent(getContext(), SearchDetailListActivity.class);
                 intent = intent.putExtra("StatusName", "Search By Name");
                 intent = intent.putExtra("OrderID", String.valueOf(orderitem.OrderID));
-
                 startActivity(intent);
                 break;
             case R.id.searchbyNumber:
