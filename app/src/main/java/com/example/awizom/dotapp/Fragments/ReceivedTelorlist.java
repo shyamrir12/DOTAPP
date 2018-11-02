@@ -189,6 +189,7 @@ public class ReceivedTelorlist extends Fragment {
         table.getDefaultCell().
 
                 setHorizontalAlignment(Element.ALIGN_CENTER);
+
         table.addCell("Catalog Name");
         table.addCell("Design");
         table.addCell("SerialNo");
@@ -233,7 +234,7 @@ public class ReceivedTelorlist extends Fragment {
 
             Log.d("PDFCreator", "PDF Path: " + path);
 
-            File file = new File(dir, "ReceivedItemList.pdf");
+            File file = new File(dir,  "ReceivedItemList.pdf");
 
             FileOutputStream fOut = new FileOutputStream(file);
 
