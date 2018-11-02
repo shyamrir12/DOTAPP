@@ -34,7 +34,6 @@ public class BottomSearchfragment extends Fragment implements View.OnClickListen
         searchByName.setOnClickListener(this);
         searchByNumber.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
