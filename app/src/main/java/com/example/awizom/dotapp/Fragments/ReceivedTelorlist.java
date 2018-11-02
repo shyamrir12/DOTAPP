@@ -111,6 +111,7 @@ public class ReceivedTelorlist extends Fragment {
 
 
         img2 = view.findViewById(R.id.updateButton1);
+        img2.setVisibility(View.GONE);
         //img3 = view.findViewById(R.id.updateButton2);
 
 //        title = getArguments().getString("NAME_KEY").toString();
@@ -248,7 +249,7 @@ public class ReceivedTelorlist extends Fragment {
             Font paraFont1 = new Font(Font.FontFamily.HELVETICA, 50.0f, Font.BOLD, BaseColor.BLACK);
             p1.setAlignment(Paragraph.ALIGN_CENTER);
 
-
+            p1.setSpacingAfter(20);
             p1.setFont(paraFont1);
             doc.add(p1);
 
@@ -393,6 +394,7 @@ public class ReceivedTelorlist extends Fragment {
                 r = result.toString().replaceAll("   ", "");
 
                 progressDialog.dismiss();
+                img2.setVisibility(View.VISIBLE);
                 mSwipeRefreshLayout.setRefreshing(false);
 
 

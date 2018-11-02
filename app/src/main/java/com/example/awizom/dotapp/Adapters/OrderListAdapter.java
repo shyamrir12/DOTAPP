@@ -165,162 +165,207 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 i = i.putExtra("ButtonName", valueButtonname);
                 mCtx.startActivity(i);
             }
-            if (v.getId() == canceLOrderButton.getId())
-
-
-                {
+            if (v.getId() == canceLOrderButton.getId()) {
                 if (filterKey.equals("PandingToHandOverTo"))
 
                 {
-                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle("Do you want to change the status");
-                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            showDailogForHandOverTo(v);
-                        }
-                    });
-                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-
-                        }
-                    });
-
-                    alertbox.show();
+                    if ((((SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Admin")) ||
+                            (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("HandOver")))) || (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("User")))
 
 
-                } else if (filterKey.equals("PandingToReceivedFromTelor")) {
+                    {
+                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                        alertbox.setTitle("Do you want to change the status");
+                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                showDailogForHandOverTo(v);
+                            }
+                        });
+                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
 
+                            }
+                        });
 
-
-                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle("Do you want to change the status");
-                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            showdailogForreceivedBy(v);
-                        }
-                    });
-                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-
-                        }
-                    });
-
-                    alertbox.show();
-
-
-                }else if (filterKey.equals("Dispatch")) {
-                    if(SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Admin"))
-                    { AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle("Do you want to change the status");
-                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                             dispatchListPost();
-                        }
-                    });
-                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-
-                        }
-                    });
-
-                    alertbox.show();
-
-
-
-
-                }
-                else {
-
-                        Toast.makeText(v.getContext(), "User is Not Permitted ", Toast.LENGTH_SHORT).show();
-                       return;
+                        alertbox.show();
 
 
                     }
-                }
+                    else {
+
+                        Toast.makeText(v.getContext(), " Not Permitted ", Toast.LENGTH_SHORT).show();
+                        return;}
 
 
-                else if (filterKey.equals("PandingToReceiveMaterial")) {
-
-                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle("Do you want to change the status");
-                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            cancelOrderListPost();
-                        }
-                    });
-                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-
-                        }
-                    });
-
-                    alertbox.show();
-
-                }else if (filterKey.equals("pandingForAdv")) {
-
-                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle("Do you want to change the status");
-                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            cancelOrderListPost();
-                        }
-                    });
-                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-
-                        }
-                    });
-
-                    alertbox.show();
-
-                }else if (filterKey.equals("Hold"))
-
+                } else if (filterKey.equals("PandingToReceivedFromTelor"))
 
                 {
+                    if ((((SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Admin")) ||
+                            (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Receive")))) || (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("User")))
 
-                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle("Do you want to change the status");
-                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            cancelOrderListPost();
+
+                    {
+
+                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                        alertbox.setTitle("Do you want to change the status");
+                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                showdailogForreceivedBy(v);
+                            }
+                        });
+                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                            }
+                        });
+
+                        alertbox.show();
+                    }
+                    else {
+
+                        Toast.makeText(v.getContext(), " Not Permitted ", Toast.LENGTH_SHORT).show();
+                        return;}
+
+                } else if (filterKey.equals("Dispatch")) {
+                    if (((SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Admin")) ||
+                            (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Dispatch")))) {
+
+                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                        alertbox.setTitle("Do you want to change the status");
+                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                dispatchListPost();
+                            }
+                        });
+                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                            }
+                        });
+                        alertbox.show();
+
+                    } else {
+
+                        Toast.makeText(v.getContext(), "User is Not Permitted ", Toast.LENGTH_SHORT).show();
+                        return;
+
+
+                    }
+                } else if (filterKey.equals("PandingToReceiveMaterial")) {
+                    if ((((SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Admin")) ||
+                            (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("MaterialReceive")))) || (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("User")))
+
+
+                    {
+
+                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                        alertbox.setTitle("Do you want to change the status");
+                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                cancelOrderListPost();
+                            }
+                        });
+                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                            }
+                        });
+
+                        alertbox.show();
+                    }
+                    else {
+
+                        Toast.makeText(v.getContext(), " Not Permitted ", Toast.LENGTH_SHORT).show();
+                        return;}
+                } else if (filterKey.equals("pandingForAdv")) {
+
+                        if ((((SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Admin")) ||
+                                (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Advance")))) || (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("User")))
+
+                        {
+                            AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                            alertbox.setTitle("Do you want to change the status");
+                            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    cancelOrderListPost();
+                                }
+                            });
+                            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+
+                                }
+                            });
+
+                            alertbox.show();
+
                         }
-                    });
+                        else {
 
-                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
+                            Toast.makeText(v.getContext(), " Not Permitted ", Toast.LENGTH_SHORT).show();
+                            return;}
+
+                } else if (filterKey.equals("Hold")) {
+
+
+                        if ((((SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Admin")) ||
+                                (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Hold")))) || (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("User")))
+
+
+                        {
+
+                            AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                            alertbox.setTitle("Do you want to change the status");
+                            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    cancelOrderListPost();
+                                }
+                            });
+
+                            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+
+                                }
+                            });
+
+                            alertbox.show();
+
 
                         }
-                    });
+                        else {
 
-                    alertbox.show();
+                            Toast.makeText(v.getContext(), " Not Permitted ", Toast.LENGTH_SHORT).show();
+                            return;}
+
+                } else if (filterKey.equals("PandingToPlaceOrder")) {
+                        if ((((SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Admin")) ||
+                                (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("PlaceOrder")))) || (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("User")))
 
 
+                        {
+
+                            AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                            alertbox.setTitle("Do you want to change the status");
+                            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    cancelOrderListPost();
+                                }
+                            });
+
+                            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+
+                                }
+                            });
+
+                            alertbox.show();
 
 
-                }else if (filterKey.equals("PandingToPlaceOrder")) {
-
-                    AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                    alertbox.setTitle("Do you want to change the status");
-                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            cancelOrderListPost();
                         }
-                    });
-
-                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-
-                        }
-                    });
-
-                    alertbox.show();
 
 
-
-
-                }else {
-                    cancelOrderListPost();
-                }
+                    } else {
+                        cancelOrderListPost();
+                    }
 //                AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
 //                alertbox.setIcon(R.drawable.ic_warning_black_24dp);
 //                alertbox.setTitle("Do You Want to Cancel");
@@ -340,10 +385,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 //                });
 //
 //                alertbox.show();
+                }
+
+
             }
-
-
-        }
 
 
         @Override

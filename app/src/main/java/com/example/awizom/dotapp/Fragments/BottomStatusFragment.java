@@ -90,6 +90,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
         switch (v.getId()) {
             case R.id.pendingtToPlaceOrder:
 
+
+
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
                 intent = intent.putExtra("ButtonName", "Place Order");
