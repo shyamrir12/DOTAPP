@@ -29,6 +29,7 @@ import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+
 public class SearchDetailListActivity extends AppCompatActivity implements View.OnClickListener {
     private Intent intent;
     private ProgressDialog progressDialog;
