@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,7 +52,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private RecyclerView recyclerView;
     private EditText editElight, editRoman, editAplot, ElightPrice, RomanPrice, APlotPrice;
     private Button updateBottom, cancelElight, allok;
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
     ProgressDialog progressDialog;
     CatelogOrderDetailModel catelogOrderDetailModel;
     List<CatelogOrderDetailModel> orderList;
@@ -108,7 +109,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         customerOrder = findViewById(R.id.order_date);
         customerhall = findViewById(R.id.room_name);
         // allok=findViewById(R.id.allOkButtton);
-
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         customerName.setText(customernAME);
         customerMobileNo.setText(mobileNumber);
@@ -142,6 +143,13 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
 
         additionButton.setOnClickListener(this);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                getFunctioncall();
+            }
+        });
         getFunctioncall();
         getElightBottom();
 
@@ -260,8 +268,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         editAplot.setText(morder.APlat.toString());
 
         ElightPrice.setText(String.valueOf(morder.getElightPrice()));
-        RomanPrice.setText(String.valueOf(morder.Roman.toString()));
-        APlotPrice.setText(String.valueOf(morder.Roman.toString()));
+        RomanPrice.setText(String.valueOf(morder.getRomanPrice()));
+        APlotPrice.setText(String.valueOf(morder.getAPlatPrice()));
         dialogBuilder.setTitle("Edit bottom");
         final AlertDialog b = dialogBuilder.create();
         b.show();
@@ -487,12 +495,14 @@ boolean status=true;
     private void getFunctioncall() {
 
         try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
+            mSwipeRefreshLayout.setRefreshing(true);
+           // progressDialog.setMessage("loading...");
+          //  progressDialog.show();
             new RoomDetailsActivity.detailsGET().execute(roomName, orderID, SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
-            progressDialog.dismiss();
+            mSwipeRefreshLayout.setRefreshing(false);
+            //progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -519,7 +529,8 @@ boolean status=true;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -531,7 +542,8 @@ boolean status=true;
             try {
 
                 if (result.isEmpty()) {
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
+                    mSwipeRefreshLayout.setRefreshing(false);
                     Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
                 } else {
                     Gson gson = new Gson();
@@ -540,7 +552,8 @@ boolean status=true;
                     orderList = new Gson().fromJson(result, listType);
                     adapter = new OrderItemAdapter(getBaseContext(), orderList, actualorder,filterkey,StatusName,buttonname,tailorList);
                     recyclerView.setAdapter(adapter);
-                    progressDialog.dismiss();
+                   // progressDialog.dismiss();
+                    mSwipeRefreshLayout.setRefreshing(false);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -97,8 +97,43 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 holder.AQty.setVisibility(View.VISIBLE);
                 holder.Qty.setVisibility(View.GONE);
             }
-            holder.buttonStatus.setVisibility( View.VISIBLE );
-            holder.buttonStatus.setText( buttonname );
+            if (filterkey.equals("PandingToPlaceOrder")||filterkey.equals("Hold") )
+                {
+                    if(!order.isOrderPlaced())
+                    {
+                        holder.buttonStatus.setVisibility( View.VISIBLE );
+                        holder.buttonStatus.setText( buttonname );
+                    }
+
+                }
+                else if(filterkey.equals("PandingToReceiveMaterial"))
+            {
+                if(order.isOrderPlaced()&&!order.isMaterialReceived())
+                {
+                    holder.buttonStatus.setVisibility( View.VISIBLE );
+                    holder.buttonStatus.setText( buttonname );
+                }
+            }
+                else if(filterkey.equals("PandingToHandOverTo")) {
+
+                if(order.isMaterialReceived()&&order.isOrderPlaced()&&order.getHandOverTo().equals( "" ))
+                {
+                    holder.buttonStatus.setVisibility( View.VISIBLE );
+                    holder.buttonStatus.setText( buttonname );
+                }
+
+            }
+            else if(filterkey.equals("PandingToReceivedFromTelor")) {
+
+                if(order.getHandOverTo().equals( "Telor" )&&order.isMaterialReceived()&&order.isOrderPlaced()&& !order.isReceivedFromTalor())
+                {
+                    holder.buttonStatus.setVisibility( View.VISIBLE );
+                    holder.buttonStatus.setText( buttonname );
+                }
+
+            }
+
+
         } catch (Exception E) {
             E.printStackTrace();
         }
