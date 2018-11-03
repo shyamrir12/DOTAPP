@@ -1,6 +1,5 @@
 package com.example.awizom.dotapp.Adapters;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,22 +10,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.R;
-import com.example.awizom.dotapp.SearchDetailListActivity;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -36,7 +30,12 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Se
     private String statusName;
     private DataOrder searchViewData;
     private String statusMessage;
-    AlertDialog.Builder alertbox;
+    AlertDialog.Builder alertbox,dialogBuilder;
+    String valueResult;
+    Button orderButton, actualOrderButton, checkstatusButton;
+    AlertDialog b;
+   private View dialogView;
+   private  Spinner spinner;
 
     public SearchListAdapter(Context mCtx, List<DataOrder> searchItemsDataOrders, String statusName) {
         this.mCtx = mCtx;
@@ -76,11 +75,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Se
     }
 
     class SearchItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        AlertDialog.Builder alert;
+
         private Context mCtx;
         private List<DataOrder> searchDataOrdersList;
         private TextView c_name, c_contact, c_address, c_oredrDate, c_advance, c_totalAmount;
-        Button orderButton, actualOrderButton, checkstatusButton;
+
 
         public SearchItemViewHolder(View itemView, Context mCtx, List<DataOrder> searchItemsDataOrders) {
             super(itemView);
@@ -111,8 +110,8 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Se
             DataOrder orderitem = this.searchDataOrdersList.get(position);
             if (v.getId() == checkstatusButton.getId()) {
                 alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                getSearchList();
 
+                getSearchList();
 
             }
             if (v.getId() == orderButton.getId()) {
@@ -132,9 +131,9 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Se
         }
 
 
+
+
     }
-
-
     private void getSearchList() {
         try {
 
@@ -172,6 +171,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Se
                 Toast.makeText(mCtx, "There is no data available" +
                         "", Toast.LENGTH_SHORT).show();
             } else {
+                valueResult = result;
 
                 alertbox.setTitle(result);
                 alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -180,10 +180,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Se
                     }
                 });
                 alertbox.show();
-                //statusMessage = result;
+                statusMessage = result;
             }
         }
 
     }
+
 
 }

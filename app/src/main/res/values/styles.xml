@@ -19,4 +19,7 @@
     </style>
     <style name="CustomTheme" parent="Theme.AppCompat.Light.Dialog.Alert"/>
 
+    <style name="dialogTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
+
 </resources>
