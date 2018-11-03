@@ -78,7 +78,7 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
             cName.setError("Customer Name is required!");
         } else if (cContact.getText().toString().isEmpty()) {
             cContact.setError("Customer Contact is required!");
-        }else if (cAddress.getText().toString().isEmpty()) {
+        }else if (cAddress.getText().toString( ).isEmpty()) {
             cAddress.setError("Customer Address is required!");
         }else if (interioName.getText().toString().isEmpty()) {
             interioName.setError("Interior Name is required!");

@@ -10,11 +10,12 @@
     <item
         android:id="@+id/home" android:icon="@android:mipmap/sym_def_app_icon" app:showAsAction="never" android:title="Home">
     </item>
-    <item
-        android:id="@+id/aboutApp"  app:showAsAction="never" android:title="about">
-    </item>
+
     <item
         android:id="@+id/exit"  app:showAsAction="never" android:title="sign out">
+    </item>
+    <item
+        android:id="@+id/aboutApp"  app:showAsAction="never" android:title="about">
     </item>
 
 </menu>

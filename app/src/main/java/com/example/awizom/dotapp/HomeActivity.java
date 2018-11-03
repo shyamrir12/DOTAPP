@@ -218,7 +218,7 @@ public class HomeActivity extends AppCompatActivity {
                     break;
 
                 case R.id.navigation_search:
-                    getSupportActionBar().setTitle("Status Details");
+                    getSupportActionBar().setTitle("Search Details");
                     fragment = searchfragment;
                     fragmentClass = BottomSearchfragment.class;
                     break;

@@ -35,12 +35,14 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     private EditText userName, passWord;
     private TextView signupHere;
     private Intent intent;
+    boolean boolean2 = Boolean.parseBoolean("True");
     ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
+
 
         initView();
     }
@@ -212,6 +214,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                         user.userName = jsonbody.login.userName;
                         user.token_type = jsonbody.login.token_type;
                         user.expires_in = jsonbody.login.expires_in;
+                        user.userActive=jsonbody.Active;
 
                         SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
                         if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
@@ -220,11 +223,18 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                                 Intent log = new Intent(getApplicationContext(), HomeActivity.class);
                                 startActivity(log);
 
-                            } else {
-                                Intent log = new Intent(getApplicationContext(), HomeActivityUser.class);
-                                startActivity(log);
+                            } else
 
-                            }
+                                if(user.getUserActive(true)) {
+
+                                    Intent log = new Intent(SigninActivity.this, HomeActivityUser.class);
+                                    startActivity(log);
+                                }
+
+                                else  Toast.makeText(getApplicationContext(), "User Is Not Active", Toast.LENGTH_SHORT).show();
+
+
+
 
                         }
                     } else {

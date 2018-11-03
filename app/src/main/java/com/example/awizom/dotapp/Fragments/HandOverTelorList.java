@@ -171,6 +171,7 @@ public class HandOverTelorList extends Fragment {
         table.getDefaultCell().
 
                 setHorizontalAlignment(Element.ALIGN_CENTER);
+
         table.addCell("Catalog Name");
         table.addCell("Design");
         table.addCell("SerialNo");
@@ -195,7 +196,9 @@ public class HandOverTelorList extends Fragment {
                 int i = 0;
                 i < handOverlist1.size(); i++)
 
+
         {
+
             table.addCell(handOverlist1.get(i).getCatalogName().toString());
             table.addCell(handOverlist1.get(i).getDesign().toString());
             table.addCell(handOverlist1.get(i).getSerialNo().toString());

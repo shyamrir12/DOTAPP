@@ -5,7 +5,7 @@ public class Token {
     public String token_type;
     public int expires_in;
 
-    public boolean getUserActive() {
+    public boolean getUserActive(boolean aFalse) {
         return userActive;
     }
 
