@@ -3,6 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -27,7 +28,13 @@
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="10dp"
+                >
 
             <ListView
                 android:id="@+id/telorList"
@@ -35,7 +42,7 @@
                 android:layout_height="wrap_content"
                 >
             </ListView>
-
+            </android.support.v7.widget.CardView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>

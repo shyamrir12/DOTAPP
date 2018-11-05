@@ -16,33 +16,54 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_catlogName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="CatalogName *">
             <AutoCompleteTextView
                 android:id="@+id/catlogName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="CatalogName *"
+                android:hint="                              "
                 android:textSize="15sp"
                 android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_design"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Design *">
             <AutoCompleteTextView
                 android:id="@+id/design"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Design *"
+                android:hint="                "
                 android:textSize="15sp"
                 android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/sNo"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_sno"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="S.No"
-                android:textSize="15sp"
-                android:inputType="number" />
+                android:hint="S.No">
 
+                <EditText
+                    android:id="@+id/sNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="      "
+                    android:inputType="number"
+                    android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
@@ -52,24 +73,38 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/lenear1"
             android:layout_margin="10dp">
-
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_pageNo."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Page No"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/pageNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Page No"
+                android:hint="                      "
                 android:textSize="15sp"
                 android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
 
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Qty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Qty"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/qTy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Qty *"
+                android:hint="                  "
                 android:textSize="15sp"
                 android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
 
             <EditText
                 android:id="@+id/aQty"
@@ -80,24 +115,36 @@
                 android:textSize="15sp"
                 android:visibility="gone"
                 android:inputType="number" />
-
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Mrp *"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="MRP *"
+                android:hint="               "
                 android:textSize="15sp"
                 android:inputType="number" />
-
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_price2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Price *"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/price2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Price *"
+                android:hint="               "
                 android:textSize="15sp"
                 android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout

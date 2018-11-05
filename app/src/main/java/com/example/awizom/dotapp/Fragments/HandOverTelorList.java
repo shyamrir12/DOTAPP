@@ -167,7 +167,7 @@ public class HandOverTelorList extends Fragment {
 
         Document doc = new Document();
 
-        PdfPTable table = new PdfPTable(new float[]{2, 1, 2, 2, 1, 1, 2});
+        PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2, 2, 2, 2});
         table.getDefaultCell().
 
                 setHorizontalAlignment(Element.ALIGN_CENTER);

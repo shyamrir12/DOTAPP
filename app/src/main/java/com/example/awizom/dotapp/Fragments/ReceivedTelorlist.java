@@ -106,7 +106,6 @@ public class ReceivedTelorlist extends Fragment {
         lv1 = view.findViewById(R.id.rcyclr);
         lv1.setHasFixedSize(true);
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         telornam = view.findViewById(R.id.telorname);
 
 
@@ -185,7 +184,7 @@ public class ReceivedTelorlist extends Fragment {
 
         Document doc = new Document();
 
-        PdfPTable table = new PdfPTable(new float[]{2, 1, 2, 2, 1, 2});
+        PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2, 2, 2});
         table.getDefaultCell().
 
                 setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -203,10 +202,9 @@ public class ReceivedTelorlist extends Fragment {
                 int j = 0;
                 j < cells.length; j++)
 
-        {
+      {
             cells[j].setBackgroundColor(BaseColor.GRAY);
         }
-
 
         for (
                 int i = 0;
