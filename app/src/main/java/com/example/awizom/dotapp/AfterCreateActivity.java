@@ -741,7 +741,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-
     private class getCustomer extends AsyncTask<String, Void, String> {
 
         @Override

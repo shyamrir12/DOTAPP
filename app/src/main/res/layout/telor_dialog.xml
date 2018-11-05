@@ -17,13 +17,27 @@
             android:layout_margin="10dp">
 
 
-            <EditText
-                android:id="@+id/sNo"
+            <!--<EditText-->
+                <!--android:id="@+id/sNo"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:hint="Telor Name"-->
+                <!--android:textSize="15sp" />-->
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Hole"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Telor Name"
-                android:textSize="15sp" />
+                android:layout_weight="1">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sNo"
+                    android:hint="Telor Name" />
+
+            </android.support.design.widget.TextInputLayout>
 
 
         </LinearLayout>

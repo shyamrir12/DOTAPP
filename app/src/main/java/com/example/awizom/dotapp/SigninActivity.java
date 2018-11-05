@@ -185,7 +185,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                 if (response.isSuccessful()) {
                     json = response.body().string();
                     //System.out.println(json);
-
+                    Toast.makeText(getApplicationContext(), "Result is Successfull", Toast.LENGTH_SHORT).show();
 
                 }
             } catch (Exception e) {
@@ -201,6 +201,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         protected void onPostExecute(String result) {
             try {
                 if (result.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "This User Id is not registered", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 } else {
                     progressDialog.dismiss();
@@ -232,8 +233,6 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                                 }
 
                                 else  Toast.makeText(getApplicationContext(), "User Is Not Active", Toast.LENGTH_SHORT).show();
-
-
 
 
                         }
