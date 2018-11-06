@@ -38,6 +38,7 @@
 
             <ListView
                 android:id="@+id/telorList"
+                android:cacheColorHint="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >

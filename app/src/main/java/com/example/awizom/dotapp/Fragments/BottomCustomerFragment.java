@@ -13,11 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.awizom.dotapp.CustomerActivity;
+import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.OrderBottomActivity;
 import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.ReportActivity;
+import com.example.awizom.dotapp.SigninActivity;
 import com.example.awizom.dotapp.StatusActivity;
 
 public class BottomCustomerFragment extends Fragment implements View.OnClickListener {
@@ -61,8 +64,14 @@ public class BottomCustomerFragment extends Fragment implements View.OnClickList
 
 
             case R.id.orderCreate:
-                getActivity().setTitle("Add Customer");
-                fragmentClass = AddCustomerFragment.class;
+                if ((SharedPrefManager.getInstance(getActivity()).getUser().getUserRole().contains("Admin")) ||
+                        (SharedPrefManager.getInstance(getActivity()).getUser().getUserRole().contains("User"))) {
+                    getActivity().setTitle("Add Customer");
+                    fragmentClass = AddCustomerFragment.class;
+
+                } else {
+                    Toast.makeText(getActivity(), "User Is Not Permitted", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.modifyCustomer:

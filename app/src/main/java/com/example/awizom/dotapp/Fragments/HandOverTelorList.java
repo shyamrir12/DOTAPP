@@ -1,5 +1,6 @@
 package com.example.awizom.dotapp.Fragments;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -107,6 +108,8 @@ public class HandOverTelorList extends Fragment {
     }
 
     private void initView(View view) {
+
+
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait while loading telors");
@@ -149,8 +152,6 @@ public class HandOverTelorList extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-
                 // Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
                 hTelor = telorlist[position];
                 lv.setVisibility(View.GONE);
@@ -237,7 +238,7 @@ public class HandOverTelorList extends Fragment {
 
 
             /* You can also SET FONT and SIZE like this */
-            Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN,20,Font.UNDERLINE,BaseColor.BLACK);
+            Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
             p1.setAlignment(Paragraph.ALIGN_CENTER);
 
             p1.setSpacingAfter(20);

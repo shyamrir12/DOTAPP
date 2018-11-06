@@ -68,7 +68,7 @@ public class TelorListFragment extends Fragment {
 
     //   String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Dir";
 
-  //  ProgressDialog progressDialog;
+    //  ProgressDialog progressDialog;
     ListView lv;
     ImageButton img;
     // List <TelorModel> list1;
@@ -93,8 +93,8 @@ public class TelorListFragment extends Fragment {
 
     private void initView(View view) {
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
-    //    progressDialog = new ProgressDialog(getActivity());
-      //  progressDialog.setMessage("Please wait while loading telors");
+        //    progressDialog = new ProgressDialog(getActivity());
+        //  progressDialog.setMessage("Please wait while loading telors");
         lv = view.findViewById(R.id.telorList);
         img = view.findViewById(R.id.updateButton);
         //img2=view.findViewById(R.id.updateButton1);
@@ -204,8 +204,8 @@ public class TelorListFragment extends Fragment {
         telorname_old = old_t_name.getText().toString();
 
         try {
-        //    progressDialog.setMessage("loading...");
-          //  progressDialog.show();
+            //    progressDialog.setMessage("loading...");
+            //  progressDialog.show();
             new PostTelorDetailsEdit().execute(telornamet.trim(), telorname_old.trim(), SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
@@ -245,7 +245,7 @@ public class TelorListFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-              //  progressDialog.dismiss();
+                //  progressDialog.dismiss();
                 Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -265,7 +265,7 @@ public class TelorListFragment extends Fragment {
                 if (jsonbodyres.getStatus() == true) {
                     // modifyItem(pos,um);
 
-                  //  progressDialog.dismiss();
+                    //  progressDialog.dismiss();
                 }
 
                 //progressDialog.dismiss();
@@ -322,7 +322,7 @@ public class TelorListFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-              //  progressDialog.dismiss();
+                //  progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
@@ -343,7 +343,7 @@ public class TelorListFragment extends Fragment {
                 if (jsonbodyres.getStatus() == true) {
                     // modifyItem(pos,um);
 
-                  //  progressDialog.dismiss();
+                    //  progressDialog.dismiss();
                 }
 
                 //progressDialog.dismiss();
@@ -394,7 +394,7 @@ public class TelorListFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-              //  progressDialog.dismiss();
+                //  progressDialog.dismiss();
                 Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 

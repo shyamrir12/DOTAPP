@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.awizom.dotapp.Fragments.AboutFragment;
 import com.example.awizom.dotapp.Fragments.BottomCustomerFragment;
@@ -29,7 +30,7 @@ public class HomeActivityUser extends AppCompatActivity {
 
     private Intent intent;
     private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment,
-            statusLayoutFragment, searchfragment,aboutfragment;
+            statusLayoutFragment, searchfragment, aboutfragment;
     Fragment fragment = null;
 
 
@@ -143,19 +144,43 @@ public class HomeActivityUser extends AppCompatActivity {
             Class fragmentClass = null;
             switch (item.getItemId()) {
                 case R.id.navigation_customer:
-                    getSupportActionBar().setTitle("Customer Details");
-                    fragment = customerLayoutfragment;
-                    fragmentClass = BottomCustomerFragment.class;
+
+                    if ((SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("Admin")) ||
+                            (SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("User"))) {
+
+                        getSupportActionBar().setTitle("Customer Details");
+                        fragment = customerLayoutfragment;
+                        fragmentClass = BottomCustomerFragment.class;
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "User Is Not Permitted", Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case R.id.navigation_order:
-                    getSupportActionBar().setTitle("Order Details");
-                    fragment = orderLayoutfragment;
-                    fragmentClass = BottomOrderFragment.class;
+
+                    if ((SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("Admin")) ||
+                            (SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("User"))) {
+
+
+                        getSupportActionBar().setTitle("Order Details");
+                        fragment = orderLayoutfragment;
+                        fragmentClass = BottomOrderFragment.class;
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "User Is Not Permitted", Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case R.id.navigation_print:
-                    getSupportActionBar().setTitle("Print Details");
-                    fragment = printLayoutfragment;
-                    fragmentClass = BottomPrintFragment.class;
+                    if ((SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("Admin")) ||
+                            (SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("User"))) {
+
+                        getSupportActionBar().setTitle("Print Details");
+                        fragment = printLayoutfragment;
+                        fragmentClass = BottomPrintFragment.class;
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "User Is Not Permitted", Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case R.id.navigation_status:
                     getSupportActionBar().setTitle("Status Details");
@@ -163,9 +188,16 @@ public class HomeActivityUser extends AppCompatActivity {
                     fragmentClass = BottomStatusFragment.class;
                     break;
                 case R.id.navigation_search:
-                    getSupportActionBar().setTitle("Status Details");
-                    fragment = searchfragment;
-                    fragmentClass = BottomSearchfragment.class;
+                    if ((SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("Admin")) ||
+                            (SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("User"))) {
+
+                        getSupportActionBar().setTitle("Status Details");
+                        fragment = searchfragment;
+                        fragmentClass = BottomSearchfragment.class;
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "User Is Not Permitted", Toast.LENGTH_SHORT).show();
+                    }
                     break;
 
 

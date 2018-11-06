@@ -30,7 +30,7 @@ import okhttp3.Request;
 
 public class UserListFragment extends Fragment {
 
-  //  ProgressDialog progressDialog;
+    //  ProgressDialog progressDialog;
     List<UserModel> userItemList;
     UserListAdapter adapter;
     RecyclerView recyclerView;
@@ -101,7 +101,7 @@ public class UserListFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-  //              progressDialog.dismiss();
+                //              progressDialog.dismiss();
 
             }
 
@@ -111,7 +111,7 @@ public class UserListFragment extends Fragment {
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
-    //            progressDialog.dismiss();
+                //            progressDialog.dismiss();
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
@@ -125,7 +125,7 @@ public class UserListFragment extends Fragment {
 
                 adapter = new UserListAdapter(getContext(), userItemList);
                 recyclerView.setAdapter(adapter);
-      //          progressDialog.dismiss();
+                //          progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
                 adapter.notifyDataSetChanged();
             }

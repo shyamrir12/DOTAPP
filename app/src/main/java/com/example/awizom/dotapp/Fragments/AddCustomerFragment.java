@@ -57,16 +57,16 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.customerButton:
-                 if ((cName.getText().toString().isEmpty()) || (cContact.getText().toString().isEmpty()) ||
-                         (cAddress.getText().toString().isEmpty()) || (interioName.getText().toString().isEmpty())
-                         || (interioContact.getText().toString().isEmpty())) {
+                if ((cName.getText().toString().isEmpty()) || (cContact.getText().toString().isEmpty()) ||
+                        (cAddress.getText().toString().isEmpty()) || (interioName.getText().toString().isEmpty())
+                        || (interioContact.getText().toString().isEmpty())) {
 
-                     cName.setError("Customer Name is required!");
-                     cContact.setError("Customer Contact is required!");
+                    cName.setError("Customer Name is required!");
+                    cContact.setError("Customer Contact is required!");
 
-                }else {
-                     customerAddPost();
-                 }
+                } else {
+                    customerAddPost();
+                }
                 break;
         }
     }
@@ -78,11 +78,11 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
             cName.setError("Customer Name is required!");
         } else if (cContact.getText().toString().isEmpty()) {
             cContact.setError("Customer Contact is required!");
-        }else if (cAddress.getText().toString( ).isEmpty()) {
+        } else if (cAddress.getText().toString().isEmpty()) {
             cAddress.setError("Customer Address is required!");
-        }else if (interioName.getText().toString().isEmpty()) {
+        } else if (interioName.getText().toString().isEmpty()) {
             interioName.setError("Interior Name is required!");
-        }else if (interioContact.getText().toString().isEmpty()) {
+        } else if (interioContact.getText().toString().isEmpty()) {
             interioContact.setError("Interior Contact is required!");
         }
         return false;
@@ -91,21 +91,21 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
 
     private void customerAddPost() {
 
-            String name = cName.getText().toString().trim();
-            String contact = cContact.getText().toString().trim();
-            String address = cAddress.getText().toString().trim();
-            String intename = interioName.getText().toString().trim();
-            String intecontact = interioContact.getText().toString().trim();
+        String name = cName.getText().toString().trim();
+        String contact = cContact.getText().toString().trim();
+        String address = cAddress.getText().toString().trim();
+        String intename = interioName.getText().toString().trim();
+        String intecontact = interioContact.getText().toString().trim();
 
-            try {
-                //String res="";
-                progressDialog.setMessage("loading...");
-                progressDialog.show();
-                new POSTCustomerAdd().execute(name, contact, address, intename, intecontact, SharedPrefManager.getInstance(getContext()).getUser().access_token);
-            } catch (Exception e) {
-                e.printStackTrace();
-                progressDialog.dismiss();
-            }
+        try {
+            //String res="";
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new POSTCustomerAdd().execute(name, contact, address, intename, intecontact, SharedPrefManager.getInstance(getContext()).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+        }
 
 
     }
@@ -167,7 +167,7 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
                 if (jsonbodyres.getStatus() == true) {
                     startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
                 }
-              
+
             }
         }
     }

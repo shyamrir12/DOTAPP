@@ -103,6 +103,7 @@ public class ReceivedTelorlist extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait while loading telors");
         lv = view.findViewById(R.id.telorList);
+
         lv1 = view.findViewById(R.id.rcyclr);
         lv1.setHasFixedSize(true);
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -202,7 +203,7 @@ public class ReceivedTelorlist extends Fragment {
                 int j = 0;
                 j < cells.length; j++)
 
-      {
+        {
             cells[j].setBackgroundColor(BaseColor.GRAY);
         }
 
@@ -232,7 +233,7 @@ public class ReceivedTelorlist extends Fragment {
 
             Log.d("PDFCreator", "PDF Path: " + path);
 
-            File file = new File(dir,  "ReceivedItemList.pdf");
+            File file = new File(dir, "ReceivedItemList.pdf");
 
             FileOutputStream fOut = new FileOutputStream(file);
 

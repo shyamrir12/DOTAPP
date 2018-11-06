@@ -1,5 +1,6 @@
 package com.example.awizom.dotapp.Fragments;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -90,6 +91,8 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
 //               myFragment2.setArguments(bundle2);
 //                getFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
 //
+                getActivity().setTitle("Handover");
+
                 fragmentClass = HandOverTelorList.class;
 
                 break;
