@@ -43,7 +43,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
 
 
         pendinOrderListFragment = new OrderListFragment();
-        //  orderCreate = new AfterCreateOrderoFragment();
+ //       orderCreate = new AfterCreateOrderoFragment();
 
         cardViewFirst.setOnClickListener(this);
         cardViewSecond.setOnClickListener(this);

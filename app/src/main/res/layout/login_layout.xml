@@ -24,13 +24,7 @@
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:layout_margin="8dp">
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_layout_userId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_above="@+id/input_layout_password"
-                android:hint="@string/userid">
+
 
             <EditText
                 android:id="@+id/userId"
@@ -41,45 +35,34 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:drawableRight="@drawable/ic_person_outline_black_24dp"
-                android:hint="                              "
-
+                android:hint="@string/userid"
                 android:inputType="text"
                 android:paddingLeft="14dp"
                 android:paddingRight="10dp"
                 android:textSize="15sp" />
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_layout_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:hint="@string/password">
+
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:drawableRight="@drawable/ic_lock_outline_black_24dp"
-                android:hint="                              "
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingLeft="14dp"
                 android:paddingRight="10dp"
                 android:textSize="15sp" />
-            </android.support.design.widget.TextInputLayout>
 
 
             <Button
                 android:id="@+id/signinButton"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_below="@+id/input_layout_password"
+                android:layout_below="@+id/password"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/add_cancel_button_shape"
