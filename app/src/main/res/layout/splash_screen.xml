@@ -16,7 +16,7 @@
         android:id="@+id/imgLogo1"
         android:layout_width="550dp"
         android:layout_height="150dp"
-        android:src="@mipmap/snskriti"
+        android:src="@drawable/sankritilogo"
         android:layout_marginTop="30dp" />
 
     <pl.droidsonroids.gif.GifImageView

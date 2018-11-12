@@ -88,7 +88,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private ProgressDialog progressDialog;
     private AlertDialog b;
     private DataOrder data;
-
     String[] roomName;
     List<String> roomList;
     RecyclerView recyclerView;
@@ -122,9 +121,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         addroom.setOnClickListener(this);
         addNewCustomer = findViewById(R.id.addnewCustomerButton);
         addNewCustomer.setOnClickListener(this);
-
-        // addUserStatus = findViewById(R.id.addstatus);
-        //addUserStatus.setOnClickListener(this);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
