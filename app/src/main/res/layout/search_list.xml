@@ -123,7 +123,8 @@
                         android:textSize="12sp"
                         android:layout_margin="5dp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white"
+                        android:visibility="gone"/>
 
 
                     <Button
@@ -136,7 +137,8 @@
                         android:background="@drawable/add_cancel_button_shape"
                         android:text="Actual Order"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white"
+                        android:visibility="gone"/>
 
                     <Button
                         android:id="@+id/checkStatusButton"
