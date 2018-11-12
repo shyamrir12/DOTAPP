@@ -176,6 +176,7 @@ public class TelorListFragment extends Fragment {
                 t_name.setText(telorlist[position]);
                 old_t_name.setHint(telorlist[position]);
                 old_t_name.setVisibility(View.GONE);
+                old_t_name.setText(telorlist[position]);
                 // Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
 
                 add.setOnClickListener(new View.OnClickListener() {
@@ -403,6 +404,7 @@ public class TelorListFragment extends Fragment {
 
         protected void onPostExecute(String result) {
 
+            try {
             if (result.isEmpty()) {
                 //progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -414,12 +416,15 @@ public class TelorListFragment extends Fragment {
                 Type listType = new TypeToken<String[]>() {
                 }.getType();
                 telorlist = new Gson().fromJson(result, listType);
-
                 telorListAapter = new ArrayAdapter<String>(getContext(), R.layout.layout_button_telorlist, R.id.label, telorlist);
                 lv.setAdapter(telorListAapter);
 
                 //progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
+            }
+
+        }catch(Exception e){
+                e.printStackTrace();
             }
 
         }

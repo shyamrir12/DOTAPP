@@ -33,7 +33,7 @@ import okhttp3.Request;
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderItemViewHolder> {
     Boolean bln;
     private Context mCtx;
-    ProgressDialog progressDialog;
+//    ProgressDialog progressDialog;
     String userId;
     int pos;
     UserModel um;
@@ -49,7 +49,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
         this.mCtx = mCtx;
         this.useritemList = useritemList;
         userListFragment = new UserListFragment();
-        progressDialog = new ProgressDialog(mCtx);
+      //  progressDialog = new ProgressDialog(mCtx);
     }
 
     @NonNull
@@ -176,14 +176,14 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
 
     private void postUserList() {
         try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
+//            progressDialog.setMessage("loading...");
+//            progressDialog.show();
             new PostUserDetails().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token);
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            progressDialog.dismiss();
+           // progressDialog.dismiss();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -213,7 +213,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                progressDialog.dismiss();
+            //    progressDialog.dismiss();
                 Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -223,7 +223,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
                 Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
@@ -233,10 +233,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
                 if (jsonbodyres.getStatus() == true) {
                     // modifyItem(pos,um);
 
-                    progressDialog.dismiss();
+                   // progressDialog.dismiss();
                 }
 
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
             }
 
 
