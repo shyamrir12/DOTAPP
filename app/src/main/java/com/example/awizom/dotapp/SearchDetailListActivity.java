@@ -272,22 +272,26 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
         }
 
         protected void onPostExecute(String result) {
-            if (result.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
-            } else {
-                Gson gson = new Gson();
-                Type listType = new TypeToken<DataOrder>() {
-                }.getType();
-                dataOrderValue = new Gson().fromJson(result, listType);
-                if (dataOrderValue != null) {
-                    cid = dataOrderValue.getCustomerID();
+
+            try {
+
+                if (result.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                } else {
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<DataOrder>() {
+                    }.getType();
+                    dataOrderValue = new Gson().fromJson(result, listType);
+                    if (dataOrderValue != null) {
+                        cid = dataOrderValue.getCustomerID();
+                    }
+
                 }
 
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-
         }
     }
-
 
 }
