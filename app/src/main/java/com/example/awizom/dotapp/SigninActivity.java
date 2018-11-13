@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Fragments.Help_Fragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Token;
 import com.example.awizom.dotapp.Models.UserLogin;
@@ -33,11 +37,13 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 
     private Button signinButton;
     private EditText userName, passWord;
-    private TextView signupHere;
+    private TextView signupHere,helptutorial;
     private Intent intent;
     boolean boolean2 = Boolean.parseBoolean("True");
     ProgressDialog progressDialog;
-
+    private Fragment helpfragment;
+    private Fragment fragment = null;
+    private CardView hide;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +90,12 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         signinButton.setOnClickListener(this);
         signupHere = findViewById(R.id.signupHere);
         signupHere.setOnClickListener(this);
+        helptutorial = findViewById(R.id.app_tutorial);
+        helptutorial.setOnClickListener(this);
+        hide = findViewById(R.id.hideCard);
+
+        helpfragment = new Help_Fragment();
+
         try {
             if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {
                 if (SharedPrefManager.getInstance(SigninActivity.this).getUser().userRole.contains("Admin")) {
@@ -106,6 +118,9 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+
+        Class fragmentClass = null;
+
         switch (v.getId()) {
             case R.id.signinButton:
 
@@ -123,6 +138,20 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.signupHere:
                 startActivity(intent = new Intent(this, SinUpActivity.class));
                 break;
+            case R.id.app_tutorial:
+                getSupportActionBar().setTitle("HELP");
+                fragment = helpfragment;
+                fragmentClass = Help_Fragment.class;
+                hide.setVisibility(View.INVISIBLE);
+                break;
+        }
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.home_container, fragment).commit();
+            setTitle("");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -135,8 +164,6 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         return true;
 
     }
-
-
     public void userLogin() {
 
         progressDialog.setMessage("loading...");
@@ -156,7 +183,6 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 
 
     }
-
     private class GetLogin extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {

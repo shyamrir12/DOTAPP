@@ -72,6 +72,7 @@
     <string name="handover">Hand Over</string>
     <string name="receivedt">Received from tailor</string>
     <string name="receivedby">Received By</string>
+    <string name="app_tutorial"><u>Help App Tutorial</u></string>
     <string name="dispatch">Dispatch</string>
     <string name="interioMobile">Interior contact</string>
     <string name="cpassword">Confirm Password*</string>

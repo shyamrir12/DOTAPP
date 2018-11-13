@@ -4,7 +4,16 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/home_container" />
     <android.support.v7.widget.CardView
+        android:id="@+id/hideCard"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:layout_marginBottom="50dp"
@@ -25,6 +34,13 @@
             android:layout_centerVertical="true"
             android:layout_margin="8dp">
 
+<TextView
+    android:id="@+id/app_tutorial"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/app_tutorial"
+    android:textSize="13sp"
+    android:layout_centerHorizontal="true"/>
 
             <EditText
                 android:id="@+id/userId"
@@ -86,4 +102,5 @@
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
+    </RelativeLayout>
 </RelativeLayout>

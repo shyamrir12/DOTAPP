@@ -23,6 +23,7 @@ import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
 import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
 import com.example.awizom.dotapp.Fragments.BottomSearchfragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
+import com.example.awizom.dotapp.Fragments.Help_Fragment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 
@@ -30,7 +31,7 @@ public class HomeActivityUser extends AppCompatActivity {
 
     private Intent intent;
     private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment,
-            statusLayoutFragment, searchfragment, aboutfragment;
+            statusLayoutFragment, searchfragment, aboutfragment,helpfragment;
     Fragment fragment = null;
 
 
@@ -120,6 +121,13 @@ public class HomeActivityUser extends AppCompatActivity {
                 fragment = aboutfragment;
                 fragmentClass = AboutFragment.class;
                 break;
+
+            case R.id.help:
+                getSupportActionBar().setTitle("HELP");
+                fragment = helpfragment;
+                fragmentClass = Help_Fragment.class;
+                break;
+
 
 
         }
