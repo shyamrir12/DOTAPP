@@ -134,6 +134,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 //                    userLogin();
 //
 //                }
+
                 break;
             case R.id.signupHere:
                 startActivity(intent = new Intent(this, SinUpActivity.class));

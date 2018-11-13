@@ -119,7 +119,6 @@ public class HomeActivity extends AppCompatActivity {
                     // of Dialog
                 }
             });
-
             alertbox.show();
         }
         return super.onKeyDown(keyCode, event);

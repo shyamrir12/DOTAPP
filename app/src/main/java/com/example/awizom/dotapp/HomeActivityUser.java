@@ -128,8 +128,6 @@ public class HomeActivityUser extends AppCompatActivity {
                 fragmentClass = Help_Fragment.class;
                 break;
 
-
-
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
