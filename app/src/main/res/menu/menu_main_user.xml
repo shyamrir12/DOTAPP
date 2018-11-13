@@ -1,15 +1,28 @@
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
 
     <item
-        android:id="@+id/home" android:icon="@android:mipmap/sym_def_app_icon" app:showAsAction="never" android:title="Home">
-    </item>
-<item
-    android:id="@+id/exit"  app:showAsAction="never" android:title="sign out">
-</item>
+        android:id="@+id/home"
+        android:icon="@android:mipmap/sym_def_app_icon"
+        app:showAsAction="never"
+        android:title="Home"/>
+
     <item
-        android:id="@+id/aboutApp"  app:showAsAction="never" android:title="about">
-    </item>
+        android:id="@+id/aboutApp"
+        app:showAsAction="never"
+        android:title="about"/>
+
+    <item
+        android:id="@+id/helpApp"
+        app:showAsAction="never"
+        android:title="help"/>
+
+    <item
+        android:id="@+id/exit"
+        app:showAsAction="never"
+        android:title="sign out"/>
+
+
 </menu>

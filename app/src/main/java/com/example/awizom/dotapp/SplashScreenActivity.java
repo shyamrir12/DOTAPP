@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.RoomListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.DemoHelp.DemoOne_Activity;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
@@ -94,6 +95,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             }
         }, SPLASH_TIME_OUT);
+
+
     }
 
     private void statusCountGETmethodCall() {
