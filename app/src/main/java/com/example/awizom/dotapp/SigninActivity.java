@@ -140,10 +140,8 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent = new Intent(this, SinUpActivity.class));
                 break;
             case R.id.app_tutorial:
-                getSupportActionBar().setTitle("HELP");
-                fragment = helpfragment;
-                fragmentClass = Help_Fragment.class;
-                hide.setVisibility(View.INVISIBLE);
+
+                startActivity(intent = new Intent(this, HelpActivity.class));
                 break;
         }
         try {

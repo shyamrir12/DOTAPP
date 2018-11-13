@@ -123,9 +123,9 @@ public class HomeActivityUser extends AppCompatActivity {
                 break;
 
             case R.id.help:
-                getSupportActionBar().setTitle("HELP");
-                fragment = helpfragment;
-                fragmentClass = Help_Fragment.class;
+
+                Intent intnt = new Intent(this, HelpActivity.class);
+                startActivity(intnt);
                 break;
 
         }
