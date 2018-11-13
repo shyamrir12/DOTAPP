@@ -4,33 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
 
     <item
-        android:id="@+id/admin1"
-        android:icon="@drawable/ic_portrait_black_24dp"
-        app:showAsAction="always"
-        android:title="@string/add"/>
+        android:id="@+id/admin1" android:icon="@drawable/ic_portrait_black_24dp" app:showAsAction="always"   android:title="@string/add"/>
     <item
-        android:id="@+id/user1"
-        android:icon="@drawable/ic_people_black_24dp"
-        app:showAsAction="always|withText"
-        android:title="reset"/>
+        android:id="@+id/user1" android:icon="@drawable/ic_people_black_24dp" app:showAsAction="always|withText" android:title="reset"/>
     <item
-        android:id="@+id/home"
-        android:icon="@android:mipmap/sym_def_app_icon"
-        app:showAsAction="never"
-        android:title="Home"/>
+        android:id="@+id/home" android:icon="@android:mipmap/sym_def_app_icon" app:showAsAction="never" android:title="Home">
+    </item>
+    <item
+        android:id="@+id/aboutApp"  app:showAsAction="never" android:title="about">
+    </item>
+    <item
+        android:id="@+id/exit"  app:showAsAction="never" android:title="sign out">
+    </item>
+    <item
+        android:id=" @+id/help"  app:showAsAction="never" android:title="help">
+    </item>
 
-    <item
-        android:id="@+id/aboutApp"
-        app:showAsAction="never"
-        android:title="about"/>
-
-    <item
-        android:id="@+id/help"
-        app:showAsAction="never"
-        android:title="help"/>
-    <item
-        android:id="@+id/exit"
-        app:showAsAction="never"
-        android:title="sign out"/>
 
 </menu>

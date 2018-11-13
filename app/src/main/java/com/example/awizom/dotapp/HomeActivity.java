@@ -175,7 +175,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
             case R.id.help:
-                getSupportActionBar().setTitle("HELP");
+                getSupportActionBar().setTitle("Help");
                 fragment = helpfragment;
                 fragmentClass = Help_Fragment.class;
                 break;
