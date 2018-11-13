@@ -157,7 +157,6 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
                 onStop();
                 break;
-
             case R.id.exit:
 
                 SharedPrefManager.getInstance(this).logout();

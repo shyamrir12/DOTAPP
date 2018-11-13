@@ -10,7 +10,6 @@ import com.example.awizom.dotapp.R;
 
 public class Help_Fragment extends Fragment {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
