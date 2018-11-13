@@ -16,6 +16,9 @@
     <item
         android:id="@+id/exit"  app:showAsAction="never" android:title="sign out">
     </item>
+    <item
+        android:id="@+id/help"  app:showAsAction="never" android:title="help">
+    </item>
 
 
 </menu>

@@ -24,6 +24,7 @@ import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
 import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
 import com.example.awizom.dotapp.Fragments.BottomSearchfragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
+import com.example.awizom.dotapp.Fragments.Help_Fragment;
 import com.example.awizom.dotapp.Fragments.TelorListFragment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
@@ -32,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Intent intent;
     private Fragment telorListFragment, userListFragment, customerLayoutfragment,
-            printLayoutfragment, orderLayoutfragment, statusLayoutFragment, searchfragment,aboutfragment;
+            printLayoutfragment, orderLayoutfragment, statusLayoutFragment, searchfragment,aboutfragment,helpfragment;
     private Fragment fragment = null;
     boolean doubleBackToExitPressedOnce = false;
     private Context mContext;
@@ -55,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         statusLayoutFragment = new BottomStatusFragment();
         searchfragment = new BottomSearchfragment();
         aboutfragment = new AboutFragment();
+        helpfragment = new Help_Fragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -171,6 +173,14 @@ public class HomeActivity extends AppCompatActivity {
                 fragment = aboutfragment;
                 fragmentClass = AboutFragment.class;
                 break;
+
+
+            case R.id.help:
+                getSupportActionBar().setTitle("HELP");
+                fragment = helpfragment;
+                fragmentClass = Help_Fragment.class;
+                break;
+
             //return (true);
         }
         try {
