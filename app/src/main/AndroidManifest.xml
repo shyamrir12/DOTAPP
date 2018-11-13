@@ -59,9 +59,7 @@
 
         </activity>
 
-        <activity android:name=".DemoHelp.DemoOne_Activity"/>
-        <activity android:name=".DemoHelp.DemoTwoActivity"/>
-        <activity android:name=".DemoHelp.DemoThree_Activity"/>
+        <activity android:name=".HelpActivity"/>
     </application>
 
 </manifest>
