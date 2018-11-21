@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.ItemListActivity;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
@@ -174,20 +175,29 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
 
                     {
-                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                        alertbox.setTitle("Do you want to change the status");
-                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                showDailogForHandOverTo(v);
-                            }
-                        });
-                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
 
-                            }
-                        });
 
-                        alertbox.show();
+                        Intent intent = new Intent(mCtx, ItemListActivity.class);
+                        intent = intent.putExtra("FilterKey", filterKey);
+                        intent = intent.putExtra("StatusName", statusName);
+                        intent = intent.putExtra("ButtonName", valueButtonname);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mCtx.startActivity(intent);
+//                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+//                        alertbox.setTitle("Do you want to change the status");
+//                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//                                showDailogForHandOverTo(v);
+//
+//                            }
+//                        });
+//                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//
+//                            }
+//                        });
+//
+//                        alertbox.show();
 
 
                     }
@@ -206,20 +216,27 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                     {
 
-                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                        alertbox.setTitle("Do you want to change the status");
-                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                showdailogForreceivedBy(v);
-                            }
-                        });
-                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
+                        Intent intent = new Intent(mCtx, ItemListActivity.class);
+                        intent = intent.putExtra("FilterKey", filterKey);
+                        intent = intent.putExtra("StatusName", statusName);
+                        intent = intent.putExtra("ButtonName", valueButtonname);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mCtx.startActivity(intent);
 
-                            }
-                        });
-
-                        alertbox.show();
+//                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+//                        alertbox.setTitle("Do you want to change the status");
+//                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//                                showdailogForreceivedBy(v);
+//                            }
+//                        });
+//                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//
+//                            }
+//                        });
+//
+//                        alertbox.show();
                     }
                     else {
 
@@ -230,19 +247,26 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     if (((SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Admin")) ||
                             (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Dispatch")))) {
 
-                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                        alertbox.setTitle("Do you want to change the status");
-                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                dispatchListPost();
-                            }
-                        });
-                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
 
-                            }
-                        });
-                        alertbox.show();
+                        Intent intent = new Intent(mCtx, ItemListActivity.class);
+                        intent = intent.putExtra("FilterKey", filterKey);
+                        intent = intent.putExtra("StatusName", statusName);
+                        intent = intent.putExtra("ButtonName", valueButtonname);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mCtx.startActivity(intent);
+//                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+//                        alertbox.setTitle("Do you want to change the status");
+//                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//                                dispatchListPost();
+//                            }
+//                        });
+//                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//
+//                            }
+//                        });
+//                        alertbox.show();
 
                     } else {
 
@@ -258,20 +282,26 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                     {
 
-                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                        alertbox.setTitle("Do you want to change the status");
-                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                cancelOrderListPost();
-                            }
-                        });
-                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-
-                            }
-                        });
-
-                        alertbox.show();
+                        Intent intent = new Intent(mCtx, ItemListActivity.class);
+                        intent = intent.putExtra("FilterKey", filterKey);
+                        intent = intent.putExtra("StatusName", statusName);
+                        intent = intent.putExtra("ButtonName", valueButtonname);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mCtx.startActivity(intent);
+//                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+//                        alertbox.setTitle("Do you want to change the status");
+//                        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//                                cancelOrderListPost();
+//                            }
+//                        });
+//                        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//
+//                            }
+//                        });
+//
+//                        alertbox.show();
                     }
                     else {
 
@@ -283,20 +313,27 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                                 (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("Advance")))) || (SharedPrefManager.getInstance(mCtx).getUser().userRole.contains("User")))
 
                         {
-                            AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                            alertbox.setTitle("Do you want to change the status");
-                            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    cancelOrderListPost();
-                                }
-                            });
-                            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface arg0, int arg1) {
 
-                                }
-                            });
-
-                            alertbox.show();
+                            Intent intent = new Intent(mCtx, ItemListActivity.class);
+                            intent = intent.putExtra("FilterKey", filterKey);
+                            intent = intent.putExtra("StatusName", statusName);
+                            intent = intent.putExtra("ButtonName", valueButtonname);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mCtx.startActivity(intent);
+//                            AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+//                            alertbox.setTitle("Do you want to change the status");
+//                            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface arg0, int arg1) {
+//                                    cancelOrderListPost();
+//                                }
+//                            });
+//                            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface arg0, int arg1) {
+//
+//                                }
+//                            });
+//
+//                            alertbox.show();
 
                         }
                         else {
@@ -313,21 +350,27 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                         {
 
-                            AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                            alertbox.setTitle("Do you want to change the status");
-                            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    cancelOrderListPost();
-                                }
-                            });
-
-                            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface arg0, int arg1) {
-
-                                }
-                            });
-
-                            alertbox.show();
+                            Intent intent = new Intent(mCtx, ItemListActivity.class);
+                            intent = intent.putExtra("FilterKey", filterKey);
+                            intent = intent.putExtra("StatusName", statusName);
+                            intent = intent.putExtra("ButtonName", valueButtonname);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mCtx.startActivity(intent);
+//                            AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+//                            alertbox.setTitle("Do you want to change the status");
+//                            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface arg0, int arg1) {
+//                                    cancelOrderListPost();
+//                                }
+//                            });
+//
+//                            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface arg0, int arg1) {
+//
+//                                }
+//                            });
+//
+//                            alertbox.show();
 
 
                         }
@@ -343,28 +386,41 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                         {
 
-                            AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                            alertbox.setTitle("Do you want to change the status");
-                            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    cancelOrderListPost();
-                                }
-                            });
+                            Intent intent = new Intent(mCtx, ItemListActivity.class);
+                            intent = intent.putExtra("FilterKey", filterKey);
+                            intent = intent.putExtra("StatusName", statusName);
+                            intent = intent.putExtra("ButtonName", valueButtonname);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mCtx.startActivity(intent);
 
-                            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface arg0, int arg1) {
-
-                                }
-                            });
-
-                            alertbox.show();
+//                            AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+//                            alertbox.setTitle("Do you want to change the status");
+//                            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface arg0, int arg1) {
+//                                    cancelOrderListPost();
+//                                }
+//                            });
+//
+//                            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface arg0, int arg1) {
+//
+//                                }
+//                            });
+//
+//                            alertbox.show();
 
 
                         }
 
 
                     } else {
-                        cancelOrderListPost();
+//                        cancelOrderListPost();
+                    Intent intent = new Intent(mCtx, ItemListActivity.class);
+                    intent = intent.putExtra("FilterKey", filterKey);
+                    intent = intent.putExtra("StatusName", statusName);
+                    intent = intent.putExtra("ButtonName", valueButtonname);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mCtx.startActivity(intent);
                     }
 //                AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
 //                alertbox.setIcon(R.drawable.ic_warning_black_24dp);

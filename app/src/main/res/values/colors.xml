@@ -4,6 +4,10 @@
     <color name="colorPrimary">#26694c</color>
     <color name="colorPrimaryDark">#297152</color>
     <color name="colorAccent">#43b785</color>
+
+    <!--<color name="colorPrimary">#f4a241</color>-->
+    <!--<color name="colorPrimaryDark">#f1be6c</color>-->
+    <!--<color name="colorAccent">#e68a1e</color>-->
     <color name="fab1_color">#4CAF50</color>
     <color name="fab2_color">#2196F3</color>
     <color name="sky_blue">#69b6f2</color>

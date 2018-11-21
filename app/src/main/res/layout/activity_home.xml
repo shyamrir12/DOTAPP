@@ -18,17 +18,17 @@
             android:layout_height="350px"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/diamond" />
+            android:src="@mipmap/sanskriti_logo_img" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/img"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/img"
-            android:textColor="@color/colorPrimaryDark"
             android:text="Sanskriti Decore"
+            android:textColor="@color/button_pressed"
             android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="30dp"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

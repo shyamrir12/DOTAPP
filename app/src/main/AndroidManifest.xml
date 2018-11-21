@@ -60,6 +60,7 @@
         </activity>
 
         <activity android:name=".HelpActivity"/>
+        <activity android:name=".ItemListActivity"/>
     </application>
 
 </manifest>
