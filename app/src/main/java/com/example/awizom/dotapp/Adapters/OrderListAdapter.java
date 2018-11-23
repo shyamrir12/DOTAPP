@@ -152,7 +152,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         public void onClick(final View v) {
             int position = getAdapterPosition();
             orderitem = this.orderitemList.get(position);
-
+//hjjj
             if (v.getId() == buttonOrder.getId()) {
 
                 Intent i = new Intent().setClass(mCtx, AfterCreateActivity.class);
