@@ -10,25 +10,27 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colort">
 
         <ImageView
             android:id="@+id/img"
-            android:layout_width="350px"
-            android:layout_height="350px"
+            android:layout_width="550px"
+            android:layout_height="550px"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/sanskriti_logo_img" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/img"
-            android:layout_centerHorizontal="true"
-            android:text="Sanskriti Decore"
-            android:textColor="@color/button_pressed"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginBottom="115dp"-->
+            <!--android:text="Sanskriti Decore"-->
+            <!--android:textColor="@color/button_pressed"-->
+            <!--android:textSize="30sp"-->
+            <!--android:textStyle="bold" />-->
 
     </RelativeLayout>
 

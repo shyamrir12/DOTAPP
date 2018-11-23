@@ -83,9 +83,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
 
         getSupportActionBar().setTitle("Room Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        orderID = String.valueOf(getIntent().getIntExtra("OrderID", 0));
-
-
+        orderID = getIntent().getExtras().getString("OrderID", "0");
         filterkey = getIntent().getExtras().getString("FilterKey", "");
         StatusName = getIntent().getExtras().getString("StatusName", "");
         buttonname = getIntent().getExtras().getString("ButtonName", "");
@@ -174,10 +172,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                if (jsonbodyres.getStatus() == true) {
-
-
-                }
+                if (jsonbodyres.getStatus() == true) {}
                 //       progressDialog.dismiss();
             }
         }
@@ -208,140 +203,10 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
                 b.dismiss();
             }
         });
-
-
     }
 
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) { }
 
-
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    }
-
-
-
-
-    private void initViewByAlertdailog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.add_dailog_layout, null);
-        dialogBuilder.setView(dialogView);
-
-        s_no = dialogView.findViewById(R.id.sNo);
-        catlogName = dialogView.findViewById(R.id.catlogName);
-        design = dialogView.findViewById(R.id.design);
-        pageNo = dialogView.findViewById(R.id.pageNo);
-        price = dialogView.findViewById(R.id.price);
-        price2 = dialogView.findViewById(R.id.price2);
-
-
-
-        materialType = dialogView.findViewById(R.id.materialType);
-        qty = dialogView.findViewById(R.id.qTy);
-        aQty = dialogView.findViewById(R.id.aQty);
-        unitSpinner = dialogView.findViewById(R.id.unit);
-        getCatalogList();
-        addButton = dialogView.findViewById(R.id.add);
-        cancelButton = dialogView.findViewById(R.id.cancelButton);
-
-        dialogBuilder.setTitle("Add Order");
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
-        catlogName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                design.setText("");
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (catlogName.getText().length() > 0)
-                    getDesignList();
-            }
-        });
-        design.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                price.setText("");
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (design.getText().length() > 0)
-                    getCatalogDesignSingle();
-            }
-        });
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validation()) {
-                    String snumber = s_no.getText().toString();
-                    String catlogname = catlogName.getText().toString();
-                    String desiGn = design.getText().toString();
-                    String page_no = pageNo.getText().toString();
-                    String priCe = price.getText().toString();
-                    String priCe2 = price2.getText().toString();
-                    String qTy = qty.getText().toString();
-                    String aqty = aQty.getText().toString();
-                    String materialtype = materialType.getSelectedItem().toString();
-                    String unIt = unitSpinner.getSelectedItem().toString();
-
-                    price2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            int weight = Integer.parseInt(price.getText().toString());
-                            int bodyfat = Integer.parseInt(price2.getText().toString());
-                            int lbm = (weight * bodyfat) / 100;
-                            int res = weight - lbm;
-                            price2.setText(String.valueOf(res));
-                        }
-                    });
-
-
-                    try {
-                        progressDialog.setMessage("loading...");
-                        progressDialog.show();
-                        if (actualorder.equals("ActualOrder")) {
-                            new POSTOrder().execute("0", materialtype, priCe2, "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                                    unIt, "0", "Hall", orderID, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
-
-                        } else {
-                            new POSTOrder().execute("0", materialtype, priCe2, qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                                    unIt, "0", "Hall", orderID, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
-
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-                    }
-                    b.dismiss();
-
-                }
-            }
-
-
-        });
-
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                b.dismiss();
-
-            }
-        });
-    }
 
     private boolean validation() {
 
@@ -388,7 +253,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"Hall");
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -421,7 +286,6 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
                     orderList = new Gson().fromJson(result, listType);
                     adapter = new OrderItemAdapter(getBaseContext(), orderList, actualorder,filterkey,StatusName,buttonname,tailorList);
                     recyclerView.setAdapter(adapter);
-                    // progressDialog.dismiss();
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
             } catch (Exception e) {
@@ -509,7 +373,6 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     getFunctioncall();
-
                 }
                 progressDialog.dismiss();
             }
@@ -567,7 +430,6 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
                 if (catelogdesign != null) {
                     price.setText(String.valueOf(catelogdesign.getPrice()));
                     if (catelogdesign.getUnit().trim().length() > 0) {
-
                         unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
                     }
                 }
@@ -627,12 +489,9 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
                 Type listType = new TypeToken<String[]>() {
                 }.getType();
                 String[] cateloglist = new Gson().fromJson(result, listType);
-
-
                 catadapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.select_dialog_item, cateloglist);
                 catlogName.setThreshold(1);//will start working from first character
                 catlogName.setAdapter(catadapter);//setting the adapter data into the AutoCompleteTextView
-
                 //Getting the instance of AutoCompleteTextView
                 progressDialog.dismiss();
 
@@ -683,7 +542,6 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
@@ -693,9 +551,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
                 designadapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.select_dialog_item, designlist);
                 design.setThreshold(1);//will start working from first character
                 design.setAdapter(designadapter);//setting the adapter data into the AutoCompleteTextView
-
             }
-
         }
     }
 }

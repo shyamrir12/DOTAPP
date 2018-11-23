@@ -4,23 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colort">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@mipmap/home">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sanskriti \n Decore"
-            android:textSize="45sp"
-            android:id="@+id/tv1"
-            android:textStyle="italic"
-            android:textColor="@color/colorPrimaryDark"
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="550px"
+            android:layout_height="550px"
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
+            android:src="@mipmap/sanskriti_logo_img" />
     </RelativeLayout>
 
 

@@ -103,7 +103,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     private void initView() {
 
-
         getSupportActionBar().setTitle("Create Order");
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -686,8 +685,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     private class getCustomerList extends AsyncTask<String, Void, String> {
@@ -724,9 +721,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 customerlist = new Gson().fromJson(result, listType);
                 customerNameList = new String[customerlist.size()];
                 for (int i = 0; i < customerlist.size(); i++) {
-                    customerNameList[i] = String.valueOf(customerlist.get(i).getCustomerName());
-
-                }
+                    customerNameList[i] = String.valueOf(customerlist.get(i).getCustomerName());                }
                 adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.select_dialog_item, customerNameList);
                 c_name.setThreshold(1);//will start working from first character
                 c_name.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
@@ -775,11 +770,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     c_contact.setText(customer.getMobile());
                     i_address.setText(customer.getAddress());
                 }
-
-
             }
-
-
         }
     }
 

@@ -161,10 +161,7 @@ public class HomeActivity extends AppCompatActivity {
                 SharedPrefManager.getInstance(this).logout();
                 Intent login = new Intent(getApplicationContext(), SigninActivity.class);
                 startActivity(login);
-
-
                 finish();
-
                 break;
             case R.id.aboutApp:
                 getSupportActionBar().setTitle("About Details");

@@ -101,9 +101,8 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
                     }
                 }
 
-
-
             } else if (filterkey.equals("Hold") && room.split("~")[1].trim().equals("Hold")) {
+
                 if(!room.split("~")[0].split("-Total ")[1].trim().equals("0.00"))
                 {
 
@@ -384,10 +383,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                if (jsonbodyres.getStatus() == true) {
-
-
-                }
+                if (jsonbodyres.getStatus() == true) { }
                 //       progressDialog.dismiss();
             }
         }
@@ -395,12 +391,10 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
 
     private void receiFromeTailorToListPost() {
         try {
-
             new receivedFrometailorToListPost().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token, StatusName, roomName, editReceivedBy.getText().toString());
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
-
         }
     }
 

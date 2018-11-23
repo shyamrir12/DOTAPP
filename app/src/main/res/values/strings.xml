@@ -25,7 +25,6 @@
         <item>Sqft</item>
     </string-array>
     <string name="pwdtextype">abcdefghijklmnopqrstuvwxyz1234567890 </string>
-
     <string-array name="MaterialType">
         <item>Material Type</item>
         <item>Curtain</item>
@@ -33,7 +32,6 @@
         <item>Wall Paper</item>
         <item>Padding</item>
     </string-array>
-
     <string name="title_activity_home">Sanskriti Decore</string>
     <string name="title_customer">Party</string>
     <string name="title_order">Order</string>
@@ -56,7 +54,6 @@
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
     <string name="addCustomer">Add Customer</string>
-
     <string name="customername">Customer Name*</string>
     <string name="customercontact">Customer Contact*</string>
     <string name="address">Address</string>

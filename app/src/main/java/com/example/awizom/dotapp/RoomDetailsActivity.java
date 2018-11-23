@@ -69,7 +69,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     //  private AlertDialog b;
     private String roomName, orderID, customernAME, mobileNumber, orderDate, advance,StatusName,filterkey,buttonname,tailorList;
     DataOrder orderitem;
-    private float priceValue,price2value,result,superResult;
+    private Double priceValue,price2value,result,superResult;
 
     // private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
 
@@ -341,6 +341,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initViewByAlertdailog() {
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.add_dailog_layout, null);
@@ -353,10 +354,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         price = dialogView.findViewById(R.id.price);
         price2 = dialogView.findViewById(R.id.price2);
 
-        String s = price.getText().toString();
-        String p = price2.getText().toString();
-
-
 //        {
 //                int weight = Integer.parseInt(price.getText().toString());
 //                int bodyfat = Integer.parseInt(price2.getText().toString());
@@ -365,7 +362,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 //                price2.setText(String.valueOf(res));
 //
 //            }
-
 
         materialType = dialogView.findViewById(R.id.materialType);
         qty = dialogView.findViewById(R.id.qTy);
@@ -413,12 +409,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
-        priceValue = Float.parseFloat(s);
-        price2value = Float.parseFloat(p);
-        result = ((price2value*price2value)/100);
-        superResult = priceValue-result;
-        price2.setText(String.valueOf(superResult));
-
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -433,6 +423,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                     String aqty = aQty.getText().toString();
                     String materialtype = materialType.getSelectedItem().toString();
                     String unIt = unitSpinner.getSelectedItem().toString();
+
+                    priceValue = Double.parseDouble(price.getText().toString());
+                    price2value = Double.parseDouble(price2.getText().toString());
+                    result = ((priceValue*price2value)/100);
+                    superResult = priceValue-result;
+                    price2.setText(String.valueOf(superResult));
 
 //                    price2.setOnClickListener(new View.OnClickListener() {
 //                        @Override
@@ -450,11 +446,11 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                         progressDialog.setMessage("loading...");
                         progressDialog.show();
                         if (actualorder.equals("ActualOrder")) {
-                            new POSTOrder().execute("0", materialtype, priCe2, "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                            new POSTOrder().execute("0", materialtype, String.valueOf(superResult), "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
                                     unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
 
                         } else {
-                            new POSTOrder().execute("0", materialtype, priCe2, qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                            new POSTOrder().execute("0", materialtype,  String.valueOf(superResult), qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
                                     unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
 
                         }

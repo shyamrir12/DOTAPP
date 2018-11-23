@@ -4,7 +4,7 @@ public class CatelogOrderDetailModel {
 
     public int OrderItemID;
     public String MaterialType;
-    public int Price2;
+    public double Price2;
     public int Qty;
     public int AQty;
     public String OrderUnit;
@@ -14,7 +14,7 @@ public class CatelogOrderDetailModel {
     public String SerialNo;
     public String Design;
     public int PageNo;
-    public int Price;
+    public double Price;
     public String Unit;
     public int CatalogID;
     public String RoomName;
@@ -62,7 +62,7 @@ public class CatelogOrderDetailModel {
         MaterialType = materialType;
     }
 
-    public int getPrice2() {
+    public double getPrice2() {
         return Price2;
     }
 
@@ -134,7 +134,7 @@ public class CatelogOrderDetailModel {
         PageNo = pageNo;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return Price;
     }
 

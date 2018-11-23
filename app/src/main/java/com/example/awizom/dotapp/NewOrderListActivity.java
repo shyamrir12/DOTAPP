@@ -38,7 +38,6 @@ public class NewOrderListActivity extends AppCompatActivity {
     String countvalue = "";
     TextView errorMsg;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

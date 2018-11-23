@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Catelog;
@@ -28,10 +27,8 @@ import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -43,7 +40,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     ProgressDialog progressDialog;
     String actualorder;
     ArrayAdapter<String> designadapter;
-    private Spinner unitSpinner;
+    private Spinner unitSpinner,materialType;
     //we are storing all the products in a list
     private List<CatelogOrderDetailModel> orderitemList;
     DataOrder orderitem;
@@ -54,6 +51,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private Spinner handOvertoNameSpinner, tailorListNameSpinner;
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     String orderItemId;
+
 
     public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder,
                             String filterkey, String StatusName, String buttonname,String tailorList) {
@@ -85,10 +83,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             holder.catlogName.setText("Catalog\n" + order.getCatalogName());
             holder.design.setText("Design\n" + order.getDesign());
             holder.pageNo.setText("PageNo\n" + Integer.toString(order.getPageNo()));
-            holder.price.setText("MRP\n" + Integer.toString(order.getPrice()));
+            holder.price.setText("MRP\n" +order.getPrice());
 
             holder.MaterialType.setText("Material\n" + order.getMaterialType());
-            holder.Price2.setText("Price\n" + Integer.toString(order.getPrice2()));
+            holder.Price2.setText("Price\n" + order.getPrice2());
             holder.Qty.setText("Qty\n" + Integer.toString(order.getQty()));
             holder.AQty.setText("AQty\n" + Integer.toString(order.getAQty()));
             holder.unit.setText("Unit\n" + order.getOrderUnit());
@@ -377,7 +375,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             final EditText pageNo = dialogView.findViewById(R.id.pageNo);
             price = dialogView.findViewById(R.id.price);
             final EditText price2 = dialogView.findViewById(R.id.price2);
-            final Spinner materialType = dialogView.findViewById(R.id.materialType);
+             materialType = dialogView.findViewById(R.id.materialType);
             final EditText qty = dialogView.findViewById(R.id.qTy);
             final EditText aQty = dialogView.findViewById(R.id.aQty);
             unitSpinner = dialogView.findViewById(R.id.unit);
@@ -391,7 +389,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             design.setText(orderitem.getDesign());
             price2.setText(Double.toString(orderitem.getPrice2()));
             pageNo.setText(Integer.toString(orderitem.getPageNo()));
-            price.setText(Integer.toString(orderitem.getPrice()));
+            price.setText(Double.toString(orderitem.getPrice()));
             materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(orderitem.getMaterialType()));
 
             //Price2.setText(Integer.toString(order.getPrice2()));
@@ -526,7 +524,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-
                 Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
@@ -536,17 +533,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 if (catelogdesign != null) {
                     price.setText(String.valueOf(catelogdesign.getPrice()));
                     if (catelogdesign.getUnit().trim().length() > 0) {
-
                         unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
+                        materialType.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogOrderDetailModel.getMaterialType().toString()));
                     }
                 }
-
-
                 //Getting the instance of AutoCompleteTextView
-
             }
-
-
         }
     }
 
