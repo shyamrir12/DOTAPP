@@ -4,21 +4,19 @@
     android:layout_height="match_parent">
 
 
-    <include
-        android:id="@+id/header_relative_inclue"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/header_relative_layout" />
+        <include
+            android:id="@+id/header_relative_inclue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/header_relative_layout" />
 
-    <RelativeLayout
-        android:id="@+id/relative_medium"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/header_relative_inclue">
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header_relative_inclue"
+            android:layout_marginBottom="100dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -27,14 +25,13 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
         </android.support.v4.widget.SwipeRefreshLayout>
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/boottom_lyout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
-    </RelativeLayout>
 
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/boottom_lyout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
 
 </RelativeLayout>

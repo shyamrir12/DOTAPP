@@ -69,7 +69,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     //  private AlertDialog b;
     private String roomName, orderID, customernAME, mobileNumber, orderDate, advance,StatusName,filterkey,buttonname,tailorList;
     DataOrder orderitem;
-    private Double priceValue,price2value,result,superResult;
+    private Double priceValue,price2value,result = Double.valueOf(0),superResult = Double.valueOf(0);
 
     // private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
 
@@ -413,22 +413,26 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
                 if (validation()) {
-                    String snumber = s_no.getText().toString();
-                    String catlogname = catlogName.getText().toString();
-                    String desiGn = design.getText().toString();
-                    String page_no = pageNo.getText().toString();
-                    String priCe = price.getText().toString();
-                    String priCe2 = price2.getText().toString();
-                    String qTy = qty.getText().toString();
-                    String aqty = aQty.getText().toString();
-                    String materialtype = materialType.getSelectedItem().toString();
-                    String unIt = unitSpinner.getSelectedItem().toString();
 
-                    priceValue = Double.parseDouble(price.getText().toString());
-                    price2value = Double.parseDouble(price2.getText().toString());
-                    result = ((priceValue*price2value)/100);
-                    superResult = priceValue-result;
-                    price2.setText(String.valueOf(superResult));
+                    try {
+
+
+                        String snumber = s_no.getText().toString();
+                        String catlogname = catlogName.getText().toString();
+                        String desiGn = design.getText().toString();
+                        String page_no = pageNo.getText().toString();
+                        String priCe = price.getText().toString();
+                        String priCe2 = price2.getText().toString();
+                        String qTy = qty.getText().toString();
+                        String aqty = aQty.getText().toString();
+                        String materialtype = materialType.getSelectedItem().toString();
+                        String unIt = unitSpinner.getSelectedItem().toString();
+
+                        priceValue = Double.parseDouble(price.getText().toString());
+                        price2value = Double.parseDouble(price2.getText().toString());
+                        result = ((priceValue * price2value) / 100);
+                        superResult = priceValue - result;
+                        price2.setText(String.valueOf(superResult));
 
 //                    price2.setOnClickListener(new View.OnClickListener() {
 //                        @Override
@@ -442,25 +446,28 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 //                    });
 
 
-                    try {
-                        progressDialog.setMessage("loading...");
-                        progressDialog.show();
-                        if (actualorder.equals("ActualOrder")) {
-                            new POSTOrder().execute("0", materialtype, String.valueOf(superResult), "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                                    unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
+                        try {
+                            progressDialog.setMessage("loading...");
+                            progressDialog.show();
+                            if (actualorder.equals("ActualOrder")) {
+                                new POSTOrder().execute("0", materialtype, String.valueOf(superResult), "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                                        unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
 
-                        } else {
-                            new POSTOrder().execute("0", materialtype,  String.valueOf(superResult), qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                                    unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
+                            } else {
+                                new POSTOrder().execute("0", materialtype, String.valueOf(superResult), qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                                        unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
 
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
                         }
+                        b.dismiss();
+
                     } catch (Exception e) {
                         e.printStackTrace();
-                        progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
                     }
-                    b.dismiss();
-
                 }
             }
 
