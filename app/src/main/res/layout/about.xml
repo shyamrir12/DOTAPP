@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
     <ScrollView
@@ -16,16 +17,18 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="100dp"
+                android:layout_width="160dp"
                 android:layout_height="100dp"
-                android:src="@mipmap/snskriti"
+                android:src="@mipmap/sanskriti_logo_img"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"/>
             <android.support.v7.widget.CardView
                 android:id="@+id/nameApp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="10dp"
+                android:layout_margin="10dp"
                 android:layout_below="@+id/logo">
                 <TextView
                     android:layout_width="match_parent"
@@ -43,7 +46,9 @@
                 android:id="@+id/devNameApp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="10dp"
+                android:layout_margin="10dp"
                 android:layout_below="@+id/nameApp">
                 <TextView
                     android:layout_width="match_parent"
@@ -60,7 +65,9 @@
                 android:id="@+id/aboutApp"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="10dp"
+                android:layout_margin="10dp"
                 android:layout_below="@+id/devNameApp">
                 <TextView
                     android:layout_width="match_parent"

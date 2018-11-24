@@ -81,7 +81,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
 
     private void initView() {
 
-        getSupportActionBar().setTitle("Room Details");
+        getSupportActionBar().setTitle("Order Item Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         orderID = getIntent().getExtras().getString("OrderID", "0");
         filterkey = getIntent().getExtras().getString("FilterKey", "");

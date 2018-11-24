@@ -860,13 +860,12 @@ boolean status=true;
                 Catelog catelogdesign = new Gson().fromJson(result, listType);
                 if (catelogdesign != null) {
                     price.setText(String.valueOf(catelogdesign.getPrice()));
-                    if (catelogdesign.getUnit().trim().length() > 0) {
-
+                    if (catelogdesign.getUnit().trim().length() > 0 || catelogdesign.getMaterialType().trim().length() > 0  ) {
                         unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
+                        materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(catelogdesign.getMaterialType().toString()));
+
                     }
                 }
-
-
                 //Getting the instance of AutoCompleteTextView
 
             }

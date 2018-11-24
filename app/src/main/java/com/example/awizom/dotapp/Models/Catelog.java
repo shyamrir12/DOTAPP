@@ -70,10 +70,19 @@ public class Catelog {
         CatalogID = catalogID;
     }
 
+    public String getMaterialType() {
+        return MaterialType;
+    }
+
+    public void setMaterialType(String materialType) {
+        MaterialType = materialType;
+    }
+
     public String SerialNo;
     public String Design;
     public int PageNo;
     public double Price;
     public String Unit;
+    public String MaterialType;
     public int CatalogID;
 }

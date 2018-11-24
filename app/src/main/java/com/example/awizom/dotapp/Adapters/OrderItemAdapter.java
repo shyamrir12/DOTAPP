@@ -344,6 +344,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             CatelogOrderDetailModel orderitem = this.orderitemList.get(position);
 
             if (v.getId() == itemView.getId()) {
+
+                if(!filterkey.equals("PandingToPlaceOrder")&& !filterkey.equals("PandingToReceiveMaterial") &&
+                        !filterkey.equals("PandingToHandOverTo")&& !filterkey.equals("PandingToReceivedFromTelor") &&
+                        !filterkey.equals("Hold")&& !filterkey.equals("Dispatch"))
                 initViewByAlertdailog(orderitem, v);
                 try {
 
@@ -534,7 +538,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     price.setText(String.valueOf(catelogdesign.getPrice()));
                     if (catelogdesign.getUnit().trim().length() > 0) {
                         unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
-                        materialType.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogOrderDetailModel.getMaterialType().toString()));
                     }
                 }
                 //Getting the instance of AutoCompleteTextView

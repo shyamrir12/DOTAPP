@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Sanskriti Decore</string>
-
     <string name="read_xlsx">Read XLSX</string>
     <string name="write_xlsx">Write XLSX</string>
     <string name="send_to">Send to...</string>
@@ -42,7 +41,7 @@
     <string name="bottom1">Create user <u>click here</u></string>
     <string name="userContact">Contact</string>
     <string name="title_addCustomer">Add Customer</string>
-    <string name="title_editCustomer">Modify customer</string>
+    <string name="title_editCustomer">Modify Customer</string>
     <string name="title_customerList">Customer List</string>
     <string name="item_pending">Pending Order List</string>
     <string name="item_orderCreate">Order Create</string>
