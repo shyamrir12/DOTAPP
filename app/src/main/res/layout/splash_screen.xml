@@ -23,16 +23,16 @@
         android:layout_centerHorizontal="true"
         android:src="@mipmap/sanskriti_logo_img" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="137dp"
-        android:text="Sanskriti Decore"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="137dp"-->
+        <!--android:text="Sanskriti Decore"-->
+        <!--android:textColor="@color/colorPrimaryDark"-->
+        <!--android:textSize="25sp"-->
+        <!--android:textStyle="bold" />-->
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imgLogo"

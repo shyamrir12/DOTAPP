@@ -211,17 +211,18 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                     Gson gson = new Gson();
                     UserRegister.RootObject jsonbody = gson.fromJson(result, UserRegister.RootObject.class);
                     if (jsonbody.isStatus()) {
-                        Token user = new Token();
-                        user.userRole = jsonbody.Role;
-                        user.access_token = jsonbody.login.access_token;
-                        user.userName = jsonbody.login.userName;
-                        user.token_type = jsonbody.login.token_type;
-                        user.expires_in = jsonbody.login.expires_in;
-
-                        SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
-                        if (!SharedPrefManager.getInstance(SinUpActivity.this).getUser().access_token.equals(null)) {
-                            startActivity(intent = new Intent(SinUpActivity.this, HomeActivityUser.class));
-                        }
+                        Toast.makeText(getApplicationContext(), "User Is Not Active", Toast.LENGTH_SHORT).show();
+//                        Token user = new Token();
+//                        user.userRole = jsonbody.Role;
+//                        user.access_token = jsonbody.login.access_token;
+//                        user.userName = jsonbody.login.userName;
+//                        user.token_type = jsonbody.login.token_type;
+//                        user.expires_in = jsonbody.login.expires_in;
+//
+//                        SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
+//                        if (!SharedPrefManager.getInstance(SinUpActivity.this).getUser().access_token.equals(null)) {
+//                            startActivity(intent = new Intent(SinUpActivity.this, HomeActivityUser.class));
+//                        }
                     } else {
                         Toast.makeText(SinUpActivity.this, jsonbody.dataIdentityResult.getErrors().get(0), Toast.LENGTH_SHORT).show();
                     }

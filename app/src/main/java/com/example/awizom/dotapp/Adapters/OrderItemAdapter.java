@@ -87,8 +87,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
             holder.MaterialType.setText("Material\n" + order.getMaterialType());
             holder.Price2.setText("Price\n" + order.getPrice2());
-            holder.Qty.setText("Qty\n" + Integer.toString(order.getQty()));
-            holder.AQty.setText("AQty\n" + Integer.toString(order.getAQty()));
+            holder.Qty.setText("Qty\n" + Double.toString(order.getQty()));
+            holder.AQty.setText("AQty\n" + Double.toString(order.getAQty()));
             holder.unit.setText("Unit\n" + order.getOrderUnit());
 
             if (actualorder.equals("ActualOrder")) {
@@ -397,8 +397,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(orderitem.getMaterialType()));
 
             //Price2.setText(Integer.toString(order.getPrice2()));
-            qty.setText(Integer.toString(orderitem.getQty()));
-            aQty.setText(Integer.toString(orderitem.getAQty()));
+            qty.setText(Double.toString(orderitem.getQty()));
+            aQty.setText(Double.toString(orderitem.getAQty()));
             unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(orderitem.getOrderUnit()));
 
 

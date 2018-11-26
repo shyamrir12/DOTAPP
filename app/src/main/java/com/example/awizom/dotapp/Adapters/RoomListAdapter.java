@@ -79,38 +79,38 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
             holder.roomname.setText(room);
             String v1 = room.split("Total")[1].trim();
 
-            if (filterkey.equals("PandingToPlaceOrder")||filterkey.equals("PandingToHandOverTo")||filterkey.equals("PandingToReceivedFromTelor")||filterkey.equals("PandingToReceiveMaterial")) {
-
-                if(room.indexOf("~")!=-1) {
-                    if (!room.split("~")[1].trim().equals("Hold")) {
-
-                        holder.button_status.setVisibility( View.VISIBLE );
-                        holder.button_status.setText( buttonname );
-
-
-                    }
-                }
-                else {
-                    if(!room.split("-Total ")[1].trim().equals("0.00"))
-                    {
-
-                        holder.button_status.setVisibility(View.VISIBLE);
-                        holder.button_status.setText( buttonname );
-
-
-                    }
-                }
-
-            } else if (filterkey.equals("Hold") && room.split("~")[1].trim().equals("Hold")) {
-
-                if(!room.split("~")[0].split("-Total ")[1].trim().equals("0.00"))
-                {
-
-                    holder.button_status.setVisibility(View.VISIBLE);
-                    holder.button_status.setText( buttonname );
-                }
-
-            }
+//            if (filterkey.equals("PandingToPlaceOrder")||filterkey.equals("PandingToHandOverTo")||filterkey.equals("PandingToReceivedFromTelor")||filterkey.equals("PandingToReceiveMaterial")) {
+//
+//                if(room.indexOf("~")!=-1) {
+//                    if (!room.split("~")[1].trim().equals("Hold")) {
+//
+//                        holder.button_status.setVisibility( View.VISIBLE );
+//                        holder.button_status.setText( buttonname );
+//
+//
+//                    }
+//                }
+//                else {
+//                    if(!room.split("-Total ")[1].trim().equals("0.00"))
+//                    {
+//
+//                        holder.button_status.setVisibility(View.VISIBLE);
+//                        holder.button_status.setText( buttonname );
+//
+//
+//                    }
+//                }
+//
+//            } else if (filterkey.equals("Hold") && room.split("~")[1].trim().equals("Hold")) {
+//
+//                if(!room.split("~")[0].split("-Total ")[1].trim().equals("0.00"))
+//                {
+//
+//                    holder.button_status.setVisibility(View.VISIBLE);
+//                    holder.button_status.setText( buttonname );
+//                }
+//
+//            }
 
 
         } catch (Exception E) {

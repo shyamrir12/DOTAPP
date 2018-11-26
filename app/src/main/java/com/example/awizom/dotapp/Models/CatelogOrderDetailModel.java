@@ -5,8 +5,8 @@ public class CatelogOrderDetailModel {
     public int OrderItemID;
     public String MaterialType;
     public double Price2;
-    public int Qty;
-    public int AQty;
+    public double Qty;
+    public double AQty;
     public String OrderUnit;
     public int OrderRoomID;
 
@@ -70,7 +70,7 @@ public class CatelogOrderDetailModel {
         Price2 = price2;
     }
 
-    public int getQty() {
+    public double getQty() {
         return Qty;
     }
 
@@ -78,7 +78,7 @@ public class CatelogOrderDetailModel {
         Qty = qty;
     }
 
-    public int getAQty() {
+    public double getAQty() {
         return AQty;
     }
 
