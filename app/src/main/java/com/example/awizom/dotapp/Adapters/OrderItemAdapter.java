@@ -193,8 +193,21 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             if (v.getId() == buttonStatus.getId()) {
 
                 if( filterkey.equals("PandingToPlaceOrder")||filterkey.equals("PandingToReceiveMaterial")||filterkey.equals("Hold"))
-                {
+                { android.support.v7.app.AlertDialog.Builder alertbox = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext());
+                    alertbox.setTitle("Do you want to change the status");
+                    alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
                     placeOrderPost();
+                        }
+                    });
+                    alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+
+                    alertbox.show();
+
                 }
                 else if(filterkey.equals("PandingToHandOverTo"))
                 {

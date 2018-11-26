@@ -187,6 +187,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                         intent = intent.putExtra("FilterKey", filterKey);
                         intent = intent.putExtra("StatusName", statusName);
                         intent = intent.putExtra("ButtonName", valueButtonname);
+                        intent = intent.putExtra("TailorList", orderitem.getTelorList());
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mCtx.startActivity(intent);
 //                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
@@ -222,6 +223,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                         intent = intent.putExtra("FilterKey", filterKey);
                         intent = intent.putExtra("StatusName", statusName);
                         intent = intent.putExtra("ButtonName", valueButtonname);
+
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mCtx.startActivity(intent);
 //                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
@@ -289,6 +291,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                         intent = intent.putExtra("FilterKey", filterKey);
                         intent = intent.putExtra("StatusName", statusName);
                         intent = intent.putExtra("ButtonName", valueButtonname);
+
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mCtx.startActivity(intent);
 //                        AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
