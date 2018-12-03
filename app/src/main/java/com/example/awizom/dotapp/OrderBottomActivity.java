@@ -47,11 +47,11 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
 
         cardViewFirst.setOnClickListener(this);
         cardViewSecond.setOnClickListener(this);
-        cardViewthird.setOnClickListener(this);
+  //      cardViewthird.setOnClickListener(this);
 
         pendingOrderList.setOnClickListener(this);
         pendingOrderCreate.setOnClickListener(this);
-        cancelOrder.setOnClickListener(this);
+  //      cancelOrder.setOnClickListener(this);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

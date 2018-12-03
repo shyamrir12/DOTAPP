@@ -18,6 +18,15 @@
         android:id="@+id/helpApp"
         app:showAsAction="never"
         android:title="help"/>
+    <item
+        android:id="@+id/tailorList"
+        app:showAsAction="never"
+        android:title="tailor list"/>
+
+    <item
+        android:id="@+id/roomList"
+        app:showAsAction="never"
+        android:title="room list"/>
 
     <item
         android:id="@+id/exit"

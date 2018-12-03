@@ -18,33 +18,52 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_editElight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Elight Qty"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/editElight"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Elight Qty"
+                android:hint="    "
                 android:textSize="15sp"
                 android:inputType="number" />
-
-            <EditText
-                android:id="@+id/editRoman"
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_pageNo."
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:hint="Roman Qty"
+                android:layout_weight="1">
+            <EditText
+                android:id="@+id/editRoman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="        "
                 android:textSize="15sp"
                 android:inputType="numberDecimal" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_AQty."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="A Plot Qty"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/editAplot"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="number"
-                android:hint="A Plot Qty"
+                android:hint="        "
                 android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -53,33 +72,52 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lenear1"
             android:orientation="horizontal">
-
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Price."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Elight Price"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/ElightPrice"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Elight Price"
+                android:hint="     "
                 android:textSize="15sp"
                 android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_Roman."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Roman Price"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/RomanPrice"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Roman Price"
+                android:hint=""
                 android:textSize="15sp"
                 android:inputType="number" />
-
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_RPrice."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="A Plot Price"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/APlotPrice"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="number"
-                android:hint="A Plot Price"
+                android:hint="      "
                 android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -92,19 +130,25 @@
 
             <Button
                 android:id="@+id/updateElight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:text="Update"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:background="@drawable/add_cancel_button_shape"/>
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="2dp" />
 
             <Button
                 android:id="@+id/cancelElight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:text="Cancel"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:background="@drawable/add_cancel_button_shape"/>
         </LinearLayout>
     </RelativeLayout>
 

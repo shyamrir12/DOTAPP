@@ -132,7 +132,6 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
         Button button_status;
         private List<String> roomList;
 
-
         public RoomViewHolder(View view, Context mCtx, List<String> roomList) {
             super(view);
             this.mCtx = mCtx;
@@ -168,12 +167,10 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
                     i = i.putExtra("OrderDate", orderdate);
                     i = i.putExtra("Advance", Double.valueOf(advance));
                     i = i.putExtra("ActualOrder", actualorder);
-
                     i = i.putExtra("StatusName", StatusName);
                     i = i.putExtra("FilterKey", filterkey);
                     i = i.putExtra("ButtonName", buttonname);
                     i = i.putExtra("TailorList", telorlist);
-
 
                     mCtx.startActivity(i);
                 }

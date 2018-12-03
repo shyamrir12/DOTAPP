@@ -25,6 +25,7 @@ import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
 import com.example.awizom.dotapp.Fragments.BottomSearchfragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.Help_Fragment;
+import com.example.awizom.dotapp.Fragments.RoomNameListFragment;
 import com.example.awizom.dotapp.Fragments.TelorListFragment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
@@ -33,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Intent intent;
     private Fragment telorListFragment, userListFragment, customerLayoutfragment,
-            printLayoutfragment, orderLayoutfragment, statusLayoutFragment, searchfragment,aboutfragment,helpfragment;
+            printLayoutfragment, orderLayoutfragment,roomListFragment, statusLayoutFragment, searchfragment,aboutfragment,helpfragment;
     private Fragment fragment = null;
     boolean doubleBackToExitPressedOnce = false;
     private Context mContext;
@@ -57,6 +58,8 @@ public class HomeActivity extends AppCompatActivity {
         searchfragment = new BottomSearchfragment();
         aboutfragment = new AboutFragment();
         helpfragment = new Help_Fragment();
+        roomListFragment = new RoomNameListFragment();
+        telorListFragment = new TelorListFragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -167,6 +170,18 @@ public class HomeActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle("About Details");
                 fragment = aboutfragment;
                 fragmentClass = AboutFragment.class;
+                break;
+            case R.id.tailor:
+
+                getSupportActionBar().setTitle("Telor List");
+                fragment = telorListFragment;
+                fragmentClass = TelorListFragment.class;
+                break;
+            case R.id.roomList:
+
+                getSupportActionBar().setTitle("Room List");
+                fragment = roomListFragment;
+                fragmentClass = RoomNameListFragment.class;
                 break;
 
 

@@ -24,13 +24,15 @@ import com.example.awizom.dotapp.Fragments.BottomPrintFragment;
 import com.example.awizom.dotapp.Fragments.BottomSearchfragment;
 import com.example.awizom.dotapp.Fragments.BottomStatusFragment;
 import com.example.awizom.dotapp.Fragments.Help_Fragment;
+import com.example.awizom.dotapp.Fragments.RoomNameListFragment;
+import com.example.awizom.dotapp.Fragments.TelorListFragment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 
 public class HomeActivityUser extends AppCompatActivity {
 
     private Intent intent;
-    private Fragment userListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment,
+    private Fragment userListFragment,telorListFragment,roomListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment,
             statusLayoutFragment, searchfragment, aboutfragment,helpfragment;
     Fragment fragment = null;
 
@@ -47,6 +49,7 @@ public class HomeActivityUser extends AppCompatActivity {
         statusLayoutFragment = new BottomStatusFragment();
         searchfragment = new BottomSearchfragment();
         aboutfragment = new AboutFragment();
+        roomListFragment = new RoomNameListFragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -126,6 +129,19 @@ public class HomeActivityUser extends AppCompatActivity {
 
                 Intent intnt = new Intent(this, HelpActivity.class);
                 startActivity(intnt);
+                break;
+
+            case R.id.tailorList:
+
+                getSupportActionBar().setTitle("Telor List");
+                fragment = telorListFragment;
+                fragmentClass = TelorListFragment.class;
+                break;
+            case R.id.roomList:
+
+                getSupportActionBar().setTitle("Room List");
+                fragment = roomListFragment;
+                fragmentClass = RoomNameListFragment.class;
                 break;
 
         }

@@ -44,7 +44,7 @@
                             android:textSize="14sp"
                             android:inputType="text"
                             android:layout_weight="1"
-                            android:paddingLeft="8dp" />
+                            android:paddingLeft="20dp" />
 
                         <ImageButton
                             android:id="@+id/addnewCustomerButton"
@@ -55,23 +55,6 @@
                             android:tint="@color/colorAccent"
                             android:layout_margin="10dp" />
 
-                        <TextView
-                            android:id="@+id/customerContact"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Mobile"
-                            android:textSize="14sp"
-                            android:layout_weight="1"
-                            android:paddingLeft="8dp" />
-
-                        <TextView
-                            android:id="@+id/interiorAddress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Address"
-                            android:textSize="14sp"
-                            android:layout_weight="1"
-                            android:paddingLeft="8dp" />
 
 
                     </LinearLayout>
@@ -82,7 +65,36 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:layout_below="@+id/customerLayout"
-                        android:layout_marginTop="10dp">
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/customerContact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:hint="Mobile"
+                            android:textSize="14sp"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:id="@+id/interiorAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:hint="Address"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:layout_weight="1"
+                          android:gravity="center" />
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                    android:id="@+id/interiorLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dateLayout"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/orderDatePicker"
@@ -90,6 +102,7 @@
                             android:layout_height="wrap_content"
                             android:hint="Date"
                             android:textSize="14sp"
+                            android:textColor="@color/black"
                             android:layout_weight="1"
                             android:paddingLeft="15dp"
                             android:layout_marginRight="5dp"
@@ -102,6 +115,7 @@
                             android:hint="Amount"
                             android:text="0.0"
                             android:textSize="14sp"
+                            android:textColor="@color/black"
                             android:paddingLeft="15dp"
                             android:layout_weight="1"
                             android:inputType="number"
@@ -111,39 +125,13 @@
                             android:id="@+id/textViewATotalAmount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Total Amount"
+                            android:hint="Total Amount"
+                            android:textColor="@color/black"
                             android:textSize="14sp"
                             android:layout_weight="1" />
+
+
                     </LinearLayout>
-                    <!--<LinearLayout-->
-                    <!--android:id="@+id/interiorLayout"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_below="@+id/customerLayout"-->
-                    <!--android:gravity="center_horizontal">-->
-
-                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:id="@+id/interiorName"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="100dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="30dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:hint="interior Name"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_gravity="center_horizontal"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_margin="15dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:textSize="14sp"/>&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:id="@+id/interiorMobile"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="110dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="30dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:hint="Interior contact"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_gravity="center_horizontal"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:textSize="14sp"/>&ndash;&gt;-->
-
-                    <!---->
-                    <!--</LinearLayout>-->
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
@@ -193,7 +181,7 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/buttonHallCardView"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/customercardView">
 
@@ -216,10 +204,26 @@
                             android:layout_gravity="center_horizontal"
                             android:gravity="center"
                             android:layout_margin="10dp"
+                            android:layout_weight="1"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:background="@drawable/add_cancel_button_shape" />
+                        <Button
+                            android:id="@+id/addRoom"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/add_cancel_button_shape"
+                            android:text="Room +"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:visibility="gone"
+                            android:layout_weight="1"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="5dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -229,19 +233,19 @@
                         android:orientation="horizontal"
                         android:layout_below="@+id/buttonHallLayout">
 
-                        <Button
-                            android:id="@+id/addRoom"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:background="@drawable/add_cancel_button_shape"
-                            android:text="Add Room"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:visibility="gone"
-                            android:layout_weight="1"
-                            android:layout_alignParentRight="true"
-                            android:layout_margin="5dp" />
+                        <!--<Button-->
+                            <!--android:id="@+id/addRoom"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="40dp"-->
+                            <!--android:background="@drawable/add_cancel_button_shape"-->
+                            <!--android:text="Add Room"-->
+                            <!--android:textAllCaps="false"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:textSize="16sp"-->
+                            <!--android:visibility="visible"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_alignParentRight="true"-->
+                            <!--android:layout_margin="5dp" />-->
                         <!--<Button-->
                         <!--android:id="@+id/addstatus"-->
                         <!--android:layout_width="match_parent"-->

@@ -70,12 +70,14 @@ public class UserListFragment extends Fragment {
         try {
 //            progressDialog.setMessage("loading...");
 //            progressDialog.show();
+            mSwipeRefreshLayout.setRefreshing(true);
             new GetUserDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
             e.printStackTrace();
 //            progressDialog.dismiss();
+            mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }

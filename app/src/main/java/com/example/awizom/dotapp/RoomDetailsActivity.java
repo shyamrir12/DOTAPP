@@ -371,7 +371,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         addButton = dialogView.findViewById(R.id.add);
         cancelButton = dialogView.findViewById(R.id.cancelButton);
 
-        dialogBuilder.setTitle("Add Order");
+       // dialogBuilder.setTitle("Add Order");
         final AlertDialog b = dialogBuilder.create();
         b.show();
         catlogName.addTextChangedListener(new TextWatcher() {

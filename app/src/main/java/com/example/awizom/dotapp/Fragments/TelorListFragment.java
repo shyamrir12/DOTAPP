@@ -117,7 +117,7 @@ public class TelorListFragment extends Fragment {
                 getTelorList();
             }
         });
-        getTelorList();
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -142,7 +142,7 @@ public class TelorListFragment extends Fragment {
                 old_t_name.setHint(telorlist[position]);
                 old_t_name.setVisibility(View.GONE);
                 old_t_name.setText(telorlist[position]);
-                // Toast.makeText(getActivity(), telorlist[position], Toast.LENGTH_SHORT).show();
+
 
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -170,14 +170,12 @@ public class TelorListFragment extends Fragment {
         telorname_old = old_t_name.getText().toString();
 
         try {
-            //    progressDialog.setMessage("loading...");
-            //  progressDialog.show();
+
             new PostTelorDetailsEdit().execute(telornamet.trim(), telorname_old.trim(), SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            //progressDialog.dismiss();
             Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -211,7 +209,6 @@ public class TelorListFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                //  progressDialog.dismiss();
                 Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -230,11 +227,8 @@ public class TelorListFragment extends Fragment {
                         , jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     // modifyItem(pos,um);
-
-                    //  progressDialog.dismiss();
                 }
 
-                //progressDialog.dismiss();
             }
 
 
@@ -289,7 +283,6 @@ public class TelorListFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
                 //  progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -324,14 +317,12 @@ public class TelorListFragment extends Fragment {
 
     private void getTelorList() {
         try {
-            //progressDialog.setMessage("loading...");
-            //progressDialog.show();
+            mSwipeRefreshLayout.setRefreshing(true);
             new GetTelorDetails().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token);
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            //progressDialog.dismiss();
             mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
@@ -360,7 +351,7 @@ public class TelorListFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                //  progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
 
@@ -371,9 +362,7 @@ public class TelorListFragment extends Fragment {
 
             try {
             if (result.isEmpty()) {
-                //progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
-                //progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
 
@@ -383,8 +372,6 @@ public class TelorListFragment extends Fragment {
                 telorlist = new Gson().fromJson(result, listType);
                 telorListAapter = new ArrayAdapter<String>(getContext(), R.layout.layout_button_telorlist, R.id.label, telorlist);
                 lv.setAdapter(telorListAapter);
-
-                //progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
 
