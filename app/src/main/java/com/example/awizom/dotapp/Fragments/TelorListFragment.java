@@ -32,7 +32,6 @@ public class TelorListFragment extends Fragment {
 
 
     //   String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Dir";
-
     //  ProgressDialog progressDialog;
     ListView lv;
     ImageButton img;
@@ -41,10 +40,10 @@ public class TelorListFragment extends Fragment {
     Handler handler = new Handler();
     Runnable refresh;
     private Button add, cancel;
-    private EditText t_name, old_t_name;
+    private EditText t_name,old_t_name;
     ArrayAdapter<String> telorListAapter;
     String[] telorlist;
-    private String telornamet, telorname_old;
+    private String telornamet,telorname_old;
     Document doc;
 
     @Override
@@ -76,7 +75,6 @@ public class TelorListFragment extends Fragment {
                 LayoutInflater inflater = getLayoutInflater();
                 final View dialogView = inflater.inflate(R.layout.telor_dialog, null);
                 alertbox.setView(dialogView);
-
 
                 t_name = dialogView.findViewById(R.id.sNo);
                 add = dialogView.findViewById(R.id.add);
@@ -117,7 +115,7 @@ public class TelorListFragment extends Fragment {
                 getTelorList();
             }
         });
-
+        getTelorList();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -228,13 +226,8 @@ public class TelorListFragment extends Fragment {
                 if (jsonbodyres.getStatus() == true) {
                     // modifyItem(pos,um);
                 }
-
             }
-
-
         }
-
-
     }
 
 

@@ -18,7 +18,7 @@
 
 
             <EditText
-                android:id="@+id/sNo"
+                android:id="@+id/rname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

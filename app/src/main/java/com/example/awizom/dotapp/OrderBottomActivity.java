@@ -118,7 +118,7 @@ public class OrderBottomActivity extends AppCompatActivity implements View.OnCli
             case R.id.orderCreate:
                 fragment = orderCreate;
                 getSupportActionBar().setTitle("Order Create");
-                //  fragmentClass = AfterCreateOrderoFragment.class;
+                // fragmentClass = AfterCreateOrderoFragment.class;
 
                 break;
             case R.id.pendingOrder:
