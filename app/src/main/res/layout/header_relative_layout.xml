@@ -29,7 +29,8 @@
                     android:text="Customer Name"
                     android:textColor="@color/white"
                     android:textSize="@dimen/room_text_size"
-                    android:gravity="left" />
+                    android:gravity="left"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/customer_mobile_no"
@@ -39,7 +40,8 @@
                     android:text="Room Name"
                     android:textColor="@color/white"
                     android:textSize="@dimen/room_text_size"
-                    android:gravity="left" />
+                    android:gravity="left"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
@@ -60,7 +62,8 @@
                     android:text="Customer Name"
                     android:textColor="@color/white"
                     android:textSize="@dimen/room_text_size"
-                    android:gravity="left" />
+                    android:gravity="left"
+                   />
 
                 <TextView
                     android:id="@+id/room_name"

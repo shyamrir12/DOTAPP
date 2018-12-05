@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/navigation_customer"
@@ -7,7 +8,8 @@
         android:title="@string/title_customer"
         android:background="@drawable/button_background"
         android:tooltipText="@string/title_customer"
-        android:visible="true"/>
+        android:visible="true"
+        />
 
     <item
         android:id="@+id/navigation_order"
@@ -15,7 +17,8 @@
         android:background="@drawable/button_background"
         android:title="@string/title_order"
         android:tooltipText="@string/title_order"
-        android:visible="true"/>
+        android:visible="true"
+        app:itemIconTint="@drawable/selector"/>
 
 
     <item
@@ -24,7 +27,8 @@
         android:title="@string/title_status"
         android:tooltipText="@string/title_status"
         android:background="@drawable/button_background"
-        android:visible="true"/>
+        android:visible="true"
+       />
 
     <item
         android:id="@+id/navigation_search"
@@ -32,7 +36,8 @@
         android:title="Search"
         android:tooltipText="@string/title_search"
         android:background="@drawable/button_background"
-        android:visible="true" />
+        android:visible="true"
+        />
 
 
     <item
@@ -41,7 +46,8 @@
         android:title="@string/title_print"
         android:background="@drawable/button_background"
         android:tooltipText="@string/title_report"
-        android:visible="true"/>
+        android:visible="true"
+       />
 
 
 

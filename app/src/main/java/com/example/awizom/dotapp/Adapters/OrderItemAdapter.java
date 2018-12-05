@@ -407,12 +407,17 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             price2.setText(Double.toString(orderitem.getPrice2()));
             pageNo.setText(Integer.toString(orderitem.getPageNo()));
             price.setText(Double.toString(orderitem.getPrice()));
-            materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(orderitem.getMaterialType()));
+
 
             //Price2.setText(Integer.toString(order.getPrice2()));
             qty.setText(Double.toString(orderitem.getQty()));
             aQty.setText(Double.toString(orderitem.getAQty()));
-            unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(orderitem.getOrderUnit()));
+
+            if (orderitem.getUnit().trim().length() > 0 || orderitem.getMaterialType().trim().length() > 0  ) {
+                unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(orderitem.getOrderUnit()));
+                materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(orderitem.getMaterialType().toString()));
+            }
+
 
 
             final Button buttonAdd = (Button) dialogView.findViewById(R.id.add);
@@ -553,6 +558,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     price.setText(String.valueOf(catelogdesign.getPrice()));
                     if (catelogdesign.getUnit().trim().length() > 0) {
                         unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
+                        materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(catelogdesign.getMaterialType().toString()));
+
                     }
                 }
                 //Getting the instance of AutoCompleteTextView

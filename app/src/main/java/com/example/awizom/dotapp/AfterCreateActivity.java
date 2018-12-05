@@ -54,8 +54,8 @@ import com.google.gson.reflect.TypeToken;
 
 public class AfterCreateActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
-    private TextView c_contact, i_name, i_contact, i_address, orderDateLabel, textViewATotalAmount;
-    private EditText orderDate, amount;
+    private TextView  i_name, i_contact,  orderDateLabel;
+    private EditText orderDate, amount,textViewATotalAmount,c_contact,i_address;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private long cid = 0;
     DataOrder catelogOrderDetailModel;
@@ -348,7 +348,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         final View dialogView = inflater.inflate(R.layout.customer_add_layout, null);
         dialogBuilder.setView(dialogView);
         final EditText cName, cContact, cAddress, interioName, interioContact;
-        dialogBuilder.setTitle("Create Customer");
+      //  dialogBuilder.setTitle("Create Customer");
 
         b = dialogBuilder.create();
         b.show();

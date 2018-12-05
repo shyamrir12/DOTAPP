@@ -10,13 +10,13 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
         app:cardElevation="10dp"
-        android:layout_margin="10dp">
+        android:layout_margin="5dp">
 
 
         <RelativeLayout
             android:id="@+id/catelogDetail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="8dp">
 
             <LinearLayout
