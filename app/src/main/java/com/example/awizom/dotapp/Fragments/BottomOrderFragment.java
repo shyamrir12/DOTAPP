@@ -86,27 +86,34 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
         Class fragmentClass = null;
         switch (v.getId()) {
 
-//            case R.id.order_create_cardview:
-//                getActivity().setTitle("Order Create");
-//                fragment = orderCreate;
-//                fragmentClass = AfterCreateOrderoFragment.class;
-//                break;
-//            case R.id.order_pending_cardview:
-//
-//               intent = new Intent( getContext(), NewOrderListActivity.class );
-//               intent = intent.putExtra( "FilterKey" ,"PendingOrderList");
-//               startActivity( intent );
-//
-////                Bundle bundle2 = new Bundle();
-////                bundle2.putString("NAME_KEY", "PendingOrderList");
-////                OrderListFragment myFragment2 = new OrderListFragment();
-////                myFragment2.setArguments(bundle2);
-////                getFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
-//
-////                getActivity().setTitle("Pending List");
-////                fragment = pendinOrderListFragment;
-////                fragmentClass = OrderListFragment.class;
-//                break;
+            case R.id.order_create_cardview:
+
+                getActivity().setTitle("Order Create");
+                intent = new Intent(getContext(), AfterCreateActivity.class);
+                intent = intent.putExtra("FilterKey", "orderCreate");
+                intent = intent.putExtra("StatusName", "CreateOrder ");
+                startActivity(intent);
+                break;
+
+            case R.id.order_pending_cardview:
+
+                intent = new Intent(getContext(), NewOrderListActivity.class);
+                intent = intent.putExtra("FilterKey", "pandingForAdv");
+                intent = intent.putExtra("ButtonName", "Cancel Order");
+                intent = intent.putExtra("StatusName", "Cancel");
+                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+                startActivity(intent);
+                break;
+//                Bundle bundle2 = new Bundle();
+//                bundle2.putString("NAME_KEY", "PendingOrderList");
+//                OrderListFragment myFragment2 = new OrderListFragment();
+//                myFragment2.setArguments(bundle2);
+//                getFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
+
+//                getActivity().setTitle("Pending List");
+//                fragment = pendinOrderListFragment;
+//                fragmentClass = OrderListFragment.class;
+
 //            case R.id.order_cancel_cardview:
 //                Bundle bundle = new Bundle();
 //                bundle.putString("NAME_KEY", "CancelOrderList");
@@ -120,26 +127,27 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 //                fragmentClass = OrderListFragment.class;
 //                break;
             case R.id.orderCreate:
+
                 getActivity().setTitle("Order Create");
                 intent = new Intent(getContext(), AfterCreateActivity.class);
                 intent = intent.putExtra("FilterKey", "orderCreate");
                 intent = intent.putExtra("StatusName", "CreateOrder ");
-                // intent = intent.putExtra( "FilterKey" ,"PendingOrderList");
                 startActivity(intent);
+                break;
                 // getActivity().setTitle("Order Create");
                 //   fragment = orderCreate;
                 //  fragmentClass = AfterCreateOrderoFragment.class;
 
-                break;
+
             case R.id.pendingOrder:
+
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "pandingForAdv");
                 intent = intent.putExtra("ButtonName", "Cancel Order");
                 intent = intent.putExtra("StatusName", "Cancel");
                 intent = intent.putExtra("DailogMessage", "Do you want to change the status");
-
-
                 startActivity(intent);
+                break;
                 //  getActivity().getFragmentManager().popBackStack();
 
 //                Bundle bundle3 = new Bundle();
@@ -152,7 +160,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 //                getActivity().setTitle("Pending List");
 //                fragment = pendinOrderListFragment;
 //                fragmentClass = OrderListFragment.class;
-                break;
+
 //            case R.id.cancelOrder:
 //
 //                intent = new Intent( getContext(), NewOrderListActivity.class );

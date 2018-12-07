@@ -68,7 +68,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     @NonNull
     @Override
     public OrderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.order_item_layout, null);
         return new OrderItemViewHolder(view, mCtx, orderitemList);
@@ -358,10 +357,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
             if (v.getId() == itemView.getId()) {
 
-                if(!filterkey.equals("PandingToPlaceOrder")&& !filterkey.equals("PandingToReceiveMaterial") &&
+                if(!filterkey.equals("PandingToReceiveMaterial") &&
                         !filterkey.equals("PandingToHandOverTo")&& !filterkey.equals("PandingToReceivedFromTelor") &&
-                        !filterkey.equals("Hold")&& !filterkey.equals("Dispatch"))
-                initViewByAlertdailog(orderitem, v);
+                        !filterkey.equals("Hold")&& !filterkey.equals("Dispatch")) {
+                    initViewByAlertdailog(orderitem, v);
+                }else if(filterkey.equals("PandingToPlaceOrder")){
+                    initViewByAlertdailog(orderitem, v);
+                }
                 try {
 
                 } catch (Exception E) {

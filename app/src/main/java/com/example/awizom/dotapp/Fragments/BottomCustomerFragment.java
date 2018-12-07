@@ -44,6 +44,11 @@ public class BottomCustomerFragment extends Fragment implements View.OnClickList
         customerModify = view.findViewById(R.id.modifyCustomer);
         customerAdd = view.findViewById(R.id.addCustomer);
 
+
+        cardViewFirst = view.findViewById(R.id.first_cardview);
+        cardViewSecond = view.findViewById(R.id.second_cardview);
+        cardViewthird = view.findViewById(R.id.third_cardview);
+
         addCustomerFragment = new AddCustomerFragment();
         modifyCustomerFragment = new ModifyCustomerFragment();
         listCustomerFragment = new CustomerListFrgment();
@@ -51,6 +56,10 @@ public class BottomCustomerFragment extends Fragment implements View.OnClickList
         customerList.setOnClickListener(this);
         customerModify.setOnClickListener(this);
         customerAdd.setOnClickListener(this);
+
+        cardViewFirst.setOnClickListener(this);
+        cardViewSecond.setOnClickListener(this);
+        cardViewthird.setOnClickListener(this);
 
 
     }
@@ -62,17 +71,29 @@ public class BottomCustomerFragment extends Fragment implements View.OnClickList
         Class fragmentClass = null;
         switch (v.getId()) {
 
-
-            case R.id.orderCreate:
-                if ((SharedPrefManager.getInstance(getActivity()).getUser().getUserRole().contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getActivity()).getUser().getUserRole().contains("User"))) {
-                    getActivity().setTitle("Add Customer");
-                    fragmentClass = AddCustomerFragment.class;
-
-                } else {
-                    Toast.makeText(getActivity(), "User Is Not Permitted", Toast.LENGTH_SHORT).show();
-                }
+            case R.id.first_cardview:
+                fragmentClass = AddCustomerFragment.class;
                 break;
+            case R.id.second_cardview:
+                getActivity().setTitle("Modify Customer");
+                fragment = modifyCustomerFragment;
+                fragmentClass = ModifyCustomerFragment.class;
+                break;
+            case R.id.third_cardview:
+                getActivity().setTitle("Customer List");
+                fragmentClass = CustomerListFrgment.class;
+                break;
+
+//            case R.id.orderCreate:
+//                if ((SharedPrefManager.getInstance(getActivity()).getUser().getUserRole().contains("Admin")) ||
+//                        (SharedPrefManager.getInstance(getActivity()).getUser().getUserRole().contains("User"))) {
+//                    getActivity().setTitle("Add Customer");
+//                    fragmentClass = AddCustomerFragment.class;
+//
+//                } else {
+//                    Toast.makeText(getActivity(), "User Is Not Permitted", Toast.LENGTH_SHORT).show();
+//                }
+//                break;
 
             case R.id.modifyCustomer:
                 getActivity().setTitle("Modify Customer");

@@ -319,7 +319,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     }
@@ -504,7 +503,6 @@ boolean status=true;
         return status;
 
     }
-
 
     private void getFunctioncall() {
 
@@ -874,10 +872,7 @@ boolean status=true;
                     }
                 }
                 //Getting the instance of AutoCompleteTextView
-
             }
-
-
         }
     }
 

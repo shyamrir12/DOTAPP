@@ -6,20 +6,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent">
+        android:background="@color/colorAccent"
+        >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:layout_margin="15dp">
+
 
             <LinearLayout
                 android:id="@+id/customerinfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_centerHorizontal="true">
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                android:layout_margin="10dp">
 
                 <TextView
                     android:id="@+id/customer_name"
@@ -29,7 +28,6 @@
                     android:text="Customer Name"
                     android:textColor="@color/white"
                     android:textSize="@dimen/room_text_size"
-                    android:gravity="left"
                     android:visibility="gone"/>
 
                 <TextView
@@ -63,7 +61,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/room_text_size"
                     android:gravity="left"
-                   />
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/room_name"
@@ -72,8 +70,9 @@
                     android:layout_weight="1"
                     android:text="Room Name"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/room_text_size"
-                    android:gravity="left" />
+                    android:textSize="16sp"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"/>
 
             </LinearLayout>
             <!--<TextView-->
@@ -86,15 +85,15 @@
             <!--android:text="     All"-->
             <!--android:layout_gravity="center"-->
             <!--android:textColor="@color/white"/>-->
-
             <ImageButton
                 android:id="@+id/updateButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_margin="5dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/button_background_shape"
                 android:src="@drawable/ic_add_white_24dp" />
         </RelativeLayout>
-    </RelativeLayout>
+
 </RelativeLayout>

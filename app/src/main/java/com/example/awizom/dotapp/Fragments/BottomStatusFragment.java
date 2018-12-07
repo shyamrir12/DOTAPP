@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     String[] values;
     String PandingToPlaceOrder = "0", Hold = "0", PandingToReceiveMaterial = "0", PandingToHandOverTo = "0", PandingToReceivedFromTelor = "0", Dispatch = "0";
     SwipeRefreshLayout mSwipeRefreshLayout;
+    private CardView first_cardview,second_cardview,third_cardview,fourth_cardview,five_cardview,six_cardview;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,12 +76,29 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
         dispatch = view.findViewById(R.id.dispatch);
         pendingToreceivedMaterial = view.findViewById(R.id.pendingToreceivedMaterial);
         pendingtorecevefrometailor = view.findViewById(R.id.receivedFromTailor);
+
+        first_cardview = view.findViewById(R.id.second_cardview);
+        second_cardview = view.findViewById(R.id.second_cardview1);
+        third_cardview = view.findViewById(R.id.third_cardview);
+        fourth_cardview = view.findViewById(R.id.five_cardview);
+        five_cardview = view.findViewById(R.id.six_cardview);
+        six_cardview = view.findViewById(R.id.eight_cardview);
+
         pendingttoPlaceOrder.setOnClickListener(this);
         holD.setOnClickListener(this);
         handOverto.setOnClickListener(this);
         dispatch.setOnClickListener(this);
         pendingToreceivedMaterial.setOnClickListener(this);
         pendingtorecevefrometailor.setOnClickListener(this);
+
+        first_cardview.setOnClickListener(this);
+        second_cardview.setOnClickListener(this);
+        third_cardview.setOnClickListener(this);
+        fourth_cardview.setOnClickListener(this);
+        five_cardview.setOnClickListener(this);
+        six_cardview.setOnClickListener(this);
+
+
         statuspendingOrderFragment = new CustomerListFrgment();
 
     }
@@ -107,8 +126,43 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 break;
             }
 
+            case R.id.second_cardview: {
+                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
+                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("PlaceOrder")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
+
+                    intent = new Intent(getContext(), NewOrderListActivity.class);
+                    intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
+                    intent = intent.putExtra("ButtonName", "Place Order");
+                    intent = intent.putExtra("StatusName", "OrderPlaced");
+                    intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+
+                    startActivity(intent);
+                } else {
+                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                break;
+            }
 
             case R.id.hold: {
+                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
+                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Hold")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
+                    intent = new Intent(getContext(), NewOrderListActivity.class);
+                    intent = intent.putExtra("FilterKey", "Hold");
+                    intent = intent.putExtra("ButtonName", "Place Order");
+                    intent = intent.putExtra("StatusName", "OrderPlaced");
+                    intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                    startActivity(intent);
+                } else {
+                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+                break;
+            }
+            case R.id.second_cardview1: {
                 if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
                         (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Hold")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
                     intent = new Intent(getContext(), NewOrderListActivity.class);
@@ -145,8 +199,48 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                 }
 
                 break;
-        }
+            }
+            case R.id.five_cardview:
+            {
+                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
+                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("HandOver")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")))
+                {
+
+                    intent = new Intent(getContext(), NewOrderListActivity.class);
+                    intent = intent.putExtra("FilterKey", "PandingToHandOverTo");
+                    intent = intent.putExtra("ButtonName", "HandOverTo");
+                    intent = intent.putExtra("StatusName", "HandOverTo");
+                    intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                    startActivity(intent);
+                } else {
+                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+                break;
+            }
             case R.id.receivedFromTailor:
+            {
+                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
+                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Receive")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
+
+                    intent = new Intent(getContext(), NewOrderListActivity.class);
+                    intent = intent.putExtra("FilterKey", "PandingToReceivedFromTelor");
+                    intent = intent.putExtra("ButtonName", "Received");
+                    intent = intent.putExtra("StatusName", "ReceivedFromTelor");
+                    intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                    startActivity(intent);
+                }
+                else {
+                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+                break;
+            }
+            case R.id.six_cardview:
             {
                 if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
                         (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Receive")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
@@ -191,8 +285,52 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 
                 break;
             }
+            case R.id.third_cardview:
+
+            {
+                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
+                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("MaterialReceive")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
+
+
+                    intent = new Intent(getContext(), NewOrderListActivity.class);
+                    intent = intent.putExtra("FilterKey", "PandingToReceiveMaterial");
+                    intent = intent.putExtra("ButtonName", "Received Order");
+                    intent = intent.putExtra("StatusName", "MaterialReceived");
+                    intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                    startActivity(intent);
+                }
+
+                else {
+                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+                break;
+            }
 
             case R.id.dispatch:
+            {
+                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
+                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Dispatch")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
+
+
+                    intent = new Intent(getContext(), NewOrderListActivity.class);
+                    intent = intent.putExtra("FilterKey", "Dispatch");
+                    intent = intent.putExtra("ButtonName", "Reset");
+                    intent = intent.putExtra("StatusName", "Reset");
+                    intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                    startActivity(intent);
+                }
+                else {
+                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+                break;
+            }
+            case R.id.eight_cardview:
             {
                 if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
                         (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Dispatch")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {

@@ -122,22 +122,26 @@
                 <!--android:layout_marginLeft="15dp"-->
                 <!--android:background="@drawable/add_cancel_button_shape"-->
                 <!--android:text="ok"/>-->
-                <Button
-                    android:id="@+id/buttonstatus"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
-                    android:text="Place Order"
-                    android:background="@drawable/add_cancel_button_shape"
-                    android:layout_weight="1"
-                    android:textSize="13sp"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:layout_marginLeft="15dp"
-                    android:visibility="gone" />
+               <RelativeLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+                   <Button
+                       android:id="@+id/buttonstatus"
+                       android:layout_width="80dp"
+                       android:layout_height="30dp"
+                       android:text="Place Order"
+                       android:background="@drawable/add_cancel_button_shape"
+                       android:layout_weight="1"
+                       android:textSize="13sp"
+                       android:textAllCaps="false"
+                       android:textColor="@color/white"
+                       android:layout_marginLeft="15dp"
+                       android:visibility="gone" />
+               </RelativeLayout>
+
             </LinearLayout>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-
 
 </LinearLayout>

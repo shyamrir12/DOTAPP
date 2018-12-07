@@ -92,6 +92,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     List<String> roomList;
     RecyclerView recyclerView;
     RoomListAdapter roomlistadapter;
+    private Spinner spinner;
 
 
     @Override
@@ -463,9 +464,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.room_layout, null);
         dialogBuilder.setView(dialogView);
-
-
-        final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spinner);
+         spinner = dialogView.findViewById(R.id.spinner);
 
         String[] items = aroomlist.split(",");
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, items);
@@ -484,6 +483,8 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             public void onClick(View view) {
 
                 if (String.valueOf(spinner.getSelectedItem()).trim().length() > 0) {
+
+
                     try {
                         if (filterkey.equals("pandingForAdv") || filterkey.equals("orderCreate") || filterkey.equals("PandingToPlaceOrder"))
                             new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim(), SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
@@ -567,6 +568,15 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
+                    Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
+                    intent.putExtra("RoomName",  String.valueOf(spinner.getSelectedItem()).trim());
+                    intent.putExtra("OrderID",String.valueOf( orderid));
+                    intent.putExtra("CustomerName",c_name.getText().toString());
+                    intent.putExtra("Mobile",c_contact.getText().toString());
+                    intent.putExtra("OrderDate",orderDate.getText().toString());
+                    intent.putExtra("Advance",Double.valueOf( amount.getText().toString()));
+                    intent.putExtra("ActualOrder",actualorder);
+                    startActivity(intent);
                     getMyOrder(orderid);
                 }
             }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
     private Intent intent;
     private Fragment handoverFragment, tailorListfragment;
     Fragment fragment = null;
-
+    private CardView cardViewFirst, cardViewSecond, cardViewthird;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,8 +36,13 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
         handOverList = view.findViewById(R.id.handOverList);
         ReceivedList = view.findViewById(R.id.receivedItemList);
 
+        cardViewFirst = view.findViewById(R.id.order_create_cardview);
+        cardViewSecond = view.findViewById(R.id.order_pending_cardview);
 
         handOverList.setOnClickListener(this);
+        cardViewSecond.setOnClickListener(this);
+
+        cardViewFirst.setOnClickListener(this);
         ReceivedList.setOnClickListener(this);
 
         handoverFragment = new HandOverTelorList();
@@ -81,6 +87,10 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
         Class fragmentClass = null;
         switch (v.getId()) {
 
+            case R.id.order_create_cardview:
+                getActivity().setTitle("Handover");
+                fragmentClass = HandOverTelorList.class;
+                break;
 
             case R.id.handOverList:
                 // getActivity().setTitle("Handover Telor List");
@@ -92,11 +102,12 @@ public class BottomPrintFragment extends Fragment implements View.OnClickListene
 //                getFragmentManager().beginTransaction().replace(R.id.container,myFragment2).commit();
 //
                 getActivity().setTitle("Handover");
-
                 fragmentClass = HandOverTelorList.class;
-
                 break;
 
+            case R.id.order_pending_cardview:
+                fragmentClass = ReceivedTelorlist.class;
+                break;
             case R.id.receivedItemList:
                 //               getActivity().setTitle("Telor List");
 
