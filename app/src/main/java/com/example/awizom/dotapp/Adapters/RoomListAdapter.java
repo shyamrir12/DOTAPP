@@ -22,8 +22,7 @@ import android.widget.Toast;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Result;
-import com.example.awizom.dotapp.Models.Room;
-import com.example.awizom.dotapp.Models.UserModel;
+
 import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.google.gson.Gson;

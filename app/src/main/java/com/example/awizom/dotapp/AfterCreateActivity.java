@@ -73,7 +73,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
     private Button addorder, addroom, actualRead, simpleRead, addUserStatus;
-    private ImageButton addNewCustomer;
+    private ImageButton addNewCustomer,  exit;
     int morderid = 0;
     String buttonname = "";
     String orderid = "";
@@ -473,8 +473,18 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
         final Button buttonAdd = (Button) dialogView.findViewById(R.id.buttonAddOrder);
         final Button buttonCancel = (Button) dialogView.findViewById(R.id.buttonCancel);
+        exit = dialogView.findViewById(R.id.exit);
 
-        dialogBuilder.setTitle("Add Room");
+        //dialogBuilder.setTitle("Add Room" );
+
+        dialogBuilder.setCancelable(true);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         final AlertDialog b = dialogBuilder.create();
         b.show();
 
@@ -568,15 +578,19 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
-                    Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
-                    intent.putExtra("RoomName",  String.valueOf(spinner.getSelectedItem()).trim());
-                    intent.putExtra("OrderID",String.valueOf( orderid));
-                    intent.putExtra("CustomerName",c_name.getText().toString());
-                    intent.putExtra("Mobile",c_contact.getText().toString());
-                    intent.putExtra("OrderDate",orderDate.getText().toString());
-                    intent.putExtra("Advance",Double.valueOf( amount.getText().toString()));
-                    intent.putExtra("ActualOrder",actualorder);
-                    startActivity(intent);
+//                    Intent intent=new Intent(getApplicationContext(), RoomDetailsActivity.class);
+//                    intent.putExtra("RoomName",  String.valueOf(spinner.getSelectedItem()).split("-")[0].trim());
+//                    intent.putExtra("OrderID",String.valueOf( orderid));
+//                    intent.putExtra("CustomerName",c_name.getText().toString());
+//                    intent.putExtra("Mobile",c_contact.getText().toString());
+//                    intent.putExtra("OrderDate",orderDate.getText().toString());
+//                    intent.putExtra("Advance",Double.valueOf( amount.getText().toString()));
+//                    intent.putExtra("ActualOrder",actualorder);
+//                    intent.putExtra("StatusName", stausname);
+//                    intent.putExtra("FilterKey", filterkey);
+//                    intent.putExtra("ButtonName", buttonname);
+//                    intent.putExtra("TailorList","");
+//                    startActivity(intent);
                     getMyOrder(orderid);
                 }
             }
@@ -716,7 +730,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+      //          Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
         }
@@ -843,7 +857,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             } catch (Exception e) {
                 e.printStackTrace();
                 // System.out.println("Error: " + e);
-                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
         }

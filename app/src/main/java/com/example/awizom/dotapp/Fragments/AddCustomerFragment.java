@@ -57,10 +57,9 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.customerButton:
-                if ((cName.getText().toString().isEmpty()) || (cContact.getText().toString().isEmpty()) ||
-                        (cAddress.getText().toString().isEmpty()) || (interioName.getText().toString().isEmpty())
-                        || (interioContact.getText().toString().isEmpty())) {
-
+                if ((cName.getText().toString().isEmpty()) || (cContact.getText().toString().isEmpty()) ) {
+/*|| (cAddress.getText().toString().isEmpty()) || (interioName.getText().toString().isEmpty())
+                        || (interioContact.getText().toString().isEmpty())*/
                     cName.setError("Customer Name is required!");
                     cContact.setError("Customer Contact is required!");
 
