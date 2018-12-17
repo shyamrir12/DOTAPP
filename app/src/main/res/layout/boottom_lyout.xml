@@ -6,15 +6,14 @@
     <RelativeLayout
         android:id="@+id/bottom_relative_press1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/relative_layout_bottom_height"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorAccent">
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:id="@+id/bottom_relative_press"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/relative_layout_bottom_height"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:background="@android:color/transparent">
@@ -25,7 +24,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/elight"
@@ -58,15 +58,15 @@
                     android:gravity="center_horizontal"
                     android:layout_marginLeft="5dp" />
 
-                <TextView
-                    android:id="@+id/total"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/room_text_size"
-                    android:text="Total"
-                    android:textColor="@color/white"
-                    android:gravity="center_horizontal"
-                    android:layout_marginLeft="5dp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/total"-->
+                    <!--android:layout_width="80dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="@dimen/room_text_size"-->
+                    <!--android:text="Total"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:layout_marginLeft="5dp" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -75,7 +75,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_below="@+id/header_linear1"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="10dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/elight_value"
@@ -107,15 +108,15 @@
                     android:textSize="@dimen/room_text_size"
                     android:layout_marginLeft="5dp" />
 
-                <TextView
-                    android:id="@+id/total_value"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="1223"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/room_text_size"
-                    android:layout_marginLeft="5dp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/total_value"-->
+                    <!--android:layout_width="80dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:text="1223"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:textSize="@dimen/room_text_size"-->
+                    <!--android:layout_marginLeft="5dp" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -124,7 +125,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_below="@+id/header_linear2"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="10dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/elightprice_value"
@@ -159,6 +161,36 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:background="@color/colorAccent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Total"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layout_marginRight="10dp" />
+                <TextView
+                    android:id="@+id/total_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="1223"
+                    android:textColor="@color/white"
+                    android:layout_weight="2"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
             <!--<ImageButton-->
             <!--android:id="@+id/updateButton"-->
             <!--android:layout_width="50dp"-->

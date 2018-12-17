@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -70,6 +71,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private String roomName, orderID, customernAME, mobileNumber, orderDate, advance,StatusName,filterkey,buttonname,tailorList;
     DataOrder orderitem;
     private Double priceValue,price2value,result = Double.valueOf(0),superResult = Double.valueOf(0);
+    private LinearLayout elightLayout;
 
     // private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
 
@@ -134,6 +136,8 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         elight.setOnLongClickListener(this);
         roman.setOnLongClickListener(this);
         aPlat.setOnLongClickListener(this);
+
+
 
         progressDialog = new ProgressDialog(this);
         recyclerView = findViewById(R.id.recyclerView);
@@ -239,10 +243,10 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                 initViewByAlertdailog();
                 break;
             case R.id.bottom_relative_press:
-                dilogShow();
+           //     dilogShow();
                 break;
             case R.id.bottom_relative_press1:
-                dilogShow();
+              //  dilogShow();
                 break;
         }
     }
@@ -254,12 +258,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         final View dialogView = inflater.inflate(R.layout.edit_bottom_item, null);
         dialogBuilder.setView(dialogView);
 
-        editElight = dialogView.findViewById(R.id.editElight);
-        editRoman = dialogView.findViewById(R.id.editRoman);
-        editAplot = dialogView.findViewById(R.id.editAplot);
-        ElightPrice = dialogView.findViewById(R.id.ElightPrice);
-        RomanPrice = dialogView.findViewById(R.id.RomanPrice);
-        APlotPrice = dialogView.findViewById(R.id.APlotPrice);
+        editElight = dialogView.findViewById(R.id.ediElight);
+        editRoman = dialogView.findViewById(R.id.ediRoman);
+        editAplot = dialogView.findViewById(R.id.ediAplot);
+        ElightPrice = dialogView.findViewById(R.id.elighPrice);
+        RomanPrice = dialogView.findViewById(R.id.romaPrice);
+        APlotPrice = dialogView.findViewById(R.id.aPlotPrice);
 
         updateBottom = dialogView.findViewById(R.id.updateElight);
         cancelElight = dialogView.findViewById(R.id.cancelElight);
@@ -352,6 +356,20 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         pageNo = dialogView.findViewById(R.id.pageNo);
         price = dialogView.findViewById(R.id.price);
         price2 = dialogView.findViewById(R.id.price2);
+        elightLayout = dialogView.findViewById(R.id.elightLinearLayout);
+
+
+
+        elight = dialogView.findViewById(R.id.ediElight);
+        roman = dialogView.findViewById(R.id.ediRoman);
+        aPlat = dialogView.findViewById(R.id.ediAplot);
+        elightPrice = dialogView.findViewById(R.id.elighPrice);
+        romanPrice = dialogView.findViewById(R.id.romaPrice);
+        aPlotPrice = dialogView.findViewById(R.id.aPlotPrice);
+
+       // elightLayout.setVisibility(View.GONE);
+
+
 
 //        {
 //                int weight = Integer.parseInt(price.getText().toString());
@@ -370,9 +388,14 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         addButton = dialogView.findViewById(R.id.add);
         cancelButton = dialogView.findViewById(R.id.cancelButton);
 
+
+
        // dialogBuilder.setTitle("Add Order");
         final AlertDialog b = dialogBuilder.create();
         b.show();
+
+
+
         catlogName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -407,7 +430,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                     getCatalogDesignSingle();
             }
         });
-
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -427,11 +449,23 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                         String materialtype = materialType.getSelectedItem().toString();
                         String unIt = unitSpinner.getSelectedItem().toString();
 
+
                         priceValue = Double.parseDouble(price.getText().toString());
                         price2value = Double.parseDouble(price2.getText().toString());
                         result = ((priceValue * price2value) / 100);
                         superResult = priceValue - result;
                         price2.setText(String.valueOf(superResult));
+
+
+
+
+
+                        String eligt = elight.getText().toString();
+                        String romn = roman.getText().toString();
+                        String aplot = aPlat.getText().toString();
+                        String elightprice = elightPrice.getText().toString();
+                        String romanprice = romanPrice.getText().toString();
+                        String aplotprice = aPlotPrice.getText().toString();
 
 //                    price2.setOnClickListener(new View.OnClickListener() {
 //                        @Override
@@ -450,11 +484,11 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                             progressDialog.show();
                             if (actualorder.equals("ActualOrder")) {
                                 new POSTOrder().execute("0", materialtype, String.valueOf(superResult), "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                                        unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
+                                        unIt, "0", roomName, orderID,eligt,romn,aplot,elightprice,romanprice,aplotprice, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
 
                             } else {
                                 new POSTOrder().execute("0", materialtype, String.valueOf(superResult), qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                                        unIt, "0", roomName, orderID, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
+                                        unIt, "0", roomName, orderID,eligt,romn,aplot,elightprice,romanprice,aplotprice, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
 
                             }
                         } catch (Exception e) {
@@ -484,7 +518,30 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+        materialType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //  String item = parent.getItemAtPosition(position).toString();
+                String selectedDiv = adapterView.getItemAtPosition(i).toString();
 
+                if(selectedDiv.equals("Curtain")){
+                    elightLayout.setVisibility(View.VISIBLE);
+                }else {
+                    elightLayout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        if(materialType.getSelectedItem().toString().equals("Curtain")){
+            elightLayout.setVisibility(View.VISIBLE);
+        }else if(!materialType.getSelectedItem().toString().equals("Curtain")){
+            elightLayout.setVisibility(View.GONE);
+        }
     }
 
     private boolean validation() {
@@ -595,7 +652,16 @@ boolean status=true;
             String catalogID = params[13];
             String roomName = params[14];
             String orderID = params[15];
-            String accesstoken = params[16];
+
+            String elight = params[16];
+            String roman = params[17];
+            String aPlat = params[18];
+            String elightprice = params[19];
+            String romanprice = params[20];
+            String aPlatprice = params[21];
+            String accesstoken = params[22];
+
+
 
             String json = "";
             try {
@@ -627,6 +693,13 @@ boolean status=true;
 
                 parameters.add("RoomName", roomName.trim());
                 parameters.add("OrderID", orderID.trim());
+
+                parameters.add("Elight", elight);
+                parameters.add("Roman", roman);
+                parameters.add("APlat", aPlat);
+                parameters.add("ElightPrice", elightprice);
+                parameters.add("RomanPrice", romanprice);
+                parameters.add("APlatPrice", aPlatprice);
 
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -868,7 +941,11 @@ boolean status=true;
                     if (catelogdesign.getUnit().trim().length() > 0 || catelogdesign.getMaterialType().trim().length() > 0  ) {
                         unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
                         materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(catelogdesign.getMaterialType().toString()));
-
+                        if(!materialType.getSelectedItem().toString().equals("Curtain")){
+                             elightLayout.setVisibility(View.GONE);
+                         }else if(materialType.getSelectedItem().toString().equals("Curtain")){
+                            elightLayout.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
                 //Getting the instance of AutoCompleteTextView

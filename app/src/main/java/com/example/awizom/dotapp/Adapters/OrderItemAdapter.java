@@ -51,6 +51,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private Spinner handOvertoNameSpinner, tailorListNameSpinner;
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     String orderItemId;
+    private EditText editElight, editRoman, editAplot, ElightPrice, RomanPrice, APlotPrice;
+    private TextView elight, roman, aPlat, elightPrice, romanPrice, aPlotPrice, totalAmount;
+    private LinearLayout elightLayout,elightPValueLayout;
 
 
     public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder,
@@ -89,6 +92,19 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             holder.Qty.setText("Qty\n" + Double.toString(order.getQty()));
             holder.AQty.setText("AQty\n" + Double.toString(order.getAQty()));
             holder.unit.setText("Unit\n" + order.getOrderUnit());
+
+            holder.elight.setText( "Elight\n" + "Q. " +Double.toString(order.getElight())+"P. " + Double.toString(order.getElightPrice()));
+            holder.aplot.setText( "APlot\n" + "Q. " +Double.toString(order.getAPlat())+"P. " + Double.toString(order.getAPlatPrice()));
+            holder.roman.setText("Roman\n"+"SF. " +Double.toString(order.getRoman()) +"P. " + Double.toString(order.getRomanPrice()));
+
+            holder.elightPrice.setText("P. " + Double.toString(order.getElightPrice()));
+            holder.elightAplot.setText("P. " + Double.toString(order.getAPlatPrice()));
+            holder.elightRoman.setText("P. " + Double.toString(order.getRomanPrice()));
+
+            if(!order.getMaterialType().equals("Curtain")){
+                elightPValueLayout.setVisibility(View.GONE);
+            }
+
 
             if (actualorder.equals("ActualOrder")) {
                 holder.AQty.setVisibility(View.VISIBLE);
@@ -147,7 +163,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         private Context mCtx;
         Button buttonStatus;
         TextView catlogName, serialNo, design, pageNo, price, unit;
-        TextView OrderItemID, MaterialType, Price2, Qty, AQty;
+        TextView OrderItemID, MaterialType, Price2, Qty, AQty,elight,aplot,roman,elightPrice,elightAplot,elightRoman;
 
 
         //we are storing all the products in a list
@@ -178,6 +194,14 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             Qty = itemView.findViewById(R.id.qty);
             AQty = itemView.findViewById(R.id.aQty);
             unit = itemView.findViewById(R.id.unit);
+
+            elight = itemView.findViewById(R.id.elight);
+            aplot = itemView.findViewById(R.id.aplot);
+            roman = itemView.findViewById(R.id.roman);
+            elightPrice = itemView.findViewById(R.id.elightPrice);
+            elightAplot = itemView.findViewById(R.id.elightAplot);
+            elightRoman = itemView.findViewById(R.id.elightRoman);
+            elightPValueLayout = itemView.findViewById(R.id.b0);
 
 
 
@@ -398,6 +422,27 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             final EditText qty = dialogView.findViewById(R.id.qTy);
             final EditText aQty = dialogView.findViewById(R.id.aQty);
             unitSpinner = dialogView.findViewById(R.id.unit);
+
+//            editElight = dialogView.findViewById(R.id.editElight);
+//            editRoman = dialogView.findViewById(R.id.editRoman);
+//            editAplot = dialogView.findViewById(R.id.editAplot);
+//            ElightPrice = dialogView.findViewById(R.id.ElightPrice);
+//            RomanPrice = dialogView.findViewById(R.id.RomanPrice);
+//            APlotPrice = dialogView.findViewById(R.id.APlotPrice);
+
+
+
+            elight = dialogView.findViewById(R.id.ediElight);
+            roman = dialogView.findViewById(R.id.ediRoman);
+            aPlat = dialogView.findViewById(R.id.ediAplot);
+            elightPrice = dialogView.findViewById(R.id.elighPrice);
+            romanPrice = dialogView.findViewById(R.id.romaPrice);
+            aPlotPrice = dialogView.findViewById(R.id.aPlotPrice);
+            elightLayout = dialogView.findViewById(R.id.elightLinearLayout);
+            elightPValueLayout = dialogView.findViewById(R.id.b0);
+            elightLayout.setVisibility(View.GONE);
+
+
             if (actualorder.equals("ActualOrder")) {
                 qty.setVisibility(dialogView.GONE);
                 aQty.setVisibility(dialogView.VISIBLE);
@@ -414,10 +459,23 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             //Price2.setText(Integer.toString(order.getPrice2()));
             qty.setText(Double.toString(orderitem.getQty()));
             aQty.setText(Double.toString(orderitem.getAQty()));
+            elight.setText(Double.toString(orderitem.getElight()));
+            roman.setText(Double.toString(orderitem.getRoman()));
+            aPlat.setText(Double.toString(orderitem.getAPlat()));
+            elightPrice.setText(Double.toString(orderitem.getElightPrice()));
+            aPlotPrice.setText(Double.toString(orderitem.getAPlatPrice()));
+            romanPrice.setText(Double.toString(orderitem.getRomanPrice()));
+
+
 
             if (orderitem.getUnit().trim().length() > 0 || orderitem.getMaterialType().trim().length() > 0  ) {
                 unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(orderitem.getOrderUnit()));
                 materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(orderitem.getMaterialType().toString()));
+                if(!materialType.getSelectedItem().toString().equals("Curtain")){
+                    elightLayout.setVisibility(View.GONE);
+                }else if(materialType.getSelectedItem().toString().equals("Curtain")){
+                    elightLayout.setVisibility(View.VISIBLE);
+                }
             }
 
 
@@ -477,14 +535,24 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     String aqty = aQty.getText().toString();
                     String materialtype = materialType.getSelectedItem().toString();
                     String unIt = unitSpinner.getSelectedItem().toString();
+
+                    String eligt = elight.getText().toString();
+                    String romn = roman.getText().toString();
+                    String aplot = aPlat.getText().toString();
+                    String elightprice = elightPrice.getText().toString();
+                    String romanprice = romanPrice.getText().toString();
+                    String aplotprice = aPlotPrice.getText().toString();;
+
                     // progressDialog.setMessage("loading...");
                     //progressDialog.show();
                     if (actualorder.equals("ActualOrder")) {
 
-                        new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, QTY, aqty, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim(), SharedPrefManager.getInstance(mCtx).getUser().access_token);
+                        new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, QTY, aqty, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim()
+                                ,eligt,romn,aplot,elightprice,romanprice,aplotprice , SharedPrefManager.getInstance(mCtx).getUser().access_token);
 
                     } else {
-                        new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, AQTY, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim(), SharedPrefManager.getInstance(mCtx).getUser().access_token);
+                        new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, AQTY, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "",
+                                orderID.trim()   ,eligt,romn,aplot,elightprice,romanprice,aplotprice,SharedPrefManager.getInstance(mCtx).getUser().access_token);
 
                     }
 
@@ -645,7 +713,15 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             String catalogID = params[13];
             String roomName = params[14];
             String orderID = params[15];
-            String accesstoken = params[16];
+
+            String elight = params[16];
+            String roman = params[17];
+            String aPlat = params[18];
+            String elightprice = params[19];
+            String romanprice = params[20];
+            String aPlatprice = params[21];
+            String accesstoken = params[22];
+
             String json = "";
             try {
 
@@ -676,6 +752,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
                 parameters.add("RoomName", roomName.trim());
                 parameters.add("OrderID", orderID.trim());
+
+                parameters.add("Elight", elight);
+                parameters.add("Roman", roman);
+                parameters.add("APlat", aPlat);
+                parameters.add("ElightPrice", elightprice);
+                parameters.add("RomanPrice", romanprice);
+                parameters.add("APlatPrice", aPlatprice);
 
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();

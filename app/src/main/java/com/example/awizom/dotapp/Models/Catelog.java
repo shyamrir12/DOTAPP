@@ -85,4 +85,61 @@ public class Catelog {
     public String Unit;
     public String MaterialType;
     public int CatalogID;
+
+    public Double Elight;
+    public Double Roman;
+    public Double APlat;
+    public Double ElightPrice;
+    public Double RomanPrice;
+    public Double APlatPrice;
+
+    public Double getElight() {
+        return Elight;
+    }
+
+    public void setElight(Double elight) {
+        Elight = elight;
+    }
+
+    public Double getRoman() {
+        return Roman;
+    }
+
+    public void setRoman(Double roman) {
+        Roman = roman;
+    }
+
+    public Double getAPlat() {
+        return APlat;
+    }
+
+    public void setAPlat(Double APlat) {
+        this.APlat = APlat;
+    }
+
+    public Double getElightPrice() {
+        return ElightPrice;
+    }
+
+    public void setElightPrice(Double elightPrice) {
+        ElightPrice = elightPrice;
+    }
+
+    public Double getRomanPrice() {
+        return RomanPrice;
+    }
+
+    public void setRomanPrice(Double romanPrice) {
+        RomanPrice = romanPrice;
+    }
+
+    public Double getAPlatPrice() {
+        return APlatPrice;
+    }
+
+    public void setAPlatPrice(Double APlatPrice) {
+        this.APlatPrice = APlatPrice;
+    }
+
+
 }

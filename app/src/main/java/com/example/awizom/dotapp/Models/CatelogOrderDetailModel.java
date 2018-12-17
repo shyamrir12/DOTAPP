@@ -30,6 +30,14 @@ public class CatelogOrderDetailModel {
     public boolean Cancel;
     public boolean Dispatch;
 
+
+    public Double Elight;
+    public Double Roman;
+    public Double APlat;
+    public Double ElightPrice;
+    public Double RomanPrice;
+    public Double APlatPrice;
+
     public String getRoomName() {
         return RoomName;
     }
@@ -229,5 +237,70 @@ public class CatelogOrderDetailModel {
 
     public void setOrderStatusID(int orderStatusID) {
         OrderStatusID = orderStatusID;
+    }
+
+
+    public void setPrice2(double price2) {
+        Price2 = price2;
+    }
+
+    public void setQty(double qty) {
+        Qty = qty;
+    }
+
+    public void setAQty(double AQty) {
+        this.AQty = AQty;
+    }
+
+    public void setPrice(double price) {
+        Price = price;
+    }
+
+    public Double getElight() {
+        return Elight;
+    }
+
+    public void setElight(Double elight) {
+        Elight = elight;
+    }
+
+    public Double getRoman() {
+        return Roman;
+    }
+
+    public void setRoman(Double roman) {
+        Roman = roman;
+    }
+
+    public Double getAPlat() {
+        return APlat;
+    }
+
+    public void setAPlat(Double APlat) {
+        this.APlat = APlat;
+    }
+
+    public Double getElightPrice() {
+        return ElightPrice;
+    }
+
+    public void setElightPrice(Double elightPrice) {
+        ElightPrice = elightPrice;
+    }
+
+    public Double getRomanPrice() {
+        return RomanPrice;
+    }
+
+    public void setRomanPrice(Double romanPrice) {
+        RomanPrice = romanPrice;
+    }
+
+    public Double getAPlatPrice() {
+        return APlatPrice;
+    }
+
+    public void setAPlatPrice(Double APlatPrice) {
+        this.APlatPrice = APlatPrice;
     }
 }
