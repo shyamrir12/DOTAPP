@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +38,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -48,7 +50,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private TextView customerName, customerMobileNo, customerSno, customerOrder, customerDate, customerhall;
     private ImageButton additionButton;
     private TextView elight, roman, aPlat, elightPrice, romanPrice, aPlotPrice, totalAmount;
-
+    private String catalogNameOne;
     private RelativeLayout relative_Layout_press, relativeLayout_edit_dailog, bottom_relative_press1;
     private RecyclerView recyclerView;
     private EditText editElight, editRoman, editAplot, ElightPrice, RomanPrice, APlotPrice;
@@ -67,11 +69,13 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     private Spinner unitSpinner, materialType;
     private Button addButton, cancelButton;
     String actualorder = "";
+    String[] designlist;
     //  private AlertDialog b;
     private String roomName, orderID, customernAME, mobileNumber, orderDate, advance,StatusName,filterkey,buttonname,tailorList;
     DataOrder orderitem;
     private Double priceValue,price2value,result = Double.valueOf(0),superResult = Double.valueOf(0);
     private LinearLayout elightLayout;
+    private ArrayList<String> catlogNewlist;
 
     // private Toolbar toolbar;private TextView textView; private ImageButton arrow_id_back;
 
@@ -137,7 +141,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         roman.setOnLongClickListener(this);
         aPlat.setOnLongClickListener(this);
 
-
+        catlogNewlist = new ArrayList<String>();
 
         progressDialog = new ProgressDialog(this);
         recyclerView = findViewById(R.id.recyclerView);
@@ -409,8 +413,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (catlogName.getText().length() > 0)
+                ///getDesignList();
+                if (catlogName.getText().length() > 0) {
                     getDesignList();
+
+                }
+
             }
         });
         design.addTextChangedListener(new TextWatcher() {
@@ -427,7 +435,12 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void afterTextChanged(Editable s) {
                 if (design.getText().length() > 0)
-                    getCatalogDesignSingle();
+                    getCatalogDesignSingle(catlogName.getText().toString(),catlogNewlist.get(0).toString());
+
+//                String catlogNameOne = catlogName.toString();
+//                String designOne = design.toString();
+
+
             }
         });
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -889,10 +902,10 @@ boolean status=true;
 
     }
 
-    private void getCatalogDesignSingle() {
+    private void getCatalogDesignSingle(String cname, String dname) {
         try {
 
-            new getCatalogDesign().execute(catlogName.getText().toString(), design.getText().toString(), SharedPrefManager.getInstance(this).getUser().access_token);
+            new getCatalogDesign().execute(cname, dname, SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -1005,6 +1018,10 @@ boolean status=true;
                 catlogName.setThreshold(1);//will start working from first character
                 catlogName.setAdapter(catadapter);//setting the adapter data into the AutoCompleteTextView
 
+
+
+
+
                 //Getting the instance of AutoCompleteTextView
                 progressDialog.dismiss();
 
@@ -1033,12 +1050,12 @@ boolean status=true;
         protected String doInBackground(String... strings) {
 
             String json = "";
-            String catalogName = strings[0];
+            String catalogNameOne = strings[0];
             String accesstoken = strings[1];
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "CatalogGet/" + catalogName);
+                builder.url(AppConfig.BASE_URL_API + "CatalogGet/" + catalogNameOne);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -1058,13 +1075,29 @@ boolean status=true;
 
                 Toast.makeText(RoomDetailsActivity.this, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
+//                Gson gson = new Gson();
+//                Type listType = new TypeToken<String[]>() {
+//                }.getType();
+//                designlist = new Gson().fromJson(result, listType);
+
                 Gson gson = new Gson();
-                Type listType = new TypeToken<String[]>() {
+                Type listType = new TypeToken<List<Catelog>>() {
                 }.getType();
-                String[] designlist = new Gson().fromJson(result, listType);
-                designadapter = new ArrayAdapter<String>(RoomDetailsActivity.this, android.R.layout.select_dialog_item, designlist);
+                List<Catelog> catelogdesign = new Gson().fromJson(result, listType);
+                catlogNewlist.clear();
+                for(Catelog forId : catelogdesign){
+                    catlogNewlist.add(forId.getDesign().toString());
+
+                }
+                    if(catlogNewlist.size() > 0){
+                    getCatalogDesignSingle(catlogName.getText().toString(),catlogNewlist.get(0).toString());
+                   // Toast.makeText(getApplicationContext(), catlogNewlist.get(0).toString() , Toast.LENGTH_SHORT).show();
+                }
+                designadapter = new ArrayAdapter<String>(RoomDetailsActivity.this, android.R.layout.select_dialog_item, catlogNewlist);
                 design.setThreshold(1);//will start working from first character
                 design.setAdapter(designadapter);//setting the adapter data into the AutoCompleteTextView
+
+
 
             }
 
