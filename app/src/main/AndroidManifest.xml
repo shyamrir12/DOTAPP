@@ -58,7 +58,9 @@
             </intent-filter>
 
         </activity>
+<activity android:name=".PdfViewActivity">
 
+</activity>
         <activity android:name=".HelpActivity"/>
         <activity android:name=".ItemListActivity"/>
     </application>
