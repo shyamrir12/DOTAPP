@@ -5,10 +5,12 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +32,7 @@ import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.HandOverModel;
 import com.example.awizom.dotapp.Models.Result;
+import com.example.awizom.dotapp.PdfViewActivity;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -76,6 +79,7 @@ public class ReceivedTelorlist extends Fragment {
     HandOverAdapter adapterh;
     private String r, str;
     Type listType;
+    private Intent pdfOpenintent;
 
     HandOverModel handover = new HandOverModel();
 
@@ -158,25 +162,51 @@ public class ReceivedTelorlist extends Fragment {
     }
 
     void openPdf() {
-//        Intent intent = new Intent(Intent.ACTION_VIEW);
-//        String path =getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
-//        File file = new File(path, "ItemList.pdf");
-//
-//         intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-//        startActivity(intent);
+
+    try {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            File file = new File(getContext().getFilesDir() + "/ReceivedItemList.pdf");
+            Uri path = Uri.fromFile(file);
+
+            pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+            pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pdfOpenintent.setDataAndType(path, "application/pdf");
+
+            try {
+               // getContext().startService(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
+                getContext().startActivity(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
+                Log.e("IR", "No exception");
+                Toast.makeText(getContext(),
+                        "Available to View PDF", Toast.LENGTH_SHORT).show();
+            } catch (ActivityNotFoundException e) {
+                Log.e("IR", "error: " + e.getMessage());
+                Toast.makeText(getContext(),
+                        "No Application Available to View PDF", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            File file = new File(getContext().getFilesDir(),
+                    "/ReceivedItemList.pdf");
 
 
-        File file = new File(getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath(),
-                "/ReceivedItemList.pdf");
-        Uri path = Uri.fromFile(file);
-        Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
-        pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        pdfOpenintent.setDataAndType(path, "application/pdf");
-        try {
-            startActivity(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
-        } catch (ActivityNotFoundException e) {
 
+            Uri path = Uri.fromFile(file);
+            Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+            pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pdfOpenintent.setDataAndType(path, "application/pdf");
+            try {
+                getActivity().startActivity(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+            }
         }
+    }catch (Exception e){
+        e.printStackTrace();
+    }
+
+
+
+
 
 
     }
@@ -225,7 +255,9 @@ public class ReceivedTelorlist extends Fragment {
         {
             // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
 
-            String path = getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+//            String path = getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+
+            File path = getContext().getFilesDir();
 
             File dir = new File(String.valueOf(path));
             if (!dir.exists())
@@ -305,7 +337,8 @@ public class ReceivedTelorlist extends Fragment {
         }
 
 
-        openPdf();
+     startActivity(pdfOpenintent = new Intent(getContext(), PdfViewActivity.class));
+
 
     }
 
