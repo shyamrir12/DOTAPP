@@ -22,14 +22,12 @@ public class PdfViewActivity extends AppCompatActivity {
 
     private void initView() {
         webview = findViewById(R.id.pdfView);
-//
-//        File file = new File(PdfViewActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath(),
-//                "/ReceivedItemList.pdf");
-
 
         File dir = new File(PdfViewActivity.this.getFilesDir() + "/ReceivedItemList.pdf");
         Uri file = Uri.fromFile(dir);
 //        Uri file = Uri.parse("file:///android_asset/ReceivedItemList.pdf");
+
+
 
         WebSettings settings = webview.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -39,18 +37,6 @@ public class PdfViewActivity extends AppCompatActivity {
         webview.setWebChromeClient(new WebChromeClient());
 
         webview.loadUrl("file:///android_asset/pdfjs/web/viewer.html?file=" + file );
-
-
-//        String path = getApplicationContext().getExternalFilesDir(
-//                Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath()+ "/ReceivedItemList.txt";
-//
-//
-//
-//          webview.getSettings().setJavaScriptEnabled(true);
-//           webview.getSettings().setAllowFileAccess(true);
-//           webview.loadUrl("https://" + path);
-
-
 
 
     }

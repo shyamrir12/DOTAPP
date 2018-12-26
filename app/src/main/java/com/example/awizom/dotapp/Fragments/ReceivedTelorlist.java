@@ -336,6 +336,7 @@ public class ReceivedTelorlist extends Fragment {
             doc.close();
         }
 
+//        openPdf();
 
      startActivity(pdfOpenintent = new Intent(getContext(), PdfViewActivity.class));
 
