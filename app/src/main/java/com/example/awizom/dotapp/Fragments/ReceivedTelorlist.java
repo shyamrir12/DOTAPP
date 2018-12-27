@@ -120,8 +120,8 @@ public class ReceivedTelorlist extends Fragment {
             public void onClick(View v) {
 
 
-                createPDF();
-
+                //createPDF();
+                CreateMessage();
             }
         });
 
@@ -180,7 +180,34 @@ public class ReceivedTelorlist extends Fragment {
 
 
     }
+    private void CreateMessage()
+    {
+        String message="";
+        for (int i = 0; i < handOverlist1.size(); i++) {
+            String CatalogName="",Design="",SerialNo="",PageNo="",Unit="",qty="",Price="";
 
+            CatalogName=(handOverlist1.get(i).getCatalogName().toString());
+            Design=(handOverlist1.get(i).getDesign().toString());
+            SerialNo=(handOverlist1.get(i).getSerialNo().toString());
+            PageNo=(String.valueOf(handOverlist1.get(i).getPageNo()));
+            Unit=(handOverlist1.get(i).getUnit().toString());
+            qty=(String.valueOf(handOverlist1.get(i).getAQty()));
+            Price=(String.valueOf(handOverlist1.get(i).getPrice2()));
+
+            message =message+ "\nCatalog=" + CatalogName + "\nDesign=" + Design+"\nSerialNo="+SerialNo+ "\nPageNo=" + PageNo + "\nUnit=" + Unit+"\nQty="+qty;
+
+
+
+        }
+        shareMessage(message);
+    }
+    private void shareMessage(String message) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_chooser_title)));
+
+    }
     private void createPDF() {
 
         Document doc = new Document();
