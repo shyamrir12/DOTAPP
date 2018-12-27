@@ -119,7 +119,7 @@ public class ReceivedTelorlist extends Fragment {
             @Override
             public void onClick(View v) {
 
-
+//
                 //createPDF();
                 CreateMessage();
             }
