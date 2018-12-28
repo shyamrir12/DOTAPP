@@ -18,7 +18,7 @@
         android:title="@string/title_order"
         android:tooltipText="@string/title_order"
         android:visible="true"
-        app:itemIconTint="@drawable/selector"/>
+       />
 
 
     <item
