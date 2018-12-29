@@ -3,6 +3,7 @@ package com.example.awizom.dotapp.Adapters;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ import com.example.awizom.dotapp.Models.Catelog;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
+import com.example.awizom.dotapp.PdfViewActivity;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -32,6 +35,8 @@ import java.util.List;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+
+import static com.itextpdf.text.factories.GreekAlphabetFactory.getString;
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {
     private AutoCompleteTextView catlogName, design;
@@ -54,6 +59,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private EditText editElight, editRoman, editAplot, ElightPrice, RomanPrice, APlotPrice;
     private TextView elight, roman, aPlat, elightPrice, romanPrice, aPlotPrice, totalAmount;
     private LinearLayout elightLayout,elightPValueLayout;
+    private ImageButton sendButton;
+    String CatalogName="",Design="",SerialNo="",PageNo="",Unit="",qty="",Price="",message="";
 
 
     public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder,
@@ -100,6 +107,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             holder.elightPrice.setText("P. " + Double.toString(order.getElightPrice()));
             holder.elightAplot.setText("P. " + Double.toString(order.getAPlatPrice()));
             holder.elightRoman.setText("P. " + Double.toString(order.getRomanPrice()));
+
+
 
             if(!order.getMaterialType().equals("Curtain")){
                 elightPValueLayout.setVisibility(View.GONE);
@@ -202,8 +211,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             elightAplot = itemView.findViewById(R.id.elightAplot);
             elightRoman = itemView.findViewById(R.id.elightRoman);
             elightPValueLayout = itemView.findViewById(R.id.b0);
+            sendButton = itemView.findViewById(R.id.sendButton);
 
-
+//            sendButton.setVisibility(View.GONE);
+            if(filterkey.equals("Hold")){
+                sendButton.setVisibility(View.GONE);
+            }
+            sendButton.setOnClickListener(this);
 
         }
 
@@ -211,6 +225,15 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         public void onClick(final View v) {
             int position = getAdapterPosition();
             CatelogOrderDetailModel orderitem = this.orderitemList.get(position);
+            message =  "\nCatalog = " + orderitem.getCatalogName()+"\nS.No. = " + orderitem.getSerialNo() +
+                    "\nDesign = " + orderitem.getDesign()+"\nPageNo = " + Integer.toString(orderitem.getPageNo()) + "\nMRP = " +orderitem.getPrice()+"\nMaterial = " + orderitem.getMaterialType()
+                    +"\nPrice = " + orderitem.getPrice2() +"\nQty = " + Double.toString(orderitem.getQty()) + "\nAQty = " + Double.toString(orderitem.getAQty())
+                    + "\nUnit = " + orderitem.getOrderUnit() + "\nElight" + "Q. " +Double.toString(orderitem.getElight())+"P. " + Double.toString(orderitem.getElightPrice())
+                    + "\nAPlot" + "Q. " +Double.toString(orderitem.getAPlat())+"P. " + Double.toString(orderitem.getAPlatPrice())
+                    +"\nRoman"+"SF. " +Double.toString(orderitem.getRoman()) +"P. " + Double.toString(orderitem.getRomanPrice())
+                    +"P. " + Double.toString(orderitem.getElightPrice()) + "P. " + Double.toString(orderitem.getAPlatPrice())
+                    +"P. " + Double.toString(orderitem.getRomanPrice());
+
 
             orderItemId=String.valueOf(orderitem.getOrderItemID());
             if (v.getId() == buttonStatus.getId()) {
@@ -220,7 +243,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                    placeOrderPost();
+
+
+                    placeOrderPost(message);
                         }
                     });
                     alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -238,7 +263,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                            showDailogForHandOverTo(v);
+
+                            showDailogForHandOverTo(v,message);
                         }
                     });
                     alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -256,7 +282,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     alertbox.setTitle("Do you want to change the status");
                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                            showdailogForreceivedBy(v);
+
+                            showdailogForreceivedBy(v,message);
                         }
                     });
                     alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -268,12 +295,28 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     alertbox.show();
                 }
 
-            }
+            } if (v.getId() == sendButton.getId()) {
+
+                message = "\nCatalog = " + orderitem.getCatalogName()+"\nS.No. = " + orderitem.getSerialNo() +
+                        "\nDesign = " + orderitem.getDesign()+"\nPageNo = " + Integer.toString(orderitem.getPageNo()) + "\nMRP = " +orderitem.getPrice()+"\nMaterial = " + orderitem.getMaterialType()
+                        +"\nPrice = " + orderitem.getPrice2() +"\nQty = " + Double.toString(orderitem.getQty()) + "\nAQty = " + Double.toString(orderitem.getAQty())
+                        + "\nUnit = " + orderitem.getOrderUnit() + "\nElight" + "Q. " +Double.toString(orderitem.getElight())+"P. " + Double.toString(orderitem.getElightPrice())
+                        + "\nAPlot" + "Q. " +Double.toString(orderitem.getAPlat())+"P. " + Double.toString(orderitem.getAPlatPrice())
+                        +"\nRoman"+"SF. " +Double.toString(orderitem.getRoman()) +"P. " + Double.toString(orderitem.getRomanPrice())
+                        +"P. " + Double.toString(orderitem.getElightPrice()) + "P. " + Double.toString(orderitem.getAPlatPrice())
+                        +"P. " + Double.toString(orderitem.getRomanPrice());
+
+
+                shareApp(mCtx,message);
+             }
 
 
         }
 
-        private void showdailogForreceivedBy(View v) {
+
+
+
+        private void showdailogForreceivedBy(View v,String message) {
 
             android.support.v7.app.AlertDialog.Builder dialogBuilder = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext());
             LayoutInflater inflater = LayoutInflater.from(v.getRootView().getContext());
@@ -287,7 +330,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             dialogBuilder.setTitle("Receibed By List");
             final android.support.v7.app.AlertDialog b = dialogBuilder.create();
             b.show();
-
+            shareApp(mCtx,message);
             okRecevedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -304,7 +347,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
 
         }
-        private void showDailogForHandOverTo(View v) {
+        private void showDailogForHandOverTo(View v, String message) {
 
             android.support.v7.app.AlertDialog.Builder dialogBuilder = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext());
             LayoutInflater inflater = LayoutInflater.from(v.getRootView().getContext());
@@ -333,7 +376,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             if(!handOvertoNameSpinner.getSelectedItem().equals("Telor")){
                 tailorListNameSpinner.setVisibility(View.GONE);
             }
-
+            shareApp(mCtx,message);
 //        handOvertoNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -443,10 +486,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             elightLayout.setVisibility(View.GONE);
 
 
+
             if (actualorder.equals("ActualOrder")) {
                 qty.setVisibility(dialogView.GONE);
                 aQty.setVisibility(dialogView.VISIBLE);
             }
+
 
             s_no.setText(orderitem.getSerialNo());
             catlogName.setText(orderitem.getCatalogName());
@@ -573,7 +618,35 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         }
 
     }
+//    private void shareMessage(String message) {
+//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//        shareIntent.setType("text/plain");
+//        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+//        mCtx.startActivity(Intent.createChooser(shareIntent, getString(R.string.share_chooser_title)));
+//
+//
+//
+//
+//
+//    }
+public static void shareApp(Context context, String message)
+{
+  //  final String appPackageName = context.getPackageName();
+//    Intent sendIntent = new Intent();
+//    sendIntent.setAction(Intent.ACTION_SEND);
+//    sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//    sendIntent.putExtra(Intent.EXTRA_TEXT, message );
+//    sendIntent.setType("text/plain");
+//    context.startActivity(sendIntent);
 
+    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+    shareIntent.setType("text/plain");
+    shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+    shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    context.startActivity(Intent.createChooser(shareIntent, "SHARE"));
+
+
+}
 
 
 
@@ -795,8 +868,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
 
 
-    private void placeOrderPost() {
-
+    private void placeOrderPost( String message) {
+        shareApp(mCtx,message);
         try {
             new PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,StatusName,orderItemId);
 

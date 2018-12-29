@@ -177,7 +177,7 @@ public class HandOverTelorList extends Fragment {
          qty=(String.valueOf(handOverlist1.get(i).getAQty()));
          Price=(String.valueOf(handOverlist1.get(i).getPrice2()));
 
-        message =message+ "\nCatalog=" + CatalogName + "\nDesign=" + Design+"\nSerialNo="+SerialNo+ "\nPageNo=" + PageNo + "\nUnit=" + Unit+"\nQty="+qty;
+         message =message+hTelor  + "\nCatalog=" + CatalogName + "\nDesign=" + Design+"\nSerialNo="+SerialNo+ "\nPageNo=" + PageNo + "\nUnit=" + Unit+"\nQty="+qty;
 
 
 
@@ -411,7 +411,7 @@ public class HandOverTelorList extends Fragment {
                     }
 
 
-                    adapterh = new HandOverAdapter(getContext(), handOverlist1);
+                    adapterh = new HandOverAdapter(getContext(), handOverlist1,hTelor);
 
                     lv1.setAdapter(adapterh);
 

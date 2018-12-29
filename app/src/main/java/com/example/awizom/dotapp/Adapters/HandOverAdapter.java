@@ -23,12 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Models.HandOverModel;
+import com.example.awizom.dotapp.PdfViewActivity;
 import com.example.awizom.dotapp.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+
+import static com.itextpdf.text.factories.GreekAlphabetFactory.getString;
 
 
 public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderItemViewHolder> {
@@ -41,11 +44,15 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
     TextView telor;
     //we are storing all the products in a list
     private List<HandOverModel> handoveritemlist;
+    String message="";
+    HandOverModel handover;
+    String hTelor;
 
 
-    public HandOverAdapter(Context mCtx, List<HandOverModel> handoverlist) {
+    public HandOverAdapter(Context mCtx, List<HandOverModel> handoverlist, String hTelor) {
         this.mCtx = mCtx;
         this.handoveritemlist = handoverlist;
+        this.hTelor = hTelor;
         progressDialog = new ProgressDialog(mCtx);
     }
 
@@ -62,7 +69,7 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
 
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
-        HandOverModel handover = handoveritemlist.get(position);
+         handover = handoveritemlist.get(position);
         try {
             // holder.telor.setText(handover.getTelorName());
             holder.snum.setText(handover.getSerialNo());
@@ -74,6 +81,7 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
 
             //  holder.price.setText(String.valueOf( handover.getPrice()).toString());
             holder.price.setText(String.valueOf(handover.getPrice2()));
+           // holder.sharedataButton.setOnClickListener(this);
             //  holder.serialNo.setText(String.valueOf(handover.getSerialNo()));
 
 
@@ -82,18 +90,41 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
         }
 
 
+
+
+
     }
 
+
+
+
+    public static void shareApp(Context context,String message)
+    {
+//
+//        Intent sendIntent = new Intent();
+//        sendIntent.setAction(Intent.ACTION_SEND);
+//        sendIntent.putExtra(Intent.EXTRA_TEXT, message );
+//        sendIntent.setType("text/plain");
+//        context.startActivity(sendIntent);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+        context.startActivity(Intent.createChooser(shareIntent, "SHARE"));
+
+    }
 
     @Override
     public int getItemCount() {
         return handoveritemlist.size();
     }
 
-    class OrderItemViewHolder extends RecyclerView.ViewHolder {
+
+
+    class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Context mCtx;
         TextView a_qty, catalog, design, page_no, price, price2, telor, snum, aunt;
+        ImageButton sharedataButton;
 
         //we are storing all the products in a list
         private List<HandOverModel> hndovritemList;
@@ -104,7 +135,7 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
             this.mCtx = mCtx;
             this.hndovritemList = handoveritemlist;
 
-//            itemView.setOnClickListener(this);
+           itemView.setOnClickListener(this);
 //            itemView.setOnLongClickListener(this);
             //   telor = itemView.findViewById(R.id.tlr);
             snum = itemView.findViewById(R.id.snum);
@@ -114,6 +145,9 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
             design = itemView.findViewById(R.id.design);
             page_no = itemView.findViewById(R.id.pgn);
             price = itemView.findViewById(R.id.princ);
+            sharedataButton = itemView.findViewById(R.id.shareButton);
+            sharedataButton.setOnClickListener(this);
+
             //   price2 = itemView.findViewById(R.id.princ2);
             // receivedBy = itemView.findViewById(R.id.receivedby);
 
@@ -181,6 +215,29 @@ public class HandOverAdapter extends RecyclerView.Adapter<HandOverAdapter.OrderI
             }
             // close the document
             document.close();
+        }
+
+        @Override
+        public void onClick(View v) {
+
+
+            switch (v.getId()){
+                case R.id.shareButton:
+
+                    String CatalogName="",Design="",SerialNo="",PageNo="",Unit="",qty="",Price="";
+
+                    CatalogName=(handover.getCatalogName());
+                    Design=(handover.getDesign());
+                    SerialNo=(handover.getSerialNo());
+                    PageNo= String.valueOf((handover.getPageNo()));
+                    Unit=( handover.getUnit());
+                    qty= String.valueOf((handover.getAQty()));
+                    Price= String.valueOf((handover.getPrice()));
+                    message =message+  hTelor+ "\nCatalog=" + CatalogName + "\nDesign=" + Design+"\nSerialNo="+SerialNo+ "\nPageNo=" + PageNo + "\nUnit=" + Unit+"\nQty="+qty;
+                    shareApp(mCtx,message);
+
+                    break;
+            }
         }
 
 //        @Override
