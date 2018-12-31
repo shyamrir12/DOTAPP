@@ -72,10 +72,12 @@
         android:layout_margin="10dp"
         android:tint="@color/colorAccent"
 
+
         android:background="@drawable/ic_share_black_24dp"
 
         android:layout_below="@+id/updateButton"
         android:visibility="visible"
+
 
 
         android:layout_alignParentRight="true" />
