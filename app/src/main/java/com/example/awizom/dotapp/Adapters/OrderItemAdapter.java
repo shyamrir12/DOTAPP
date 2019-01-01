@@ -297,14 +297,17 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
             } if (v.getId() == sendButton.getId()) {
 
-                message = "\nCatalog = " + orderitem.getCatalogName()+"\nS.No. = " + orderitem.getSerialNo() +
-                        "\nDesign = " + orderitem.getDesign()+"\nPageNo = " + Integer.toString(orderitem.getPageNo()) + "\nMRP = " +orderitem.getPrice()+"\nMaterial = " + orderitem.getMaterialType()
-                        +"\nPrice = " + orderitem.getPrice2() +"\nQty = " + Double.toString(orderitem.getQty()) + "\nAQty = " + Double.toString(orderitem.getAQty())
-                        + "\nUnit = " + orderitem.getOrderUnit() + "\nElight" + "Q. " +Double.toString(orderitem.getElight())+"P. " + Double.toString(orderitem.getElightPrice())
-                        + "\nAPlot" + "Q. " +Double.toString(orderitem.getAPlat())+"P. " + Double.toString(orderitem.getAPlatPrice())
-                        +"\nRoman"+"SF. " +Double.toString(orderitem.getRoman()) +"P. " + Double.toString(orderitem.getRomanPrice())
-                        +"P. " + Double.toString(orderitem.getElightPrice()) + "P. " + Double.toString(orderitem.getAPlatPrice())
-                        +"P. " + Double.toString(orderitem.getRomanPrice());
+                message = "\nCatalog = " + orderitem.getCatalogName()+
+                        "\nS.No. = " + orderitem.getSerialNo() +
+                        "\nDesign = " + orderitem.getDesign()+
+                        "\nPageNo = " + Integer.toString(orderitem.getPageNo())
+
+                       +
+                        "\nQty = " + Double.toString(orderitem.getAQty())
+                        + "\nUnit = " + orderitem.getOrderUnit()+
+                       "\nRegards=" +SharedPrefManager.getInstance(mCtx).getUser().getUserName()
+                        +"Sanskriti Decore";
+
 
 
                 shareApp(mCtx,message);
@@ -596,7 +599,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                                 ,eligt,romn,aplot,elightprice,romanprice,aplotprice , SharedPrefManager.getInstance(mCtx).getUser().access_token);
 
                     } else {
-                        new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, AQTY, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "",
+                        new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, qTy, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "",
                                 orderID.trim()   ,eligt,romn,aplot,elightprice,romanprice,aplotprice,SharedPrefManager.getInstance(mCtx).getUser().access_token);
 
                     }

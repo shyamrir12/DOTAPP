@@ -120,6 +120,7 @@
                         android:background="@drawable/add_cancel_button_shape"
                         android:text="Estimate Order"
                         android:textSize="12sp"
+                        android:visibility="gone"
                         android:layout_margin="5dp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/white" />
@@ -132,7 +133,7 @@
                         android:layout_weight="1"
                         android:layout_margin="5dp"
                         android:background="@drawable/add_cancel_button_shape"
-                        android:text="Actual Order"
+                        android:text="Order"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/white" />
 

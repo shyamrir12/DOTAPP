@@ -434,8 +434,17 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (design.getText().length() > 0)
-                    getCatalogDesignSingle(catlogName.getText().toString(),catlogNewlist.get(0).toString());
+
+
+               if (design.getText().length() > 0)
+
+              try {
+                  getCatalogDesignSingle(catlogName.getText().toString(), catlogNewlist.get(0).toString());
+              }
+              catch (Exception e)
+              {
+                  e.printStackTrace();
+              }
 
 //                String catlogNameOne = catlogName.toString();
 //                String designOne = design.toString();
@@ -500,7 +509,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                                         unIt, "0", roomName, orderID,eligt,romn,aplot,elightprice,romanprice,aplotprice, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
 
                             } else {
-                                new POSTOrder().execute("0", materialtype, String.valueOf(superResult), qTy, "0", unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                                new POSTOrder().execute("0", materialtype, String.valueOf(superResult), qTy, qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
                                         unIt, "0", roomName, orderID,eligt,romn,aplot,elightprice,romanprice,aplotprice, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
 
                             }

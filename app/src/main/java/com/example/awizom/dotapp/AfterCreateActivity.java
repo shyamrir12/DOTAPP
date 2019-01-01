@@ -27,12 +27,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.awizom.dotapp.Adapters.OrderItemAdapter;
 import com.example.awizom.dotapp.Adapters.RoomListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Fragments.DatePickerFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
 
@@ -73,7 +75,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private String[] customerNameList;
     ArrayAdapter<String> adapter;
     private Button addorder, addroom, actualRead, simpleRead, addUserStatus;
-    private ImageButton addNewCustomer,  exit;
+    private ImageButton addNewCustomer,  exit,share;
     int morderid = 0;
     String buttonname = "";
     String orderid = "";
@@ -93,7 +95,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     RecyclerView recyclerView;
     RoomListAdapter roomlistadapter;
     private Spinner spinner;
-
+    List<CatelogOrderDetailModel> orderestimateforcustomer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c_name = findViewById(R.id.customerName);
         c_contact = findViewById(R.id.customerContact);
+        share =findViewById(R.id.shareButton);
         i_address = findViewById(R.id.interiorAddress);
         orderDate = findViewById(R.id.orderDatePicker);
         amount = findViewById(R.id.amountValue);
@@ -131,6 +134,16 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
         progressDialog = new ProgressDialog(getApplicationContext());
         progressDialog = new ProgressDialog(this);
+
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //message call
+                getFunctioncall();
+            }
+        });
 
 
         orderDate.setOnClickListener(this);
@@ -221,6 +234,148 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+
+    private void getFunctioncall() {
+
+        try {
+            mSwipeRefreshLayout.setRefreshing(true);
+            // progressDialog.setMessage("loading...");
+            //  progressDialog.show();
+            new AfterCreateActivity.detailsGET().execute( orderid, SharedPrefManager.getInstance(this).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mSwipeRefreshLayout.setRefreshing(false);
+            //progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class detailsGET extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            //String roomName = strings[0];
+            String orderID = strings[0];
+            String accesstoken = strings[1];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                // progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+
+            return json;
+
+        }
+
+        protected void onPostExecute(String result) {
+            try {
+
+                if (result.isEmpty()) {
+                    //progressDialog.dismiss();
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                } else {
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
+                    }.getType();
+                    orderestimateforcustomer = new Gson().fromJson(result, listType);
+
+
+
+
+                        String message="";
+                    message="Mr./Mrs. : "+c_name.getText()+"\n Mobile no "+c_contact.getText() + "\n";
+
+                    for(int j=0; j<roomList.size();j++)
+                    {
+                       message = message+"Room "+roomList.get(j).split("-")[0]+"\n";
+                        for (int i = 0; i < orderestimateforcustomer.size(); i++) {
+                            if (roomList.get(j).split("-")[0].trim().equals(orderestimateforcustomer.get(i).getRoomName().trim())) {
+                                String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
+
+
+                                materialtype = (orderestimateforcustomer.get(i).getMaterialType().toString());
+
+                                Aqty = String.valueOf(orderestimateforcustomer.get(i).getAQty());
+
+                                Unit = (orderestimateforcustomer.get(i).getUnit().toString());
+
+                                Price = (String.valueOf(Math.floor(orderestimateforcustomer.get(i).getPrice2())));
+                                qty_price = String.valueOf(Math.floor(orderestimateforcustomer.get(i).getAQty() * orderestimateforcustomer.get(i).getPrice2()));
+
+                                message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n";
+                            }
+
+
+                        }
+
+                    }
+
+
+//                        for (int i = 0; i < orderestimateforcustomer.size(); i++) {
+//                            String materialtype ="", Aqty="",Unit="",Price="",qty_price="";
+//
+//
+//                            materialtype = (orderestimateforcustomer.get(i).getMaterialType().toString());
+//
+//                            Aqty=String.valueOf(orderestimateforcustomer.get(i).getAQty());
+//
+//                            Unit=(orderestimateforcustomer.get(i).getUnit().toString());
+//
+//                            Price=(String.valueOf(Math.floor(orderestimateforcustomer.get(i).getPrice2())));
+//                            qty_price=String.valueOf(Math.floor(orderestimateforcustomer.get(i).getAQty()*orderestimateforcustomer.get(i).getPrice2()));
+//
+//                            message =message+materialtype + "=" + Aqty + " "+ Unit +"@" + Price +"="  + qty_price + "\n" ;
+//
+//
+//
+//                        }
+                        message=message+"\n Total Amount= "+textViewATotalAmount.getText().toString();
+                        shareMessage(message);
+
+
+
+
+
+                   // adapter = new OrderItemAdapter(getBaseContext(), orderList, actualorder,filterkey,StatusName,buttonname,tailorList);
+                   // recyclerView.setAdapter(adapter);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public  void shareMessage(String message)
+    {
+//
+//        Intent sendIntent = new Intent();
+//        sendIntent.setAction(Intent.ACTION_SEND);
+//        sendIntent.putExtra(Intent.EXTRA_TEXT, message );
+//        sendIntent.setType("text/plain");
+//        context.startActivity(sendIntent);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+       startActivity(Intent.createChooser(shareIntent, "SHARE"));
+
+    }
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();

@@ -51,14 +51,35 @@
                             android:paddingLeft="20dp" />
                         </android.support.design.widget.TextInputLayout>
 
+                        <!--<ImageButton-->
+                            <!--android:id="@+id/addnewCustomerButton"-->
+                            <!--android:layout_width="20dp"-->
+                            <!--android:layout_height="20dp"-->
+                            <!--android:src="@drawable/ic_add_white_24dp"-->
+                            <!--android:background="@color/white"-->
+                            <!--android:tint="@color/colorAccent"-->
+                            <!--android:layout_margin="10dp" />-->
+
                         <ImageButton
                             android:id="@+id/addnewCustomerButton"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_add_white_24dp"
-                            android:background="@color/white"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_margin="5dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:background="@drawable/button_background_shape"
+                            android:src="@drawable/ic_add_white_24dp" />
+
+                        <ImageButton
+                            android:id="@+id/shareButton"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_margin="5dp"
                             android:tint="@color/colorAccent"
-                            android:layout_margin="10dp" />
+                            android:background="@drawable/ic_share_black_24dp"
+                            android:visibility="visible"
+                            android:layout_alignParentRight="true" />
+
 
                     </LinearLayout>
 
