@@ -63,7 +63,7 @@ public class ReceivedTelorlist extends Fragment {
 
     ProgressDialog progressDialog;
     ListView lv;
-    ImageButton img2, img3;
+    ImageButton img2, print;
     RecyclerView lv1;
     // List <TelorModel> list1;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -115,7 +115,9 @@ public class ReceivedTelorlist extends Fragment {
 
 
         img2 = view.findViewById(R.id.updateButton1);
+        print = view.findViewById(R.id.printButton);
         img2.setVisibility(View.GONE);
+        pdfOpenintent = new Intent();
         //img3 = view.findViewById(R.id.updateButton2);
 
 //        title = getArguments().getString("NAME_KEY").toString();
@@ -126,6 +128,12 @@ public class ReceivedTelorlist extends Fragment {
 //
                 //createPDF();
                 CreateMessage();
+            }
+        });
+        print.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createPDF();
             }
         });
 
@@ -163,46 +171,46 @@ public class ReceivedTelorlist extends Fragment {
 
     void openPdf() {
 
-    try {
+        try {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            File file = new File(getContext().getFilesDir() + "/ReceivedItemList.pdf");
-            Uri path = Uri.fromFile(file);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                File file = new File(getContext().getFilesDir() + "/ReceivedItemList.pdf");
+                Uri path = Uri.fromFile(file);
 
-            pdfOpenintent = new Intent(Intent.ACTION_VIEW);
-            pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pdfOpenintent.setDataAndType(path, "application/pdf");
+                pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+                pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                pdfOpenintent.setDataAndType(path, "application/pdf");
 
-            try {
-               // getContext().startService(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
-                getContext().startActivity(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
-                Log.e("IR", "No exception");
-                Toast.makeText(getContext(),
-                        "Available to View PDF", Toast.LENGTH_SHORT).show();
-            } catch (ActivityNotFoundException e) {
-                Log.e("IR", "error: " + e.getMessage());
-                Toast.makeText(getContext(),
-                        "No Application Available to View PDF", Toast.LENGTH_SHORT).show();
+                try {
+                    // getContext().startService(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
+                    getContext().startActivity(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
+                    Log.e("IR", "No exception");
+                    Toast.makeText(getContext(),
+                            "Available to View PDF", Toast.LENGTH_SHORT).show();
+                } catch (ActivityNotFoundException e) {
+                    Log.e("IR", "error: " + e.getMessage());
+                    Toast.makeText(getContext(),
+                            "No Application Available to View PDF", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                File file = new File(getContext().getFilesDir(),
+                        "/ReceivedItemList.pdf");
+
+
+
+                Uri path = Uri.fromFile(file);
+                Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+                pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                pdfOpenintent.setDataAndType(path, "application/pdf");
+                try {
+                    getActivity().startActivity(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
+                } catch (ActivityNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
-        } else {
-            File file = new File(getContext().getFilesDir(),
-                    "/ReceivedItemList.pdf");
-
-
-
-            Uri path = Uri.fromFile(file);
-            Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
-            pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pdfOpenintent.setDataAndType(path, "application/pdf");
-            try {
-                getActivity().startActivity(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
-            } catch (ActivityNotFoundException e) {
-                e.printStackTrace();
-            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-    }catch (Exception e){
-        e.printStackTrace();
-    }
 
 
 
@@ -283,9 +291,9 @@ public class ReceivedTelorlist extends Fragment {
         {
             // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
 
-//            String path = getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+            String path = getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
 
-            File path = getContext().getFilesDir();
+//            File path = getContext().getFilesDir();
 
             File dir = new File(String.valueOf(path));
             if (!dir.exists())
@@ -366,7 +374,9 @@ public class ReceivedTelorlist extends Fragment {
 
 //        openPdf();
 
-     startActivity(pdfOpenintent = new Intent(getContext(), PdfViewActivity.class));
+        pdfOpenintent = new Intent(getContext(), PdfViewActivity.class);
+        pdfOpenintent = pdfOpenintent.putExtra("PDFName","/ReceivedItemList.pdf");
+        startActivity( pdfOpenintent);
 
 
     }

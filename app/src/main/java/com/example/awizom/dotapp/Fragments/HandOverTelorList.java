@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -48,6 +49,7 @@ import com.example.awizom.dotapp.Models.HandOverModel;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.Models.TelorModel;
 import com.example.awizom.dotapp.Models.UserModel;
+import com.example.awizom.dotapp.PdfViewActivity;
 import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.RoomDetailsActivity;
 import com.google.gson.Gson;
@@ -82,7 +84,7 @@ public class HandOverTelorList extends Fragment {
     ProgressDialog progressDialog;
     ListView lv;
     TextView telornam, nodata;
-    ImageButton img2;
+    ImageButton img2,print;
     RecyclerView lv1;
     List<HandOverModel> handOverlist1;
     HandOverAdapter adapterh;
@@ -97,6 +99,7 @@ public class HandOverTelorList extends Fragment {
     private String[] catalogname, data;
     Type listType;
     private String hTelor;
+    private Intent pdfOpenintent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,7 +112,7 @@ public class HandOverTelorList extends Fragment {
 
     private void initView(View view) {
 
-
+        pdfOpenintent = new Intent();
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait while loading telors");
@@ -120,6 +123,7 @@ public class HandOverTelorList extends Fragment {
         telornam = view.findViewById(R.id.telorname);
         lv1.setLayoutManager(new LinearLayoutManager(getActivity()));
         img2 = view.findViewById(R.id.updateButton1);
+        print = view.findViewById(R.id.printButton);
         nodata = view.findViewById(R.id.nodata);
         nodata.setVisibility(View.GONE);
         img2.setVisibility(View.GONE);
@@ -133,7 +137,12 @@ public class HandOverTelorList extends Fragment {
             }
         });
 
-
+        print.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createPDF();
+            }
+        });
         //     lv = view.findViewById(R.id.telorList);
 
 
@@ -163,27 +172,27 @@ public class HandOverTelorList extends Fragment {
 
 
     }
- private void CreateMessage()
- {
-     String message="";
-     for (int i = 0; i < handOverlist1.size(); i++) {
-         String CatalogName="",Design="",SerialNo="",PageNo="",Unit="",qty="",Price="";
+    private void CreateMessage()
+    {
+        String message="";
+        for (int i = 0; i < handOverlist1.size(); i++) {
+            String CatalogName="",Design="",SerialNo="",PageNo="",Unit="",qty="",Price="";
 
-         CatalogName=(handOverlist1.get(i).getCatalogName().toString());
-         Design=(handOverlist1.get(i).getDesign().toString());
-         SerialNo=(handOverlist1.get(i).getSerialNo().toString());
-         PageNo=(String.valueOf(handOverlist1.get(i).getPageNo()));
-         Unit=(handOverlist1.get(i).getUnit().toString());
-         qty=(String.valueOf(handOverlist1.get(i).getAQty()));
-         Price=(String.valueOf(handOverlist1.get(i).getPrice2()));
+            CatalogName=(handOverlist1.get(i).getCatalogName().toString());
+            Design=(handOverlist1.get(i).getDesign().toString());
+            SerialNo=(handOverlist1.get(i).getSerialNo().toString());
+            PageNo=(String.valueOf(handOverlist1.get(i).getPageNo()));
+            Unit=(handOverlist1.get(i).getUnit().toString());
+            qty=(String.valueOf(handOverlist1.get(i).getAQty()));
+            Price=(String.valueOf(handOverlist1.get(i).getPrice2()));
 
-         message =message+hTelor  + "\nCatalog=" + CatalogName + "\nDesign=" + Design+"\nSerialNo="+SerialNo+ "\nPageNo=" + PageNo + "\nUnit=" + Unit+"\nQty="+qty;
+            message =message+hTelor  + "\nCatalog=" + CatalogName + "\nDesign=" + Design+"\nSerialNo="+SerialNo+ "\nPageNo=" + PageNo + "\nUnit=" + Unit+"\nQty="+qty;
 
 
 
-     }
-     shareMessage(message);
- }
+        }
+        shareMessage(message);
+    }
     private void shareMessage(String message) {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
@@ -302,17 +311,16 @@ public class HandOverTelorList extends Fragment {
         }
 
 
-        openPdf();
+
+        pdfOpenintent = new Intent(getContext(), PdfViewActivity.class);
+        pdfOpenintent = pdfOpenintent.putExtra("PDFName","/HandoverItemList.pdf");
+        startActivity( pdfOpenintent);
+        //  openPdf();
 
     }
 
     void openPdf() {
-//        Intent intent = new Intent(Intent.ACTION_VIEW);
-//        String path =getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
-//        File file = new File(path, "ItemList.pdf");
-//
-//         intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-//        startActivity(intent);
+
 
 
         File file = new File(getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath(),
@@ -326,6 +334,48 @@ public class HandOverTelorList extends Fragment {
         } catch (ActivityNotFoundException e) {
 
         }
+
+//        try {
+//
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                File file = new File(getContext().getFilesDir() + "/HandoverItemList.pdf");
+//                Uri path = Uri.fromFile(file);
+//
+//                pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+//                pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                pdfOpenintent.setDataAndType(path, "application/pdf");
+//
+//                try {
+//                    // getContext().startService(Intent.createChooser(pdfOpenintent, "ReceivedItemList.pdf"));
+//                    getContext().startActivity(Intent.createChooser(pdfOpenintent, "HandoverItemList.pdf"));
+//                    Log.e("IR", "No exception");
+//                    Toast.makeText(getContext(),
+//                            "Available to View PDF", Toast.LENGTH_SHORT).show();
+//                } catch (ActivityNotFoundException e) {
+//                    Log.e("IR", "error: " + e.getMessage());
+//                    Toast.makeText(getContext(),
+//                            "No Application Available to View PDF", Toast.LENGTH_SHORT).show();
+//                }
+//            } else {
+//                File file = new File(getContext().getFilesDir(),
+//                        "/ReceivedItemList.pdf");
+//
+//
+//
+//                Uri path = Uri.fromFile(file);
+//                Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+//                pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                pdfOpenintent.setDataAndType(path, "application/pdf");
+//                try {
+//                    getActivity().startActivity(Intent.createChooser(pdfOpenintent, "HandoverItemList.pdf"));
+//                } catch (ActivityNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+
 
 
     }

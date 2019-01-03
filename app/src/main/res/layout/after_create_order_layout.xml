@@ -40,25 +40,25 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Customer Name">
-                        <AutoCompleteTextView
-                            android:id="@+id/customerName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="  "
-                            android:textSize="14sp"
-                            android:inputType="text"
-                            android:layout_weight="1"
-                            android:paddingLeft="20dp" />
+                            <AutoCompleteTextView
+                                android:id="@+id/customerName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="  "
+                                android:textSize="14sp"
+                                android:inputType="text"
+                                android:layout_weight="1"
+                                android:paddingLeft="20dp" />
                         </android.support.design.widget.TextInputLayout>
 
                         <!--<ImageButton-->
-                            <!--android:id="@+id/addnewCustomerButton"-->
-                            <!--android:layout_width="20dp"-->
-                            <!--android:layout_height="20dp"-->
-                            <!--android:src="@drawable/ic_add_white_24dp"-->
-                            <!--android:background="@color/white"-->
-                            <!--android:tint="@color/colorAccent"-->
-                            <!--android:layout_margin="10dp" />-->
+                        <!--android:id="@+id/addnewCustomerButton"-->
+                        <!--android:layout_width="20dp"-->
+                        <!--android:layout_height="20dp"-->
+                        <!--android:src="@drawable/ic_add_white_24dp"-->
+                        <!--android:background="@color/white"-->
+                        <!--android:tint="@color/colorAccent"-->
+                        <!--android:layout_margin="10dp" />-->
 
                         <ImageButton
                             android:id="@+id/addnewCustomerButton"
@@ -79,6 +79,15 @@
                             android:background="@drawable/ic_share_black_24dp"
                             android:visibility="visible"
                             android:layout_alignParentRight="true" />
+                        <ImageButton
+                            android:id="@+id/printButton"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_margin="5dp"
+                            android:tint="@color/colorAccent"
+                            android:background="@drawable/ic_print_black_24dp"
+                            android:visibility="visible"
+                            android:layout_alignParentRight="true"/>
 
 
                     </LinearLayout>
@@ -98,15 +107,15 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Mobile">
-                        <EditText
-                            android:id="@+id/customerContact"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:hint="       "
-                            android:textSize="14sp"
-                            android:layout_weight="1"
-                            android:textColor="@color/black"
-                            android:paddingLeft="20dp"/>
+                            <EditText
+                                android:id="@+id/customerContact"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:hint="       "
+                                android:textSize="14sp"
+                                android:layout_weight="1"
+                                android:textColor="@color/black"
+                                android:paddingLeft="20dp"/>
                         </android.support.design.widget.TextInputLayout>
                         <TextView
                             android:layout_width="8dp"
@@ -117,26 +126,26 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Address">
-                        <EditText
-                            android:id="@+id/interiorAddress"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:hint="      "
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:layout_weight="1"
-                           android:gravity="center" />
+                            <EditText
+                                android:id="@+id/interiorAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:hint="      "
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:layout_weight="1"
+                                android:gravity="center" />
                         </android.support.design.widget.TextInputLayout>
 
 
                     </LinearLayout>
                     <LinearLayout
-                    android:id="@+id/interiorLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/dateLayout"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                        android:id="@+id/interiorLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/dateLayout"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/input_layout_Picker"
@@ -144,17 +153,17 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Date">
-                        <EditText
-                            android:id="@+id/orderDatePicker"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="                   "
-                            android:textSize="14sp"
-                            android:textColor="@color/black"
-                            android:layout_weight="1"
-                            android:paddingLeft="15dp"
-                            android:layout_marginRight="5dp"
-                            android:inputType="none" />
+                            <EditText
+                                android:id="@+id/orderDatePicker"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="                   "
+                                android:textSize="14sp"
+                                android:textColor="@color/black"
+                                android:layout_weight="1"
+                                android:paddingLeft="15dp"
+                                android:layout_marginRight="5dp"
+                                android:inputType="none" />
                         </android.support.design.widget.TextInputLayout>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/input_layout_Amount"
@@ -162,18 +171,18 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Amount">
-                        <EditText
-                            android:id="@+id/amountValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint=" "
-                            android:text="0.0"
-                            android:textSize="14sp"
-                            android:textColor="@color/black"
-                            android:paddingLeft="15dp"
-                            android:layout_weight="1"
-                            android:inputType="number"
-                            android:layout_marginLeft="5dp" />
+                            <EditText
+                                android:id="@+id/amountValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint=" "
+                                android:text="0.0"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"
+                                android:paddingLeft="15dp"
+                                android:layout_weight="1"
+                                android:inputType="number"
+                                android:layout_marginLeft="5dp" />
                         </android.support.design.widget.TextInputLayout>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/input_layout_total"
@@ -181,14 +190,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Total Amount">
-                        <EditText
-                            android:id="@+id/textViewATotalAmount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="           "
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:layout_weight="1" />
+                            <EditText
+                                android:id="@+id/textViewATotalAmount"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="           "
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:layout_weight="1" />
                         </android.support.design.widget.TextInputLayout>
 
 
@@ -295,18 +304,18 @@
                         android:layout_below="@+id/buttonHallLayout">
 
                         <!--<Button-->
-                            <!--android:id="@+id/addRoom"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="40dp"-->
-                            <!--android:background="@drawable/add_cancel_button_shape"-->
-                            <!--android:text="Add Room"-->
-                            <!--android:textAllCaps="false"-->
-                            <!--android:textColor="@color/white"-->
-                            <!--android:textSize="16sp"-->
-                            <!--android:visibility="visible"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_alignParentRight="true"-->
-                            <!--android:layout_margin="5dp" />-->
+                        <!--android:id="@+id/addRoom"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--android:background="@drawable/add_cancel_button_shape"-->
+                        <!--android:text="Add Room"-->
+                        <!--android:textAllCaps="false"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_margin="5dp" />-->
                         <!--<Button-->
                         <!--android:id="@+id/addstatus"-->
                         <!--android:layout_width="match_parent"-->

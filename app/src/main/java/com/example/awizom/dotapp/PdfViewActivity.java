@@ -13,6 +13,8 @@ import java.io.File;
 public class PdfViewActivity extends AppCompatActivity {
 
     private WebView webview;
+    private String PDFName;
+    File dir;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,9 +23,33 @@ public class PdfViewActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        webview = findViewById(R.id.pdfView);
 
-        File dir = new File(PdfViewActivity.this.getFilesDir() + "/ReceivedItemList.pdf");
+        webview = findViewById(R.id.pdfView);
+        PDFName = getIntent().getExtras().getString("PDFName","");
+
+        if(PDFName.contains("/OrderItemList.pdf")){
+            dir = new File(PdfViewActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath() + PDFName);
+        } else if(PDFName.contains("/HandoverItemList.pdf")){
+            dir = new File(PdfViewActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath() + PDFName);
+        }else if(PDFName.contains("/ReceivedItemList.pdf")){
+            dir = new File(PdfViewActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath() + PDFName);
+        }
+
+        else if(PDFName.contains("/OrderItemAdapter.pdf")){
+            dir = new File(PdfViewActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath() + PDFName);
+        } else if(PDFName.contains("/OrderListAdapter.pdf")){
+            dir = new File(PdfViewActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath() + PDFName);
+        }
+
+        else if(PDFName.contains("/NewOrderList.pdf")){
+            dir = new File(PdfViewActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath() + PDFName);
+        }
+
+        else {
+            dir = new File(PdfViewActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath() + PDFName);
+
+        }
+
         Uri file = Uri.fromFile(dir);
 //        Uri file = Uri.parse("file:///android_asset/ReceivedItemList.pdf");
 

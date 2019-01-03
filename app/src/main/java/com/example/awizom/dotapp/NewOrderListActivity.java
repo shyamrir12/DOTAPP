@@ -3,28 +3,47 @@ package com.example.awizom.dotapp;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
+import com.example.awizom.dotapp.Fragments.HandOverTelorList;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class NewOrderListActivity extends AppCompatActivity {
+public class NewOrderListActivity extends AppCompatActivity implements View.OnClickListener {
     private Intent intent;
     //ProgressDialog progressDialog;
     List<DataOrder> orderList;
@@ -36,7 +55,10 @@ public class NewOrderListActivity extends AppCompatActivity {
     String statusName = "";
     String dailogMessage = "";
     String countvalue = "";
+    private String message="";
     TextView errorMsg;
+    private Intent pdfOpenintent;
+    private ImageButton print,share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +71,8 @@ public class NewOrderListActivity extends AppCompatActivity {
 
         // progressDialog = new ProgressDialog(getApplicationContext());
         errorMsg = findViewById(R.id.errorMessage);
+        print=findViewById(R.id.print);
+        share=findViewById(R.id.share);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -62,6 +86,8 @@ public class NewOrderListActivity extends AppCompatActivity {
         statusName = getIntent().getExtras().getString("StatusName", "");
         dailogMessage = getIntent().getExtras().getString("DailogMessage", "");
         countvalue = getIntent().getExtras().getString("Count", "");
+        share.setOnClickListener(this);
+        print.setOnClickListener(this);
 
         if (statusName.equals("Reset")) {
             getSupportActionBar().setTitle("Dispatch");
@@ -130,6 +156,177 @@ public class NewOrderListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId())
+        {
+            case R.id.share:
+                CreateMessage();
+                  break;
+            case R.id.print:
+                CreatePdf();
+                break;
+
+
+
+        }
+
+
+
+
+    }
+
+    private void CreatePdf() {
+
+        Document doc = new Document();
+
+        PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2, 2, 2});
+        table.getDefaultCell().
+
+                setHorizontalAlignment(Element.ALIGN_CENTER);
+
+        table.addCell("Customer Name");
+        table.addCell("Address");
+        table.addCell("Mobile");
+        table.addCell("Date");
+        table.addCell("Advance");
+        table.addCell("Amount");
+
+        table.setHeaderRows(1);
+        PdfPCell[] cells = table.getRow(0).getCells();
+        for (
+                int j = 0;
+                j < cells.length; j++)
+
+        {
+            cells[j].setBackgroundColor(BaseColor.GRAY);
+        }
+
+
+        for (
+                int i = 0;
+                i < orderList.size(); i++)
+
+
+        {
+
+            table.addCell(orderList.get(i).getCustomerName().toString());
+            table.addCell(orderList.get(i).getAddress().toString());
+            table.addCell(orderList.get(i).getMobile().toString());
+            table.addCell(String.valueOf(orderList.get(i).getOrderDate().split("-")[0].trim()));
+            table.addCell(String.valueOf(orderList.get(i).getAdvance()));
+            table.addCell(String.valueOf(orderList.get(i).getTotalAmount()));
+
+
+
+        }
+
+        try
+
+        {
+            // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+
+            String path = getApplicationContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+
+            File dir = new File(String.valueOf(path));
+            if (!dir.exists())
+                dir.mkdirs();
+
+            Log.d("PDFCreator", "PDF Path: " + path);
+
+            File file = new File(dir, "NewOrderList.pdf");
+
+            FileOutputStream fOut = new FileOutputStream(file);
+
+
+            PdfWriter.getInstance(doc, fOut);
+
+            //open the document
+            doc.open();
+
+            Paragraph p1 = new Paragraph("list");
+
+
+            /* You can also SET FONT and SIZE like this */
+            Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
+            p1.setAlignment(Paragraph.ALIGN_CENTER);
+
+            p1.setSpacingAfter(20);
+            p1.setFont(paraFont1);
+            doc.add(p1);
+
+            /* You can also SET FONT and SIZE like this */
+
+
+            doc.setMargins(0, 0, 5, 5);
+            doc.add(table);
+
+            Phrase footerText = new Phrase("This is an example of a footer");
+            NewOrderListActivity.HeaderFooter pdfFooter = new NewOrderListActivity.HeaderFooter();
+            doc.newPage();
+
+            Toast.makeText(getApplicationContext(), "Created...", Toast.LENGTH_LONG).show();
+
+
+        } catch (
+                DocumentException de)
+
+        {
+            Log.e("PDFCreator", "DocumentException:" + de);
+        } catch (
+                IOException e)
+
+        {
+            Log.e("PDFCreator", "ioException:" + e);
+        } finally
+
+        {
+            doc.close();
+        }
+
+
+
+        pdfOpenintent = new Intent(getApplicationContext(), PdfViewActivity.class);
+        pdfOpenintent = pdfOpenintent.putExtra("PDFName","/NewOrderList.pdf");
+        startActivity( pdfOpenintent);
+        //  openPdf();
+
+    }
+
+    private void CreateMessage()
+    {
+        String message="";
+        for(int i=0;i<orderList.size();  i++  ) {
+
+            String CustomerName="",Address="",Mobile="",Date="",Advance="",Amount="";
+
+                CustomerName = (orderList.get(i).getCustomerName().toString());
+                Address = (orderList.get(i).getAddress().toString());
+                Mobile = (orderList.get(i).getMobile().toString());
+                Date = (orderList.get(i).getOrderDate().toString().split("T")[0].trim());
+                Advance = String.valueOf((orderList.get(i).getAdvance()));
+                Amount = (orderList.get(i).getTotalAmount().toString());
+
+                message = message+ "\nCustomerName = " + CustomerName +
+                        "\nAddress = " + Address +
+                        "\nMobile = " + Mobile +
+                        "\nDate = " + Date +
+                        "\nAdvance = " + Advance +
+                        "\nAmount = " + Amount;
+
+        }
+        shareMessage(message);
+    }
+
+    private void shareMessage(String message) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+        shareIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(Intent.createChooser(shareIntent, "SHARE"));
+    }
+
     private class GetOrderDetails extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -183,4 +380,71 @@ public class NewOrderListActivity extends AppCompatActivity {
 
     }
 
+    private class HeaderFooter {
+
+        Phrase[] header = new Phrase[2];
+        /**
+         * Current page number (will be reset for every chapter).
+         */
+        int pagenumber;
+
+        /**
+         * Initialize one of the headers.
+         *
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onOpenDocument(
+         *com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+         */
+        public void onOpenDocument(PdfWriter writer, Document document) {
+            header[0] = new Phrase("Movie history");
+        }
+
+        /**
+         * Initialize one of the headers, based on the chapter title;
+         * reset the page number.
+         *
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onChapter(
+         *com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document, float,
+         * com.itextpdf.text.Paragraph)
+         */
+        public void onChapter(PdfWriter writer, Document document,
+                              float paragraphPosition, Paragraph title) {
+            header[1] = new Phrase(title.getContent());
+            pagenumber = 1;
+        }
+
+        /**
+         * Increase the page number.
+         *
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onStartPage(
+         *com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+         */
+        public void onStartPage(PdfWriter writer, Document document) {
+            pagenumber++;
+        }
+
+        /**
+         * Adds the header and the footer.
+         *
+         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onEndPage(
+         *com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+         */
+        public void onEndPage(PdfWriter writer, Document document) {
+            Rectangle rect = writer.getBoxSize("art");
+            switch (writer.getPageNumber() % 2) {
+                case 0:
+                    ColumnText.showTextAligned(writer.getDirectContent(),
+                            Element.ALIGN_RIGHT, header[0],
+                            rect.getRight(), rect.getTop(), 0);
+                    break;
+                case 1:
+                    ColumnText.showTextAligned(writer.getDirectContent(),
+                            Element.ALIGN_LEFT, header[1],
+                            rect.getLeft(), rect.getTop(), 0);
+                    break;
+            }
+            ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_CENTER, new Phrase(String.format("page %d", pagenumber)),
+                    (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
+        }
+    }
 }
