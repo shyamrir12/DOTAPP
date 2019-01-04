@@ -18,6 +18,7 @@ import com.example.awizom.dotapp.Adapters.OrderListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.HandOverTelorList;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -59,6 +60,10 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
     TextView errorMsg;
     private Intent pdfOpenintent;
     private ImageButton print,share;
+    private  String id,c_name,c_contact,t_amt,r_n ;
+    List<CatelogOrderDetailModel> orderestimateforcustomer;
+    List<String> roomList;
+    String p1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,10 +167,19 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId())
         {
             case R.id.share:
-                CreateMessage();
+                try {
+                    getShareFunctioncall();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                   break;
             case R.id.print:
-                CreatePdf();
+                try {
+                    getPrintFunctioncalls();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 break;
 
 
@@ -379,6 +393,304 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
         }
 
     }
+
+    private void getShareFunctioncall() {
+
+        for(int i=0;i<orderList.size();  i++  ) {
+             id = String.valueOf(orderList.get(i).getOrderID());
+        }
+        try {
+            mSwipeRefreshLayout.setRefreshing(true);
+            // progressDialog.setMessage("loading...");
+            //  progressDialog.show();
+            new detailsGET().execute( id, SharedPrefManager.getInstance(this).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    private class detailsGET extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            //String roomName = strings[0];
+            String orderID = strings[0];
+            String accesstoken = strings[1];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                // progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+
+            return json;
+
+        }
+
+        protected void onPostExecute(String result) {
+            try {
+
+                if (result.isEmpty()) {
+                    //progressDialog.dismiss();
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                } else {
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
+                    }.getType();
+                    orderestimateforcustomer = new Gson().fromJson(result, listType);
+                    String message="";
+                    String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
+                    for (int i = 0; i < orderList.size(); i++) {
+                        c_name = orderList.get(i).getCustomerName();
+                        c_contact = orderList.get(i).getMobile();
+                        t_amt = String.valueOf(orderList.get(i).getTotalAmount());
+                        r_n = orderList.get(i).getRoomList().split("-")[0];
+
+                        message = message + "\nMr./Mrs. = " + c_name + "\n Mobile no = " + c_contact
+                                + "\nRoom  =" + r_n + "\n";
+                    }
+                    for(int p=0;p<orderestimateforcustomer.size();  p++  ) {
+
+                                materialtype = (orderestimateforcustomer.get(p).getMaterialType().toString());
+
+                                Aqty = String.valueOf(orderestimateforcustomer.get(p).getAQty());
+
+                                Unit = (orderestimateforcustomer.get(p).getUnit().toString());
+
+                                Price = (String.valueOf(Math.floor(orderestimateforcustomer.get(p).getPrice2())));
+                                qty_price = String.valueOf(Math.floor(orderestimateforcustomer.get(p).getAQty() * orderestimateforcustomer.get(p).getPrice2()));
+
+                                //message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n";
+
+
+
+                    }
+                    message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n" + "Total Amount= " +t_amt + "\n";
+                    shareMessage(message);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void getPrintFunctioncalls() {
+        for(int i=0;i<orderList.size();  i++  ) {
+            id = String.valueOf(orderList.get(i).getOrderID());
+        }
+        try {
+            mSwipeRefreshLayout.setRefreshing(true);
+            // progressDialog.setMessage("loading...");
+            //  progressDialog.show();
+            new detailseGET().execute( id, SharedPrefManager.getInstance(this).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mSwipeRefreshLayout.setRefreshing(false);
+            //progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class detailseGET extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            //String roomName = strings[0];
+            String orderID = strings[0];
+            String accesstoken = strings[1];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                // progressDialog.dismiss();
+                mSwipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+
+            return json;
+
+        }
+
+        protected void onPostExecute(String result) {
+            try {
+
+                if (result.isEmpty()) {
+                    //progressDialog.dismiss();
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                } else {
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
+                    }.getType();
+                    orderestimateforcustomer = new Gson().fromJson(result, listType);
+
+                    String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
+
+
+
+
+
+                    Document doc = new Document();
+
+                    PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2});
+                    table.getDefaultCell().
+
+                            setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                    table.addCell("Name");
+                    table.addCell("Contact No");
+                    table.addCell("Items");
+                    table.addCell("Total");
+
+
+                    table.setHeaderRows(1);
+                    PdfPCell[] cells = table.getRow(0).getCells();
+                    for (
+                            int j = 0;
+                            j < cells.length; j++) {
+                        cells[j].setBackgroundColor(BaseColor.GRAY);
+                    }
+
+                    for (int j = 0; j < orderList.size(); j++) {
+                        c_name = orderList.get(j).getCustomerName();
+                        c_contact = orderList.get(j).getMobile();
+                        t_amt = String.valueOf(orderList.get(j).getTotalAmount());
+                        r_n = orderList.get(j).getRoomList().split("-")[0];
+
+                    for (
+                            int i = 0;
+                            i < orderestimateforcustomer.size(); i++) {
+                            materialtype = (orderestimateforcustomer.get(i).getMaterialType().toString());
+                            Aqty = String.valueOf(orderestimateforcustomer.get(i).getAQty());
+                            Unit = (orderestimateforcustomer.get(i).getUnit().toString());
+                            Price = (String.valueOf(Math.floor(orderestimateforcustomer.get(i).getPrice2())));
+                            qty_price = String.valueOf(Math.floor(orderestimateforcustomer.get(i).getAQty() * orderestimateforcustomer.get(i).getPrice2()));
+
+                        }
+                        message = r_n + "\n" + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n"
+                                    + "Total Amount= " + String.valueOf(orderList.get(j).getTotalAmount()) + "\n";
+
+                        table.addCell(c_name);
+                        table.addCell(c_contact);
+                        table.addCell(message);
+                        table.addCell(String.valueOf(orderList.get(j).getTotalAmount()));
+                    }
+
+
+                    try
+
+                    {
+                        // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+
+                        String path = NewOrderListActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+                        File dir = new File(String.valueOf(path));
+                        if (!dir.exists())
+                            dir.mkdirs();
+
+                        Log.d("PDFCreator", "PDF Path: " + path);
+
+                        File file = new File(dir, "NewOrderList.pdf");
+
+                        FileOutputStream fOut = new FileOutputStream(file);
+
+
+                        PdfWriter.getInstance(doc, fOut);
+
+                        //open the document
+                        doc.open();
+
+                        Paragraph p1 = new Paragraph(c_name);
+
+
+                        /* You can also SET FONT and SIZE like this */
+                        Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
+                        p1.setAlignment(Paragraph.ALIGN_CENTER);
+
+                        p1.setSpacingAfter(20);
+                        p1.setFont(paraFont1);
+                        doc.add(p1);
+
+                        Paragraph p2 = new Paragraph(c_contact);
+
+
+                        /* You can also SET FONT and SIZE like this */
+//                        Font paraFont2 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
+//                        p2.setAlignment(Paragraph.ALIGN_CENTER);
+//
+//                        p2.setSpacingAfter(20);
+//                        p2.setFont(paraFont2);
+//                        doc.add(p2);
+
+                        /* You can also SET FONT and SIZE like this */
+
+
+                        doc.setMargins(0, 0, 5, 5);
+                        doc.add(table);
+
+                        Phrase footerText = new Phrase("This is an example of a footer");
+                        NewOrderListActivity.HeaderFooter pdfFooter = new NewOrderListActivity.HeaderFooter();
+                        doc.newPage();
+
+                        Toast.makeText(getApplicationContext(), "Created...", Toast.LENGTH_LONG).show();
+
+
+                    } catch (
+                            DocumentException de)
+
+                    {
+                        Log.e("PDFCreator", "DocumentException:" + de);
+                    } catch (
+                            IOException e)
+
+                    {
+                        Log.e("PDFCreator", "ioException:" + e);
+                    } finally
+
+                    {
+                        doc.close();
+                    }
+                    mSwipeRefreshLayout.setRefreshing(false);
+
+                    pdfOpenintent = new Intent(NewOrderListActivity.this, PdfViewActivity.class);
+                    pdfOpenintent = pdfOpenintent.putExtra("PDFName","/NewOrderList.pdf");
+                    startActivity( pdfOpenintent);
+
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 
     private class HeaderFooter {
 

@@ -29,9 +29,11 @@ import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.HandOverModel;
 import com.example.awizom.dotapp.Models.Result;
+import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.PdfViewActivity;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -48,6 +50,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -68,9 +71,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private EditText editReceivedBy;
     private Button okRecevedButton,canceLOrderButton;
     private ImageButton print,share;
-    private String message="";
+    private String message="",id="";
     private Intent pdfOpenintent;
     private HandOverModel orderitemcatlog;
+    List<CatelogOrderDetailModel> orderestimateforcustomer;
+    private  String c_name,c_contact,t_amt,r_n ;
 
     public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey, String valueButtonname, String statusName) {
         this.mCtx = mCtx;
@@ -106,29 +111,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             if( Double.toString(order.getTotalAmount()).equals("0.0")){
                 holder.canceLOrderButton.setVisibility(View.GONE);
             }
-//            else if(filterKey.equals("PandingToPlaceOrder")){
-//                holder.buttonActualOrder.setVisibility(View.GONE);
-//                holder.buttonOrder.setVisibility(View.GONE);
-//            }else if(filterKey.equals("PandingToReceiveMaterial")){
-//                holder.buttonActualOrder.setVisibility(View.GONE);
-//                holder.buttonOrder.setVisibility(View.GONE);
-//            }else if(filterKey.equals("PandingToHandOverTo")){
-//                holder.buttonActualOrder.setVisibility(View.GONE);
-//                holder.buttonOrder.setVisibility(View.GONE);
-//            }else if(filterKey.equals("PandingToReceivedFromTelor")){
-//                holder.buttonActualOrder.setVisibility(View.GONE);
-//                holder.buttonOrder.setVisibility(View.GONE);
-//            }else if(filterKey.equals("Hold")){
-//                holder.buttonOrder.setVisibility(View.GONE);
-//                holder.buttonActualOrder.setVisibility(View.GONE);
-//            }else if(filterKey.equals("Dispatch")){
-//               holder.buttonOrder.setVisibility(View.GONE);
-//               holder.buttonActualOrder.setVisibility(View.GONE);
-//           }else{
-//               holder.buttonOrder.setVisibility(View.VISIBLE);
-//               holder.buttonActualOrder.setVisibility(View.VISIBLE);
-//           }
-
 
         } catch (Exception E) {
             E.printStackTrace();
@@ -485,136 +467,139 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 //
 //                alertbox.show();
                 }  if (v.getId() == share.getId()) {
-                                message = "\nCustomerName = " + orderitem.getCustomerName()+
-                                            "\nAddress = " + orderitem.getAddress() +
-                                             "\nMobile = " + orderitem.getMobile()+
-                                             "\nDate = " + orderitem.getOrderDate()+
-                                             "\nAdvance = " + orderitem.getAdvance() +
-                                             "\nAmount = " + orderitem.getTotalAmount();
 
-                                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                                shareIntent.setType("text/plain");
-                                shareIntent.putExtra(Intent.EXTRA_TEXT, message);
-                                shareIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                                mCtx.startActivity(Intent.createChooser(shareIntent, "SHARE"));
+          getShareFunctioncall();
+//                                message = "\nCustomerName = " + orderitem.getCustomerName()+
+//                                            "\nAddress = " + orderitem.getAddress() +
+//                                             "\nMobile = " + orderitem.getMobile()+
+//                                             "\nDate = " + orderitem.getOrderDate()+
+//                                             "\nAdvance = " + orderitem.getAdvance() +
+//                                             "\nAmount = " + orderitem.getTotalAmount();
+//
+//                                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//                                shareIntent.setType("text/plain");
+//                                shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+//                                shareIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//
+//                                mCtx.startActivity(Intent.createChooser(shareIntent, "SHARE"));
 
                      }
              if (v.getId() == print.getId()) {
-
-                    Document doc = new Document();
-
-                PdfPTable table = new PdfPTable(new float[]{2, 2,2, 2, 2,2,2});
-                table.getDefaultCell().
-
-                        setHorizontalAlignment(Element.ALIGN_CENTER);
-
-
-
-
-                table.addCell("CustomerName");
-                table.addCell("Address");
-                table.addCell("Mobile");
-                table.addCell("Item");
-                table.addCell("Date");
-                table.addCell("Advance");
-                table.addCell("Amount");
-                table.setHeaderRows(1);
-                PdfPCell[] cells = table.getRow(0).getCells();
-                for (
-                        int j = 0;
-                        j < cells.length; j++)
-
-                {
-                    cells[j].setBackgroundColor(BaseColor.GRAY);
-                }
-
-
-
-
-                {
-
-                    table.addCell(orderitem.getCustomerName().toString());
-                    table.addCell( orderitem.getAddress());
-                    table.addCell(orderitem.getMobile());
-                   table.addCell(orderitem.getRoomList().split("-")[0].trim());
-                    table.addCell(orderitem.getOrderDate().split("T")[0].trim());
-                    table.addCell(String.valueOf(orderitem.getAdvance()));
-                    table.addCell(String.valueOf(orderitem.getTotalAmount()));
-
-
-
-                }
-
-                try
-
-                {
-                    // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
-
-                    String path = mCtx.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
-
-                    File dir = new File(String.valueOf(path));
-                    if (!dir.exists())
-                        dir.mkdirs();
-
-                    Log.d("PDFCreator", "PDF Path: " + path);
-
-                    File file = new File(dir, "OrderListAdapter.pdf");
-
-                    FileOutputStream fOut = new FileOutputStream(file);
-
-
-                    PdfWriter.getInstance(doc, fOut);
-
-                    //open the document
-                    doc.open();
-
-                    Paragraph p1 = new Paragraph("Regards by :-" + SharedPrefManager.getInstance(mCtx).getUser().getUserName());
-
-
-                    /* You can also SET FONT and SIZE like this */
-                    Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
-                    p1.setAlignment(Paragraph.ALIGN_CENTER);
-
-                    p1.setSpacingAfter(20);
-                    p1.setFont(paraFont1);
-                    doc.add(p1);
-
-                    /* You can also SET FONT and SIZE like this */
-
-
-                    doc.setMargins(0, 0, 5, 5);
-                    doc.add(table);
-
-                    Phrase footerText = new Phrase("This is an example of a footer");
-                    OrderListAdapter.HeaderFooter pdfFooter = new OrderListAdapter.HeaderFooter();
-                    doc.newPage();
-
-                    Toast.makeText(mCtx, "Created...", Toast.LENGTH_LONG).show();
-
-
-                } catch (
-                        DocumentException de)
-
-                {
-                    Log.e("PDFCreator", "DocumentException:" + de);
-                } catch (
-                        IOException e)
-
-                {
-                    Log.e("PDFCreator", "ioException:" + e);
-                } finally
-
-                {
-                    doc.close();
-                }
-
-                pdfOpenintent = new Intent();
-                pdfOpenintent = new Intent(mCtx, PdfViewActivity.class);
-                pdfOpenintent = pdfOpenintent.putExtra("PDFName","/OrderListAdapter.pdf");
-
-                mCtx.startActivity( pdfOpenintent);
-
+          getPrintFunctioncalls();
+//
+//                    Document doc = new Document();
+//
+//                PdfPTable table = new PdfPTable(new float[]{2, 2,2, 2, 2,2,2});
+//                table.getDefaultCell().
+//
+//                        setHorizontalAlignment(Element.ALIGN_CENTER);
+//
+//
+//
+//
+//                table.addCell("CustomerName");
+//                table.addCell("Address");
+//                table.addCell("Mobile");
+//                table.addCell("Item");
+//                table.addCell("Date");
+//                table.addCell("Advance");
+//                table.addCell("Amount");
+//                table.setHeaderRows(1);
+//                PdfPCell[] cells = table.getRow(0).getCells();
+//                for (
+//                        int j = 0;
+//                        j < cells.length; j++)
+//
+//                {
+//                    cells[j].setBackgroundColor(BaseColor.GRAY);
+//                }
+//
+//
+//
+//
+//                {
+//
+//                    table.addCell(orderitem.getCustomerName().toString());
+//                    table.addCell( orderitem.getAddress());
+//                    table.addCell(orderitem.getMobile());
+//                    table.addCell(orderitem.getRoomList().split("-")[0].trim());
+//                    table.addCell(orderitem.getOrderDate().split("T")[0].trim());
+//                    table.addCell(String.valueOf(orderitem.getAdvance()));
+//                    table.addCell(String.valueOf(orderitem.getTotalAmount()));
+//
+//
+//
+//                }
+//
+//                try
+//
+//                {
+//                    // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+//
+//                    String path = mCtx.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+//
+//                    File dir = new File(String.valueOf(path));
+//                    if (!dir.exists())
+//                        dir.mkdirs();
+//
+//                    Log.d("PDFCreator", "PDF Path: " + path);
+//
+//                    File file = new File(dir, "OrderListAdapter.pdf");
+//
+//                    FileOutputStream fOut = new FileOutputStream(file);
+//
+//
+//                    PdfWriter.getInstance(doc, fOut);
+//
+//                    //open the document
+//                    doc.open();
+//
+//                    Paragraph p1 = new Paragraph("Regards by :-" + SharedPrefManager.getInstance(mCtx).getUser().getUserName());
+//
+//
+//                    /* You can also SET FONT and SIZE like this */
+//                    Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
+//                    p1.setAlignment(Paragraph.ALIGN_CENTER);
+//
+//                    p1.setSpacingAfter(20);
+//                    p1.setFont(paraFont1);
+//                    doc.add(p1);
+//
+//                    /* You can also SET FONT and SIZE like this */
+//
+//
+//                    doc.setMargins(0, 0, 5, 5);
+//                    doc.add(table);
+//
+//                    Phrase footerText = new Phrase("This is an example of a footer");
+//                    OrderListAdapter.HeaderFooter pdfFooter = new OrderListAdapter.HeaderFooter();
+//                    doc.newPage();
+//
+//                    Toast.makeText(mCtx, "Created...", Toast.LENGTH_LONG).show();
+//
+//
+//                } catch (
+//                        DocumentException de)
+//
+//                {
+//                    Log.e("PDFCreator", "DocumentException:" + de);
+//                } catch (
+//                        IOException e)
+//
+//                {
+//                    Log.e("PDFCreator", "ioException:" + e);
+//                } finally
+//
+//                {
+//                    doc.close();
+//                }
+//
+//                pdfOpenintent = new Intent();
+//                pdfOpenintent = new Intent(mCtx, PdfViewActivity.class);
+//                pdfOpenintent = pdfOpenintent.putExtra("PDFName","/OrderListAdapter.pdf");
+//
+//                mCtx.startActivity( pdfOpenintent);
+//
                        }
 
             }
@@ -987,6 +972,307 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
         }
     }
+
+    private void getShareFunctioncall() {
+
+        for(int i=0;i<orderitemList.size();  i++  ) {
+            id = String.valueOf(orderitemList.get(i).getOrderID());
+        }
+        try {
+            new detailsGET().execute( id, SharedPrefManager.getInstance(mCtx).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    private class detailsGET extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            //String roomName = strings[0];
+            String orderID = strings[0];
+            String accesstoken = strings[1];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+
+            return json;
+
+        }
+
+        protected void onPostExecute(String result) {
+            try {
+
+                if (result.isEmpty()) {
+
+                    Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+                } else {
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
+                    }.getType();
+                    orderestimateforcustomer = new Gson().fromJson(result, listType);
+                    String message="";
+                    String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
+                    for (int i = 0; i < orderitemList.size(); i++) {
+                        c_name = orderitemList.get(i).getCustomerName();
+                        c_contact = orderitemList.get(i).getMobile();
+                        t_amt = String.valueOf(orderitemList.get(i).getTotalAmount());
+                        r_n = orderitemList.get(i).getRoomList().split("-")[0];
+
+
+                    }
+                    message = message + "\nMr./Mrs. = " + c_name + "\n Mobile no = " + c_contact
+                            + "\nRoom  =" + r_n + "\n";
+                    for(int p=0;p<orderestimateforcustomer.size();  p++  ) {
+
+                        materialtype = (orderestimateforcustomer.get(p).getMaterialType().toString());
+
+                        Aqty = String.valueOf(orderestimateforcustomer.get(p).getAQty());
+
+                        Unit = (orderestimateforcustomer.get(p).getUnit().toString());
+
+                        Price = (String.valueOf(Math.floor(orderestimateforcustomer.get(p).getPrice2())));
+                        qty_price = String.valueOf(Math.floor(orderestimateforcustomer.get(p).getAQty() * orderestimateforcustomer.get(p).getPrice2()));
+
+                        //message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n";
+
+
+
+                    }
+                    message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n" + "Total Amount= " +t_amt + "\n";
+                    shareMessage(message);
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void shareMessage(String message) {
+
+//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//        shareIntent.setType("text/plain");
+//        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+//        shareIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        mCtx.startActivity(Intent.createChooser(shareIntent, "SHARE"));
+
+        Intent sharingIntent = new Intent(Intent.ACTION_VIEW);
+        sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent chooserIntent = Intent.createChooser(sharingIntent, "SHARE");
+        chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mCtx.startActivity(chooserIntent);
+
+    }
+
+    private void getPrintFunctioncalls() {
+        for(int i=0;i<orderitemList.size();  i++  ) {
+            id = String.valueOf(orderitemList.get(i).getOrderID());
+        }
+        try {
+            new detailseGET().execute( id, SharedPrefManager.getInstance(mCtx).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class detailseGET extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            //String roomName = strings[0];
+            String orderID = strings[0];
+            String accesstoken = strings[1];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+
+            return json;
+
+        }
+
+        protected void onPostExecute(String result) {
+            try {
+
+                if (result.isEmpty()) {
+                    Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+                } else {
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
+                    }.getType();
+                    orderestimateforcustomer = new Gson().fromJson(result, listType);
+
+                    String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
+
+
+
+
+
+                    Document doc = new Document();
+
+                    PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2});
+                    table.getDefaultCell().
+
+                            setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                    table.addCell("Name");
+                    table.addCell("Contact No");
+                    table.addCell("Items");
+                    table.addCell("Total");
+
+
+                    table.setHeaderRows(1);
+                    PdfPCell[] cells = table.getRow(0).getCells();
+                    for (
+                            int j = 0;
+                            j < cells.length; j++) {
+                        cells[j].setBackgroundColor(BaseColor.GRAY);
+                    }
+
+                    for (int j = 0; j < orderitemList.size(); j++) {
+                        c_name = orderitemList.get(j).getCustomerName();
+                        c_contact = orderitemList.get(j).getMobile();
+                        t_amt = String.valueOf(orderitemList.get(j).getTotalAmount());
+                        r_n = orderitemList.get(j).getRoomList().split("-")[0];
+
+                        for (
+                                int i = 0;
+                                i < orderestimateforcustomer.size(); i++) {
+                            materialtype = (orderestimateforcustomer.get(i).getMaterialType().toString());
+                            Aqty = String.valueOf(orderestimateforcustomer.get(i).getAQty());
+                            Unit = (orderestimateforcustomer.get(i).getUnit().toString());
+                            Price = (String.valueOf(Math.floor(orderestimateforcustomer.get(i).getPrice2())));
+                            qty_price = String.valueOf(Math.floor(orderestimateforcustomer.get(i).getAQty() * orderestimateforcustomer.get(i).getPrice2()));
+
+                        }
+                        message = r_n + "\n" + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n"
+                                + "Total Amount= " + String.valueOf(orderitemList.get(j).getTotalAmount()) + "\n";
+
+
+                } table.addCell(c_name);
+                    table.addCell(c_contact);
+                    table.addCell(message);
+                    table.addCell(t_amt);
+
+
+                    try
+
+                    {
+                        // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+
+                        String path = mCtx.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+                        File dir = new File(String.valueOf(path));
+                        if (!dir.exists())
+                            dir.mkdirs();
+
+                        Log.d("PDFCreator", "PDF Path: " + path);
+
+                        File file = new File(dir, "OrderListAdapter.pdf");
+
+                        FileOutputStream fOut = new FileOutputStream(file);
+
+
+                        PdfWriter.getInstance(doc, fOut);
+
+                        //open the document
+                        doc.open();
+
+                        Paragraph p1 = new Paragraph(c_name);
+
+
+                        /* You can also SET FONT and SIZE like this */
+                        Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
+                        p1.setAlignment(Paragraph.ALIGN_CENTER);
+
+                        p1.setSpacingAfter(20);
+                        p1.setFont(paraFont1);
+                        doc.add(p1);
+
+                        Paragraph p2 = new Paragraph(c_contact);
+
+
+                        /* You can also SET FONT and SIZE like this */
+//                        Font paraFont2 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
+//                        p2.setAlignment(Paragraph.ALIGN_CENTER);
+//
+//                        p2.setSpacingAfter(20);
+//                        p2.setFont(paraFont2);
+//                        doc.add(p2);
+
+                        /* You can also SET FONT and SIZE like this */
+
+
+                        doc.setMargins(0, 0, 5, 5);
+                        doc.add(table);
+
+                        Phrase footerText = new Phrase("This is an example of a footer");
+                        OrderListAdapter.HeaderFooter pdfFooter = new OrderListAdapter.HeaderFooter();
+                        doc.newPage();
+
+                        Toast.makeText(mCtx, "Created...", Toast.LENGTH_LONG).show();
+
+
+                    } catch (
+                            DocumentException de)
+
+                    {
+                        Log.e("PDFCreator", "DocumentException:" + de);
+                    } catch (
+                            IOException e)
+
+                    {
+                        Log.e("PDFCreator", "ioException:" + e);
+                    } finally
+
+                    {
+                        doc.close();
+                    }
+
+                    pdfOpenintent = new Intent(mCtx, PdfViewActivity.class);
+                    pdfOpenintent = pdfOpenintent.putExtra("PDFName","/OrderListAdapter.pdf");
+                    pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mCtx.startActivity( pdfOpenintent);
+
+
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     private class HeaderFooter {
 

@@ -1,8 +1,6 @@
 package com.example.awizom.dotapp;
 
 import android.app.DatePickerDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -30,20 +28,15 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.awizom.dotapp.Adapters.OrderItemAdapter;
 import com.example.awizom.dotapp.Adapters.RoomListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.AddCustomerFragment;
-import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
 import com.example.awizom.dotapp.Fragments.CustomerListFrgment;
 import com.example.awizom.dotapp.Fragments.DatePickerFragment;
-import com.example.awizom.dotapp.Fragments.HandOverTelorList;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.CustomerModel;
 import com.example.awizom.dotapp.Models.DataOrder;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -54,11 +47,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-
 import com.example.awizom.dotapp.Models.HandOverModel;
 import com.example.awizom.dotapp.Models.Result;
 import com.google.gson.Gson;
@@ -91,7 +82,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     public String dateOb;
     public Calendar myCalendar;
     public Date date;
-    private AutoCompleteTextView c_name;
+    private AutoCompleteTextView c_name,r_name;
     private List<CustomerModel> customerlist;
     List<HandOverModel> handOverlist1;
     private CustomerModel customer;
@@ -132,13 +123,13 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     private void initView() {
 
-
+        getFunctioncall();
         getSupportActionBar().setTitle("Create Order");
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         pdfOpenintent = new Intent();
-        getFunctioncall();
+
         c_name = findViewById(R.id.customerName);
         c_contact = findViewById(R.id.customerContact);
         share =findViewById(R.id.shareButton);
@@ -202,8 +193,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 //                startActivity(intent);
 //            }
 //        });
-
-
         try {
             orderid = getIntent().getExtras().getString("OrderID", "");
             actualorder = getIntent().getExtras().getString("ActualOrder", "");
@@ -282,9 +271,9 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             new AfterCreateActivity.detailsGET().execute( orderid, SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
-            mSwipeRefreshLayout.setRefreshing(false);
+//            mSwipeRefreshLayout.setRefreshing(false);
             //progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -331,10 +320,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
                     }.getType();
                     orderestimateforcustomer = new Gson().fromJson(result, listType);
-
-
-
-
                     String message="";
                     message="Mr./Mrs. : "+c_name.getText()+"\n Mobile no "+c_contact.getText() + "\n";
 
@@ -721,7 +706,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.customer_add_layout, null);
+        final View dialogView = inflater.inflate(R.layout.openpdatedialog, null);
         dialogBuilder.setView(dialogView);
         final EditText cName, cContact, cAddress, interioName, interioContact;
         //  dialogBuilder.setTitle("Create Customer");
