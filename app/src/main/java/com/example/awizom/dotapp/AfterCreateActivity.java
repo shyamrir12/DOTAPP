@@ -391,6 +391,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             mSwipeRefreshLayout.setRefreshing(true);
             // progressDialog.setMessage("loading...");
             //  progressDialog.show();
+
             new AfterCreateActivity.detailseGET().execute( orderid, SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
@@ -445,16 +446,15 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     orderestimateforcustomer1 = new Gson().fromJson(result, listType);
                     Document doc = new Document();
 
-                    PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2, 2});
+                    PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2});
                     table.getDefaultCell().
 
                             setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                    table.addCell("Material Type");
-                    table.addCell("Aqty");
-                    table.addCell("Unit");
-                    table.addCell("Price");
-                    table.addCell("Qty_Price");
+                    table.addCell("Name");
+                    table.addCell("Contact No");
+                    table.addCell("Items");
+                    table.addCell("Total");
 
                     table.setHeaderRows(1);
                     PdfPCell[] cells = table.getRow(0).getCells();
@@ -464,20 +464,44 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     {
                         cells[j].setBackgroundColor(BaseColor.GRAY);
                     }
-                    for (
-                            int i = 0;
-                            i < orderestimateforcustomer1.size(); i++)
-                    {
+                    String message="";
+                   // message="Mr./Mrs. : "+c_name.getText()+"\n Mobile no "+c_contact.getText() + "\n";
 
-                        table.addCell(orderestimateforcustomer1.get(i).getMaterialType().toString());
-                        table.addCell(String.valueOf(orderestimateforcustomer1.get(i).getAQty()));
-                        table.addCell(orderestimateforcustomer1.get(i).getUnit().toString());
-                        table.addCell(String.valueOf(orderestimateforcustomer1.get(i).getPrice()));
-                        table.addCell(String.valueOf(Math.floor(orderestimateforcustomer.get(i).getAQty() * orderestimateforcustomer.get(i).getPrice2())));
+                    for(int j=0; j<roomList.size();j++) {
+                        message = message + "Room " + roomList.get( j ).split( "-" )[0] + "\n";
+                        for (int i = 0; i < orderestimateforcustomer1.size(); i++) {
+                            if (roomList.get( j ).split( "-" )[0].trim().equals( orderestimateforcustomer1.get( i ).getRoomName().trim() )) {
+                                String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
 
 
+                                materialtype = (orderestimateforcustomer1.get( i ).getMaterialType().toString());
+
+                                Aqty = String.valueOf( orderestimateforcustomer1.get( i ).getAQty() );
+
+                                Unit = (orderestimateforcustomer1.get( i ).getUnit().toString());
+
+                                Price = (String.valueOf( Math.floor( orderestimateforcustomer1.get( i ).getPrice2() ) ));
+                                qty_price = String.valueOf( Math.floor( orderestimateforcustomer1.get( i ).getAQty() * orderestimateforcustomer1.get( i ).getPrice2() ) );
+
+                                message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n";
+                            }
+
+
+                        }
 
                     }
+
+                   // message=message+"\n Total Amount= "+textViewATotalAmount.getText().toString();
+
+
+                        table.addCell(c_name.getText().toString());
+                        table.addCell(c_contact.getText().toString());
+                        table.addCell(message);
+                        table.addCell(textViewATotalAmount.getText().toString());
+
+
+
+
 
                     try
 

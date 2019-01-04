@@ -322,7 +322,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                         "\nS.No. = " + orderitem.getSerialNo() +
                         "\nDesign = " + orderitem.getDesign()+
                         "\nPageNo = " + Integer.toString(orderitem.getPageNo())+
-                        "\nQty = " + Double.toString(orderitem.getAQty()) + "\nUnit = " + orderitem.getOrderUnit()+
+                        "\nQty = " + Double.toString(orderitem.getAQty()) +
+                        "\nUnit = " + orderitem.getOrderUnit()+
                         "\nRegards=" +SharedPrefManager.getInstance(mCtx).getUser().getUserName();
 
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -338,18 +339,18 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
                 Document doc = new Document();
 
-                PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2, 2});
+                PdfPTable table = new PdfPTable(new float[]{2,2, 2, 2, 2, 2,2});
                 table.getDefaultCell().
 
                         setHorizontalAlignment(Element.ALIGN_CENTER);
 
                 table.addCell("Catalog Name");
                 table.addCell("Design");
-//                table.addCell("SerialNo");
+               table.addCell("SerialNo");
                 table.addCell("PageNo");
-//                table.addCell("Unit");
                 table.addCell("Qty");
                 table.addCell("Unit");
+                table.addCell( "UserName" );
                 // table.addCell("ReceivedBy");
 //                table.addCell("Regards");
                 //   table.addCell("Price");
@@ -369,12 +370,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 {
 
                     table.addCell(orderitem.getCatalogName().toString());
-                    table.addCell( orderitem.getSerialNo());
                     table.addCell(orderitem.getDesign());
-                    table.addCell(Double.toString(orderitem.getAQty()));
+                    table.addCell( orderitem.getSerialNo());
                     table.addCell(Integer.toString(orderitem.getPageNo()));
+                    table.addCell(Double.toString(orderitem.getAQty()));
                     table.addCell(orderitem.getOrderUnit());
-//                    table.addCell(SharedPrefManager.getInstance(mCtx).getUser().getUserName());
+                    table.addCell(SharedPrefManager.getInstance(mCtx).getUser().getUserName());
 
 
                 }
@@ -445,7 +446,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 pdfOpenintent = new Intent();
                 pdfOpenintent = new Intent(mCtx, PdfViewActivity.class);
                 pdfOpenintent = pdfOpenintent.putExtra("PDFName","/OrderItemAdapter.pdf");
-
+                pdfOpenintent = pdfOpenintent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK ) ;
                 mCtx.startActivity( pdfOpenintent);
 
 

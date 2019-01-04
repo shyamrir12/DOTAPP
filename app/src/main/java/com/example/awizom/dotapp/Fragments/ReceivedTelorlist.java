@@ -328,16 +328,6 @@ public class ReceivedTelorlist extends Fragment {
             doc.add(table);
             //     t=t_name.getText();
             /* Create Paragraph and Set Font */
-
-
-
-
-
-
-
-
-
-
             /* Inserting Image in PDF */
 //            ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //            Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.green_warning);

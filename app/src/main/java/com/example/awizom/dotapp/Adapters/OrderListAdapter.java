@@ -51,6 +51,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -441,47 +442,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mCtx.startActivity(intent);
                     }
-//                     AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-//                     alertbox.setIcon(R.drawable.ic_warning_black_24dp);
-//                     alertbox.setTitle("Do You Want to Cancel");
-//                     alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface arg0, int arg1) {
-//                       //    exit(0);
-//                        Intent intent = new Intent(mCtx, ItemListActivity.class);
-//                        intent = intent.putExtra("OrderID", String.valueOf(orderitem.OrderID));
-//                        intent = intent.putExtra("FilterKey", filterKey);
-//                        intent = intent.putExtra("StatusName", statusName);
-//                        intent = intent.putExtra("ButtonName", valueButtonname);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        mCtx.startActivity(intent);
-//                       // cancelOrderListPost();
-//                    }
-//                });
-//
-//                alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface arg0, int arg1) {
-//                        // Nothing will be happened when clicked on no button
-//                        // of Dialog
-//                    }
-//                });
-//
-//                alertbox.show();
+
                 }  if (v.getId() == share.getId()) {
 
           getShareFunctioncall();
-//                                message = "\nCustomerName = " + orderitem.getCustomerName()+
-//                                            "\nAddress = " + orderitem.getAddress() +
-//                                             "\nMobile = " + orderitem.getMobile()+
-//                                             "\nDate = " + orderitem.getOrderDate()+
-//                                             "\nAdvance = " + orderitem.getAdvance() +
-//                                             "\nAmount = " + orderitem.getTotalAmount();
-//
-//                                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-//                                shareIntent.setType("text/plain");
-//                                shareIntent.putExtra(Intent.EXTRA_TEXT, message);
-//                                shareIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//
-//                                mCtx.startActivity(Intent.createChooser(shareIntent, "SHARE"));
 
                      }
              if (v.getId() == print.getId()) {
@@ -1028,34 +992,38 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     }.getType();
                     orderestimateforcustomer = new Gson().fromJson(result, listType);
                     String message="";
-                    String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
-                    for (int i = 0; i < orderitemList.size(); i++) {
-                        c_name = orderitemList.get(i).getCustomerName();
-                        c_contact = orderitemList.get(i).getMobile();
-                        t_amt = String.valueOf(orderitemList.get(i).getTotalAmount());
-                        r_n = orderitemList.get(i).getRoomList().split("-")[0];
+                    message="Mr./Mrs. : "+orderitem.getCustomerName()+"\n Mobile no "+orderitem.getMobile() + "\n";
+                    if(orderitem.getActuRoomList().contains( "," )) {
+                        String[] roomlist = orderitem.getActuRoomList().split( "," );
 
+                        List<String> roomList = Arrays.asList( roomlist );
+                        for (int j = 0; j < roomList.size(); j++) {
+                            message = message + "Room " + roomList.get( j ).split( "-" )[0] + "\n";
+                            for (int i = 0; i < orderestimateforcustomer.size(); i++) {
+                                if (roomList.get( j ).split( "-" )[0].trim().equals( orderestimateforcustomer.get( i ).getRoomName().trim() )) {
+                                    String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
+
+
+                                    materialtype = (orderestimateforcustomer.get( i ).getMaterialType().toString());
+
+                                    Aqty = String.valueOf( orderestimateforcustomer.get( i ).getAQty() );
+
+                                    Unit = (orderestimateforcustomer.get( i ).getUnit().toString());
+
+                                    Price = (String.valueOf( Math.floor( orderestimateforcustomer.get( i ).getPrice2() ) ));
+                                    qty_price = String.valueOf( Math.floor( orderestimateforcustomer.get( i ).getAQty() * orderestimateforcustomer.get( i ).getPrice2() ) );
+
+                                    message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n";
+                                }
+
+
+                            }
+
+                        }
 
                     }
-                    message = message + "\nMr./Mrs. = " + c_name + "\n Mobile no = " + c_contact
-                            + "\nRoom  =" + r_n + "\n";
-                    for(int p=0;p<orderestimateforcustomer.size();  p++  ) {
 
-                        materialtype = (orderestimateforcustomer.get(p).getMaterialType().toString());
-
-                        Aqty = String.valueOf(orderestimateforcustomer.get(p).getAQty());
-
-                        Unit = (orderestimateforcustomer.get(p).getUnit().toString());
-
-                        Price = (String.valueOf(Math.floor(orderestimateforcustomer.get(p).getPrice2())));
-                        qty_price = String.valueOf(Math.floor(orderestimateforcustomer.get(p).getAQty() * orderestimateforcustomer.get(p).getPrice2()));
-
-                        //message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n";
-
-
-
-                    }
-                    message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n" + "Total Amount= " +t_amt + "\n";
+                    message=message+"\n Total Amount= "+orderitem.getATotalAmount().toString();
                     shareMessage(message);
 
                 }
@@ -1073,11 +1041,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 //        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        mCtx.startActivity(Intent.createChooser(shareIntent, "SHARE"));
 
-        Intent sharingIntent = new Intent(Intent.ACTION_VIEW);
-        sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Intent chooserIntent = Intent.createChooser(sharingIntent, "SHARE");
-        chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mCtx.startActivity(chooserIntent);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+        mCtx.startActivity(Intent.createChooser(shareIntent, "SHARE"));
 
     }
 
@@ -1133,12 +1100,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     }.getType();
                     orderestimateforcustomer = new Gson().fromJson(result, listType);
 
-                    String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
-
-
-
-
-
                     Document doc = new Document();
 
                     PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2});
@@ -1151,39 +1112,56 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     table.addCell("Items");
                     table.addCell("Total");
 
-
                     table.setHeaderRows(1);
                     PdfPCell[] cells = table.getRow(0).getCells();
                     for (
                             int j = 0;
-                            j < cells.length; j++) {
+                            j < cells.length; j++)
+                    {
                         cells[j].setBackgroundColor(BaseColor.GRAY);
                     }
+                    String message="";
+                    // message="Mr./Mrs. : "+c_name.getText()+"\n Mobile no "+c_contact.getText() + "\n";
+                    if(orderitem.getActuRoomList().contains( "," )) {
+                        String[] roomlist = orderitem.getActuRoomList().split( "," );
 
-                    for (int j = 0; j < orderitemList.size(); j++) {
-                        c_name = orderitemList.get(j).getCustomerName();
-                        c_contact = orderitemList.get(j).getMobile();
-                        t_amt = String.valueOf(orderitemList.get(j).getTotalAmount());
-                        r_n = orderitemList.get(j).getRoomList().split("-")[0];
+                        List<String> roomList = Arrays.asList( roomlist );
 
-                        for (
-                                int i = 0;
-                                i < orderestimateforcustomer.size(); i++) {
-                            materialtype = (orderestimateforcustomer.get(i).getMaterialType().toString());
-                            Aqty = String.valueOf(orderestimateforcustomer.get(i).getAQty());
-                            Unit = (orderestimateforcustomer.get(i).getUnit().toString());
-                            Price = (String.valueOf(Math.floor(orderestimateforcustomer.get(i).getPrice2())));
-                            qty_price = String.valueOf(Math.floor(orderestimateforcustomer.get(i).getAQty() * orderestimateforcustomer.get(i).getPrice2()));
+                    for(int j=0; j<roomList.size();j++) {
+                        message = message + "Room " + roomList.get( j ).split( "-" )[0] + "\n";
+                        for (int i = 0; i < orderestimateforcustomer.size(); i++) {
+                            if (roomList.get( j ).split( "-" )[0].trim().equals( orderestimateforcustomer.get( i ).getRoomName().trim() )) {
+                                String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
+
+
+                                materialtype = (orderestimateforcustomer.get( i ).getMaterialType().toString());
+
+                                Aqty = String.valueOf( orderestimateforcustomer.get( i ).getAQty() );
+
+                                Unit = (orderestimateforcustomer.get( i ).getUnit().toString());
+
+                                Price = (String.valueOf( Math.floor( orderestimateforcustomer.get( i ).getPrice2() ) ));
+                                qty_price = String.valueOf( Math.floor( orderestimateforcustomer.get( i ).getAQty() * orderestimateforcustomer.get( i ).getPrice2() ) );
+
+                                message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n";
+                            }
+
 
                         }
-                        message = r_n + "\n" + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n"
-                                + "Total Amount= " + String.valueOf(orderitemList.get(j).getTotalAmount()) + "\n";
 
+                    }
 
-                } table.addCell(c_name);
-                    table.addCell(c_contact);
+                    // message=message+"\n Total Amount= "+textViewATotalAmount.getText().toString();
+
+                    }
+                    table.addCell(orderitem.getCustomerName());
+                    table.addCell(orderitem.getMobile());
                     table.addCell(message);
-                    table.addCell(t_amt);
+                    table.addCell( String.valueOf( orderitem.getATotalAmount() ) );
+
+
+
+
 
 
                     try
