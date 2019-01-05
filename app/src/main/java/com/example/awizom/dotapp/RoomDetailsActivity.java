@@ -641,7 +641,7 @@ boolean status=true;
                     Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
                     }.getType();
                     orderList = new Gson().fromJson(result, listType);
-                    adapter = new OrderItemAdapter(getBaseContext(), orderList, actualorder,filterkey,StatusName,buttonname,tailorList);
+                    adapter = new OrderItemAdapter(RoomDetailsActivity.this, orderList, actualorder,filterkey,StatusName,buttonname,tailorList);
                     recyclerView.setAdapter(adapter);
                    // progressDialog.dismiss();
                     mSwipeRefreshLayout.setRefreshing(false);

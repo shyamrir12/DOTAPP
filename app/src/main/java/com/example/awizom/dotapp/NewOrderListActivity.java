@@ -385,7 +385,7 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
                 Type listType = new TypeToken<List<DataOrder>>() {
                 }.getType();
                 orderList = new Gson().fromJson(result, listType);
-                adapter = new OrderListAdapter(getApplicationContext(), orderList, filterKey, valueButtonName, statusName);
+                adapter = new OrderListAdapter(NewOrderListActivity.this, orderList, filterKey, valueButtonName, statusName);
                 recyclerView.setAdapter(adapter);
                 //  progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);

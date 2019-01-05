@@ -166,6 +166,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         public void onClick(final View v) {
             int position = getAdapterPosition();
             orderitem = this.orderitemList.get(position);
+            if (v.getId() == share.getId()) {
+
+                getShareFunctioncall();
+
+            }
+
       if (v.getId() == buttonOrder.getId()) {
 
                 Intent i = new Intent().setClass(mCtx, AfterCreateActivity.class);
@@ -443,127 +449,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     mCtx.startActivity(intent);
                     }
 
-                }  if (v.getId() == share.getId()) {
+                }
 
-          getShareFunctioncall();
-
-                     }
              if (v.getId() == print.getId()) {
           getPrintFunctioncalls();
-//
-//                    Document doc = new Document();
-//
-//                PdfPTable table = new PdfPTable(new float[]{2, 2,2, 2, 2,2,2});
-//                table.getDefaultCell().
-//
-//                        setHorizontalAlignment(Element.ALIGN_CENTER);
-//
-//
-//
-//
-//                table.addCell("CustomerName");
-//                table.addCell("Address");
-//                table.addCell("Mobile");
-//                table.addCell("Item");
-//                table.addCell("Date");
-//                table.addCell("Advance");
-//                table.addCell("Amount");
-//                table.setHeaderRows(1);
-//                PdfPCell[] cells = table.getRow(0).getCells();
-//                for (
-//                        int j = 0;
-//                        j < cells.length; j++)
-//
-//                {
-//                    cells[j].setBackgroundColor(BaseColor.GRAY);
-//                }
-//
-//
-//
-//
-//                {
-//
-//                    table.addCell(orderitem.getCustomerName().toString());
-//                    table.addCell( orderitem.getAddress());
-//                    table.addCell(orderitem.getMobile());
-//                    table.addCell(orderitem.getRoomList().split("-")[0].trim());
-//                    table.addCell(orderitem.getOrderDate().split("T")[0].trim());
-//                    table.addCell(String.valueOf(orderitem.getAdvance()));
-//                    table.addCell(String.valueOf(orderitem.getTotalAmount()));
-//
-//
-//
-//                }
-//
-//                try
-//
-//                {
-//                    // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
-//
-//                    String path = mCtx.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
-//
-//                    File dir = new File(String.valueOf(path));
-//                    if (!dir.exists())
-//                        dir.mkdirs();
-//
-//                    Log.d("PDFCreator", "PDF Path: " + path);
-//
-//                    File file = new File(dir, "OrderListAdapter.pdf");
-//
-//                    FileOutputStream fOut = new FileOutputStream(file);
-//
-//
-//                    PdfWriter.getInstance(doc, fOut);
-//
-//                    //open the document
-//                    doc.open();
-//
-//                    Paragraph p1 = new Paragraph("Regards by :-" + SharedPrefManager.getInstance(mCtx).getUser().getUserName());
-//
-//
-//                    /* You can also SET FONT and SIZE like this */
-//                    Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
-//                    p1.setAlignment(Paragraph.ALIGN_CENTER);
-//
-//                    p1.setSpacingAfter(20);
-//                    p1.setFont(paraFont1);
-//                    doc.add(p1);
-//
-//                    /* You can also SET FONT and SIZE like this */
-//
-//
-//                    doc.setMargins(0, 0, 5, 5);
-//                    doc.add(table);
-//
-//                    Phrase footerText = new Phrase("This is an example of a footer");
-//                    OrderListAdapter.HeaderFooter pdfFooter = new OrderListAdapter.HeaderFooter();
-//                    doc.newPage();
-//
-//                    Toast.makeText(mCtx, "Created...", Toast.LENGTH_LONG).show();
-//
-//
-//                } catch (
-//                        DocumentException de)
-//
-//                {
-//                    Log.e("PDFCreator", "DocumentException:" + de);
-//                } catch (
-//                        IOException e)
-//
-//                {
-//                    Log.e("PDFCreator", "ioException:" + e);
-//                } finally
-//
-//                {
-//                    doc.close();
-//                }
-//
-//                pdfOpenintent = new Intent();
-//                pdfOpenintent = new Intent(mCtx, PdfViewActivity.class);
-//                pdfOpenintent = pdfOpenintent.putExtra("PDFName","/OrderListAdapter.pdf");
-//
-//                mCtx.startActivity( pdfOpenintent);
-//
+
+
                        }
 
             }
@@ -939,15 +830,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
     private void getShareFunctioncall() {
 
-        for(int i=0;i<orderitemList.size();  i++  ) {
-            id = String.valueOf(orderitemList.get(i).getOrderID());
-        }
+
         try {
-            new detailsGET().execute( id, SharedPrefManager.getInstance(mCtx).getUser().access_token);
+            new detailsGET().execute( String.valueOf( orderitem.getOrderID() ), SharedPrefManager.getInstance(mCtx).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
 
         }
+
+
     }
 
     private class detailsGET extends AsyncTask<String, Void, String> {
@@ -1025,7 +916,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                     message=message+"\n Total Amount= "+orderitem.getATotalAmount().toString();
                     shareMessage(message,mCtx);
-
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1034,27 +924,20 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     }
     private void shareMessage(String message,Context context) {
 
-//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-//        shareIntent.setType("text/plain");
-//        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
-//        shareIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        mCtx.startActivity(Intent.createChooser(shareIntent, "SHARE"));
-
-
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
+        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+        //shareIntent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+
         context.startActivity(Intent.createChooser(shareIntent, "SHARE"));
 
     }
 
     private void getPrintFunctioncalls() {
-        for(int i=0;i<orderitemList.size();  i++  ) {
-            id = String.valueOf(orderitemList.get(i).getOrderID());
-        }
+
         try {
-            new detailseGET().execute( id, SharedPrefManager.getInstance(mCtx).getUser().access_token);
+            new detailseGET().execute( String.valueOf( orderitem.getOrderID() ), SharedPrefManager.getInstance(mCtx).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
