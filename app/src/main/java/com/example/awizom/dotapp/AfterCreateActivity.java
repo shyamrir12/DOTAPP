@@ -446,15 +446,15 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     orderestimateforcustomer1 = new Gson().fromJson(result, listType);
                     Document doc = new Document();
 
-                    PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2});
+                    PdfPTable table = new PdfPTable(new float[]{2, 2});
                     table.getDefaultCell().
 
                             setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                    table.addCell("Name");
-                    table.addCell("Contact No");
+                    table.addCell("Customer Details");
+
                     table.addCell("Items");
-                    table.addCell("Total");
+
 
                     table.setHeaderRows(1);
                     PdfPCell[] cells = table.getRow(0).getCells();
@@ -494,10 +494,10 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                    // message=message+"\n Total Amount= "+textViewATotalAmount.getText().toString();
 
 
-                        table.addCell(c_name.getText().toString());
-                        table.addCell(c_contact.getText().toString());
+                        table.addCell(c_name.getText().toString()+"\n"+c_contact.getText().toString()+"\n Total="+textViewATotalAmount.getText().toString());
+
                         table.addCell(message);
-                        table.addCell(textViewATotalAmount.getText().toString());
+
 
 
 

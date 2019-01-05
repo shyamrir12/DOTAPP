@@ -993,7 +993,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     orderestimateforcustomer = new Gson().fromJson(result, listType);
                     String message="";
                     message="Mr./Mrs. : "+orderitem.getCustomerName()+"\n Mobile no "+orderitem.getMobile() + "\n";
-                    if(orderitem.getActuRoomList().contains( "," )) {
+                    //if(orderitem.getActuRoomList().contains( "," )) {
                         String[] roomlist = orderitem.getActuRoomList().split( "," );
 
                         List<String> roomList = Arrays.asList( roomlist );
@@ -1021,10 +1021,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                         }
 
-                    }
+
 
                     message=message+"\n Total Amount= "+orderitem.getATotalAmount().toString();
-                    shareMessage(message);
+                    shareMessage(message,mCtx);
 
                 }
             } catch (Exception e) {
@@ -1032,7 +1032,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             }
         }
     }
-    private void shareMessage(String message) {
+    private void shareMessage(String message,Context context) {
 
 //        Intent shareIntent = new Intent(Intent.ACTION_SEND);
 //        shareIntent.setType("text/plain");
@@ -1041,10 +1041,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 //        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        mCtx.startActivity(Intent.createChooser(shareIntent, "SHARE"));
 
+
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, message);
-        mCtx.startActivity(Intent.createChooser(shareIntent, "SHARE"));
+        context.startActivity(Intent.createChooser(shareIntent, "SHARE"));
 
     }
 
@@ -1102,15 +1103,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                     Document doc = new Document();
 
-                    PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2});
+                    PdfPTable table = new PdfPTable(new float[]{2, 2});
                     table.getDefaultCell().
 
                             setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                    table.addCell("Name");
-                    table.addCell("Contact No");
+                    table.addCell("Customer Detail");
+
                     table.addCell("Items");
-                    table.addCell("Total");
 
                     table.setHeaderRows(1);
                     PdfPCell[] cells = table.getRow(0).getCells();
@@ -1121,9 +1121,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                         cells[j].setBackgroundColor(BaseColor.GRAY);
                     }
                     String message="";
+                    String[] roomlist;
                     // message="Mr./Mrs. : "+c_name.getText()+"\n Mobile no "+c_contact.getText() + "\n";
-                    if(orderitem.getActuRoomList().contains( "," )) {
-                        String[] roomlist = orderitem.getActuRoomList().split( "," );
+                   // if(orderitem.getActuRoomList().contains( "," )) {
+                        roomlist = orderitem.getActuRoomList().split( "," );
 
                         List<String> roomList = Arrays.asList( roomlist );
 
@@ -1153,12 +1154,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                     // message=message+"\n Total Amount= "+textViewATotalAmount.getText().toString();
 
-                    }
-                    table.addCell(orderitem.getCustomerName());
-                    table.addCell(orderitem.getMobile());
-                    table.addCell(message);
-                    table.addCell( String.valueOf( orderitem.getATotalAmount() ) );
 
+
+                    table.addCell(orderitem.getCustomerName()+"\n"+orderitem.getMobile()+"\n Total="+String.valueOf( orderitem.getATotalAmount() ));
+
+                    table.addCell(message);
 
 
 
