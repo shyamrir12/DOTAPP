@@ -70,7 +70,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     CatelogOrderDetailModel catelogOrderDetailModel;
     private String StatusName,filterkey,buttonname,tailorList;
     private EditText editReceivedBy;
-    private Button okRecevedButton,canceLOrderButton;
+    private Button okRecevedButton,canceLOrderButton,neWCancelButton;
     private Spinner handOvertoNameSpinner, tailorListNameSpinner;
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     String orderItemId;
@@ -232,11 +232,14 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             elightPValueLayout = itemView.findViewById(R.id.b0);
             sendButton = itemView.findViewById(R.id.sendButton);
             printButton=itemView.findViewById(R.id.printButton);
-
+            neWCancelButton = itemView.findViewById(R.id.newCancelButton);
+            neWCancelButton.setOnClickListener(this);
             printButton.setOnClickListener(this);
 //            sendButton.setVisibility(View.GONE);
             if(filterkey.equals("Hold")){
                 sendButton.setVisibility(View.GONE);
+                printButton.setVisibility(View.GONE);
+                neWCancelButton.setVisibility(View.VISIBLE);
             }
             sendButton.setOnClickListener(this);
 
@@ -316,7 +319,25 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     alertbox.show();
                 }
 
-            } if (v.getId() == sendButton.getId()) {
+            } if (v.getId() == neWCancelButton.getId()) {
+                android.support.v7.app.AlertDialog.Builder alertbox = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext());
+                alertbox.setTitle("Do you want to change the status");
+                alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+
+                        cancelPlaceOrderPost(message);
+                    }
+                });
+                alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                    }
+                });
+
+                alertbox.show();
+
+            }if (v.getId() == sendButton.getId()) {
 
                 message = "\nCatalog = " + orderitem.getCatalogName()+
                         "\nS.No. = " + orderitem.getSerialNo() +
@@ -1011,7 +1032,18 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         }
     }
 
+    private void cancelPlaceOrderPost( String message) {
+        shareApp(mCtx,message);
+        try {
+            new PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,"Cancel",orderItemId);
 
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
 
     private void placeOrderPost( String message) {
         shareApp(mCtx,message);

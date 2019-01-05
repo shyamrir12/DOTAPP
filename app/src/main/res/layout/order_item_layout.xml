@@ -217,9 +217,6 @@
                 android:layout_below="@+id/b1"
                 android:layout_marginTop="5dp">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/buttonstatus"
                         android:layout_width="wrap_content"
@@ -232,15 +229,20 @@
                         android:textColor="@color/white"
                         android:layout_marginLeft="15dp"
                         android:visibility="visible" />
-                </RelativeLayout>
-                <ImageButton
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/sendButton"
-                    android:layout_width="30dp"
+
+                <Button
+                    android:id="@+id/newCancelButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:background="@drawable/ic_share_black_24dp"
-                    android:layout_below="@+id/b1"
-                    android:layout_alignParentRight="true"/>
+                    android:text="Cancel"
+                    android:background="@drawable/add_cancel_button_shape"
+                    android:layout_weight="1"
+                    android:textSize="13sp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="15dp"
+                    android:visibility="gone" />
+
                 <ImageButton
                     android:id="@+id/printButton"
                     android:layout_width="30dp"
@@ -248,7 +250,14 @@
 
                     android:tint="@color/colorAccent"
                     android:background="@drawable/ic_print_black_24dp"
-                    android:visibility="visible"
+                    android:layout_alignParentRight="true"/>
+                <ImageButton
+                    android:id="@+id/sendButton"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_share_black_24dp"
+                    android:layout_below="@+id/b1"
                     android:layout_alignParentRight="true"/>
 
             </LinearLayout>
