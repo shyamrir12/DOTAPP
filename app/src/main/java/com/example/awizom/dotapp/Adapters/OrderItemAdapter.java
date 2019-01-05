@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.HomeActivity;
 import com.example.awizom.dotapp.Models.Catelog;
 import com.example.awizom.dotapp.Models.CatelogOrderDetailModel;
 import com.example.awizom.dotapp.Models.DataOrder;
@@ -1033,7 +1034,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     }
 
     private void cancelPlaceOrderPost( String message) {
-        shareApp(mCtx,message);
+       // shareApp(mCtx,message);
         try {
             new PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,"Cancel",orderItemId);
 
@@ -1046,7 +1047,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     }
 
     private void placeOrderPost( String message) {
-        shareApp(mCtx,message);
+       // shareApp(mCtx,message);
         try {
             new PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,StatusName,orderItemId);
 
@@ -1104,6 +1105,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
+                    Intent intent = new Intent(mCtx, HomeActivity.class);
+                    intent = intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK ) ;
+                    mCtx.startActivity(intent);
 
                 }
                 //       progressDialog.dismiss();
