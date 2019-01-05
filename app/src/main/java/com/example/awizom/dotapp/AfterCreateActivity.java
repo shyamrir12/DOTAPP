@@ -890,7 +890,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
                     try {
                         if (filterkey.equals("pandingForAdv") || filterkey.equals("orderCreate") || filterkey.equals("PandingToPlaceOrder"))
-                            new postAddRoom().execute(String.valueOf(orderid), String.valueOf(spinner.getSelectedItem()).trim(), SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+                            new postAddRoom().execute(String.valueOf(orderid), roomText.getText().toString(), SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
                         else
                             Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
