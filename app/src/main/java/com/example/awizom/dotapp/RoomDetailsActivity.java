@@ -960,6 +960,8 @@ boolean status=true;
                 Catelog catelogdesign = new Gson().fromJson(result, listType);
                 if (catelogdesign != null) {
                     price.setText(String.valueOf(catelogdesign.getPrice()));
+                    qty.setText("1");
+                    price2.setText("0");
                     if (catelogdesign.getUnit().trim().length() > 0 || catelogdesign.getMaterialType().trim().length() > 0  ) {
                         unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
                         materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(catelogdesign.getMaterialType().toString()));

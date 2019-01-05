@@ -190,7 +190,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         AlertDialog.Builder alert;
         private Context mCtx;
         Button buttonStatus;
-        TextView catlogName, serialNo, design, pageNo, price, unit;
+        TextView catlogName, serialNo, design, pageNo, price, unit,QTy;
         TextView OrderItemID, MaterialType, Price2, Qty, AQty,elight,aplot,roman,elightPrice,elightAplot,elightRoman;
 
 
@@ -611,7 +611,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             price = dialogView.findViewById(R.id.price);
             final EditText price2 = dialogView.findViewById(R.id.price2);
             materialType = dialogView.findViewById(R.id.materialType);
-            final EditText qty = dialogView.findViewById(R.id.qTy);
+             QTy = dialogView.findViewById(R.id.qTy);
             final EditText aQty = dialogView.findViewById(R.id.aQty);
             unitSpinner = dialogView.findViewById(R.id.unit);
 
@@ -637,7 +637,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
 
             if (actualorder.equals("ActualOrder")) {
-                qty.setVisibility(dialogView.GONE);
+                QTy.setVisibility(dialogView.GONE);
                 aQty.setVisibility(dialogView.VISIBLE);
             }
 
@@ -651,7 +651,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
 
             //Price2.setText(Integer.toString(order.getPrice2()));
-            qty.setText(Double.toString(orderitem.getQty()));
+            QTy.setText(Double.toString(orderitem.getQty()));
             aQty.setText(Double.toString(orderitem.getAQty()));
             elight.setText(Double.toString(orderitem.getElight()));
             roman.setText(Double.toString(orderitem.getRoman()));
@@ -725,7 +725,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     String page_no = pageNo.getText().toString();
                     String priCe = price.getText().toString();
                     String priCe2 = price2.getText().toString();
-                    String qTy = qty.getText().toString();
+                    String qTy = QTy.getText().toString();
                     String aqty = aQty.getText().toString();
                     String materialtype = materialType.getSelectedItem().toString();
                     String unIt = unitSpinner.getSelectedItem().toString();
@@ -737,8 +737,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     String romanprice = romanPrice.getText().toString();
                     String aplotprice = aPlotPrice.getText().toString();;
 
-                    // progressDialog.setMessage("loading...");
-                    //progressDialog.show();
+
                     if (actualorder.equals("ActualOrder")) {
 
                         new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, QTY, aqty, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim()

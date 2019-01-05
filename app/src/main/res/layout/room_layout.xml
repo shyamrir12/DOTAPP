@@ -43,9 +43,18 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:visibility="gone"/>
 
-
+        <AutoCompleteTextView
+            android:id="@+id/roomNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="  "
+            android:textSize="14sp"
+            android:inputType="text"
+            android:layout_weight="1"
+            android:paddingLeft="20dp" />
     </LinearLayout>
 
 

@@ -109,6 +109,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     RecyclerView recyclerView;
     RoomListAdapter roomlistadapter;
     private Spinner spinner;
+    AutoCompleteTextView roomText;
     List<CatelogOrderDetailModel> orderestimateforcustomer;
     List<CatelogOrderDetailModel> orderestimateforcustomer1;
     private Intent pdfOpenintent;
@@ -849,11 +850,19 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         final View dialogView = inflater.inflate(R.layout.room_layout, null);
         dialogBuilder.setView(dialogView);
         spinner = dialogView.findViewById(R.id.spinner);
+        roomText = dialogView.findViewById(R.id.roomNameText);
 
-        String[] items = aroomlist.split(",");
+
+//        roomText.setThreshold(1);//will start working from first character
+//        roomText.setAdapter(adapter);
+
+
+        final String[] items = aroomlist.split(",");
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, items);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spinner.setAdapter(spinnerArrayAdapter);
+        roomText.setThreshold(1);//will start working from first character
+        roomText.setAdapter(spinnerArrayAdapter);
 
         final Button buttonAdd = (Button) dialogView.findViewById(R.id.buttonAddOrder);
         final Button buttonCancel = (Button) dialogView.findViewById(R.id.buttonCancel);
@@ -876,8 +885,8 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
 
-                if (String.valueOf(spinner.getSelectedItem()).trim().length() > 0) {
-
+//                if (String.valueOf(spinner.getSelectedItem()).trim().length() > 0) {
+                if (roomText.getText().toString().length() > 0) {
 
                     try {
                         if (filterkey.equals("pandingForAdv") || filterkey.equals("orderCreate") || filterkey.equals("PandingToPlaceOrder"))
