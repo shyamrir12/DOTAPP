@@ -114,6 +114,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     List<CatelogOrderDetailModel> orderestimateforcustomer1;
     private Intent pdfOpenintent;
     private String hTelor;
+   private EditText cName, cContact, cAddress, interioName, interioContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -733,7 +734,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.openpdatedialog, null);
         dialogBuilder.setView(dialogView);
-        final EditText cName, cContact, cAddress, interioName, interioContact;
+
         //  dialogBuilder.setTitle("Create Customer");
 
         b = dialogBuilder.create();
@@ -750,35 +751,62 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if ((cName.getText().toString().isEmpty()) || (cContact.getText().toString().isEmpty()) ) {
+/*|| (cAddress.getText().toString().isEmpty()) || (interioName.getText().toString().isEmpty())
+                        || (interioContact.getText().toString().isEmpty())*/
+                    cName.setError("Customer Name is required!");
+                    cContact.setError("Customer Contact is required!");
 
-                if (cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty()) {
-                    cName.setError("customer name is required!");
-                    cContact.setError("customer contact is required!");
-                }else {
-                    String name = cName.getText().toString().trim();
-                    String contact = cContact.getText().toString().trim();
-                    String address = cAddress.getText().toString().trim();
-                    String intename = interioName.getText().toString().trim();
-                    String intecontact = interioContact.getText().toString().trim();
-
-                    try {
-                        //String res="";
-                        progressDialog.setMessage("loading...");
-                        progressDialog.show();
-                        new POSTAddCustomer().execute(name, contact, address, intename, intecontact, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-                        // System.out.println("Error: " + e);
-                    }
-
+                } else {
+                    customerAddPost();
                 }
+//                if (cName.getText().toString().isEmpty() || cContact.getText().toString().isEmpty()) {
+//                    cName.setError("customer name is required!");
+//                    cContact.setError("customer contact is required!");
+//                }else {
+//                    String name = cName.getText().toString().trim();
+//                    String contact = cContact.getText().toString().trim();
+//                    String address = cAddress.getText().toString().trim();
+//                    String intename = interioName.getText().toString().trim();
+//                    String intecontact = interioContact.getText().toString().trim();
+//
+//                    try {
+//                        //String res="";
+//                        progressDialog.setMessage("loading...");
+//                        progressDialog.show();
+//                        new POSTAddCustomer().execute(name, contact, address, intename, intecontact, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        progressDialog.dismiss();
+//                        Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+//                        // System.out.println("Error: " + e);
+//                    }
+//
+//                }
             }
         });
 
     }
+    private void customerAddPost() {
 
+        String name = cName.getText().toString().trim();
+        String contact = cContact.getText().toString().trim();
+        String address = cAddress.getText().toString().trim();
+        String intename = interioName.getText().toString().trim();
+        String intecontact = interioContact.getText().toString().trim();
+
+        try {
+            //String res="";
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new POSTAddCustomer().execute(name, contact, address, intename, intecontact, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressDialog.dismiss();
+        }
+
+
+    }
     private class POSTAddCustomer extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -786,8 +814,9 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             //     InputStream inputStream
 
             String customername = params[0];
-            String address = params[1];
-            String mobile = params[2];
+            String mobile = params[1];
+            String address = params[2];
+
             String interiorname = params[3];
             String interiormobile = params[4];
             String accesstoken = params[5];
@@ -1194,13 +1223,21 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     /*customer List get*/
     private void postOrder() {
 
-        String date = orderDate.getText().toString();
-        String advance = amount.getText().toString();
-        try {
-            if (filterkey.equals("pandingForAdv") || filterkey.equals("orderCreate") || filterkey.equals("PandingToPlaceOrder"))
+            String  date = orderDate.getText().toString();
+            String advance = amount.getText().toString();
 
+        try {
+            if(filterkey.equals("orderCreate") )
                 new POSTOrder().execute(String.valueOf(cid), date, advance, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
 
+          else if (filterkey.equals("pandingForAdv") || filterkey.equals("PandingToPlaceOrder")) {
+              if(Double.parseDouble(textViewATotalAmount.getText().toString()) > 0) {
+                  new POSTOrder().execute(String.valueOf(cid), date, advance, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+              }else {
+                  Toast.makeText(getApplicationContext(), "First add items then take advance ", Toast.LENGTH_SHORT).show();
+
+              }
+            }
             else
                 Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
 
@@ -1271,22 +1308,13 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 {
                     Intent i = new Intent(AfterCreateActivity.this,HomeActivity.class);
                     startActivity(i);
-
-
                 }
 
-
                 else
-
                 {
                     Intent i = new Intent(AfterCreateActivity.this,HomeActivityUser.class);
                     startActivity(i);
-
-
                 }
-
-
-
                 if (jsonbodyres.getStatus() == true) {
 
                     addorder.setEnabled(false);
