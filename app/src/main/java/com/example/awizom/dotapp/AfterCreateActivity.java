@@ -1303,18 +1303,18 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 orderid = orderidPart[1];
                 Toast.makeText(getApplicationContext(), jsonbodyres.getMessage().toString(), Toast.LENGTH_SHORT).show();
 
-                if ((((SharedPrefManager.getInstance(getApplicationContext()).getUser().userRole.contains("Admin")))))
-
-                {
-                    Intent i = new Intent(AfterCreateActivity.this,HomeActivity.class);
-                    startActivity(i);
-                }
-
-                else
-                {
-                    Intent i = new Intent(AfterCreateActivity.this,HomeActivityUser.class);
-                    startActivity(i);
-                }
+//                if ((((SharedPrefManager.getInstance(getApplicationContext()).getUser().userRole.contains("Admin")))))
+//
+//                {
+//                    Intent i = new Intent(AfterCreateActivity.this,HomeActivity.class);
+//                    startActivity(i);
+//                }
+//
+//                else
+//                {
+//                    Intent i = new Intent(AfterCreateActivity.this,HomeActivityUser.class);
+//                    startActivity(i);
+//                }
                 if (jsonbodyres.getStatus() == true) {
 
                     addorder.setEnabled(false);
