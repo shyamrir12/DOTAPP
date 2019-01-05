@@ -470,7 +470,7 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
             //open the document
             doc.open();
 
-            Paragraph p1 = new Paragraph(c_name);
+            Paragraph p1 = new Paragraph(SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserName());
 
 
             /* You can also SET FONT and SIZE like this */

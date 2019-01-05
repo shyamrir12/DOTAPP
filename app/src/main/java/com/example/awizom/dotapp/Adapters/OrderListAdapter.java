@@ -1069,7 +1069,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                         //open the document
                         doc.open();
 
-                        Paragraph p1 = new Paragraph(c_name);
+                        Paragraph p1 = new Paragraph(SharedPrefManager.getInstance(mCtx).getUser().getUserName());
 
 
                         /* You can also SET FONT and SIZE like this */
@@ -1080,7 +1080,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                         p1.setFont(paraFont1);
                         doc.add(p1);
 
-                        Paragraph p2 = new Paragraph(c_contact);
+                        //Paragraph p2 = new Paragraph(c_contact);
 
 
                         /* You can also SET FONT and SIZE like this */
