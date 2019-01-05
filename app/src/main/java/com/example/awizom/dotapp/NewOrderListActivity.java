@@ -39,6 +39,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -64,7 +65,7 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
     List<CatelogOrderDetailModel> orderestimateforcustomer;
     List<String> roomList;
     String p1;
-
+    PdfPTable table;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -395,252 +396,95 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void getShareFunctioncall() {
+        message="";
+        for (int j = 0; j < orderList.size(); j++) {
+            c_name=orderList.get(j).getCustomerName();
+            c_contact=orderList.get(j).getMobile();
+            t_amt=String.valueOf(orderList.get(j).getATotalAmount());
 
-        for(int i=0;i<orderList.size();  i++  ) {
-             id = String.valueOf(orderList.get(i).getOrderID());
-        }
-        try {
-            mSwipeRefreshLayout.setRefreshing(true);
-            // progressDialog.setMessage("loading...");
-            //  progressDialog.show();
-            new detailsGET().execute( id, SharedPrefManager.getInstance(this).getUser().access_token);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+
+            message = message + "Customer Name" + "=" + c_name + "\nContact No " + c_contact + "\nRoom Details" + orderList.get(j).getActuRoomList() +"\nTotal Amount= " +t_amt + "\n\n";
+
 
         }
+
+        shareMessage(message);
     }
 
-    private class detailsGET extends AsyncTask<String, Void, String> {
 
-        @Override
-        protected String doInBackground(String... strings) {
-
-            //String roomName = strings[0];
-            String orderID = strings[0];
-            String accesstoken = strings[1];
-            String json = "";
-            try {
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
-                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                builder.addHeader("Accept", "application/json");
-                builder.addHeader("Authorization", "Bearer " + accesstoken);
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-                if (response.isSuccessful()) {
-                    json = response.body().string();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                // progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            }
-
-            return json;
-
-        }
-
-        protected void onPostExecute(String result) {
-            try {
-
-                if (result.isEmpty()) {
-                    //progressDialog.dismiss();
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
-                } else {
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
-                    }.getType();
-                    orderestimateforcustomer = new Gson().fromJson(result, listType);
-                    String message="";
-                    String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
-                    for (int i = 0; i < orderList.size(); i++) {
-                        c_name = orderList.get(i).getCustomerName();
-                        c_contact = orderList.get(i).getMobile();
-                        t_amt = String.valueOf(orderList.get(i).getTotalAmount());
-                        r_n = orderList.get(i).getRoomList().split("-")[0];
-
-                        message = message + "\nMr./Mrs. = " + c_name + "\n Mobile no = " + c_contact
-                                + "\nRoom  =" + r_n + "\n";
-                    }
-                    for(int p=0;p<orderestimateforcustomer.size();  p++  ) {
-
-                                materialtype = (orderestimateforcustomer.get(p).getMaterialType().toString());
-
-                                Aqty = String.valueOf(orderestimateforcustomer.get(p).getAQty());
-
-                                Unit = (orderestimateforcustomer.get(p).getUnit().toString());
-
-                                Price = (String.valueOf(Math.floor(orderestimateforcustomer.get(p).getPrice2())));
-                                qty_price = String.valueOf(Math.floor(orderestimateforcustomer.get(p).getAQty() * orderestimateforcustomer.get(p).getPrice2()));
-
-                                //message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n";
-
-
-
-                    }
-                    message = message + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n" + "Total Amount= " +t_amt + "\n";
-                    shareMessage(message);
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     private void getPrintFunctioncalls() {
-        for(int i=0;i<orderList.size();  i++  ) {
-            id = String.valueOf(orderList.get(i).getOrderID());
+
+
+        Document doc = new Document();
+         table = new PdfPTable(new float[]{2, 2,2,2});
+        table.getDefaultCell().
+        setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell("Name");
+        table.addCell("Contect No");
+        table.addCell("Room Detail");
+        table.addCell("Total");
+        table.setHeaderRows(1);
+        PdfPCell[] cells = table.getRow(0).getCells();
+        for (
+                int j = 0;
+                j < cells.length; j++) {
+            cells[j].setBackgroundColor(BaseColor.GRAY);
         }
-        try {
-            mSwipeRefreshLayout.setRefreshing(true);
-            // progressDialog.setMessage("loading...");
-            //  progressDialog.show();
-            new detailseGET().execute( id, SharedPrefManager.getInstance(this).getUser().access_token);
-        } catch (Exception e) {
-            e.printStackTrace();
-            mSwipeRefreshLayout.setRefreshing(false);
-            //progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-        }
-    }
 
-    private class detailseGET extends AsyncTask<String, Void, String> {
+        for (int j = 0; j < orderList.size(); j++) {
+            c_name=orderList.get(j).getCustomerName();
+            c_contact=orderList.get(j).getMobile();
+            t_amt=String.valueOf(orderList.get(j).getATotalAmount());
 
-        @Override
-        protected String doInBackground(String... strings) {
+            table.addCell(c_name);
+            table.addCell(c_contact);
+            table.addCell(orderList.get(j).getActuRoomList());
+            table.addCell("\n Total ="+t_amt);
 
-            //String roomName = strings[0];
-            String orderID = strings[0];
-            String accesstoken = strings[1];
-            String json = "";
-            try {
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
-                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                builder.addHeader("Accept", "application/json");
-                builder.addHeader("Authorization", "Bearer " + accesstoken);
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-                if (response.isSuccessful()) {
-                    json = response.body().string();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                // progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-            }
 
-            return json;
 
         }
 
-        protected void onPostExecute(String result) {
-            try {
 
-                if (result.isEmpty()) {
-                    //progressDialog.dismiss();
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
-                } else {
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
-                    }.getType();
-                    orderestimateforcustomer = new Gson().fromJson(result, listType);
+        try
 
-                    String materialtype = "", Aqty = "", Unit = "", Price = "", qty_price = "";
+        {
+            // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
 
+            String path = NewOrderListActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+            File dir = new File(String.valueOf(path));
+            if (!dir.exists())
+                dir.mkdirs();
 
+            Log.d("PDFCreator", "PDF Path: " + path);
 
+            File file = new File(dir, "NewOrderList.pdf");
 
-
-                    Document doc = new Document();
-
-                    PdfPTable table = new PdfPTable(new float[]{2, 2, 2, 2});
-                    table.getDefaultCell().
-
-                            setHorizontalAlignment(Element.ALIGN_CENTER);
-
-                    table.addCell("Name");
-                    table.addCell("Contact No");
-                    table.addCell("Items");
-                    table.addCell("Total");
+            FileOutputStream fOut = new FileOutputStream(file);
 
 
-                    table.setHeaderRows(1);
-                    PdfPCell[] cells = table.getRow(0).getCells();
-                    for (
-                            int j = 0;
-                            j < cells.length; j++) {
-                        cells[j].setBackgroundColor(BaseColor.GRAY);
-                    }
+            PdfWriter.getInstance(doc, fOut);
 
-                    for (int j = 0; j < orderList.size(); j++) {
-                        c_name = orderList.get(j).getCustomerName();
-                        c_contact = orderList.get(j).getMobile();
-                        t_amt = String.valueOf(orderList.get(j).getTotalAmount());
-                        r_n = orderList.get(j).getRoomList().split("-")[0];
+            //open the document
+            doc.open();
 
-                    for (
-                            int i = 0;
-                            i < orderestimateforcustomer.size(); i++) {
-                            materialtype = (orderestimateforcustomer.get(i).getMaterialType().toString());
-                            Aqty = String.valueOf(orderestimateforcustomer.get(i).getAQty());
-                            Unit = (orderestimateforcustomer.get(i).getUnit().toString());
-                            Price = (String.valueOf(Math.floor(orderestimateforcustomer.get(i).getPrice2())));
-                            qty_price = String.valueOf(Math.floor(orderestimateforcustomer.get(i).getAQty() * orderestimateforcustomer.get(i).getPrice2()));
-
-                        }
-                        message = r_n + "\n" + materialtype + "=" + Aqty + " " + Unit + "@" + Price + "=" + qty_price + "\n"
-                                    + "Total Amount= " + String.valueOf(orderList.get(j).getTotalAmount()) + "\n";
-
-                        table.addCell(c_name);
-                        table.addCell(c_contact);
-                        table.addCell(message);
-                        table.addCell(String.valueOf(orderList.get(j).getTotalAmount()));
-                    }
+            Paragraph p1 = new Paragraph(c_name);
 
 
-                    try
+            /* You can also SET FONT and SIZE like this */
+            Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
+            p1.setAlignment(Paragraph.ALIGN_CENTER);
 
-                    {
-                        // String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDF";
+            p1.setSpacingAfter(20);
+            p1.setFont(paraFont1);
+            doc.add(p1);
 
-                        String path = NewOrderListActivity.this.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
-                        File dir = new File(String.valueOf(path));
-                        if (!dir.exists())
-                            dir.mkdirs();
-
-                        Log.d("PDFCreator", "PDF Path: " + path);
-
-                        File file = new File(dir, "NewOrderList.pdf");
-
-                        FileOutputStream fOut = new FileOutputStream(file);
+            Paragraph p2 = new Paragraph(c_contact);
 
 
-                        PdfWriter.getInstance(doc, fOut);
-
-                        //open the document
-                        doc.open();
-
-                        Paragraph p1 = new Paragraph(c_name);
-
-
-                        /* You can also SET FONT and SIZE like this */
-                        Font paraFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
-                        p1.setAlignment(Paragraph.ALIGN_CENTER);
-
-                        p1.setSpacingAfter(20);
-                        p1.setFont(paraFont1);
-                        doc.add(p1);
-
-                        Paragraph p2 = new Paragraph(c_contact);
-
-
-                        /* You can also SET FONT and SIZE like this */
+            /* You can also SET FONT and SIZE like this */
 //                        Font paraFont2 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLACK);
 //                        p2.setAlignment(Paragraph.ALIGN_CENTER);
 //
@@ -648,47 +492,50 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
 //                        p2.setFont(paraFont2);
 //                        doc.add(p2);
 
-                        /* You can also SET FONT and SIZE like this */
+            /* You can also SET FONT and SIZE like this */
 
 
-                        doc.setMargins(0, 0, 5, 5);
-                        doc.add(table);
+            doc.setMargins(0, 0, 5, 5);
+            doc.add(table);
 
-                        Phrase footerText = new Phrase("This is an example of a footer");
-                        NewOrderListActivity.HeaderFooter pdfFooter = new NewOrderListActivity.HeaderFooter();
-                        doc.newPage();
+            Phrase footerText = new Phrase("This is an example of a footer");
+            NewOrderListActivity.HeaderFooter pdfFooter = new NewOrderListActivity.HeaderFooter();
+            doc.newPage();
 
-                        Toast.makeText(getApplicationContext(), "Created...", Toast.LENGTH_LONG).show();
-
-
-                    } catch (
-                            DocumentException de)
-
-                    {
-                        Log.e("PDFCreator", "DocumentException:" + de);
-                    } catch (
-                            IOException e)
-
-                    {
-                        Log.e("PDFCreator", "ioException:" + e);
-                    } finally
-
-                    {
-                        doc.close();
-                    }
-                    mSwipeRefreshLayout.setRefreshing(false);
-
-                    pdfOpenintent = new Intent(NewOrderListActivity.this, PdfViewActivity.class);
-                    pdfOpenintent = pdfOpenintent.putExtra("PDFName","/NewOrderList.pdf");
-                    startActivity( pdfOpenintent);
+            Toast.makeText(getApplicationContext(), "Created...", Toast.LENGTH_LONG).show();
 
 
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (
+                DocumentException de)
+
+        {
+            Log.e("PDFCreator", "DocumentException:" + de);
+        } catch (
+                IOException e)
+
+        {
+            Log.e("PDFCreator", "ioException:" + e);
+        } finally
+
+        {
+            doc.close();
         }
+        mSwipeRefreshLayout.setRefreshing(false);
+
+        pdfOpenintent = new Intent(NewOrderListActivity.this, PdfViewActivity.class);
+        pdfOpenintent = pdfOpenintent.putExtra("PDFName","/NewOrderList.pdf");
+        startActivity( pdfOpenintent);
+
+        for(int i=0;i<orderList.size();  i++  ) {
+            id = String.valueOf(orderList.get(i).getOrderID());
+
+
+
+
+        }
+
     }
+
 
 
 
