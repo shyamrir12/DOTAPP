@@ -25,6 +25,10 @@
         app:showAsAction="never"
         android:title="room list"/>
 
+    <item android:id="@+id/changPwd"
+        app:showAsAction="never"
+        android:title="Change Password"/>
+
     <item
         android:id="@+id/helpApp"
         app:showAsAction="never"

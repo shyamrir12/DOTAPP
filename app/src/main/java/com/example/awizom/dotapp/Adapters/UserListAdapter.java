@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.Models.UserModel;
 import com.example.awizom.dotapp.R;
+import com.example.awizom.dotapp.UserPermissionActivity;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -110,7 +112,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
         private final Context mCtx;
         TextView username, roleid, userid;
 
-        Button active;
+        Button active,resetPassword;
         private List<UserModel> useritemList;
 
 
@@ -125,8 +127,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
             roleid = itemView.findViewById(R.id.roleid);
             userid = itemView.findViewById(R.id.userid);
             active = itemView.findViewById(R.id.btn1);
+            resetPassword = itemView.findViewById(R.id.btn2);
 
             active.setOnClickListener(this);
+            resetPassword.setOnClickListener(this);
+            roleid.setOnClickListener(this);
         }
 
         @Override
@@ -162,8 +167,53 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
                 alertbox.setPositiveButton("No", null);
 
                 alertbox.show();
-            }
+            } if (v.getId() == resetPassword.getId()) {
+                userId = useritem.getUserId();
+                AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                alertbox.setMessage("are you sure want to reset");
+                alertbox.setTitle("Reset Password");
+                alertbox.setIcon(R.drawable.admin);
 
+                alertbox.setNeutralButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            Class fragmentClass = null;
+
+                            public void onClick(DialogInterface arg0,
+                                                int arg1) {
+                                resetPassword();
+                            }
+
+
+                        });
+                alertbox.setPositiveButton("No", null);
+
+                alertbox.show();
+            }if (v.getId() == roleid.getId()) {
+//                AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+//                alertbox.setMessage("are you sure want to give the permission");
+//                alertbox.setTitle("Change Permission");
+//                alertbox.setIcon(R.drawable.admin);
+//
+//                alertbox.setNeutralButton("Yes",
+//                        new DialogInterface.OnClickListener() {
+//                            Class fragmentClass = null;
+//
+//                            public void onClick(DialogInterface arg0,
+//                                                int arg1) {
+                               userId = useritem.getUserId();
+                                Intent intnt = new Intent(mCtx, UserPermissionActivity.class);
+                                intnt.putExtra("UserId",userId);
+                                mCtx.startActivity(intnt);
+//                            }
+//
+//
+//                        });
+//                alertbox.setPositiveButton("No", null);
+//
+//                alertbox.show();
+
+
+            }
 
         }
 
@@ -172,7 +222,75 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
 
         }
     }
+    private void resetPassword() {
+        try {
 
+            new PostResetPassword().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,userId);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class PostResetPassword extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            String accesstoken = params[0];
+            String userId = params[1];
+
+            String json = "";
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "UserResetPassPost/" + userId );
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                FormBody.Builder parameters = new FormBody.Builder();
+                builder.post(parameters.build());
+
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                //    progressDialog.dismiss();
+                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+
+            if (result.isEmpty()) {
+                // progressDialog.dismiss();
+                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(mCtx
+                        , jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+                    // modifyItem(pos,um);
+
+                    // progressDialog.dismiss();
+                }
+
+                // progressDialog.dismiss();
+            }
+
+
+        }
+
+
+    }
 
     private void postUserList() {
         try {

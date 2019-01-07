@@ -15,6 +15,10 @@
 
     <item android:id="@+id/roomList" app:showAsAction="never" android:title="Room list"/>
 
+    <item android:id="@+id/changPwd" app:showAsAction="never" android:title="Change Password"/>
+
+
+
     <item android:id=" @+id/help"  app:showAsAction="never" android:title="Help"/>
 
     <item android:id="@+id/exit"  app:showAsAction="never" android:title="Sign out"/>

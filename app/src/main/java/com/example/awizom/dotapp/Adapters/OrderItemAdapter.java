@@ -423,7 +423,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                     //open the document
                     doc.open();
 
-                    Paragraph p1 = new Paragraph("Regards by :-" + SharedPrefManager.getInstance(mCtx).getUser().getUserName());
+                    Paragraph p1 = new Paragraph("Regards by :-" + SharedPrefManager.getInstance(mCtx).getUser().getUserName() + " " + filterkey);
 
 
                     /* You can also SET FONT and SIZE like this */

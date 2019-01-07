@@ -35,13 +35,14 @@ import com.example.awizom.dotapp.Helper.SharedPrefManager;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Intent intent;
+
     private Fragment telorListFragment, userListFragment, customerLayoutfragment,
             printLayoutfragment, orderLayoutfragment,roomListFragment, statusLayoutFragment, searchfragment,aboutfragment,helpfragment;
     private Fragment fragment = null;
     boolean doubleBackToExitPressedOnce = false;
     private Context mContext;
     private String countValue = "";
+    private  Intent intnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,10 +217,15 @@ public class HomeActivity extends AppCompatActivity {
                 fragmentClass = RoomNameListFragment.class;
                 break;
 
+            case R.id.changPwd:
+
+                intnt = new Intent(this, ChangePasswordActivity.class);
+                startActivity(intnt);
+                break;
 
             case R.id.help:
 
-                Intent intnt = new Intent(this, HelpActivity.class);
+                intnt = new Intent(this, HelpActivity.class);
                 startActivity(intnt);
                 break;
 

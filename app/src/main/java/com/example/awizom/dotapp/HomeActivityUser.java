@@ -127,8 +127,8 @@ public class HomeActivityUser extends AppCompatActivity {
 
             case R.id.help:
 
-                Intent intnt = new Intent(this, HelpActivity.class);
-                startActivity(intnt);
+                intent = new Intent(this, HelpActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.tailorList:
@@ -142,6 +142,11 @@ public class HomeActivityUser extends AppCompatActivity {
                 getSupportActionBar().setTitle("Room List");
                 fragment = roomListFragment;
                 fragmentClass = RoomNameListFragment.class;
+                break;
+            case R.id.changPwd:
+
+                intent = new Intent(this, ChangePasswordActivity.class);
+                startActivity(intent);
                 break;
 
         }
