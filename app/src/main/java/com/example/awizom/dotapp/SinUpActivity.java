@@ -107,7 +107,6 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
 //                    cnfrmPassWord.setError("password is required!"); cnfrmPassWord.setError("password is not match!");
 //                }else {
 //                    createUser();
-//
 //                }
                 break;
             case R.id.loginHere:
@@ -210,7 +209,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                     progressDialog.dismiss();
                     Gson gson = new Gson();
                     UserRegister.RootObject jsonbody = gson.fromJson(result, UserRegister.RootObject.class);
-                    if (jsonbody.isStatus()) {
+                    if (jsonbody.isStatus() == true) {
                         Toast.makeText(getApplicationContext(), "User Is Not Active", Toast.LENGTH_SHORT).show();
 //                        Token user = new Token();
 //                        user.userRole = jsonbody.Role;
@@ -224,7 +223,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
 //                            startActivity(intent = new Intent(SinUpActivity.this, HomeActivityUser.class));
 //                        }
                     } else {
-                        Toast.makeText(SinUpActivity.this, jsonbody.dataIdentityResult.getErrors().get(0), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SinUpActivity.this, "Password must be of minimum 6 characters", Toast.LENGTH_SHORT).show();
                     }
 
                 }

@@ -55,8 +55,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-import static com.itextpdf.text.factories.GreekAlphabetFactory.getString;
-
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {
     private AutoCompleteTextView catlogName, design;
     private EditText price;

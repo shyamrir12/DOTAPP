@@ -102,12 +102,24 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
         order = orderitemList.get(position);
         try {
+
             holder.ordername.setText("Name\n" + order.getCustomerName().trim());
-            holder.orderaddress.setText("Address\n " + order.getAddress().trim());
-            holder.ordercontact.setText("Mobile\n " + order.getMobile().trim());
+            try{
+                holder.orderaddress.setText("Address\n " + order.getAddress().trim());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            try{
+                holder.ordercontact.setText("Mobile\n " + order.getMobile().trim());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
             holder.orderdate.setText("Date\n " + order.getOrderDate().split("T")[0].trim());
             holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()).trim());
-            holder.totalamount.setText("Amount\n " + Double.toString(order.getTotalAmount()).trim());
+            holder.totalamount.setText("Amount\n " + Double.toString(order.getATotalAmount()).trim());
 
             if( Double.toString(order.getTotalAmount()).equals("0.0")){
                 holder.canceLOrderButton.setVisibility(View.GONE);
@@ -1069,7 +1081,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                         //open the document
                         doc.open();
 
-                        Paragraph p1 = new Paragraph(SharedPrefManager.getInstance(mCtx).getUser().getUserName());
+                        Paragraph p1 = new Paragraph(SharedPrefManager.getInstance(mCtx).getUser().getUserName()+ " " +filterKey);
 
 
                         /* You can also SET FONT and SIZE like this */
