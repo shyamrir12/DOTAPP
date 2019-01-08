@@ -17,17 +17,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.awizom.dotapp.Adapters.UserListAdapter;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.DataOrder;
+import com.example.awizom.dotapp.Models.PermissionList;
+import com.example.awizom.dotapp.Models.UserModel;
+import com.example.awizom.dotapp.Models.UserPermissionModel;
 import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.SigninActivity;
+import com.example.awizom.dotapp.UserPermissionActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -49,6 +56,11 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     SwipeRefreshLayout mSwipeRefreshLayout;
     private CardView first_cardview,second_cardview,third_cardview,fourth_cardview,five_cardview,six_cardview;
 
+    private UserPermissionModel userPermissionModel;
+    private List<PermissionList> permissionList;
+    List<UserModel> userItemList;
+    String userId;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,8 +78,10 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             public void onRefresh() {
                 // Refresh items
                 statusCountGETmethodCall();
+
             }
         });
+
         statusCountGETmethodCall();
 
         pendingttoPlaceOrder = view.findViewById(R.id.pendingtToPlaceOrder);
@@ -476,6 +490,71 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
         @Override
         public void onClick(View v) {
 
+        }
+    }
+
+
+
+
+    private void userPermissionGet() {
+
+        try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            new userPermissionGetDetail().execute(userId,SharedPrefManager.getInstance(getContext()).getUser().access_token);
+        } catch (Exception e) {
+            progressDialog.dismiss();
+            e.printStackTrace();
+
+        }
+    }
+    private class userPermissionGetDetail extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            String userID = params[0];
+
+            String accesstoken = params[1];
+
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "UserPermissionGet/" + userID);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                FormBody.Builder parameters = new FormBody.Builder();
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            }else {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<UserPermissionModel>() {
+                }.getType();
+                userPermissionModel = new Gson().fromJson(result, listType);
+                if(userPermissionModel != null){
+
+                    permissionList = userPermissionModel.getPermissionList();
+
+                    for(int i=0; i<permissionList.size(); i++){
+
+                    }
+                }
+                progressDialog.dismiss();
+            }
         }
     }
 

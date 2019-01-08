@@ -81,8 +81,6 @@ public class UserListFragment extends Fragment {
             Toast.makeText(getActivity(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
-
-
     private class GetUserDetails extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {

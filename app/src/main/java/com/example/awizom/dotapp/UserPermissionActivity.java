@@ -14,8 +14,15 @@ import android.widget.ToggleButton;
 
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.Models.CustomerModel;
+import com.example.awizom.dotapp.Models.PermissionList;
 import com.example.awizom.dotapp.Models.Result;
+import com.example.awizom.dotapp.Models.UserPermissionModel;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -26,7 +33,9 @@ public class UserPermissionActivity extends AppCompatActivity {
     private  ToggleButton advUser,holdUser,placeUser,materialUser,handOverUser,receiveUser,dispatchUser;
     private TextView textViewAdvUser,textplaceOrderUser,txtholdaUser,txtMaterialReceiveLayertoggBtn,txthandoverUser,txtreceiverUser,txtdispatchUser;
     private ProgressDialog progressDialog;
-    private String userID="",permissionName="",status = "False";
+    private String userID="",permissionName="",status = "";
+    private UserPermissionModel userPermissionModel;
+    private List<PermissionList> permissionList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +60,7 @@ public class UserPermissionActivity extends AppCompatActivity {
         txtdispatchUser = findViewById(R.id.dispatchUser);
 
 
+
         userID = getIntent().getExtras().getString("UserId","");
         progressDialog = new ProgressDialog(getApplicationContext());
         progressDialog = new ProgressDialog(this);
@@ -72,13 +82,14 @@ public class UserPermissionActivity extends AppCompatActivity {
                             public void onClick(DialogInterface arg0,
                                                 int arg1) {
 
-                if (isChecked) {
-                    status = "True";
+                if (isChecked == true) {
+                    status = String.valueOf(isChecked);
                     permissionName = textViewAdvUser.getText().toString();
                     userPermissionPost();
-                } else {
+
+                } else if(isChecked == false){
+                    status = String.valueOf(isChecked);
                     permissionName = textViewAdvUser.getText().toString();
-                    status = "False";
                     userPermissionPost();
                 }
                             }
@@ -107,13 +118,13 @@ public class UserPermissionActivity extends AppCompatActivity {
                             public void onClick(DialogInterface arg0,
                                                 int arg1) {
 
-                                if (isChecked) {
-                                    status = "True";
+                                if (isChecked == true) {
+                                    status = String.valueOf(isChecked);
                                     permissionName = textplaceOrderUser.getText().toString();
                                     userPermissionPost();
-                                } else {
+                                } else if(isChecked == false){
+                                    status = String.valueOf(isChecked);
                                     permissionName = textplaceOrderUser.getText().toString();
-                                    status = "False";
                                     userPermissionPost();
                                 }
                             }
@@ -146,13 +157,13 @@ public class UserPermissionActivity extends AppCompatActivity {
                             public void onClick(DialogInterface arg0,
                                                 int arg1) {
 
-                                if (isChecked) {
-                                    status = "True";
+                            if(isChecked == true){
+                                    status = String.valueOf(isChecked);
                                     permissionName = txtholdaUser.getText().toString();
                                     userPermissionPost();
-                                } else {
+                                } else if(isChecked == false){
+                                    status = String.valueOf(isChecked);
                                     permissionName = txtholdaUser.getText().toString();
-                                    status = "False";
                                     userPermissionPost();
                                 }
                             }
@@ -185,13 +196,13 @@ public class UserPermissionActivity extends AppCompatActivity {
                             public void onClick(DialogInterface arg0,
                                                 int arg1) {
 
-                                if (isChecked) {
-                                    status = "True";
+                                if(isChecked == true){
+                                    status = String.valueOf(isChecked);
                                     permissionName = txtMaterialReceiveLayertoggBtn.getText().toString();
                                     userPermissionPost();
-                                } else {
+                                } else if(isChecked == false){
+                                    status = String.valueOf(isChecked);
                                     permissionName = txtMaterialReceiveLayertoggBtn.getText().toString();
-                                    status = "False";
                                     userPermissionPost();
                                 }
                             }
@@ -220,13 +231,13 @@ public class UserPermissionActivity extends AppCompatActivity {
                             public void onClick(DialogInterface arg0,
                                                 int arg1) {
 
-                                if (isChecked) {
-                                    status = "True";
+                                if(isChecked == true){
+                                    status = String.valueOf(isChecked);
                                     permissionName = txthandoverUser.getText().toString();
                                     userPermissionPost();
-                                } else {
+                                } else  if(isChecked == false){
+                                    status = String.valueOf(isChecked);
                                     permissionName = txthandoverUser.getText().toString();
-                                    status = "False";
                                     userPermissionPost();
                                 }
                             }
@@ -254,13 +265,13 @@ public class UserPermissionActivity extends AppCompatActivity {
 
                             public void onClick(DialogInterface arg0,
                                                 int arg1) {
-                                if (isChecked) {
-                                    status = "True";
+                                if(isChecked == true){
+                                    status = String.valueOf(isChecked);
                                     permissionName = txtreceiverUser.getText().toString();
                                     userPermissionPost();
-                                } else {
+                                } else  if(isChecked == false){
+                                    status = String.valueOf(isChecked);
                                     permissionName = txtreceiverUser.getText().toString();
-                                    status = "False";
                                     userPermissionPost();
                                 }
                             }
@@ -288,13 +299,13 @@ public class UserPermissionActivity extends AppCompatActivity {
 
                             public void onClick(DialogInterface arg0,
                                                 int arg1) {
-                                if (isChecked) {
-                                    status = "True";
+                                if(isChecked == true){
+                                    status = String.valueOf(isChecked);
                                     permissionName = txtdispatchUser.getText().toString();
                                     userPermissionPost();
-                                } else {
+                                } else if(isChecked == false){
+                                    status = String.valueOf(isChecked);
                                     permissionName = txtdispatchUser.getText().toString();
-                                    status = "False";
                                     userPermissionPost();
                                 }
                             }
@@ -357,10 +368,30 @@ public class UserPermissionActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             }else {
                 Gson gson = new Gson();
-                final Result jsonbodyres = gson.fromJson(result, Result.class);
-                Toast.makeText(getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
-                if (jsonbodyres.getStatus() == true) {
+                Type listType = new TypeToken<UserPermissionModel>() {
+                }.getType();
+                userPermissionModel = new Gson().fromJson(result, listType);
+                if(userPermissionModel != null){
 
+                    permissionList = userPermissionModel.getPermissionList();
+
+                    for(int i=0; i<permissionList.size(); i++){
+                        if(permissionList.get(i).getPermissionName().equals("Advance")){
+                            advUser.setChecked(true);
+                        }if(permissionList.get(i).getPermissionName().equals("PlaceOrder")) {
+                                placeUser.setChecked(true);
+                        }if(permissionList.get(i).getPermissionName().equals("Hold")) {
+                            holdUser.setChecked(true);
+                        }if(permissionList.get(i).getPermissionName().equals("MaterialReceive")) {
+                            materialUser.setChecked(true);
+                        }if(permissionList.get(i).getPermissionName().equals("HandOver")) {
+                            handOverUser.setChecked(true);
+                        }if(permissionList.get(i).getPermissionName().equals("Receive")) {
+                            receiveUser.setChecked(true);
+                        }if(permissionList.get(i).getPermissionName().equals("Dispatch")) {
+                            dispatchUser.setChecked(true);
+                        }
+                    }
                 }
                 progressDialog.dismiss();
             }
@@ -370,15 +401,11 @@ public class UserPermissionActivity extends AppCompatActivity {
 
     private void userPermissionPost() {
 
-        String useriD = userID;
-        String permission = permissionName.toString();
-        String status="";
-
 
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new userPermissionPostDetail().execute(useriD,permission,status,SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+            new userPermissionPostDetail().execute(userID,permissionName,status,SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
         } catch (Exception e) {
             progressDialog.dismiss();
             e.printStackTrace();
@@ -398,11 +425,13 @@ public class UserPermissionActivity extends AppCompatActivity {
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "UserPermissionGet/" + userID +"/"+ permission +"/"+"True");
+                builder.url(AppConfig.BASE_URL_API + "UserPermissionPost/" + userID +"/"+ permission +"/"+status);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
                 FormBody.Builder parameters = new FormBody.Builder();
+                builder.post(parameters.build());
+
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
                     json = response.body().string();

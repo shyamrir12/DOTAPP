@@ -34,7 +34,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
 
         oldpassword = findViewById(R.id.oldPass);
         newPassword = findViewById(R.id.newPass);
-        cnfrmPassword = findViewById(R.id.oldPass);
+        cnfrmPassword = findViewById(R.id.confrmPassword);
         changePasswordButton = findViewById(R.id.changePassBtn);
         changePasswordButton.setOnClickListener(this);
         progressDialog = new ProgressDialog(getApplicationContext());
@@ -102,6 +102,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 parameters.add("NewPassword", newPwd);
                 parameters.add("ConfirmPassword", cnPwd);
                 builder.post(parameters.build());
+                builder.post(parameters.build());
 
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
@@ -117,7 +118,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Successfully password change", Toast.LENGTH_SHORT).show();
             }else {
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
