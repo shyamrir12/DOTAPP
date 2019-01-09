@@ -212,7 +212,8 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                     if (jsonbody.isStatus() == true) {
                         Toast.makeText(getApplicationContext(), "User Is Not Active", Toast.LENGTH_SHORT).show();
 //                        Token user = new Token();
-//                        user.userRole = jsonbody.Role;
+//                        us
+// er.userRole = jsonbody.Role;
 //                        user.access_token = jsonbody.login.access_token;
 //                        user.userName = jsonbody.login.userName;
 //                        user.token_type = jsonbody.login.token_type;

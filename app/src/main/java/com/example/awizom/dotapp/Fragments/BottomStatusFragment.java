@@ -47,7 +47,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     DataOrder orderitem;
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     private ProgressDialog progressDialog;
-    private String countValue = "";
+    private String countValue = "",statusName="";
     private TextView countValuependingToHandOverShow, countValueDispatchShow,
             countValueHoldShow, countValueReceeMaterialShow, countValuependingToRefromtailorShow, countValuePlaceHolderShow;
     private String[] countValueSplitData;
@@ -122,8 +122,8 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
         Class fragmentClass = null;
         switch (v.getId()) {
             case R.id.pendingtToPlaceOrder: {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("PlaceOrder")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
+
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ){
 
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
@@ -133,7 +133,11 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 
 
                     startActivity(intent);
-                } else {
+                } else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    statusName ="PlaceOrder" ;
+                    userPermissionGet();
+
+                }else {
                     Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -141,27 +145,29 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             }
 
             case R.id.second_cardview: {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("PlaceOrder")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
 
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
                     intent = intent.putExtra("ButtonName", "Place Order");
                     intent = intent.putExtra("StatusName", "OrderPlaced");
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
-
-
                     startActivity(intent);
-                } else {
+                }else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    statusName ="PlaceOrder" ;
+                    userPermissionGet();
+
+                }else {
                     Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+
+
                 break;
             }
 
             case R.id.hold: {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Hold")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
+                 if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "Hold");
                     intent = intent.putExtra("ButtonName", "Place Order");
@@ -169,16 +175,20 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                     startActivity(intent);
-                } else {
-                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+                } else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                     statusName ="Hold" ;
+                     userPermissionGet();
+
+                 }else {
+                     Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                     toast.show();
+                 }
 
                 break;
             }
             case R.id.second_cardview1: {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Hold")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
+
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "Hold");
                     intent = intent.putExtra("ButtonName", "Place Order");
@@ -186,7 +196,11 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                     startActivity(intent);
-                } else {
+                }else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    statusName ="Hold" ;
+                    userPermissionGet();
+
+                }else {
                     Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -196,9 +210,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 
             case R.id.handOverTo:
             {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("HandOver")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")))
-                {
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
 
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "PandingToHandOverTo");
@@ -207,47 +219,55 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                     startActivity(intent);
-                } else {
+                }else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    statusName ="HandOver" ;
+                    userPermissionGet();
+
+                }else {
                     Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+
 
                 break;
             }
             case R.id.five_cardview:
             {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("HandOver")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")))
-                {
-
+              if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "PandingToHandOverTo");
                     intent = intent.putExtra("ButtonName", "HandOverTo");
                     intent = intent.putExtra("StatusName", "HandOverTo");
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
-                    startActivity(intent);
-                } else {
-                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+                  startActivity(intent);
+              }else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                  statusName ="HandOver" ;
+                  userPermissionGet();
+
+              }else {
+                  Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                  toast.show();
+              }
 
                 break;
             }
             case R.id.receivedFromTailor:
             {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Receive")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
-
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "PandingToReceivedFromTelor");
                     intent = intent.putExtra("ButtonName", "Received");
                     intent = intent.putExtra("StatusName", "ReceivedFromTelor");
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
+
                     startActivity(intent);
-                }
-                else {
+                }else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    statusName ="Receive" ;
+                    userPermissionGet();
+
+                }else {
                     Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -256,9 +276,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             }
             case R.id.six_cardview:
             {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Receive")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
-
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "PandingToReceivedFromTelor");
                     intent = intent.putExtra("ButtonName", "Received");
@@ -266,11 +284,15 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                     startActivity(intent);
-                }
-                else {
+                }else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    statusName ="Receive" ;
+                    userPermissionGet();
+
+                }else {
                     Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+
 
                 break;
             }
@@ -279,33 +301,29 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
             case R.id.pendingToreceivedMaterial:
 
             {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("MaterialReceive")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
-
-
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "PandingToReceiveMaterial");
                     intent = intent.putExtra("ButtonName", "Received Order");
                     intent = intent.putExtra("StatusName", "MaterialReceived");
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
-                    startActivity(intent);
-                }
+                startActivity(intent);
+            }else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    statusName ="MaterialReceive" ;
+                    userPermissionGet();
 
-                else {
-                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+            }else {
+                Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                toast.show();
+            }
 
                 break;
             }
             case R.id.third_cardview:
 
             {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("MaterialReceive")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
-
-
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "PandingToReceiveMaterial");
                     intent = intent.putExtra("ButtonName", "Received Order");
@@ -313,9 +331,11 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                     startActivity(intent);
-                }
+                }else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    statusName ="MaterialReceive" ;
+                    userPermissionGet();
 
-                else {
+                }else {
                     Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -325,10 +345,7 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 
             case R.id.dispatch:
             {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Dispatch")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
-
-
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "Dispatch");
                     intent = intent.putExtra("ButtonName", "Reset");
@@ -336,20 +353,19 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                     startActivity(intent);
-                }
-                else {
+                }else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    statusName ="Dispatch" ;
+                    userPermissionGet();
+
+                }else {
                     Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-
                 break;
             }
             case R.id.eight_cardview:
             {
-                if ((((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ||
-                        (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Dispatch")))) || (SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User"))) {
-
-
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ) {
                     intent = new Intent(getContext(), NewOrderListActivity.class);
                     intent = intent.putExtra("FilterKey", "Dispatch");
                     intent = intent.putExtra("ButtonName", "Reset");
@@ -357,12 +373,14 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
                     intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
                     startActivity(intent);
-                }
-                else {
+                }else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    statusName ="Dispatch" ;
+                    userPermissionGet();
+
+                }else {
                     Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-
                 break;
             }
 
@@ -499,11 +517,10 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
     private void userPermissionGet() {
 
         try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            new userPermissionGetDetail().execute(userId,SharedPrefManager.getInstance(getContext()).getUser().access_token);
+
+            new userPermissionGetDetail().execute(SharedPrefManager.getInstance(getContext()).getUser().userID,SharedPrefManager.getInstance(getContext()).getUser().access_token);
         } catch (Exception e) {
-            progressDialog.dismiss();
+
             e.printStackTrace();
 
         }
@@ -538,22 +555,90 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
         }
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-                progressDialog.dismiss();
+
                 Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             }else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<UserPermissionModel>() {
                 }.getType();
+                if(SharedPrefManager.getInstance(getContext()).getUser().getUserRole().equals("Admin")) {
+                    return;
+                }
                 userPermissionModel = new Gson().fromJson(result, listType);
                 if(userPermissionModel != null){
 
                     permissionList = userPermissionModel.getPermissionList();
-
+                    boolean check=false;
                     for(int i=0; i<permissionList.size(); i++){
 
-                    }
+                        if(SharedPrefManager.getInstance(getContext()).getUser().getUserRole().equals("User")) {
+                            if (permissionList.get(i).getPermissionName().equals(statusName)) {
+                                intent = new Intent(getContext(), NewOrderListActivity.class);
+                                intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
+                                intent = intent.putExtra("ButtonName", "Place Order");
+                                intent = intent.putExtra("StatusName", "OrderPlaced");
+                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+                                startActivity(intent);
+                                check=true;
+
+                            } else if (permissionList.get(i).getPermissionName().equals(statusName)) {
+                                intent = new Intent(getContext(), NewOrderListActivity.class);
+                                intent = intent.putExtra("FilterKey", "Hold");
+                                intent = intent.putExtra("ButtonName", "Place Order");
+                                intent = intent.putExtra("StatusName", "OrderPlaced");
+                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                                startActivity(intent);
+                                check=true;
+                            } else if (permissionList.get(i).getPermissionName().equals(statusName)) {
+                                intent = new Intent(getContext(), NewOrderListActivity.class);
+                                intent = intent.putExtra("FilterKey", "PandingToReceiveMaterial");
+                                intent = intent.putExtra("ButtonName", "Received Order");
+                                intent = intent.putExtra("StatusName", "MaterialReceived");
+                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                                startActivity(intent);
+                                check=true;
+                            } else if (permissionList.get(i).getPermissionName().equals(statusName)) {
+                                intent = new Intent(getContext(), NewOrderListActivity.class);
+                                intent = intent.putExtra("FilterKey", "PandingToHandOverTo");
+                                intent = intent.putExtra("ButtonName", "HandOverTo");
+                                intent = intent.putExtra("StatusName", "HandOverTo");
+                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                                startActivity(intent);
+                                check=true;
+                            } else if (permissionList.get(i).getPermissionName().equals(statusName)) {
+                                intent = new Intent(getContext(), NewOrderListActivity.class);
+                                intent = intent.putExtra("FilterKey", "PandingToReceivedFromTelor");
+                                intent = intent.putExtra("ButtonName", "Received");
+                                intent = intent.putExtra("StatusName", "ReceivedFromTelor");
+                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+
+                                startActivity(intent);
+                                check=true;
+                            } else if (permissionList.get(i).getPermissionName().equals(statusName)) {
+                                intent = new Intent(getContext(), NewOrderListActivity.class);
+                                intent = intent.putExtra("FilterKey", "Dispatch");
+                                intent = intent.putExtra("ButtonName", "Reset");
+                                intent = intent.putExtra("StatusName", "Reset");
+                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                                startActivity(intent);
+                                check=true;
+                            } else {
+                                if (check == false) {
+                                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                            }
+                        }
+                     }
+
+
                 }
-                progressDialog.dismiss();
+
             }
         }
     }

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Fragments.AboutFragment;
 import com.example.awizom.dotapp.Fragments.BottomCustomerFragment;
 import com.example.awizom.dotapp.Fragments.BottomOrderFragment;
@@ -28,6 +30,18 @@ import com.example.awizom.dotapp.Fragments.RoomNameListFragment;
 import com.example.awizom.dotapp.Fragments.TelorListFragment;
 import com.example.awizom.dotapp.Fragments.UserListFragment;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.Models.PermissionList;
+import com.example.awizom.dotapp.Models.UserModel;
+import com.example.awizom.dotapp.Models.UserPermissionModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 public class HomeActivityUser extends AppCompatActivity {
 
@@ -35,6 +49,11 @@ public class HomeActivityUser extends AppCompatActivity {
     private Fragment userListFragment,telorListFragment,roomListFragment, customerLayoutfragment, printLayoutfragment, orderLayoutfragment,
             statusLayoutFragment, searchfragment, aboutfragment,helpfragment;
     Fragment fragment = null;
+    private UserPermissionModel userPermissionModel;
+    private List<PermissionList> permissionList;
+    List<UserModel> userItemList;
+    String userId;
+    Class fragmentClass;
 
 
     @Override
@@ -172,15 +191,18 @@ public class HomeActivityUser extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_customer:
 
-                    if ((SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("Admin")) ||
-                            (SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("User"))) {
+                    if ((SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("Admin"))) {
 
                         getSupportActionBar().setTitle("Customer Details");
                         fragment = customerLayoutfragment;
                         fragmentClass = BottomCustomerFragment.class;
 
-                    } else {
-                        Toast.makeText(getApplicationContext(), "User Is Not Permitted", Toast.LENGTH_SHORT).show();
+                    } else if((SharedPrefManager.getInstance(HomeActivityUser.this).getUser().userRole.contains("User")) ) {
+                        userPermissionGet();
+
+                    }else {
+                        Toast toast = Toast.makeText(HomeActivityUser.this, "Not Permitted", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                     break;
                 case R.id.navigation_order:
@@ -198,15 +220,18 @@ public class HomeActivityUser extends AppCompatActivity {
                     }
                     break;
                 case R.id.navigation_print:
-                    if ((SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("Admin")) ||
-                            (SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("User"))) {
+                    if ((SharedPrefManager.getInstance(HomeActivityUser.this).getUser().userRole.contains("Admin")) ){
 
                         getSupportActionBar().setTitle("Print Details");
                         fragment = printLayoutfragment;
                         fragmentClass = BottomPrintFragment.class;
 
-                    } else {
-                        Toast.makeText(getApplicationContext(), "User Is Not Permitted", Toast.LENGTH_SHORT).show();
+                    } else if((SharedPrefManager.getInstance(HomeActivityUser.this).getUser().userRole.contains("User")) ) {
+                        userPermissionGet();
+
+                    }else {
+                        Toast toast = Toast.makeText(HomeActivityUser.this, "Not Permitted", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                     break;
                 case R.id.navigation_status:
@@ -215,15 +240,18 @@ public class HomeActivityUser extends AppCompatActivity {
                     fragmentClass = BottomStatusFragment.class;
                     break;
                 case R.id.navigation_search:
-                    if ((SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("Admin")) ||
-                            (SharedPrefManager.getInstance(getApplicationContext()).getUser().getUserRole().contains("User"))) {
+                    if ((SharedPrefManager.getInstance(HomeActivityUser.this).getUser().userRole.contains("Admin")) ){
 
                         getSupportActionBar().setTitle("Status Details");
                         fragment = searchfragment;
                         fragmentClass = BottomSearchfragment.class;
 
-                    } else {
-                        Toast.makeText(getApplicationContext(), "User Is Not Permitted", Toast.LENGTH_SHORT).show();
+                    } else if((SharedPrefManager.getInstance(HomeActivityUser.this).getUser().userRole.contains("User")) ) {
+                        userPermissionGet();
+
+                    }else {
+                        Toast toast = Toast.makeText(HomeActivityUser.this, "Not Permitted", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                     break;
 
@@ -255,6 +283,94 @@ public class HomeActivityUser extends AppCompatActivity {
                     }
         }
         return false;
+    }
+
+
+    private void userPermissionGet() {
+
+        try {
+
+            new userPermissionGetDetail().execute(SharedPrefManager.getInstance(HomeActivityUser.this).getUser().userID,SharedPrefManager.getInstance(HomeActivityUser.this).getUser().access_token);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+    }
+    private class userPermissionGetDetail extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            String userID = params[0];
+
+            String accesstoken = params[1];
+
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "UserPermissionGet/" + userID);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                FormBody.Builder parameters = new FormBody.Builder();
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(HomeActivityUser.this, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+
+                Toast.makeText(HomeActivityUser.this, "Invalid request", Toast.LENGTH_SHORT).show();
+            }else {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<UserPermissionModel>() {
+                }.getType();
+                if(SharedPrefManager.getInstance(HomeActivityUser.this).getUser().getUserRole().equals("Admin")) {
+                    return;
+                }
+                userPermissionModel = new Gson().fromJson(result, listType);
+                if(userPermissionModel != null){
+
+                    permissionList = userPermissionModel.getPermissionList();
+                    boolean check=false;
+                    for(int i=0; i<permissionList.size(); i++){
+
+                        if (permissionList.get(i).getPermissionName().equals("Party")) {
+                            getSupportActionBar().setTitle("Customer Details");
+                            fragment = customerLayoutfragment;
+                            fragmentClass = BottomCustomerFragment.class;
+                            check=true;
+                        }else  if (permissionList.get(i).getPermissionName().equals("Search")) {
+                            getSupportActionBar().setTitle("Search Details");
+                            fragment = searchfragment;
+                            fragmentClass = BottomSearchfragment.class;
+                            check=true;
+                        }else if(permissionList.get(i).getPermissionName().equals("Print")) {
+                            getSupportActionBar().setTitle("Print Details");
+                            fragment = printLayoutfragment;
+                            fragmentClass = BottomPrintFragment.class;
+                            check=true;
+                        }else {
+                            if (check == false) {
+                                Toast toast = Toast.makeText(HomeActivityUser.this, "Not Permitted", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    }
+
+
+                }
+
+            }
+        }
     }
 
 }

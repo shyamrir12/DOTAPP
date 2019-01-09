@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
     UserModel um;
     private Fragment userListFragment;
     Fragment fragment = null;
-
+    private LinearLayout linearLayout;
     String activeuser = "False";
     //we are storing all the products in a list
     private List<UserModel> useritemList;
@@ -128,10 +129,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
             userid = itemView.findViewById(R.id.userid);
             active = itemView.findViewById(R.id.btn1);
             resetPassword = itemView.findViewById(R.id.btn2);
+            linearLayout = itemView.findViewById(R.id.l1);
 
             active.setOnClickListener(this);
             resetPassword.setOnClickListener(this);
             roleid.setOnClickListener(this);
+            linearLayout.setOnClickListener(this);
         }
 
         @Override
@@ -213,6 +216,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
 //                alertbox.show();
 
 
+            }if (v.getId() == linearLayout.getId()) {
+                userId = useritem.getUserId();
+                Intent intnt = new Intent(mCtx, UserPermissionActivity.class);
+                intnt.putExtra("UserId",userId);
+                mCtx.startActivity(intnt);
             }
 
         }

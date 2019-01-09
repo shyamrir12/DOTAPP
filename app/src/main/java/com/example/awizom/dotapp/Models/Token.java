@@ -16,6 +16,15 @@ public class Token {
     public String userName;
     public String userRole;
     public boolean userActive;
+    public String userID;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public String getAccess_token() {
         return access_token;

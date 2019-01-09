@@ -30,8 +30,10 @@ import okhttp3.Request;
 
 public class UserPermissionActivity extends AppCompatActivity {
 
-    private  ToggleButton advUser,holdUser,placeUser,materialUser,handOverUser,receiveUser,dispatchUser;
-    private TextView textViewAdvUser,textplaceOrderUser,txtholdaUser,txtMaterialReceiveLayertoggBtn,txthandoverUser,txtreceiverUser,txtdispatchUser;
+    private  ToggleButton advUser,holdUser,placeUser,materialUser,handOverUser,receiveUser,dispatchUser,
+                            orderCreateUserBtn,partyUserBtn,searchUserBtn,printUserBtn;
+    private TextView textViewAdvUser,textplaceOrderUser,txtholdaUser,txtMaterialReceiveLayertoggBtn,txthandoverUser,txtreceiverUser,
+            txtdispatchUser,txtOrdercreateUser,txtPartyUser,txtSearchUser,txtPrintUser;
     private ProgressDialog progressDialog;
     private String userID="",permissionName="",status = "";
     private UserPermissionModel userPermissionModel;
@@ -51,6 +53,12 @@ public class UserPermissionActivity extends AppCompatActivity {
         handOverUser = findViewById(R.id.HandOverLayertoggBtn);
         receiveUser = findViewById(R.id.ReceivetoggBtn);
         dispatchUser = findViewById(R.id.DispatchLayertoggBtn);
+
+       printUserBtn = findViewById(R.id.PrintLayertoggBtn);
+        searchUserBtn = findViewById(R.id.SearchLayertoggBtn);
+        partyUserBtn = findViewById(R.id.PartyLayertoggBtn);
+        orderCreateUserBtn  = findViewById(R.id.OrderCreateLayertoggBtn);
+
         textViewAdvUser = findViewById(R.id.advanceUser);
         textplaceOrderUser = findViewById(R.id.placeOrderUser);
         txtholdaUser = findViewById(R.id.holdaUser);
@@ -58,6 +66,11 @@ public class UserPermissionActivity extends AppCompatActivity {
         txthandoverUser = findViewById(R.id.handoverUser);
         txtreceiverUser =findViewById(R.id.receiverUser);
         txtdispatchUser = findViewById(R.id.dispatchUser);
+
+        txtPrintUser = findViewById(R.id.PrintUser);
+        txtSearchUser = findViewById(R.id.OrderCreateUser);
+        txtPartyUser =findViewById(R.id.PartyUser);
+        txtOrdercreateUser = findViewById(R.id.OrderCreateUser);
 
 
 
@@ -319,6 +332,150 @@ public class UserPermissionActivity extends AppCompatActivity {
 
             }
         });
+        orderCreateUserBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+
+                AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
+                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setTitle("Change Permission");
+                alertbox.setIcon(R.drawable.admin);
+
+                alertbox.setNeutralButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            Class fragmentClass = null;
+
+                            public void onClick(DialogInterface arg0,
+                                                int arg1) {
+
+                                if (isChecked == true) {
+                                    status = String.valueOf(isChecked);
+                                    permissionName = txtOrdercreateUser.getText().toString();
+                                    userPermissionPost();
+
+                                } else if(isChecked == false){
+                                    status = String.valueOf(isChecked);
+                                    permissionName = txtOrdercreateUser.getText().toString();
+                                    userPermissionPost();
+                                }
+                            }
+
+
+                        });
+                alertbox.setPositiveButton("No", null);
+
+                alertbox.show();
+
+
+            }
+        });
+        partyUserBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+
+                AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
+                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setTitle("Change Permission");
+                alertbox.setIcon(R.drawable.admin);
+
+                alertbox.setNeutralButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            Class fragmentClass = null;
+
+                            public void onClick(DialogInterface arg0,
+                                                int arg1) {
+
+                                if (isChecked == true) {
+                                    status = String.valueOf(isChecked);
+                                    permissionName = txtPartyUser.getText().toString();
+                                    userPermissionPost();
+
+                                } else if(isChecked == false){
+                                    status = String.valueOf(isChecked);
+                                    permissionName = txtPartyUser.getText().toString();
+                                    userPermissionPost();
+                                }
+                            }
+
+
+                        });
+                alertbox.setPositiveButton("No", null);
+
+                alertbox.show();
+
+
+            }
+        });
+        searchUserBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+
+                AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
+                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setTitle("Change Permission");
+                alertbox.setIcon(R.drawable.admin);
+
+                alertbox.setNeutralButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            Class fragmentClass = null;
+
+                            public void onClick(DialogInterface arg0,
+                                                int arg1) {
+
+                                if (isChecked == true) {
+                                    status = String.valueOf(isChecked);
+                                    permissionName = txtSearchUser.getText().toString();
+                                    userPermissionPost();
+
+                                } else if(isChecked == false){
+                                    status = String.valueOf(isChecked);
+                                    permissionName = txtSearchUser.getText().toString();
+                                    userPermissionPost();
+                                }
+                            }
+
+
+                        });
+                alertbox.setPositiveButton("No", null);
+
+                alertbox.show();
+
+
+            }
+        });
+        printUserBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+
+                AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
+                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setTitle("Change Permission");
+                alertbox.setIcon(R.drawable.admin);
+
+                alertbox.setNeutralButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            Class fragmentClass = null;
+
+                            public void onClick(DialogInterface arg0,
+                                                int arg1) {
+
+                                if (isChecked == true) {
+                                    status = String.valueOf(isChecked);
+                                    permissionName = txtPrintUser.getText().toString();
+                                    userPermissionPost();
+
+                                } else if(isChecked == false){
+                                    status = String.valueOf(isChecked);
+                                    permissionName = txtPrintUser.getText().toString();
+                                    userPermissionPost();
+                                }
+                            }
+
+
+                        });
+                alertbox.setPositiveButton("No", null);
+
+                alertbox.show();
+
+
+            }
+        });
 
     }
 
@@ -377,19 +534,27 @@ public class UserPermissionActivity extends AppCompatActivity {
 
                     for(int i=0; i<permissionList.size(); i++){
                         if(permissionList.get(i).getPermissionName().equals("Advance")){
-                            advUser.setChecked(true);
+                            advUser.setText("ON");
                         }if(permissionList.get(i).getPermissionName().equals("PlaceOrder")) {
-                                placeUser.setChecked(true);
+                            placeUser.setText("ON");
                         }if(permissionList.get(i).getPermissionName().equals("Hold")) {
-                            holdUser.setChecked(true);
+                            holdUser.setText("ON");
                         }if(permissionList.get(i).getPermissionName().equals("MaterialReceive")) {
-                            materialUser.setChecked(true);
+                            materialUser.setText("ON");
                         }if(permissionList.get(i).getPermissionName().equals("HandOver")) {
-                            handOverUser.setChecked(true);
+                            handOverUser.setText("ON");
                         }if(permissionList.get(i).getPermissionName().equals("Receive")) {
-                            receiveUser.setChecked(true);
+                            receiveUser.setText("ON");
                         }if(permissionList.get(i).getPermissionName().equals("Dispatch")) {
-                            dispatchUser.setChecked(true);
+                            dispatchUser.setText("ON");
+                        }if(permissionList.get(i).getPermissionName().equals("OrderCreate")) {
+                            orderCreateUserBtn.setText("ON");
+                        }if(permissionList.get(i).getPermissionName().equals("Party")) {
+                            printUserBtn.setText("ON");
+                        }if(permissionList.get(i).getPermissionName().equals("Search")) {
+                            searchUserBtn.setText("ON");
+                        }if(permissionList.get(i).getPermissionName().equals("Print")) {
+                            printUserBtn.setText("ON");
                         }
                     }
                 }

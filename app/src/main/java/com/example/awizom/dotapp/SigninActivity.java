@@ -210,7 +210,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                 if (response.isSuccessful()) {
                     json = response.body().string();
                     //System.out.println(json);
-                    Toast.makeText(getApplicationContext(), "Result is Successfull", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Result is Successfull", Toast.LENGTH_SHORT).show();
 
                 }
             } catch (Exception e) {
@@ -241,6 +241,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                         user.token_type = jsonbody.login.token_type;
                         user.expires_in = jsonbody.login.expires_in;
                         user.userActive=jsonbody.Active;
+                        user.userID = jsonbody.UserID;
 
                         SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
                         if (!SharedPrefManager.getInstance(SigninActivity.this).getUser().access_token.equals(null)) {

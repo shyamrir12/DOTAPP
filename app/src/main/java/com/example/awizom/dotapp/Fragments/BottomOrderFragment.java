@@ -15,6 +15,9 @@ import android.widget.Toast;
 import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
+import com.example.awizom.dotapp.Models.PermissionList;
+import com.example.awizom.dotapp.Models.UserModel;
+import com.example.awizom.dotapp.Models.UserPermissionModel;
 import com.example.awizom.dotapp.NewOrderListActivity;
 import com.example.awizom.dotapp.R;
 import com.example.awizom.dotapp.SigninActivity;
@@ -22,7 +25,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -34,8 +39,12 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
     private Fragment pendinOrderListFragment, orderCreate;
     Fragment fragment = null;
     String[] values;
-    String pandingForAdv = "0";
+    String pandingForAdv = "0",permissionStatusName="";
     SwipeRefreshLayout mSwipeRefreshLayout;
+    private UserPermissionModel userPermissionModel;
+    private List<PermissionList> permissionList;
+    List<UserModel> userItemList;
+    String userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,22 +96,41 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
         switch (v.getId()) {
 
             case R.id.order_create_cardview:
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ){
 
                 getActivity().setTitle("Order Create");
                 intent = new Intent(getContext(), AfterCreateActivity.class);
                 intent = intent.putExtra("FilterKey", "orderCreate");
                 intent = intent.putExtra("StatusName", "CreateOrder ");
-                startActivity(intent);
+
+                    startActivity(intent);
+                } else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    permissionStatusName="OrderCreate";
+                    userPermissionGet();
+
+                }else {
+                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 break;
 
             case R.id.order_pending_cardview:
-
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ){
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "pandingForAdv");
                 intent = intent.putExtra("ButtonName", "Cancel Order");
                 intent = intent.putExtra("StatusName", "Cancel");
                 intent = intent.putExtra("DailogMessage", "Do you want to change the status");
-                startActivity(intent);
+
+                    startActivity(intent);
+                } else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    permissionStatusName="Advance";
+                    userPermissionGet();
+
+                }else {
+                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 break;
 //                Bundle bundle2 = new Bundle();
 //                bundle2.putString("NAME_KEY", "PendingOrderList");
@@ -127,12 +155,21 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 //                fragmentClass = OrderListFragment.class;
 //                break;
             case R.id.orderCreate:
-
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ){
                 getActivity().setTitle("Order Create");
                 intent = new Intent(getContext(), AfterCreateActivity.class);
                 intent = intent.putExtra("FilterKey", "orderCreate");
                 intent = intent.putExtra("StatusName", "CreateOrder ");
+
                 startActivity(intent);
+        } else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    permissionStatusName="OrderCreate";
+            userPermissionGet();
+
+        }else {
+            Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+            toast.show();
+        }
                 break;
                 // getActivity().setTitle("Order Create");
                 //   fragment = orderCreate;
@@ -140,13 +177,22 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
 
 
             case R.id.pendingOrder:
-
+                if ((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("Admin")) ){
                 intent = new Intent(getContext(), NewOrderListActivity.class);
                 intent = intent.putExtra("FilterKey", "pandingForAdv");
                 intent = intent.putExtra("ButtonName", "Cancel Order");
                 intent = intent.putExtra("StatusName", "Cancel");
                 intent = intent.putExtra("DailogMessage", "Do you want to change the status");
                 startActivity(intent);
+                    startActivity(intent);
+                } else if((SharedPrefManager.getInstance(getContext()).getUser().userRole.contains("User")) ) {
+                    permissionStatusName="Advance";
+                    userPermissionGet();
+
+                }else {
+                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 break;
                 //  getActivity().getFragmentManager().popBackStack();
 
@@ -256,6 +302,93 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
         @Override
         public void onClick(View v) {
 
+        }
+    }
+
+    private void userPermissionGet() {
+
+        try {
+
+            new userPermissionGetDetail().execute(SharedPrefManager.getInstance(getContext()).getUser().userID,SharedPrefManager.getInstance(getContext()).getUser().access_token);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+    }
+    private class userPermissionGetDetail extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            String userID = params[0];
+
+            String accesstoken = params[1];
+
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "UserPermissionGet/" + userID);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+                FormBody.Builder parameters = new FormBody.Builder();
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+
+                Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            }else {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<UserPermissionModel>() {
+                }.getType();
+                if(SharedPrefManager.getInstance(getContext()).getUser().getUserRole().equals("Admin")) {
+                    return;
+                }
+                userPermissionModel = new Gson().fromJson(result, listType);
+                if(userPermissionModel != null){
+
+                    permissionList = userPermissionModel.getPermissionList();
+                    boolean check=false;
+                    for(int i=0; i<permissionList.size(); i++){
+
+                        if (permissionList.get(i).getPermissionName().equals(permissionStatusName)) {
+                            intent = new Intent(getContext(), NewOrderListActivity.class);
+                            intent = intent.putExtra("FilterKey", "pandingForAdv");
+                            intent = intent.putExtra("ButtonName", "Cancel Order");
+                            intent = intent.putExtra("StatusName", "Cancel");
+                            intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+                            startActivity(intent);
+                            check=true;
+
+                        }else if (permissionList.get(i).getPermissionName().equals(permissionStatusName)) {
+                            intent = new Intent(getContext(), AfterCreateActivity.class);
+                            intent = intent.putExtra("FilterKey", "orderCreate");
+                            intent = intent.putExtra("StatusName", "CreateOrder ");
+                            startActivity(intent);
+                            check=true;
+                        }else {
+                            if (check == false) {
+                                Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    }
+
+
+                }
+
+            }
         }
     }
 

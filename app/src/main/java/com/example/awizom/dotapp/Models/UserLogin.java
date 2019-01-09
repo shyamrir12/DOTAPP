@@ -8,6 +8,7 @@ public class UserLogin {
         public int expires_in;
         public String userName;
 
+
         public String getAccess_token() {
             return access_token;
         }
@@ -39,6 +40,8 @@ public class UserLogin {
         public void setUserName(String userName) {
             this.userName = userName;
         }
+
+
     }
 
     public class RootObject {
@@ -46,6 +49,7 @@ public class UserLogin {
         public boolean Status;
         public String Role;
         public boolean Active;
+        public String UserID;
 
         public boolean isActive() {
             return Active;
@@ -87,6 +91,13 @@ public class UserLogin {
             this.login = login;
         }
 
+        public String getUserID() {
+            return UserID;
+        }
+
+        public void setUserID(String userID) {
+            this.UserID = userID;
+        }
         public Login login;
     }
 
