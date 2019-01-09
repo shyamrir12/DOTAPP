@@ -125,7 +125,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     private void initView() {
 
-        getFunctioncall();
+
         getSupportActionBar().setTitle("Create Order");
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -160,14 +160,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         progressDialog = new ProgressDialog(this);
 
 
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                //message call
-                getFunctioncall();
-            }
-        });
         print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,6 +197,15 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         } catch (Exception e) {
             e.printStackTrace();
         }
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //message call
+                getFunctioncall();
+            }
+        });
+        getFunctioncall();
 
         if (!orderid.equals("")) {
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -316,7 +318,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 if (result.isEmpty()) {
                     //progressDialog.dismiss();
                     mSwipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Invalid request g", Toast.LENGTH_SHORT).show();
                 } else {
                     Gson gson = new Gson();
                     Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
