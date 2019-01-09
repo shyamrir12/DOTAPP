@@ -589,7 +589,7 @@ boolean status=true;
             mSwipeRefreshLayout.setRefreshing(true);
            // progressDialog.setMessage("loading...");
           //  progressDialog.show();
-            new RoomDetailsActivity.detailsGET().execute(roomName, orderID, SharedPrefManager.getInstance(this).getUser().access_token);
+            new RoomDetailsActivity.detailsGET().execute(roomName.toString().trim(), orderID, SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             mSwipeRefreshLayout.setRefreshing(false);
@@ -758,7 +758,7 @@ boolean status=true;
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            new elightdetailsGET().execute(roomName, orderID, SharedPrefManager.getInstance(this).getUser().access_token);
+            new elightdetailsGET().execute(roomName.toString().trim(), orderID, SharedPrefManager.getInstance(this).getUser().access_token);
 
         } catch (Exception e) {
             e.printStackTrace();
