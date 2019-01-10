@@ -242,6 +242,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 printButton.setVisibility(View.GONE);
                 neWCancelButton.setVisibility(View.VISIBLE);
             }
+
             if(filterkey.equals("PandingToPlaceOrder")){
 
                 newHoldButton.setVisibility(View.VISIBLE);
@@ -342,7 +343,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
                 alertbox.show();
 
-            } if (v.getId() == neWCancelButton.getId()) {
+            } if (v.getId() == newHoldButton.getId()) {
                 android.support.v7.app.AlertDialog.Builder alertbox = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext());
                 alertbox.setTitle("Do you want to change the status");
                 alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -1070,13 +1071,68 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private void holdPlaceOrderPost( String message) {
         // shareApp(mCtx,message);
         try {
-            new PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,"Hold",orderItemId);
+            new HoldPostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,"Hold",orderItemId);
 
         } catch (Exception e) {
 
             e.printStackTrace();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
 
+        }
+    }
+    private class HoldPostPlaceOrderList extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            // InputStream inputStream
+            String accesstoken = params[0];
+            String statusname = params[1];
+            String orderItemId = params[2];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "OrderStatusPostNew");
+                builder.addHeader("Content-Type", "application/json");
+                builder.addHeader("Accept", "application/json");
+                builder.addHeader("Authorization", "Bearer " + accesstoken);
+
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("OrderID", "0");
+                parameters.add("RoomName", "blank");
+                parameters.add("OrderItemID", orderItemId);
+                parameters.add("StatusName", statusname);
+
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                //      progressDialog.dismiss();
+//                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+            }
+            return json;
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                final Result jsonbodyres = gson.fromJson(result, Result.class);
+                Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+                if (jsonbodyres.getStatus() == true) {
+
+                    Intent intent = new Intent(mCtx, HomeActivity.class);
+                    intent = intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK ) ;
+                    mCtx.startActivity(intent);
+
+                }
+                //       progressDialog.dismiss();
+            }
         }
     }
     private void placeOrderPost( String message) {
@@ -1138,10 +1194,11 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
-                    Intent intent = new Intent(mCtx, HomeActivity.class);
-                    intent = intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK ) ;
-                    mCtx.startActivity(intent);
-
+                    if(orderitemList.size() == 1) {
+                        Intent intent = new Intent(mCtx, HomeActivity.class);
+                        intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mCtx.startActivity(intent);
+                    }
                 }
                 //       progressDialog.dismiss();
             }

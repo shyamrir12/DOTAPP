@@ -232,7 +232,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
             mSwipeRefreshLayout.setRefreshing(true);
             // progressDialog.setMessage("loading...");
             //  progressDialog.show();
-            new detailsGET().execute( orderID, SharedPrefManager.getInstance(this).getUser().access_token);
+            new detailsGET().execute( orderID, filterkey,SharedPrefManager.getInstance(this).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             mSwipeRefreshLayout.setRefreshing(false);
@@ -248,12 +248,13 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
 
             //String roomName = strings[0];
             String orderID = strings[0];
-            String accesstoken = strings[1];
+            String filterkey = strings[1];
+            String accesstoken = strings[2];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank" +"/" +filterkey);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
