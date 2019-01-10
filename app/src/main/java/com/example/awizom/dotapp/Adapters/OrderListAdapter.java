@@ -70,7 +70,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     private Spinner handOvertoNameSpinner, tailorListNameSpinner;
     private EditText editReceivedBy;
-    private Button okRecevedButton,canceLOrderButton;
+    private Button okRecevedButton,canceLOrderButton,holdButton;
     private ImageButton print,share;
     private String message="",id="";
     private Intent pdfOpenintent;
@@ -161,16 +161,25 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             buttonOrder = view.findViewById(R.id.buttonOrder);
             buttonActualOrder = view.findViewById(R.id.buttonActualOrder);
             canceLOrderButton = view.findViewById(R.id.cancelOrderButton);
+            holdButton = view.findViewById(R.id.holdOrderButton);
+
+            holdButton.setOnClickListener(this);
             buttonOrder.setOnClickListener(this);
             buttonActualOrder.setOnClickListener(this);
             canceLOrderButton.setOnClickListener(this);
             canceLOrderButton.setText(valueButtonname);
+
 
             orderitemcatlog = new HandOverModel();
             share = view.findViewById(R.id.share);
             print = view.findViewById(R.id.print);
             share.setOnClickListener(this);
             print.setOnClickListener(this);
+
+            holdButton.setVisibility(View.GONE);
+            if(filterKey.equals("Hold")){
+                holdButton.setVisibility(View.VISIBLE);
+            }
         }
 
 
@@ -461,13 +470,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                     mCtx.startActivity(intent);
                     }
 
-                }
+                }if (v.getId() == print.getId()) {
+                     getPrintFunctioncalls();
+                  }if (v.getId() == holdButton.getId()) {
 
-             if (v.getId() == print.getId()) {
-          getPrintFunctioncalls();
-
-
-                       }
+                     }
 
             }
 
