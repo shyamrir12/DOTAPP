@@ -243,6 +243,20 @@
                     android:layout_marginLeft="15dp"
                     android:visibility="gone" />
 
+                <Button
+                    android:id="@+id/NewholdButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Hold"
+                    android:background="@drawable/add_cancel_button_shape"
+                    android:layout_weight="1"
+                    android:textSize="13sp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="15dp"
+                    android:visibility="gone"  />
+
+
                 <ImageButton
                     android:id="@+id/printButton"
                     android:layout_width="30dp"

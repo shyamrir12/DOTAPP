@@ -69,7 +69,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     CatelogOrderDetailModel catelogOrderDetailModel;
     private String StatusName,filterkey,buttonname,tailorList;
     private EditText editReceivedBy;
-    private Button okRecevedButton,canceLOrderButton,neWCancelButton;
+    private Button okRecevedButton,canceLOrderButton,neWCancelButton,newHoldButton;
     private Spinner handOvertoNameSpinner, tailorListNameSpinner;
     private String handOverToListSpinnerData[] = {"Telor", "Sofa Karigar", "Self Customer", "Wallpaper fitter"};
     String orderItemId;
@@ -233,12 +233,18 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             printButton=itemView.findViewById(R.id.printButton);
             neWCancelButton = itemView.findViewById(R.id.newCancelButton);
             neWCancelButton.setOnClickListener(this);
+            newHoldButton = itemView.findViewById(R.id.NewholdButton);
+            newHoldButton.setOnClickListener(this);
             printButton.setOnClickListener(this);
 //            sendButton.setVisibility(View.GONE);
             if(filterkey.equals("Hold")){
                 sendButton.setVisibility(View.GONE);
                 printButton.setVisibility(View.GONE);
                 neWCancelButton.setVisibility(View.VISIBLE);
+            }
+            if(filterkey.equals("PandingToPlaceOrder")){
+
+                newHoldButton.setVisibility(View.VISIBLE);
             }
             sendButton.setOnClickListener(this);
 
@@ -326,6 +332,24 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
 
                         cancelPlaceOrderPost(message);
+                    }
+                });
+                alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                    }
+                });
+
+                alertbox.show();
+
+            } if (v.getId() == neWCancelButton.getId()) {
+                android.support.v7.app.AlertDialog.Builder alertbox = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext());
+                alertbox.setTitle("Do you want to change the status");
+                alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+
+                       holdPlaceOrderPost(message);
                     }
                 });
                 alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -1043,7 +1067,18 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
         }
     }
+    private void holdPlaceOrderPost( String message) {
+        // shareApp(mCtx,message);
+        try {
+            new PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,"Hold",orderItemId);
 
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
     private void placeOrderPost( String message) {
        // shareApp(mCtx,message);
         try {
