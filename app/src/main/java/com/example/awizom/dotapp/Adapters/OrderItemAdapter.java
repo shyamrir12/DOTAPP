@@ -133,6 +133,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             }
 
 
+
             if (actualorder.equals("ActualOrder")) {
                 holder.AQty.setVisibility(View.VISIBLE);
                 holder.Qty.setVisibility(View.GONE);
@@ -242,6 +243,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 printButton.setVisibility(View.GONE);
                 neWCancelButton.setVisibility(View.VISIBLE);
             }
+
+            if(filterkey.equals("pandingForAdv")){
+                buttonStatus.setVisibility(View.GONE);
+                neWCancelButton.setVisibility(View.GONE);
+                newHoldButton.setVisibility(View.GONE);
+            }
+
 
             if(filterkey.equals("PandingToPlaceOrder")){
 

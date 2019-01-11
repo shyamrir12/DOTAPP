@@ -318,7 +318,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 if (result.isEmpty()) {
                     //progressDialog.dismiss();
                     mSwipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(getApplicationContext(), "Invalid request g", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Invalid reques", Toast.LENGTH_SHORT).show();
                 } else {
                     Gson gson = new Gson();
                     Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
