@@ -60,8 +60,9 @@ public class HomeActivity extends AppCompatActivity {
     private UserPermissionModel userPermissionModel;
     private List<PermissionList> permissionList;
     List<UserModel> userItemList;
-    String userId;
+    String userId,message="";
     Class fragmentClass;
+
 
 
     @Override
@@ -90,6 +91,15 @@ public class HomeActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(HomeActivity.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
+
+        try {
+            message = getIntent().getExtras().getString("Message", "");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(!message.equals("")) {
+            shareApp(HomeActivity.this, message);
+        }
 
     }
 
@@ -450,6 +460,23 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+
+    public static void shareApp(Context context, String message)
+    {
+        //  final String appPackageName = context.getPackageName();
+//    Intent sendIntent = new Intent();
+//    sendIntent.setAction(Intent.ACTION_SEND);
+//    sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//    sendIntent.putExtra(Intent.EXTRA_TEXT, message );
+//    sendIntent.setType("text/plain");
+//    context.startActivity(sendIntent);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+        context.startActivity(Intent.createChooser(shareIntent, "SHARE"));
+
     }
 }
 

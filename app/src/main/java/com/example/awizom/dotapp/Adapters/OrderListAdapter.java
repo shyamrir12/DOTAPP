@@ -844,7 +844,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
 
         try {
-            new detailsGET().execute( String.valueOf( orderitem.getOrderID() ), SharedPrefManager.getInstance(mCtx).getUser().access_token);
+            if(filterKey.equals("pandingForAdv") || filterKey.equals("orderCreate")){
+                filterKey = "blank";
+            }
+            new detailsGET().execute( String.valueOf( orderitem.getOrderID() ),filterKey, SharedPrefManager.getInstance(mCtx).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -860,12 +863,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
             //String roomName = strings[0];
             String orderID = strings[0];
-            String accesstoken = strings[1];
+            String filterKey = strings[1];
+            String accesstoken = strings[2];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank" + "/" + filterKey);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
@@ -949,7 +953,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private void getPrintFunctioncalls() {
 
         try {
-            new detailseGET().execute( String.valueOf( orderitem.getOrderID() ), SharedPrefManager.getInstance(mCtx).getUser().access_token);
+            if(filterKey.equals("pandingForAdv") || filterKey.equals("orderCreate")){
+                filterKey = "blank";
+            }
+            new detailseGET().execute( String.valueOf( orderitem.getOrderID() ),filterKey, SharedPrefManager.getInstance(mCtx).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -963,12 +970,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
             //String roomName = strings[0];
             String orderID = strings[0];
-            String accesstoken = strings[1];
+            String filterKey = strings[1];
+            String accesstoken = strings[2];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank");
+                builder.url(AppConfig.BASE_URL_API + "OrderItemGet/" + orderID.trim() + "/" +"blank" + "/" + filterKey);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);

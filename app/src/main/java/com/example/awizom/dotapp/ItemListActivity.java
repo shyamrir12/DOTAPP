@@ -285,7 +285,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
                     Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
                     }.getType();
                     orderList = new Gson().fromJson(result, listType);
-                    adapter = new OrderItemAdapter(ItemListActivity.this, orderList, actualorder,filterkey,StatusName,buttonname,tailorList);
+                    adapter = new OrderItemAdapter(ItemListActivity.this, orderList, actualorder,filterkey,StatusName,buttonname,tailorList,"blank");
                     recyclerView.setAdapter(adapter);
                     mSwipeRefreshLayout.setRefreshing(false);
                 }

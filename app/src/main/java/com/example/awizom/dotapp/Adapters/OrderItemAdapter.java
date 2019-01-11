@@ -77,12 +77,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private TextView elight, roman, aPlat, elightPrice, romanPrice, aPlotPrice, totalAmount;
     private LinearLayout elightLayout,elightPValueLayout;
     private ImageButton sendButton,printButton;
-    String CatalogName="",Design="",SerialNo="",PageNo="",Unit="",qty="",Price="",message="";
+    String CatalogName="",Design="",SerialNo="",PageNo="",Unit="",qty="",Price="",message="",roomName;
     private Intent pdfOpenintent;
 
 
     public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder,
-                            String filterkey, String StatusName, String buttonname,String tailorList) {
+                            String filterkey, String StatusName, String buttonname,String tailorList,String roomName) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;
         this.actualorder = actualorder;
@@ -90,6 +90,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         this.filterkey=filterkey;
         this.tailorList=tailorList;
         this.buttonname=buttonname;
+        this.roomName = roomName;
         progressDialog = new ProgressDialog(mCtx);
     }
 
@@ -138,41 +139,45 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 holder.AQty.setVisibility(View.VISIBLE);
                 holder.Qty.setVisibility(View.GONE);
             }
-            if (filterkey.equals("PandingToPlaceOrder")||filterkey.equals("Hold") )
+            if(roomName.equals("blank"))
             {
-                if(!order.isOrderPlaced())
+                if (filterkey.equals("PandingToPlaceOrder")||filterkey.equals("Hold") )
                 {
-                    holder.buttonStatus.setVisibility( View.VISIBLE );
-                    holder.buttonStatus.setText( buttonname );
-                }
+                    if(!order.isOrderPlaced())
+                    {
+                        holder.buttonStatus.setVisibility( View.VISIBLE );
+                        holder.buttonStatus.setText( buttonname );
+                    }
 
-            }
-            else if(filterkey.equals("PandingToReceiveMaterial"))
-            {
-                if(order.isOrderPlaced()&&!order.isMaterialReceived())
+                }
+                else if(filterkey.equals("PandingToReceiveMaterial"))
                 {
-                    holder.buttonStatus.setVisibility( View.VISIBLE );
-                    holder.buttonStatus.setText( buttonname );
+                    if(order.isOrderPlaced()&&!order.isMaterialReceived())
+                    {
+                        holder.buttonStatus.setVisibility( View.VISIBLE );
+                        holder.buttonStatus.setText( buttonname );
+                    }
+                }
+                else if(filterkey.equals("PandingToHandOverTo")) {
+
+                    if(order.isMaterialReceived()&&order.isOrderPlaced()&&order.getHandOverTo().equals( "" ))
+                    {
+                        holder.buttonStatus.setVisibility( View.VISIBLE );
+                        holder.buttonStatus.setText( buttonname );
+                    }
+
+                }
+                else if(filterkey.equals("PandingToReceivedFromTelor")) {
+
+                    if(order.getHandOverTo().equals( "Telor" )&&order.isMaterialReceived()&&order.isOrderPlaced()&& !order.isReceivedFromTalor())
+                    {
+                        holder.buttonStatus.setVisibility( View.VISIBLE );
+                        holder.buttonStatus.setText( buttonname );
+                    }
+
                 }
             }
-            else if(filterkey.equals("PandingToHandOverTo")) {
 
-                if(order.isMaterialReceived()&&order.isOrderPlaced()&&order.getHandOverTo().equals( "" ))
-                {
-                    holder.buttonStatus.setVisibility( View.VISIBLE );
-                    holder.buttonStatus.setText( buttonname );
-                }
-
-            }
-            else if(filterkey.equals("PandingToReceivedFromTelor")) {
-
-                if(order.getHandOverTo().equals( "Telor" )&&order.isMaterialReceived()&&order.isOrderPlaced()&& !order.isReceivedFromTalor())
-                {
-                    holder.buttonStatus.setVisibility( View.VISIBLE );
-                    holder.buttonStatus.setText( buttonname );
-                }
-
-            }
 
 
         } catch (Exception E) {
@@ -238,23 +243,22 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             newHoldButton.setOnClickListener(this);
             printButton.setOnClickListener(this);
 //            sendButton.setVisibility(View.GONE);
-            if(filterkey.equals("Hold")){
-                sendButton.setVisibility(View.GONE);
-                printButton.setVisibility(View.GONE);
-                neWCancelButton.setVisibility(View.VISIBLE);
-            }
 
-            if(filterkey.equals("pandingForAdv")){
+            if(!roomName.equals("blank"))
+            {
                 buttonStatus.setVisibility(View.GONE);
-                neWCancelButton.setVisibility(View.GONE);
-                newHoldButton.setVisibility(View.GONE);
+            }
+            else {
+                if(filterkey.equals("Hold")){
+
+                    neWCancelButton.setVisibility(View.VISIBLE);
+                }
+                if(filterkey.equals("PandingToPlaceOrder")){
+
+                    newHoldButton.setVisibility(View.VISIBLE);
+                }
             }
 
-
-            if(filterkey.equals("PandingToPlaceOrder")){
-
-                newHoldButton.setVisibility(View.VISIBLE);
-            }
             sendButton.setOnClickListener(this);
 
         }
@@ -532,7 +536,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             dialogBuilder.setTitle("Receibed By List");
             final android.support.v7.app.AlertDialog b = dialogBuilder.create();
             b.show();
-            shareApp(mCtx,message);
+          //  shareApp(mCtx,message);
             okRecevedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1135,7 +1139,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 if (jsonbodyres.getStatus() == true) {
 
                     Intent intent = new Intent(mCtx, HomeActivity.class);
-                    intent = intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK ) ;
+                    intent = intent.putExtra("Message",message);
+                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mCtx.startActivity(intent);
 
                 }
@@ -1202,11 +1207,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
-                    if(orderitemList.size() == 1) {
+
                         Intent intent = new Intent(mCtx, HomeActivity.class);
+                        intent = intent.putExtra("Message",message);
                         intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mCtx.startActivity(intent);
-                    }
+
                 }
                 //       progressDialog.dismiss();
             }
@@ -1271,6 +1277,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
+                    Intent intent = new Intent(mCtx, HomeActivity.class);
+                    intent = intent.putExtra("Message",message);
+                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mCtx.startActivity(intent);
                 }
             }
         }
@@ -1336,6 +1346,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
+                    Intent intent = new Intent(mCtx, HomeActivity.class);
+                    intent = intent.putExtra("Message",message);
+                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mCtx.startActivity(intent);
                 }
             }
         }
