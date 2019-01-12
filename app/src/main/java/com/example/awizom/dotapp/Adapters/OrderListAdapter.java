@@ -121,7 +121,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             holder.orderamount.setText("Advance\n " + Double.toString(order.getAdvance()).trim());
             holder.totalamount.setText("Amount\n " + Double.toString(order.getATotalAmount()).trim());
 
-            if( Double.toString(order.getTotalAmount()).equals("0.0")){
+            if( Double.toString(order.getATotalAmount()).equals("0.0")){
                 holder.canceLOrderButton.setVisibility(View.GONE);
             }
 

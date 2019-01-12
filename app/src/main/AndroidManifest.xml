@@ -67,7 +67,7 @@
 
         <activity android:name=".PdfViewActivity"/>
         <activity android:name=".ChangePasswordActivity"/>
-        <activity android:name=".UserPermissionActivity"/>
+        <activity android:name=".UserPermission"/>
         <activity android:name=".HelpActivity"/>
         <activity android:name=".ItemListActivity"/>
     </application>

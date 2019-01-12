@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -55,7 +56,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {
     private AutoCompleteTextView catlogName, design;
     private EditText price;
@@ -80,6 +80,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private ImageButton sendButton,printButton;
     String CatalogName="",Design="",SerialNo="",PageNo="",Unit="",qty="",Price="",message="",roomName;
     private Intent pdfOpenintent;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder,
@@ -211,6 +212,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
+            mSwipeRefreshLayout = itemView.findViewById(R.id.swipeRefreshLayout);
+
 
             // CatelogOrderDetailModel catelogOrderDetailModel = new CatelogOrderDetailModel();
             serialNo = itemView.findViewById(R.id.sno);
@@ -261,6 +264,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             }
 
             sendButton.setOnClickListener(this);
+
 
         }
 
@@ -404,7 +408,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
                 table.addCell("Catalog Name");
                 table.addCell("Design");
-               table.addCell("SerialNo");
+                table.addCell("SerialNo");
                 table.addCell("PageNo");
                 table.addCell("Qty");
                 table.addCell("Unit");
@@ -506,22 +510,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 pdfOpenintent = pdfOpenintent.putExtra("PDFName","/OrderItemAdapter.pdf");
                 pdfOpenintent = pdfOpenintent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK ) ;
                 mCtx.startActivity( pdfOpenintent);
-
-
-
-
-
-
-
-
             }
-
-
-
-
         }
-
-
 
         private void showdailogForreceivedBy(View v,String message) {
 
@@ -797,11 +787,14 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
 
                     if (actualorder.equals("ActualOrder")) {
-
+                        progressDialog.setMessage("loading...");
+                        progressDialog.show();
                         new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, QTY, aqty, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "", orderID.trim()
                                 ,eligt,romn,aplot,elightprice,romanprice,aplotprice , SharedPrefManager.getInstance(mCtx).getUser().access_token);
 
                     } else {
+                        progressDialog.setMessage("loading...");
+                        progressDialog.show();
                         new OrderItemAdapter.POSTOrder().execute(OrderItemID, materialtype, priCe2, qTy, qTy, unIt, orderRoomId, catlogname, snumber, desiGn, page_no, priCe, unIt, catalogID, "",
                                 orderID.trim()   ,eligt,romn,aplot,elightprice,romanprice,aplotprice,SharedPrefManager.getInstance(mCtx).getUser().access_token);
 
@@ -824,17 +817,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         }
 
     }
-    //    private void shareMessage(String message) {
-//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-//        shareIntent.setType("text/plain");
-//        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
-//        mCtx.startActivity(Intent.createChooser(shareIntent, getString(R.string.share_chooser_title)));
-//
-//
-//
-//
-//
-//    }
+
     public static void shareApp(Context context, String message)
     {
         //  final String appPackageName = context.getPackageName();
@@ -851,16 +834,14 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
     }
 
-
-
-
     private void getCatalogDesignSingle() {
         try {
-
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
             new getCatalogDesign().execute(catlogName.getText().toString(), design.getText().toString(), SharedPrefManager.getInstance(mCtx).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
-
+            progressDialog.dismiss();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -894,6 +875,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
+                progressDialog.dismiss();
                 Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
@@ -915,12 +897,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
     private void getDesignList() {
         try {
-            // progressDialog.setMessage("loading...");
-            // progressDialog.show();
+             progressDialog.setMessage("loading...");
+             progressDialog.show();
             new getDesign().execute(catlogName.getText().toString(), SharedPrefManager.getInstance(mCtx).getUser().access_token);
         } catch (Exception e) {
             e.printStackTrace();
-            // progressDialog.dismiss();
+             progressDialog.dismiss();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -946,6 +928,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                progressDialog.dismiss();
                 Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
@@ -953,7 +936,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-
+                progressDialog.dismiss();
                 Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
@@ -1044,7 +1027,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                // progressDialog.dismiss();
+                 progressDialog.dismiss();
                 // System.out.println("Error: " + e);
                 Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
@@ -1054,7 +1037,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
-                // progressDialog.dismiss();
+                progressDialog.dismiss();
                 Toast.makeText(mCtx, "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 //System.out.println("CONTENIDO:  " + result);
@@ -1062,9 +1045,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(mCtx.getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
-                    //   getMyOrder();
+                   //   getMyOrder();
                 }
-                // progressDialog.dismiss();
+                 progressDialog.dismiss();
             }
         }
     }
@@ -1072,11 +1055,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private void cancelPlaceOrderPost( String message) {
        // shareApp(mCtx,message);
         try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
             new PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,"Cancel",orderItemId);
 
         } catch (Exception e) {
-
             e.printStackTrace();
+            progressDialog.dismiss();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
 
         }
@@ -1084,11 +1069,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private void holdPlaceOrderPost( String message) {
         // shareApp(mCtx,message);
         try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
             new HoldPostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,"Hold",orderItemId);
 
         } catch (Exception e) {
-
             e.printStackTrace();
+            progressDialog.dismiss();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
 
         }
@@ -1123,7 +1110,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                //      progressDialog.dismiss();
+                progressDialog.dismiss();
 //                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
             return json;
@@ -1138,11 +1125,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
+                    progressDialog.dismiss();
+                    holdPlaceOrderPost(message);
 
-                    Intent intent = new Intent(mCtx, HomeActivity.class);
-                    intent = intent.putExtra("Message",message);
-                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mCtx.startActivity(intent);
+//                    Intent intent = new Intent(mCtx, HomeActivity.class);
+//                    intent = intent.putExtra("Message",message);
+//                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    mCtx.startActivity(intent);
 
                 }
                 //       progressDialog.dismiss();
@@ -1152,11 +1141,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     private void placeOrderPost( String message) {
        // shareApp(mCtx,message);
         try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
             new PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,StatusName,orderItemId);
 
         } catch (Exception e) {
-
             e.printStackTrace();
+            progressDialog.dismiss();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
 
         }
@@ -1192,6 +1183,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                progressDialog.dismiss();
                 //      progressDialog.dismiss();
 //                Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
@@ -1208,11 +1200,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
-
-                        Intent intent = new Intent(mCtx, HomeActivity.class);
-                        intent = intent.putExtra("Message",message);
-                        intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        mCtx.startActivity(intent);
+                    placeOrderPost(message);
+                    cancelPlaceOrderPost(message);
+                    progressDialog.dismiss();
+//                        Intent intent = new Intent(mCtx, HomeActivity.class);
+//                        intent = intent.putExtra("Message",message);
+//                        intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        mCtx.startActivity(intent);
 
                 }
                 //       progressDialog.dismiss();
@@ -1222,10 +1216,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
     private void receiFromeTailorToListPost() {
         try {
-
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
             new receivedFrometailorToListPost().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token, StatusName,orderItemId, editReceivedBy.getText().toString());
         } catch (Exception e) {
             e.printStackTrace();
+            progressDialog.dismiss();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
 
         }
@@ -1278,10 +1274,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
-                    Intent intent = new Intent(mCtx, HomeActivity.class);
-                    intent = intent.putExtra("Message",message);
-                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mCtx.startActivity(intent);
+                    progressDialog.dismiss();
+                    receiFromeTailorToListPost();
+//                    Intent intent = new Intent(mCtx, HomeActivity.class);
+//                    intent = intent.putExtra("Message",message);
+//                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    mCtx.startActivity(intent);
                 }
             }
         }
@@ -1291,9 +1289,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
     private void handOverToListPost() {
         try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
             new PostHandOverToList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,StatusName,orderItemId,String.valueOf(handOvertoNameSpinner.getSelectedItem()), String.valueOf(tailorListNameSpinner.getSelectedItem()));
         } catch (Exception e) {
             e.printStackTrace();
+            progressDialog.dismiss();
             Toast.makeText(mCtx, "Error: " + e, Toast.LENGTH_SHORT).show();
 
         }
@@ -1347,10 +1348,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
-                    Intent intent = new Intent(mCtx, HomeActivity.class);
-                    intent = intent.putExtra("Message",message);
-                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mCtx.startActivity(intent);
+                    progressDialog.dismiss();
+                    handOverToListPost();
+//                    Intent intent = new Intent(mCtx, HomeActivity.class);
+//                    intent = intent.putExtra("Message",message);
+//                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    mCtx.startActivity(intent);
                 }
             }
         }

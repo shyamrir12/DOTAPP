@@ -84,7 +84,7 @@ public class UserPermissionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 
@@ -120,7 +120,7 @@ public class UserPermissionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 
@@ -159,7 +159,7 @@ public class UserPermissionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 
@@ -198,7 +198,7 @@ public class UserPermissionActivity extends AppCompatActivity {
 
 
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 
@@ -233,7 +233,7 @@ public class UserPermissionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 
@@ -268,7 +268,7 @@ public class UserPermissionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 
@@ -302,7 +302,7 @@ public class UserPermissionActivity extends AppCompatActivity {
         dispatchUser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 
@@ -336,7 +336,7 @@ public class UserPermissionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 
@@ -372,7 +372,7 @@ public class UserPermissionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 
@@ -408,7 +408,7 @@ public class UserPermissionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 
@@ -444,7 +444,7 @@ public class UserPermissionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(UserPermissionActivity.this);
-                alertbox.setMessage("are you sure want to give the permission");
+                alertbox.setMessage("are you sure want to change the permission");
                 alertbox.setTitle("Change Permission");
                 alertbox.setIcon(R.drawable.admin);
 

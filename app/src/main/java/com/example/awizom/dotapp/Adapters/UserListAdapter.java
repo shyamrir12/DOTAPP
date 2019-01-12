@@ -23,6 +23,7 @@ import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.Models.UserModel;
 import com.example.awizom.dotapp.R;
+import com.example.awizom.dotapp.UserPermission;
 import com.example.awizom.dotapp.UserPermissionActivity;
 import com.google.gson.Gson;
 
@@ -204,7 +205,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
 //                            public void onClick(DialogInterface arg0,
 //                                                int arg1) {
                                userId = useritem.getUserId();
-                                Intent intnt = new Intent(mCtx, UserPermissionActivity.class);
+                                Intent intnt = new Intent(mCtx, UserPermission.class);
                                 intnt.putExtra("UserId",userId);
                                 mCtx.startActivity(intnt);
 //                            }
@@ -218,7 +219,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.OrderI
 
             }if (v.getId() == linearLayout.getId()) {
                 userId = useritem.getUserId();
-                Intent intnt = new Intent(mCtx, UserPermissionActivity.class);
+                Intent intnt = new Intent(mCtx, UserPermission.class);
                 intnt.putExtra("UserId",userId);
                 mCtx.startActivity(intnt);
             }

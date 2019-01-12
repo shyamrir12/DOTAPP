@@ -91,14 +91,14 @@ public class HomeActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
 
-        try {
-            message = getIntent().getExtras().getString("Message", "");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        if(!message.equals("")) {
-            shareApp(HomeActivity.this, message);
-        }
+//        try {
+//            message = getIntent().getExtras().getString("Message", "");
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        if(!message.equals("")) {
+//            shareApp(HomeActivity.this, message);
+//        }
 
     }
 

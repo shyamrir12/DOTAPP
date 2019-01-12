@@ -69,7 +69,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class AfterCreateActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
-
     private TextView  i_name, i_contact,  orderDateLabel;
     private EditText orderDate, amount,textViewATotalAmount,c_contact,i_address;
     SwipeRefreshLayout mSwipeRefreshLayout;
