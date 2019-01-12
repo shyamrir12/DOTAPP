@@ -63,6 +63,7 @@ public class HomeActivity extends AppCompatActivity {
     String userId,message="";
     Class fragmentClass;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

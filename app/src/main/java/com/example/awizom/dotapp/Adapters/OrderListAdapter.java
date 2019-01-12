@@ -78,7 +78,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     List<CatelogOrderDetailModel> orderestimateforcustomer;
     private  String c_name,c_contact,t_amt,r_n ;
 
-
     public OrderListAdapter(Context mCtx, List<DataOrder> orderitemList, String filterKey, String valueButtonname, String statusName) {
         this.mCtx = mCtx;
         this.orderitemList = orderitemList;

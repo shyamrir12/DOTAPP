@@ -42,8 +42,6 @@ import okhttp3.Request;
 
 public class ItemListActivity extends AppCompatActivity implements View.OnClickListener {
 
-
-
     private RecyclerView recyclerView;
     private Button  cancelElight;
     SwipeRefreshLayout mSwipeRefreshLayout;

@@ -72,6 +72,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
     String[] designlist;
     //  private AlertDialog b;
 
+
     private String roomName, orderID, customernAME, mobileNumber, orderDate, advance,StatusName,filterkey,buttonname,tailorList;
     DataOrder orderitem;
     private Double priceValue,price2value,result = Double.valueOf(0),superResult = Double.valueOf(0);

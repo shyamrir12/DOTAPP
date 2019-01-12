@@ -12,6 +12,7 @@ import com.example.awizom.dotapp.R;
 
 public class HelpActivity extends AppCompatActivity
 
+
 {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

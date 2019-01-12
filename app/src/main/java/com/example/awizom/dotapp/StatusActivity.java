@@ -20,8 +20,6 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
     private Fragment statuspendingOrderFragment;
     Fragment fragment = null;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
