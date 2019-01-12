@@ -40,7 +40,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         progressDialog = new ProgressDialog(getApplicationContext());
         progressDialog = new ProgressDialog(this);
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){

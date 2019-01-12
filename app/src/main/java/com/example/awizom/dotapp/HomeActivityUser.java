@@ -55,7 +55,6 @@ public class HomeActivityUser extends AppCompatActivity {
     String userId;
     Class fragmentClass;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

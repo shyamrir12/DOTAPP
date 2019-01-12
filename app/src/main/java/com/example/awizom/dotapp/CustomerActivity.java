@@ -30,7 +30,6 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.customer_activity_layout);
         initView();
     }
-
     private void initView() {
 
         customerList = findViewById(R.id.customerList);

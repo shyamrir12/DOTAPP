@@ -46,6 +46,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class NewOrderListActivity extends AppCompatActivity implements View.OnClickListener {
+
     private Intent intent;
     //ProgressDialog progressDialog;
     List<DataOrder> orderList;

@@ -519,6 +519,7 @@ public class UserPermissionActivity extends AppCompatActivity {
             }
             return json;
         }
+
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();

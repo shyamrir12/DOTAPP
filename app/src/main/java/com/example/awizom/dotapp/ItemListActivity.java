@@ -50,7 +50,6 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
     ProgressDialog progressDialog;
     CatelogOrderDetailModel catelogOrderDetailModel;
     List<CatelogOrderDetailModel> orderList;
-
     ArrayAdapter<String> catadapter;
     ArrayAdapter<String> designadapter;
     OrderItemAdapter adapter;
