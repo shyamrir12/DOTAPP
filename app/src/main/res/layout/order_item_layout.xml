@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+    <!--android:id="@+id/swipeRefreshLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,10 +15,7 @@
         app:cardElevation="10dp"
         android:layout_margin="5dp">
 
-        <!--<android.support.v4.widget.SwipeRefreshLayout-->
-            <!--android:id="@+id/swipeRefreshLayout"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent">-->
+
         <RelativeLayout
             android:id="@+id/catelogDetail"
             android:layout_width="match_parent"
@@ -280,7 +280,7 @@
             </LinearLayout>
 
         </RelativeLayout>
-        <!--</android.support.v4.widget.SwipeRefreshLayout>-->
-    </android.support.v7.widget.CardView>
 
+    </android.support.v7.widget.CardView>
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 </LinearLayout>

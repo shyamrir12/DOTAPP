@@ -1126,8 +1126,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     progressDialog.dismiss();
-                    holdPlaceOrderPost(message);
-
 //                    Intent intent = new Intent(mCtx, HomeActivity.class);
 //                    intent = intent.putExtra("Message",message);
 //                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1200,8 +1198,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
 
-                    placeOrderPost(message);
-                    cancelPlaceOrderPost(message);
                     progressDialog.dismiss();
 //                        Intent intent = new Intent(mCtx, HomeActivity.class);
 //                        intent = intent.putExtra("Message",message);
@@ -1275,7 +1271,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     progressDialog.dismiss();
-                    receiFromeTailorToListPost();
+
 //                    Intent intent = new Intent(mCtx, HomeActivity.class);
 //                    intent = intent.putExtra("Message",message);
 //                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1349,7 +1345,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     progressDialog.dismiss();
-                    handOverToListPost();
+
 //                    Intent intent = new Intent(mCtx, HomeActivity.class);
 //                    intent = intent.putExtra("Message",message);
 //                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
