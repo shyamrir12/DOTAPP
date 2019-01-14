@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -569,72 +570,75 @@ public class BottomStatusFragment extends Fragment implements View.OnClickListen
 
                     permissionList = userPermissionModel.getPermissionList();
                     boolean check=false;
-                    for(int i=0; i<permissionList.size(); i++){
-
-                        if(SharedPrefManager.getInstance(getContext()).getUser().getUserRole().equals("User")) {
-                            if (permissionList.get(i).getPermissionName().equals(statusName)) {
-                                intent = new Intent(getContext(), NewOrderListActivity.class);
-                                intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
-                                intent = intent.putExtra("ButtonName", "Place Order");
-                                intent = intent.putExtra("StatusName", "OrderPlaced");
-                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
-                                startActivity(intent);
-                                check=true;
-
-                            } else if (permissionList.get(i).getPermissionName().equals(statusName)) {
-                                intent = new Intent(getContext(), NewOrderListActivity.class);
-                                intent = intent.putExtra("FilterKey", "Hold");
-                                intent = intent.putExtra("ButtonName", "Place Order");
-                                intent = intent.putExtra("StatusName", "OrderPlaced");
-                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
-
-                                startActivity(intent);
-                                check=true;
-                            } else if (permissionList.get(i).getPermissionName().equals(statusName)) {
-                                intent = new Intent(getContext(), NewOrderListActivity.class);
-                                intent = intent.putExtra("FilterKey", "PandingToReceiveMaterial");
-                                intent = intent.putExtra("ButtonName", "Received Order");
-                                intent = intent.putExtra("StatusName", "MaterialReceived");
-                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
-
-                                startActivity(intent);
-                                check=true;
-                            } else if (permissionList.get(i).getPermissionName().equals(statusName)) {
-                                intent = new Intent(getContext(), NewOrderListActivity.class);
-                                intent = intent.putExtra("FilterKey", "PandingToHandOverTo");
-                                intent = intent.putExtra("ButtonName", "HandOverTo");
-                                intent = intent.putExtra("StatusName", "HandOverTo");
-                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
-
-                                startActivity(intent);
-                                check=true;
-                            } else if (permissionList.get(i).getPermissionName().equals(statusName)) {
-                                intent = new Intent(getContext(), NewOrderListActivity.class);
-                                intent = intent.putExtra("FilterKey", "PandingToReceivedFromTelor");
-                                intent = intent.putExtra("ButtonName", "Received");
-                                intent = intent.putExtra("StatusName", "ReceivedFromTelor");
-                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+                    List<String> perList = new ArrayList<>();
+                    for(PermissionList up : permissionList){
+                        perList.add(up.getPermissionName());
+                    }
+                    if(perList.contains( statusName ))
+                    {
+                        if (statusName.equals("PlaceOrder")) {
+                            intent = new Intent(getContext(), NewOrderListActivity.class);
+                            intent = intent.putExtra("FilterKey", "PandingToPlaceOrder");
+                            intent = intent.putExtra("ButtonName", "Place Order");
+                            intent = intent.putExtra("StatusName", "OrderPlaced");
+                            intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+                            startActivity(intent);
 
 
-                                startActivity(intent);
-                                check=true;
-                            } else if (permissionList.get(i).getPermissionName().equals(statusName)) {
-                                intent = new Intent(getContext(), NewOrderListActivity.class);
-                                intent = intent.putExtra("FilterKey", "Dispatch");
-                                intent = intent.putExtra("ButtonName", "Reset");
-                                intent = intent.putExtra("StatusName", "Reset");
-                                intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+                        } else if (statusName.equals("Hold")) {
+                            intent = new Intent(getContext(), NewOrderListActivity.class);
+                            intent = intent.putExtra("FilterKey", "Hold");
+                            intent = intent.putExtra("ButtonName", "Place Order");
+                            intent = intent.putExtra("StatusName", "OrderPlaced");
+                            intent = intent.putExtra("DailogMessage", "Do you want to change the status");
 
-                                startActivity(intent);
-                                check=true;
-                            } else {
-                                if (check == false) {
-                                    Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
-                                    toast.show();
-                                }
-                            }
+                            startActivity(intent);
+
+                        } else if (statusName.equals("MaterialReceive")) {
+                            intent = new Intent(getContext(), NewOrderListActivity.class);
+                            intent = intent.putExtra("FilterKey", "PandingToReceiveMaterial");
+                            intent = intent.putExtra("ButtonName", "Received Order");
+                            intent = intent.putExtra("StatusName", "MaterialReceived");
+                            intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                            startActivity(intent);
+
+                        } else if (statusName.equals("HandOver")) {
+                            intent = new Intent(getContext(), NewOrderListActivity.class);
+                            intent = intent.putExtra("FilterKey", "PandingToHandOverTo");
+                            intent = intent.putExtra("ButtonName", "HandOverTo");
+                            intent = intent.putExtra("StatusName", "HandOverTo");
+                            intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                            startActivity(intent);
+
+                        } else if (statusName.equals("Receive")) {
+                            intent = new Intent(getContext(), NewOrderListActivity.class);
+                            intent = intent.putExtra("FilterKey", "PandingToReceivedFromTelor");
+                            intent = intent.putExtra("ButtonName", "Received");
+                            intent = intent.putExtra("StatusName", "ReceivedFromTelor");
+                            intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+
+                            startActivity(intent);
+
+                        } else if (statusName.equals("Dispatch")) {
+                            intent = new Intent(getContext(), NewOrderListActivity.class);
+                            intent = intent.putExtra("FilterKey", "Dispatch");
+                            intent = intent.putExtra("ButtonName", "Reset");
+                            intent = intent.putExtra("StatusName", "Reset");
+                            intent = intent.putExtra("DailogMessage", "Do you want to change the status");
+
+                            startActivity(intent);
+
                         }
-                     }
+                    }
+                    else {
+
+                        Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                        toast.show();
+
+                    }
 
 
                 }

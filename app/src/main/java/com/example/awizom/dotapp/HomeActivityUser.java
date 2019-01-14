@@ -37,6 +37,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -55,7 +56,7 @@ public class HomeActivityUser extends AppCompatActivity {
     List<UserModel> userItemList;
     String userId;
     Class fragmentClass;
-
+  String  permissionStatusName="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,6 +199,7 @@ public class HomeActivityUser extends AppCompatActivity {
                         fragmentClass = BottomCustomerFragment.class;
 
                     } else if((SharedPrefManager.getInstance(HomeActivityUser.this).getUser().userRole.contains("User")) ) {
+                        permissionStatusName="Party";
                         userPermissionGet();
 
                     }else {
@@ -227,6 +229,7 @@ public class HomeActivityUser extends AppCompatActivity {
                         fragmentClass = BottomPrintFragment.class;
 
                     } else if((SharedPrefManager.getInstance(HomeActivityUser.this).getUser().userRole.contains("User")) ) {
+                        permissionStatusName="Print";
                         userPermissionGet();
 
                     }else {
@@ -247,6 +250,7 @@ public class HomeActivityUser extends AppCompatActivity {
                         fragmentClass = BottomSearchfragment.class;
 
                     } else if((SharedPrefManager.getInstance(HomeActivityUser.this).getUser().userRole.contains("User")) ) {
+                        permissionStatusName="Search";
                         userPermissionGet();
 
                     }else {
@@ -340,31 +344,75 @@ public class HomeActivityUser extends AppCompatActivity {
                 if(userPermissionModel != null){
 
                     permissionList = userPermissionModel.getPermissionList();
-                    boolean check=false;
-                    for(int i=0; i<permissionList.size(); i++){
-
-                        if (permissionList.get(i).getPermissionName().equals("Party")) {
-                            getSupportActionBar().setTitle("Customer Details");
-                            fragment = customerLayoutfragment;
-                            fragmentClass = BottomCustomerFragment.class;
-                            check=true;
-                        }else  if (permissionList.get(i).getPermissionName().equals("Search")) {
-                            getSupportActionBar().setTitle("Search Details");
-                            fragment = searchfragment;
-                            fragmentClass = BottomSearchfragment.class;
-                            check=true;
-                        }else if(permissionList.get(i).getPermissionName().equals("Print")) {
-                            getSupportActionBar().setTitle("Print Details");
-                            fragment = printLayoutfragment;
-                            fragmentClass = BottomPrintFragment.class;
-                            check=true;
-                        }else {
-                            if (check == false) {
-                                Toast toast = Toast.makeText(HomeActivityUser.this, "Not Permitted", Toast.LENGTH_SHORT);
-                                toast.show();
-                            }
-                        }
+                    List<String> perList = new ArrayList<>();
+                    for(PermissionList up : permissionList){
+                        perList.add(up.getPermissionName());
                     }
+                    if(perList.contains( permissionStatusName ))
+                    {  if (permissionStatusName.equals( "Party" )) {
+                        getSupportActionBar().setTitle("Customer Details");
+                        fragment = customerLayoutfragment;
+                        fragmentClass = BottomCustomerFragment.class;
+
+
+                    } else  if (permissionStatusName.equals( "Search" )) {
+                        getSupportActionBar().setTitle("Search Details");
+                        fragment = searchfragment;
+                        fragmentClass = BottomSearchfragment.class;
+
+
+                    }
+                    else  if (permissionStatusName.equals( "Print" )) {
+                        getSupportActionBar().setTitle("Print Details");
+                        fragment = printLayoutfragment;
+                        fragmentClass = BottomPrintFragment.class;
+
+
+                    }
+
+                    }
+                    else {
+
+                        Toast toast = Toast.makeText(HomeActivityUser.this, "Not Permitted", Toast.LENGTH_SHORT);
+                        toast.show();
+
+                    }
+                    try {
+                        fragment = (Fragment) fragmentClass.newInstance();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.home_container, fragment).commit();
+                        setTitle("");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+//
+//                    boolean check=false;
+//                    for(int i=0; i<permissionList.size(); i++){
+//
+//                        if (permissionList.get(i).getPermissionName().equals("Party")) {
+//                            getSupportActionBar().setTitle("Customer Details");
+//                            fragment = customerLayoutfragment;
+//                            fragmentClass = BottomCustomerFragment.class;
+//                            check=true;
+//                        }else  if (permissionList.get(i).getPermissionName().equals("Search")) {
+//                            getSupportActionBar().setTitle("Search Details");
+//                            fragment = searchfragment;
+//                            fragmentClass = BottomSearchfragment.class;
+//                            check=true;
+//                        }else if(permissionList.get(i).getPermissionName().equals("Print")) {
+//                            getSupportActionBar().setTitle("Print Details");
+//                            fragment = printLayoutfragment;
+//                            fragmentClass = BottomPrintFragment.class;
+//                            check=true;
+//                        }else {
+//                            if (check == false) {
+//                                Toast toast = Toast.makeText(HomeActivityUser.this, "Not Permitted", Toast.LENGTH_SHORT);
+//                                toast.show();
+//                            }
+//                        }
+//                    }
 
 
                 }

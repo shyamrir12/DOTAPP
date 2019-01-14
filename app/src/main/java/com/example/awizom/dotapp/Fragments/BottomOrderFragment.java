@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -359,31 +360,35 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
                 if(userPermissionModel != null){
 
                     permissionList = userPermissionModel.getPermissionList();
-                    boolean check=false;
-                    for(int i=0; i<permissionList.size(); i++){
+                    List<String> perList = new ArrayList<>();
+                    for(PermissionList up : permissionList){
+                        perList.add(up.getPermissionName());
+                    }
+                    if(perList.contains( permissionStatusName ))
+                    {
+                        if (permissionStatusName.equals("OrderCreate")) {
+                            intent = new Intent(getContext(), AfterCreateActivity.class);
+                            intent = intent.putExtra("FilterKey", "orderCreate");
+                            intent = intent.putExtra("StatusName", "CreateOrder ");
+                            startActivity(intent);
 
-                        if (permissionList.get(i).getPermissionName().equals(permissionStatusName)) {
+
+                        } else if (permissionStatusName.equals("Advance")) {
                             intent = new Intent(getContext(), NewOrderListActivity.class);
                             intent = intent.putExtra("FilterKey", "pandingForAdv");
                             intent = intent.putExtra("ButtonName", "Cancel Order");
                             intent = intent.putExtra("StatusName", "Cancel");
                             intent = intent.putExtra("DailogMessage", "Do you want to change the status");
                             startActivity(intent);
-                            check=true;
-
-                        }else if (permissionList.get(i).getPermissionName().equals(permissionStatusName)) {
-                            intent = new Intent(getContext(), AfterCreateActivity.class);
-                            intent = intent.putExtra("FilterKey", "orderCreate");
-                            intent = intent.putExtra("StatusName", "CreateOrder ");
-                            startActivity(intent);
-                            check=true;
-                        }else {
-                            if (check == false) {
-                                Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
-                                toast.show();
-                            }
                         }
                     }
+                    else {
+
+                        Toast toast = Toast.makeText(getContext(), "Not Permitted", Toast.LENGTH_SHORT);
+                        toast.show();
+
+                    }
+
 
 
                 }
