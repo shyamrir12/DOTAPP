@@ -88,6 +88,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         progressDialog = new ProgressDialog(mCtx);
         String a = SharedPrefManager.getInstance(mCtx).getUser().access_token;
 
+        //New
     }
 
     @NonNull

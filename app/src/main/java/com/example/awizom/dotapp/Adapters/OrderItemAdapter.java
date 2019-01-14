@@ -64,7 +64,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     String actualorder;
     ArrayAdapter<String> designadapter;
     private Spinner unitSpinner,materialType;
-    //we are storing all the products in a list
+
     private List<CatelogOrderDetailModel> orderitemList;
     DataOrder orderitem;
     CatelogOrderDetailModel catelogOrderDetailModel;
