@@ -80,13 +80,13 @@ public class UserPermission extends AppCompatActivity implements View.OnClickLis
         textViewAdvUser = findViewById(R.id.advanceUser);
         textplaceOrderUser = findViewById(R.id.placeOrderUser);
         txtholdaUser = findViewById(R.id.holdaUser);
-        txtMaterialReceiveLayertoggBtn = findViewById(R.id.MaterialReceiveLayertoggBtn);
+        txtMaterialReceiveLayertoggBtn = findViewById(R.id.materialUser);
         txthandoverUser = findViewById(R.id.handoverUser);
         txtreceiverUser =findViewById(R.id.receiverUser);
         txtdispatchUser = findViewById(R.id.dispatchUser);
 
         txtPrintUser = findViewById(R.id.PrintUser);
-        txtSearchUser = findViewById(R.id.OrderCreateUser);
+        txtSearchUser = findViewById(R.id.SearchUser);
         txtPartyUser =findViewById(R.id.PartyUser);
         txtOrdercreateUser = findViewById(R.id.OrderCreateUser);
 
@@ -530,7 +530,7 @@ public class UserPermission extends AppCompatActivity implements View.OnClickLis
                         }if(permissionList.get(i).getPermissionName().equals("OrderCreate")) {
                             orderCreateUserBtn.setText("Remove");
                         }if(permissionList.get(i).getPermissionName().equals("Party")) {
-                            printUserBtn.setText("Remove");
+                            partyUserBtn.setText("Remove");
                         }if(permissionList.get(i).getPermissionName().equals("Search")) {
                             searchUserBtn.setText("Remove");
                         }if(permissionList.get(i).getPermissionName().equals("Print")) {
