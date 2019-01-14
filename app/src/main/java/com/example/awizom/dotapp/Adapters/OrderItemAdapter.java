@@ -81,7 +81,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     String CatalogName="",Design="",SerialNo="",PageNo="",Unit="",qty="",Price="",message="",roomName;
     private Intent pdfOpenintent;
     SwipeRefreshLayout mSwipeRefreshLayout;
-
+    int curposition;
+    CatelogOrderDetailModel currentitem;
 
     public OrderItemAdapter(Context mCtx, List<CatelogOrderDetailModel> orderitemList, String actualorder,
                             String filterkey, String StatusName, String buttonname,String tailorList,String roomName) {
@@ -271,7 +272,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         @Override
         public void onClick(final View v) {
             int position = getAdapterPosition();
+            curposition=getAdapterPosition();
             CatelogOrderDetailModel orderitem = this.orderitemList.get(position);
+            currentitem=this.orderitemList.get(position);
             message =  "\nCatalog = " + orderitem.getCatalogName()+"\nS.No. = " + orderitem.getSerialNo() +
                     "\nDesign = " + orderitem.getDesign()+"\nPageNo = " + Integer.toString(orderitem.getPageNo()) + "\nMRP = " +orderitem.getPrice()+"\nMaterial = " + orderitem.getMaterialType()
                     +"\nPrice = " + orderitem.getPrice2() +"\nQty = " + Double.toString(orderitem.getQty()) + "\nAQty = " + Double.toString(orderitem.getAQty())
@@ -573,7 +576,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             if(!handOvertoNameSpinner.getSelectedItem().equals("Telor")){
                 tailorListNameSpinner.setVisibility(View.GONE);
             }
-            shareApp(mCtx,message);
+           // shareApp(mCtx,message);
 //        handOvertoNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1046,6 +1049,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx.getApplicationContext(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                    //   getMyOrder();
+
                 }
                  progressDialog.dismiss();
             }
@@ -1126,6 +1130,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     progressDialog.dismiss();
+                    orderitemList.remove( curposition );
+                    notifyItemRemoved(curposition  );
 //                    Intent intent = new Intent(mCtx, HomeActivity.class);
 //                    intent = intent.putExtra("Message",message);
 //                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1199,6 +1205,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 if (jsonbodyres.getStatus() == true) {
 
                     progressDialog.dismiss();
+                    orderitemList.remove( curposition );
+                    notifyItemRemoved(curposition  );
+
 //                        Intent intent = new Intent(mCtx, HomeActivity.class);
 //                        intent = intent.putExtra("Message",message);
 //                        intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1271,7 +1280,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     progressDialog.dismiss();
-
+                    orderitemList.remove( curposition );
+                    notifyItemRemoved(curposition  );
 //                    Intent intent = new Intent(mCtx, HomeActivity.class);
 //                    intent = intent.putExtra("Message",message);
 //                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1345,7 +1355,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 Toast.makeText(mCtx, jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
                 if (jsonbodyres.getStatus() == true) {
                     progressDialog.dismiss();
-
+                    orderitemList.remove( curposition );
+                    notifyItemRemoved(curposition  );
 //                    Intent intent = new Intent(mCtx, HomeActivity.class);
 //                    intent = intent.putExtra("Message",message);
 //                    intent = intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
