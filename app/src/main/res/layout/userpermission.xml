@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:fillViewport="true">
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -21,8 +21,7 @@
             android:layout_centerHorizontal="true"
             android:padding="5dp"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@drawable/relative_layout_shape">
+            android:gravity="center">
             <TextView
                 android:id="@+id/advanceUser"
                 android:layout_width="match_parent"
@@ -48,10 +47,9 @@
             android:layout_centerHorizontal="true"
             android:padding="5dp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
-            android:layout_below="@+id/advanceLayer"
-            android:background="@drawable/relative_layout_shape">
+            android:layout_below="@+id/advanceLayer">
             <TextView
                 android:id="@+id/placeOrderUser"
                 android:layout_width="match_parent"
@@ -79,10 +77,9 @@
             android:layout_centerHorizontal="true"
             android:padding="5dp"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
-            android:layout_below="@+id/PlaceOrderLayer"
-            android:background="@drawable/relative_layout_shape">
+            android:layout_below="@+id/PlaceOrderLayer">
             <TextView
                 android:id="@+id/holdaUser"
                 android:layout_width="match_parent"
@@ -110,10 +107,9 @@
             android:layout_centerHorizontal="true"
             android:padding="5dp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
-            android:layout_below="@+id/HoldLayer"
-            android:background="@drawable/relative_layout_shape">
+            android:layout_below="@+id/HoldLayer">
             <TextView
                 android:id="@+id/materialUser"
                 android:layout_width="match_parent"
@@ -140,10 +136,10 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:padding="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
             android:layout_below="@+id/MaterialReceiveLayer"
-            android:background="@drawable/relative_layout_shape">
+           >
             <TextView
                 android:id="@+id/handoverUser"
                 android:layout_width="match_parent"
@@ -170,10 +166,9 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
-            android:layout_below="@+id/HandOverLayer"
-            android:background="@drawable/relative_layout_shape">
+            android:layout_below="@+id/HandOverLayer">
             <TextView
                 android:id="@+id/receiverUser"
                 android:layout_width="match_parent"
@@ -199,11 +194,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_below="@+id/ReceiveLayer"
-            android:background="@drawable/relative_layout_shape">
+            android:layout_below="@+id/ReceiveLayer">
             <TextView
                 android:id="@+id/dispatchUser"
                 android:layout_width="match_parent"
@@ -231,11 +225,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_below="@+id/DispatchLayer"
-            android:background="@drawable/relative_layout_shape">
+            android:layout_below="@+id/DispatchLayer">
             <TextView
                 android:id="@+id/OrderCreateUser"
                 android:layout_width="match_parent"
@@ -263,11 +256,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_below="@+id/OrderCreateLayer"
-            android:background="@drawable/relative_layout_shape">
+            android:layout_below="@+id/OrderCreateLayer">
             <TextView
                 android:id="@+id/PartyUser"
                 android:layout_width="match_parent"
@@ -292,11 +284,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_below="@+id/PartyLayer"
-            android:background="@drawable/relative_layout_shape">
+            android:layout_below="@+id/PartyLayer">
             <TextView
                 android:id="@+id/SearchUser"
                 android:layout_width="match_parent"
@@ -322,11 +313,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_below="@+id/SearchLayer"
-            android:background="@drawable/relative_layout_shape">
+            android:layout_below="@+id/SearchLayer">
             <TextView
                 android:id="@+id/PrintUser"
                 android:layout_width="match_parent"
