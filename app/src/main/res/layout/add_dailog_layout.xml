@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
                 android:hint="                              "
                 android:textSize="15sp"
                 android:inputType="text" />
@@ -55,6 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="                   "
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
                     android:textSize="15sp"
                     android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
@@ -71,8 +73,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:inputType="text"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
                     android:hint="     "
-
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -87,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="     "
-                android:text="0"
+
                 android:textSize="15sp"
                 android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
@@ -114,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="                  "
-                    android:text="1"
+
                     android:textSize="15sp"
                     android:inputType="numberDecimal"/>
             </android.support.design.widget.TextInputLayout>
@@ -163,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="               "
-                    android:text="0"
+
                     android:textSize="15sp"
                     android:inputType="numberDecimal" />
             </android.support.design.widget.TextInputLayout>
@@ -222,7 +225,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="0"
+
                     android:inputType="number"
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
@@ -239,7 +242,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="0"
+
                     android:inputType="numberDecimal"
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
@@ -256,7 +259,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="0"
+
                     android:inputType="number"
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
@@ -281,7 +284,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
 
-                    android:text="0"
+
                     android:textSize="15sp"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
@@ -298,7 +301,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
 
-                    android:text="0"
+
                     android:textSize="15sp"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
@@ -314,7 +317,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="number"
-                    android:text="0"
+
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>

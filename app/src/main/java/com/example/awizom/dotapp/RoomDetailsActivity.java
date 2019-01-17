@@ -373,18 +373,6 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
         romanPrice = dialogView.findViewById(R.id.romaPrice);
         aPlotPrice = dialogView.findViewById(R.id.aPlotPrice);
 
-       // elightLayout.setVisibility(View.GONE);
-
-
-
-//        {
-//                int weight = Integer.parseInt(price.getText().toString());
-//                int bodyfat = Integer.parseInt(price2.getText().toString());
-//                int lbm = (weight * bodyfat) / 100;
-//                int res = weight - lbm;
-//                price2.setText(String.valueOf(res));
-//
-//            }
 
         materialType = dialogView.findViewById(R.id.materialType);
         qty = dialogView.findViewById(R.id.qTy);
@@ -448,12 +436,10 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
                   e.printStackTrace();
               }
 
-//                String catlogNameOne = catlogName.toString();
-//                String designOne = design.toString();
-
 
             }
         });
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -576,11 +562,39 @@ boolean status=true;
             status=false;
         } else if (design.getText().toString().isEmpty()) {
             design.setError("Design is required!");status=false;
-        } else if (qty.getText().toString().isEmpty()) {
-            qty.setError("Qty is required!");status=false;
-        } else if ((price.getText().toString().isEmpty())) {
-            price.setError("price is required!");status=false;
         }
+        else if (aQty.getText().toString().isEmpty()) {
+            aQty.setText( "1" );status=true;
+        }
+        else if (pageNo.getText().toString().isEmpty()) {
+            pageNo.setText( "1" );status=true;
+        }
+        else if (qty.getText().toString().isEmpty()) {
+            qty.setText( "1" );status=true;
+        }
+        else if (price.getText().toString().isEmpty()) {
+            price.setText( "0" );status=true;
+        }
+        else if (price2.getText().toString().isEmpty()) {
+            price2.setText( "0" );status=true;
+        }
+        else if (elight.getText().toString().isEmpty()) {
+            elight.setText( "0" );status=true;
+        } else if (roman.getText().toString().isEmpty()) {
+            roman.setText( "0" );status=true;
+        } else if ((aPlat.getText().toString().isEmpty())) {
+            aPlat.setText( "0" );status=true;
+        }
+        else if ((elightPrice.getText().toString().isEmpty())) {
+            elightPrice.setText( "0" );status=true;
+        }else if ((romanPrice.getText().toString().isEmpty())) {
+            romanPrice.setText( "0" );status=true;
+        }else if ((aPlotPrice.getText().toString().isEmpty())) {
+            aPlotPrice.setText( "0" );status=true;
+        }
+
+
+
         return status;
 
     }
@@ -963,7 +977,7 @@ boolean status=true;
                 if (catelogdesign != null) {
                     price.setText(String.valueOf(catelogdesign.getPrice()));
                     qty.setText("1");
-                    price2.setText("0");
+                   price2.setText("0");
                     if (catelogdesign.getUnit().trim().length() > 0 || catelogdesign.getMaterialType().trim().length() > 0  ) {
                         unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
                         materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(catelogdesign.getMaterialType().toString()));

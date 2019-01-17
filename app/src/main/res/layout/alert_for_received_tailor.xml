@@ -13,8 +13,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:textAlignment="textStart"
+        android:inputType="text"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
         android:background="@drawable/edit_view_shape" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

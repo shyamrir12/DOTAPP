@@ -1229,6 +1229,9 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             String advance = amount.getText().toString();
 
         try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+
             if(filterkey.equals("orderCreate") )
                 new POSTOrder().execute(String.valueOf(cid), date, advance, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
 
@@ -1236,17 +1239,19 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
               if(Double.parseDouble(textViewATotalAmount.getText().toString()) > 0) {
                   new POSTOrder().execute(String.valueOf(cid), date, advance, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
               }else {
+                  progressDialog.dismiss();
                   Toast.makeText(getApplicationContext(), "First add items then take advance ", Toast.LENGTH_SHORT).show();
 
               }
             }
-            else
-                Toast.makeText(getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT).show();
-
+            else {
+                progressDialog.dismiss();
+                Toast.makeText( getApplicationContext(), "Not Editable After Taking Advance: ", Toast.LENGTH_SHORT ).show();
+            }
             //String
         } catch (Exception e) {
             e.printStackTrace();
-
+            progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             // System.out.println("Error: " + e);
         }
@@ -1288,6 +1293,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                progressDialog.dismiss();
                 // System.out.println("Error: " + e);
 //                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
             }
@@ -1296,6 +1302,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
+                progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 //System.out.println("CONTENIDO:  " + result);
@@ -1324,6 +1331,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                     getMyOrder(orderid);
                     //addorder.setVisibility( View.GONE );
                     addroom.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
                     //  addUserStatus.setVisibility(View.VISIBLE);
                     //post status
 //                    try {

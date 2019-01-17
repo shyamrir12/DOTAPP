@@ -25,6 +25,9 @@
                 android:hint="@string/customername"
                 android:textSize="15sp"
                 android:inputType="text"
+
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
+
                 android:layout_above="@+id/contact"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
@@ -74,6 +77,9 @@
                 android:layout_centerVertical="true"
                 android:hint="@string/name"
                 android:inputType="text"
+
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
+
                 android:textSize="15sp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"

@@ -198,7 +198,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         AlertDialog.Builder alert;
         private Context mCtx;
         Button buttonStatus;
-        TextView catlogName, serialNo, design, pageNo, price, unit,QTy;
+        TextView catlogName, serialNo, design, pageNo, price, unit,QTy,price2,aQty;
         TextView OrderItemID, MaterialType, Price2, Qty, AQty,elight,aplot,roman,elightPrice,elightAplot,elightRoman;
 
 
@@ -658,12 +658,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             final EditText s_no = dialogView.findViewById(R.id.sNo);
             catlogName = dialogView.findViewById(R.id.catlogName);
             design = dialogView.findViewById(R.id.design);
-            final EditText pageNo = dialogView.findViewById(R.id.pageNo);
+             pageNo = dialogView.findViewById(R.id.pageNo);
             price = dialogView.findViewById(R.id.price);
-            final EditText price2 = dialogView.findViewById(R.id.price2);
+            price2 = dialogView.findViewById(R.id.price2);
             materialType = dialogView.findViewById(R.id.materialType);
              QTy = dialogView.findViewById(R.id.qTy);
-            final EditText aQty = dialogView.findViewById(R.id.aQty);
+             aQty = dialogView.findViewById(R.id.aQty);
             unitSpinner = dialogView.findViewById(R.id.unit);
 
 //            editElight = dialogView.findViewById(R.id.editElight);
@@ -769,7 +769,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (validation()) {
 
+                        try {
                     String snumber = s_no.getText().toString();
                     String catlogname = catlogName.getText().toString();
                     String desiGn = design.getText().toString();
@@ -805,6 +807,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
 
                     b.dismiss();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             });
 
@@ -818,7 +824,50 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
                 }
             });
         }
+        private boolean validation() {
 
+            boolean status=true;
+            if ((catlogName.getText().toString().isEmpty())) {
+                catlogName.setError("Catalog name is required!");
+                status=false;
+            } else if (design.getText().toString().isEmpty()) {
+                design.setError("Design is required!");status=false;
+            }
+            else if (aQty.getText().toString().isEmpty()) {
+                aQty.setText( "1" );status=true;
+            }
+            else if (pageNo.getText().toString().isEmpty()) {
+                pageNo.setText( "1" );status=true;
+            }
+            else if (QTy.getText().toString().isEmpty()) {
+                QTy.setText( "1" );status=true;
+            }
+            else if (price.getText().toString().isEmpty()) {
+                price.setText( "0" );status=true;
+            }
+            else if (price2.getText().toString().isEmpty()) {
+                price2.setText( "0" );status=true;
+            }
+            else if (elight.getText().toString().isEmpty()) {
+                elight.setText( "0" );status=true;
+            } else if (roman.getText().toString().isEmpty()) {
+                roman.setText( "0" );status=true;
+            } else if ((aPlat.getText().toString().isEmpty())) {
+                aPlat.setText( "0" );status=true;
+            }
+            else if ((elightPrice.getText().toString().isEmpty())) {
+                elightPrice.setText( "0" );status=true;
+            }else if ((romanPrice.getText().toString().isEmpty())) {
+                romanPrice.setText( "0" );status=true;
+            }else if ((aPlotPrice.getText().toString().isEmpty())) {
+                aPlotPrice.setText( "0" );status=true;
+            }
+
+
+
+            return status;
+
+        }
     }
 
     public static void shareApp(Context context, String message)

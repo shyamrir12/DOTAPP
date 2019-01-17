@@ -33,6 +33,9 @@
                     android:layout_height="45dp"
                     android:layout_centerHorizontal="true"
                     android:hint="@string/customername"
+
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
+
                     android:textSize="15sp"
                     android:inputType="text"
                     android:layout_above="@+id/contact"
@@ -76,6 +79,9 @@
                     android:layout_centerVertical="true"
                     android:hint="@string/name"
                     android:inputType="text"
+
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
+
                     android:textSize="15sp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/signin_sinup_button_shape"
