@@ -404,78 +404,163 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void afterTextChanged(Editable s) {
                 ///getDesignList();
-                if (catlogName.getText().length() > 0) {
-                    getDesignList();
-
-                }
-
-            }
-        });
-        design.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                price.setText("");
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
 
 
-               if (design.getText().length() > 0)
-
-              try {
-                  getCatalogDesignSingle(catlogName.getText().toString(), catlogNewlist.get(0).toString());
+                    try {if (catlogName.getText().length() > 0) {
+                        getDesignList();}
               }
               catch (Exception e)
               {
                   e.printStackTrace();
               }
 
+                }
 
-            }
+
         });
+//        design.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                price.setText("");
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//
+//               if (design.getText().length() > 0)
+//
+//              try {
+//                  getCatalogDesignSingle(catlogName.getText().toString(), catlogNewlist.get(0).toString());
+//              }
+//              catch (Exception e)
+//              {
+//                  e.printStackTrace();
+//              }
+//
+//
+//            }
+//        });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validation()) {
+                String snumber ,catlogname,desiGn,page_no,priCe,priCe2,qTy,aqty,materialtype,unIt,eligt,romn,aplot,elightprice,romanprice,aplotprice;
 
                     try {
+                        if ((catlogName.getText().toString().isEmpty())) {
+                            catlogName.setError("Catalog name is required!");
+
+                        } else if (design.getText().toString().isEmpty()) {
+                            design.setError("Design is required!");
+                        }
+                        else {
+
+                            if (aQty.getText().toString().isEmpty()) {
+                                aqty = "1";
+                            } else {
+                                aqty = aQty.getText().toString();
+                            }
+                            if (pageNo.getText().toString().isEmpty()) {
+                                page_no = "nill";
+                            } else {
+                                page_no = pageNo.getText().toString();
+                            }
+                            if (qty.getText().toString().isEmpty()) {
+                                qTy = "1";
+                            } else {
+                                qTy = qty.getText().toString();
+                            }
+
+                            if (elight.getText().toString().isEmpty()) {
+                                eligt="0";
+                            }
+                            else
+                            {
+                                eligt = elight.getText().toString();
+                            }
+                             if (roman.getText().toString().isEmpty()) {
+                                 romn="0" ;
+                            }
+                            else {
+                                 romn = roman.getText().toString();
+                             }
+                             if ((aPlat.getText().toString().isEmpty())) {
+                                 aplot="0" ;
+                            }
+                            else
+                             {
+                                 aplot = aPlat.getText().toString();
+                             }
+                            if ((elightPrice.getText().toString().isEmpty())) {
+
+                                elightprice= "0" ;
+                            }
+                            else
+                            {  elightprice = elightPrice.getText().toString();
+
+                            }
+                            if ((romanPrice.getText().toString().isEmpty())) {
+                                romanprice="0" ;
+                            }
+                            else
+                            {
+                                romanprice = romanPrice.getText().toString();
+                            }
+                            if ((aPlotPrice.getText().toString().isEmpty())) {
+                                aplotprice= "0" ;
+                            }
+                            else
+                            {
+                                aplotprice = aPlotPrice.getText().toString();
+                            }
+                            if ((price2.getText().toString().isEmpty())) {
+                                priCe2= "0" ;
+                            }
+                            else
+                            {
+                                priCe2 = price2.getText().toString();
+                            }
+                            if ((price.getText().toString().isEmpty())) {
+                                priCe= "0" ;
+                            }
+                            else
+                            {
+                                priCe = price.getText().toString();
+                            }
+
+                                snumber = s_no.getText().toString();
+                                catlogname = catlogName.getText().toString();
+                                desiGn = design.getText().toString();
 
 
-                        String snumber = s_no.getText().toString();
-                        String catlogname = catlogName.getText().toString();
-                        String desiGn = design.getText().toString();
-                        String page_no = pageNo.getText().toString();
-                        String priCe = price.getText().toString();
-                        String priCe2 = price2.getText().toString();
-                        String qTy = qty.getText().toString();
-                        String aqty = aQty.getText().toString();
-                        String materialtype = materialType.getSelectedItem().toString();
-                        String unIt = unitSpinner.getSelectedItem().toString();
 
 
-                        priceValue = Double.parseDouble(price.getText().toString());
-                        price2value = Double.parseDouble(price2.getText().toString());
-                        result = ((priceValue * price2value) / 100);
-                        superResult = priceValue - result;
-                        price2.setText(String.valueOf(superResult));
+
+                                materialtype = materialType.getSelectedItem().toString();
+                                unIt = unitSpinner.getSelectedItem().toString();
+
+
+                                priceValue = Double.parseDouble( priCe );
+                                price2value = Double.parseDouble( priCe2 );
+                                result = ((priceValue * price2value) / 100);
+                                superResult = priceValue - result;
+                                price2.setText( String.valueOf( superResult ) );
 
 
 
 
 
-                        String eligt = elight.getText().toString();
-                        String romn = roman.getText().toString();
-                        String aplot = aPlat.getText().toString();
-                        String elightprice = elightPrice.getText().toString();
-                        String romanprice = romanPrice.getText().toString();
-                        String aplotprice = aPlotPrice.getText().toString();
+
+
+
+
+
 
 //                    price2.setOnClickListener(new View.OnClickListener() {
 //                        @Override
@@ -489,29 +574,27 @@ public class RoomDetailsActivity extends AppCompatActivity implements View.OnCli
 //                    });
 
 
-                        try {
-                            progressDialog.setMessage("loading...");
+                            progressDialog.setMessage( "loading..." );
                             progressDialog.show();
-                            if (actualorder.equals("ActualOrder")) {
-                                new POSTOrder().execute("0", materialtype, String.valueOf(superResult), "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                                        unIt, "0", roomName, orderID,eligt,romn,aplot,elightprice,romanprice,aplotprice, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
+                            if (actualorder.equals( "ActualOrder" )) {
+                                new POSTOrder().execute( "0", materialtype, String.valueOf( superResult ), "0", qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                                        unIt, "0", roomName, orderID, eligt, romn, aplot, elightprice, romanprice, aplotprice, SharedPrefManager.getInstance( RoomDetailsActivity.this ).getUser().access_token );
 
                             } else {
-                                new POSTOrder().execute("0", materialtype, String.valueOf(superResult), qTy, qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
-                                        unIt, "0", roomName, orderID,eligt,romn,aplot,elightprice,romanprice,aplotprice, SharedPrefManager.getInstance(RoomDetailsActivity.this).getUser().access_token);
+                                new POSTOrder().execute( "0", materialtype, String.valueOf( superResult ), qTy, qTy, unIt, "0", catlogname, snumber, desiGn, page_no, priCe,
+                                        unIt, "0", roomName, orderID, eligt, romn, aplot, elightprice, romanprice, aplotprice, SharedPrefManager.getInstance( RoomDetailsActivity.this ).getUser().access_token );
 
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-                        }
-                        b.dismiss();
 
+                            b.dismiss();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }
-                }
+                progressDialog.dismiss();
+                Toast.makeText( getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT ).show();
+
+            }
+
             }
 
 
@@ -976,8 +1059,8 @@ boolean status=true;
                 Catelog catelogdesign = new Gson().fromJson(result, listType);
                 if (catelogdesign != null) {
                     price.setText(String.valueOf(catelogdesign.getPrice()));
-                    qty.setText("");
-                  price2.setText("");
+//                    qty.setText("");
+//                    price2.setText("");
                     if (catelogdesign.getUnit().trim().length() > 0 || catelogdesign.getMaterialType().trim().length() > 0  ) {
                         unitSpinner.setSelection(((ArrayAdapter<String>) unitSpinner.getAdapter()).getPosition(catelogdesign.getUnit().toString()));
                         materialType.setSelection(((ArrayAdapter<String>) materialType.getAdapter()).getPosition(catelogdesign.getMaterialType().toString()));
