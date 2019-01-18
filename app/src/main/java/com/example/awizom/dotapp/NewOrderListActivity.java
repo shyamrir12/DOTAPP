@@ -60,7 +60,7 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
     private String message="";
     TextView errorMsg;
     private Intent pdfOpenintent;
-    private ImageButton print,share;
+    private ImageButton print,share,allitems;
     private  String id,c_name,c_contact,t_amt,r_n ;
     List<CatelogOrderDetailModel> orderestimateforcustomer;
     List<String> roomList;
@@ -79,6 +79,7 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
         errorMsg = findViewById(R.id.errorMessage);
         print=findViewById(R.id.print);
         share=findViewById(R.id.share);
+        allitems = findViewById(R.id.allItem);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -94,11 +95,15 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
         countvalue = getIntent().getExtras().getString("Count", "");
         share.setOnClickListener(this);
         print.setOnClickListener(this);
+        allitems.setOnClickListener(this);
 
         if (statusName.equals("Reset")) {
             getSupportActionBar().setTitle("Dispatch");
         }
 
+        if(!filterKey.equals("pandingForAdv")){
+            allitems.setVisibility(View.VISIBLE);
+        }
 
         if (statusName.equals("Cancel")) {
             getSupportActionBar().setTitle("panding For Adv");
@@ -178,6 +183,25 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
             case R.id.print:
                 try {
                     getPrintFunctioncalls();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.allItem:
+                try {
+                 String telorList = "";
+                 if(orderList != null){
+                     telorList = orderList.get(0).getTelorList();
+                 }
+
+                    Intent intent = new Intent(getApplicationContext(), ItemListActivity.class);
+                    intent = intent.putExtra("OrderID", "0");
+                    intent = intent.putExtra("FilterKey", filterKey);
+                    intent = intent.putExtra("StatusName", statusName);
+                    intent = intent.putExtra("ButtonName", valueButtonName);
+                    intent = intent.putExtra("TailorList", telorList);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

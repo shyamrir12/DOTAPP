@@ -14,7 +14,7 @@
             android:id="@+id/ln1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="280dp"
+            android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
 
@@ -31,7 +31,13 @@
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
                 android:background="@drawable/ic_share_black_24dp" />
-
+            <ImageButton
+                android:id="@+id/allItem"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:visibility="gone"
+                android:background="@drawable/ic_filter_list_black_24dp" />
 
         </LinearLayout>
 

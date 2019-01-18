@@ -46,7 +46,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         switch (v.getId()){
             case  R.id.changePassBtn:
                 android.support.v7.app.AlertDialog.Builder alertbox = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext());
-                alertbox.setTitle("Do you want to change the status");
+                alertbox.setTitle("Do you want to change the Password");
                 alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
 
@@ -68,18 +68,46 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
 
     private void changePasswordMethodCall() {
 
-        String oldPwd = oldpassword.getText().toString().trim();
-        String newPwd = newPassword.getText().toString().trim();
-        String cnPwd = cnfrmPassword.getText().toString().trim();
-        try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            new changePasswordPost().execute(oldPwd,newPwd,cnPwd,SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
-        } catch (Exception e) {
-            progressDialog.dismiss();
-            e.printStackTrace();
+        if(validation()) {
+            String oldPwd = oldpassword.getText().toString().trim();
+            String newPwd = newPassword.getText().toString().trim();
+            String cnPwd = cnfrmPassword.getText().toString().trim();
+            try {
+                progressDialog.setMessage("loading...");
+                progressDialog.show();
+                new changePasswordPost().execute(oldPwd, newPwd, cnPwd, SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
+            } catch (Exception e) {
+                progressDialog.dismiss();
+                e.printStackTrace();
+
+            }
+        }else {
+            Toast.makeText(getApplicationContext(), "Not Validate your fields " , Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+
+    private boolean validation() {
+
+        boolean status=true;
+        if ((oldpassword.getText().toString().isEmpty())) {
+            oldpassword.setError("Old name password is required!");
+            status=false;
+        } else if (newPassword.getText().toString().isEmpty()) {
+            newPassword.setError("New password is required!");
+            status=false;
+        } else if (cnfrmPassword.getText().toString().isEmpty()) {
+            cnfrmPassword.setError("Confirm password is required!");
+            status=false;
+        }
+        else if (!newPassword.getText().toString().equals(cnfrmPassword.getText().toString())) {
+            Toast.makeText(getApplicationContext(), "Password not match " , Toast.LENGTH_SHORT).show();
+            status=false;
+        }
+
+        return status;
+
     }
 
     private class changePasswordPost extends AsyncTask<String, Void, String> {
@@ -118,7 +146,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Successfully password change", Toast.LENGTH_SHORT).show();
             }else {
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);

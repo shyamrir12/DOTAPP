@@ -164,6 +164,8 @@ public class HomeActivity extends AppCompatActivity {
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             AlertDialog.Builder alertbox = new AlertDialog.Builder(HomeActivity.this);
             alertbox.setIcon(R.drawable.ic_warning_black_24dp);
@@ -173,8 +175,6 @@ public class HomeActivity extends AppCompatActivity {
                     // finish used for destroyed activity
                     finishAffinity();
                     System.exit(0);
-
-
                 }
             });
 
@@ -186,6 +186,7 @@ public class HomeActivity extends AppCompatActivity {
             });
             alertbox.show();
         }
+
         return super.onKeyDown(keyCode, event);
     }
 
