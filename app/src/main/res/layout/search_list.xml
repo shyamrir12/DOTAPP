@@ -39,7 +39,8 @@
                         android:hint="Customer Name"
                         android:textSize="12sp"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fonts"/>
 
                     <TextView
                         android:id="@+id/textViewCustomerAddress"
@@ -50,7 +51,8 @@
                         android:layout_marginLeft="10dp"
                         android:textSize="12sp"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fonts"/>
 
                     <TextView
                         android:id="@+id/textViewMobile"
@@ -61,7 +63,8 @@
                         android:hint="Mobile No."
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fonts"/>
 
                 </LinearLayout>
 
@@ -81,7 +84,8 @@
                         android:hint="Order Date"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fonts"/>
 
                     <TextView
                         android:id="@+id/textViewAdvance"
@@ -91,7 +95,8 @@
                         android:hint="Advance"
                         android:textStyle="bold"
                         android:layout_marginLeft="10dp"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fonts"/>
 
                     <TextView
                         android:id="@+id/textViewATotalAmount"
@@ -102,7 +107,8 @@
                         android:layout_marginLeft="10dp"
                         android:hint="Total Amount"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fonts"/>
 
                 </LinearLayout>
 
@@ -124,7 +130,8 @@
                         android:layout_margin="5dp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/white"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        android:fontFamily="@font/fonts"/>
 
 
                     <Button
@@ -138,7 +145,8 @@
                         android:text="Actual Order"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/white"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        android:fontFamily="@font/fonts"/>
 
                     <Button
                         android:id="@+id/checkStatusButton"
@@ -152,6 +160,7 @@
                         android:text="Check Status"
                         android:visibility="visible"
                         android:textAllCaps="false"
+                        android:fontFamily="@font/fonts"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
                 </LinearLayout>

@@ -47,22 +47,22 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="Catalog Name"
                                 android:text="Catalog name"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
 
                             <TextView
                                 android:id="@+id/catlogName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="Catalog Name"
-                                android:text="Catalog name"
+                                android:hint="Catalog name"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -77,11 +77,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
-                                android:hint="design"
                                 android:text="Design"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
 
                             <TextView
                                 android:id="@+id/design"
@@ -92,7 +92,8 @@
                                 android:hint="design"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -107,11 +108,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
-                                android:hint="sno"
                                 android:text="Sno"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
 
                             <TextView
                                 android:id="@+id/snum"
@@ -122,7 +123,8 @@
                                 android:hint="sno"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -140,13 +142,14 @@
                                 android:text="Page No"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
 
                             <TextView
                                 android:id="@+id/pgn"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-
+                                android:fontFamily="@font/fonts"
                                 android:layout_weight="1"
                                 android:hint="page no"
                                 android:textColor="@color/black"
@@ -175,7 +178,8 @@
                                 android:text="Unit"
                                 android:textSize="12sp"
                                 android:textColor="@color/black"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -184,8 +188,7 @@
                                 android:hint="unit"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-
-                                />
+                                android:fontFamily="@font/fonts" />
 
 
                         </LinearLayout>
@@ -197,16 +200,15 @@
                             android:layout_marginLeft="30dp">
 
                             <TextView
-
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
-                                android:hint="Qty"
                                 android:text="Qty"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
 
                             <TextView
                                 android:id="@+id/qty"
@@ -217,7 +219,8 @@
                                 android:hint="Qty"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -233,7 +236,8 @@
                                 android:text="Price"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
 
                             <TextView
                                 android:id="@+id/princ"
@@ -243,7 +247,8 @@
                                 android:hint="Price"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:fontFamily="@font/fonts"/>
 
 
                         </LinearLayout>
@@ -256,7 +261,7 @@
                                 android:id="@+id/shareButton"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:tint="@color/colorAccent"
+                                android:tint="@color/fontcolor"
                                 android:background="@drawable/ic_share_black_24dp"
                                 android:visibility="visible"
                                 android:layout_alignParentRight="true" />
@@ -265,7 +270,7 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_marginLeft="20dp"
-                                android:tint="@color/colorAccent"
+                                android:tint="@color/fontcolor"
                                 android:background="@drawable/ic_print_black_24dp"
                                 android:visibility="visible"
                                 android:layout_alignParentRight="true"/>

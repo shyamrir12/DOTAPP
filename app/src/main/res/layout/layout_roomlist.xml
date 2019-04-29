@@ -33,7 +33,9 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:hint="Telor Name"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/fonts"
+                    android:textSize="14sp"/>
 
                 <!--<Button-->
                 <!--android:id="@+id/actual_read"-->

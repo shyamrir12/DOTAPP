@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"></Spinner>
+            android:layout_weight="1">
+
+        </Spinner>
 
     </LinearLayout>
 
@@ -54,7 +56,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ok" />
+            android:text="Ok"
+            android:fontFamily="@font/fonts"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:background="@color/fontcolor"/>
 
         <TextView
             android:layout_width="wrap_content"

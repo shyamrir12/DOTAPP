@@ -23,7 +23,9 @@
                 android:textColor="@color/black"
                 android:drawableRight="@drawable/ic_search_black_24dp"
                 android:hint="Enter the value*"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:fontFamily="@font/fonts"/>
 
             <Button
                 android:id="@+id/goButton"
@@ -34,6 +36,7 @@
                 android:text="Go"
                 android:textColor="@color/white"
                 android:textSize="14sp"
+                android:fontFamily="@font/fonts"
                 android:background="@drawable/add_cancel_button_shape" />
         </LinearLayout>
 

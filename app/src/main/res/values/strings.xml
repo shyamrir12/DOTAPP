@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sanskriti Decore</string>
+    <string name="app_name">Interior Design</string>
     <string name="read_xlsx">Read XLSX</string>
     <string name="write_xlsx">Write XLSX</string>
     <string name="send_to">Send to...</string>
@@ -31,7 +31,7 @@
         <item>Wall Paper</item>
         <item>Padding</item>
     </string-array>
-    <string name="title_activity_home">Sanskriti Decore</string>
+    <string name="title_activity_home">Interior</string>
     <string name="title_customer">Party</string>
     <string name="title_order">Order</string>
     <string name="title_report">Report</string>

@@ -30,7 +30,9 @@
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
                 android:hint="                              "
                 android:textSize="15sp"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:fontFamily="@font/fonts"/>
             </android.support.design.widget.TextInputLayout>
 
 
@@ -58,7 +60,9 @@
                     android:hint="                   "
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
                     android:textSize="15sp"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -76,7 +80,9 @@
                     android:inputType="text"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
                     android:hint="     "
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"/>
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_pageNo."
@@ -90,7 +96,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="     "
-
+                android:textColor="@color/black"
+                android:fontFamily="@font/fonts"
                 android:textSize="15sp"
                 android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
@@ -117,7 +124,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="                  "
-
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"
                     android:textSize="15sp"
                     android:inputType="numberDecimal"/>
             </android.support.design.widget.TextInputLayout>
@@ -134,7 +142,8 @@
                     android:layout_weight="1"
                     android:visibility="gone"
                     android:hint="                  "
-
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"
                     android:textSize="15sp"
                     android:inputType="numberDecimal"/>
             </android.support.design.widget.TextInputLayout>
@@ -151,6 +160,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="               "
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"
                     android:textSize="15sp"
                     android:inputType="numberDecimal" />
             </android.support.design.widget.TextInputLayout>
@@ -166,7 +177,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="               "
-
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"
                     android:textSize="15sp"
                     android:inputType="numberDecimal" />
             </android.support.design.widget.TextInputLayout>
@@ -225,7 +237,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"
                     android:inputType="number"
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
@@ -242,7 +255,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"
                     android:inputType="numberDecimal"
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
@@ -259,7 +273,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"
                     android:inputType="number"
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
@@ -283,7 +298,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"
 
                     android:textSize="15sp"
                     android:inputType="number" />
@@ -301,7 +317,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
 
-
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"
                     android:textSize="15sp"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
@@ -317,7 +334,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="number"
-
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fonts"
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -337,6 +355,7 @@
                 android:layout_weight="1"
                 android:text="Add"
                 android:textColor="@color/white"
+                android:fontFamily="@font/fonts"
                 android:background="@drawable/add_cancel_button_shape" />
 
             <TextView
@@ -350,6 +369,7 @@
                 android:layout_weight="1"
                 android:text="Cancel"
                 android:textColor="@color/white"
+                android:fontFamily="@font/fonts"
                 android:background="@drawable/add_cancel_button_shape" />
         </LinearLayout>
 

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/colort">
+    tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +16,7 @@
             android:layout_height="550px"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/sanskriti_logo_img" />
+            android:src="@drawable/interiorr" />
     </RelativeLayout>
 
 

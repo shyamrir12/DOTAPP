@@ -65,7 +65,8 @@
                                 android:textStyle="bold"
                                 android:layout_gravity="left"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginLeft="30dp" />
+                                android:layout_marginLeft="30dp"
+                                android:fontFamily="@font/fonts"/>
 
 
                         </LinearLayout>
@@ -112,7 +113,8 @@
                                 android:textStyle="bold"
                                 android:layout_gravity="left"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginLeft="30dp" />
+                                android:layout_marginLeft="30dp"
+                                android:fontFamily="@font/fonts"/>
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -157,7 +159,8 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginLeft="30dp" />
+                                android:layout_marginLeft="30dp"
+                                android:fontFamily="@font/fonts"/>
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -204,7 +207,8 @@
                                 android:textStyle="bold"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginLeft="30dp" />
+                                android:layout_marginLeft="30dp"
+                                android:fontFamily="@font/fonts"/>
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -251,7 +255,8 @@
                                 android:textStyle="bold"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginLeft="30dp" />
+                                android:layout_marginLeft="30dp"
+                                android:fontFamily="@font/fonts"/>
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -299,7 +304,8 @@
                                 android:textStyle="bold"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginLeft="30dp" />
+                                android:layout_marginLeft="30dp"
+                                android:fontFamily="@font/fonts"/>
 
                         </LinearLayout>
                     </RelativeLayout>

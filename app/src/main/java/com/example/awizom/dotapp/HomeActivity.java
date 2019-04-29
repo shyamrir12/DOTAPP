@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -74,6 +75,13 @@ public class HomeActivity extends AppCompatActivity {
 //        } else {
 //            System.out.print("internet is not available");
 //        }
+
+
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        toolbar.setLogo(R.drawable.interiorr);
+//        toolbar.setTitle("");
+//        setSupportActionBar(toolbar);
+
         userListFragment = new UserListFragment();
         customerLayoutfragment = new BottomCustomerFragment();
         printLayoutfragment = new BottomPrintFragment();
@@ -99,6 +107,9 @@ public class HomeActivity extends AppCompatActivity {
 //        if(!message.equals("")) {
 //            shareApp(HomeActivity.this, message);
 //        }
+
+
+
 
     }
 

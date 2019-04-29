@@ -23,6 +23,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
+                android:tint="@color/fontcolor"
                 android:background="@drawable/ic_print_black_24dp" />
 
             <ImageButton
@@ -30,6 +31,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
+                android:tint="@color/fontcolor"
                 android:background="@drawable/ic_share_black_24dp" />
             <ImageButton
                 android:id="@+id/allItem"
@@ -37,6 +39,7 @@
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
                 android:visibility="gone"
+                android:tint="@color/fontcolor"
                 android:background="@drawable/ic_filter_list_black_24dp" />
 
         </LinearLayout>
@@ -49,7 +52,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="There is no data available"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:fontFamily="@font/fonts"/>
         <LinearLayout
             android:id="@+id/ln2"
             android:layout_width="match_parent"

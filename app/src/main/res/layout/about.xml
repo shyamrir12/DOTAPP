@@ -17,9 +17,9 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="160dp"
-                android:layout_height="100dp"
-                android:src="@mipmap/sanskriti_logo_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/interiorr"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"/>
             <android.support.v7.widget.CardView
@@ -33,11 +33,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:text="Sanskriti Decore"
+                    android:text="Interior Design"
                     android:gravity="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/fonts"
                     android:layout_gravity="center"/>
 
             </android.support.v7.widget.CardView>
@@ -55,16 +56,17 @@
                     android:layout_height="45dp"
                     android:text="Developed and Designed By : Awizom Tech Bytes"
                     android:gravity="center"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/fonts"/>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/aboutApp"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="10dp"
                 android:layout_margin="10dp"
@@ -73,10 +75,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/thoryAbout"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimary"
+                    android:gravity="start"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textAlignment="center"
+                    android:fontFamily="@font/fonts"
+                    android:textAlignment="viewStart"
                     android:padding="10dp"/>
             </android.support.v7.widget.CardView>
 
@@ -87,6 +90,7 @@
                 android:gravity="center"
                 android:textColor="@color/blue"
                 android:textSize="14sp"
+                android:fontFamily="@font/fonts"
                 android:text=" @Copyright Awizom Tech Bytes"
                 android:textAlignment="center"
                 android:padding="10dp"

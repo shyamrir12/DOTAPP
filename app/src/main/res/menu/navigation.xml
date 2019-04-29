@@ -6,7 +6,7 @@
         android:id="@+id/navigation_customer"
         android:icon="@drawable/ic_people_outline_black_24dp"
         android:title="@string/title_customer"
-        android:background="@drawable/button_background"
+        android:background="@drawable/circle_shape"
         android:tooltipText="@string/title_customer"
         android:visible="true"
         />
@@ -14,7 +14,7 @@
     <item
         android:id="@+id/navigation_order"
         android:icon="@drawable/ic_bookmark_border_black_24dp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/circle_shape"
         android:title="@string/title_order"
         android:tooltipText="@string/title_order"
         android:visible="true"
@@ -26,7 +26,7 @@
         android:icon="@drawable/ic_filter_list_black_24dp"
         android:title="@string/title_status"
         android:tooltipText="@string/title_status"
-        android:background="@drawable/button_background"
+        android:background="@drawable/circle_shape"
         android:visible="true"
        />
 
@@ -35,7 +35,7 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Search"
         android:tooltipText="@string/title_search"
-        android:background="@drawable/button_background"
+        android:background="@drawable/circle_shape"
         android:visible="true"
         />
 
@@ -44,7 +44,7 @@
         android:id="@+id/navigation_print"
         android:icon="@drawable/ic_print_black_24dp"
         android:title="@string/title_print"
-        android:background="@drawable/button_background"
+        android:background="@drawable/circle_shape"
         android:tooltipText="@string/title_report"
         android:visible="true"
        />

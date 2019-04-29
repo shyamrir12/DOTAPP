@@ -13,9 +13,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/sanskriti_logo_img"
+        android:icon="@drawable/l"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/daimond"
+        android:roundIcon="@drawable/l"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -26,8 +26,10 @@
             android:name=".RoomDetailsActivity" android:theme="@style/AppTheme"/>
             <!--android:parentActivityName=
             ".AfterCreateOrderActivity" />-->
-        <activity android:name=".SinUpActivity" />
-        <activity android:name=".SigninActivity" >
+        <activity android:name=".SinUpActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".SigninActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity

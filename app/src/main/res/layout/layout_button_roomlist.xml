@@ -37,7 +37,8 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:gravity="center"
-                    android:background="@drawable/backgroundrelative"/>
+                    android:fontFamily="@font/fonts"
+                    android:background="@drawable/add_cancel_button_shape"/>
 
                 <Button
                     android:id="@+id/button_status"
@@ -47,6 +48,7 @@
                     android:background="@drawable/add_cancel_button_shape"
                     android:layout_weight="1"
                     android:textSize="13sp"
+                    android:fontFamily="@font/fonts"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:visibility="gone" />

@@ -14,6 +14,8 @@
         android:layout_marginBottom="10dp"
         android:textAlignment="textStart"
         android:inputType="text"
+        android:textColor="@color/black"
+        android:fontFamily="@font/fonts"
         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
         android:background="@drawable/edit_view_shape" />
     <LinearLayout
@@ -32,6 +34,9 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="Ok"
+            android:textColor="@color/white"
+            android:fontFamily="@font/fonts"
+            android:background="@color/fontcolor"
             android:layout_weight="1" />
 
         <TextView

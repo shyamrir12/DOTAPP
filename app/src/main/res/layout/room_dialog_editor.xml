@@ -25,7 +25,8 @@
                 android:inputType="text"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
                 android:hint="New Name"
-                android:textSize="15sp" />
+                android:textSize="13sp"
+                android:fontFamily="@font/fonts"/>
 
             <EditText
                 android:id="@+id/oldname"
@@ -35,7 +36,8 @@
                 android:inputType="text"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
                 android:hint="Old Name"
-                android:textSize="15sp" />
+                android:textSize="13sp"
+                android:fontFamily="@font/fonts"/>
 
 
         </LinearLayout>
@@ -56,7 +58,8 @@
                 android:layout_weight="1"
                 android:text="Add"
                 android:textColor="@color/white"
-                android:background="@drawable/add_cancel_button_shape" />
+                android:background="@color/fontcolor"
+                android:fontFamily="@font/fonts"/>
 
             <TextView
                 android:layout_width="12dp"
@@ -69,7 +72,8 @@
                 android:layout_weight="1"
                 android:text="Cancel"
                 android:textColor="@color/white"
-                android:background="@drawable/add_cancel_button_shape" />
+                android:background="@color/fontcolor"
+                android:fontFamily="@font/fonts"/>
         </LinearLayout>
 
 

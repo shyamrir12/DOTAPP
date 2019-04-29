@@ -17,10 +17,11 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:text="Add Room"
-            android:padding="5dp"
-            android:textSize="17sp"
+            android:padding="10dp"
+            android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/fonts"/>
 
         <ImageButton
             android:id="@+id/exit"
@@ -31,8 +32,9 @@
             android:layout_gravity="right"
             android:layout_marginEnd="12dp"
             android:padding="5dp"
+            android:tint="@color/white"
             android:src="@drawable/ic_cancel_black_24dp"
-            android:tint="@color/colorAccent" />
+            android:background="@drawable/circle_shape" />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,7 +57,8 @@
             android:inputType="text"
             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
             android:layout_weight="1"
-            android:paddingLeft="20dp" />
+            android:paddingLeft="20dp"
+            android:fontFamily="@font/fonts"/>
     </LinearLayout>
 
 
@@ -68,25 +71,27 @@
 
         <Button
             android:id="@+id/buttonAddOrder"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"
             android:text="Add"
+            android:fontFamily="@font/fonts"
             android:textColor="@color/white"
-            android:background="@drawable/add_cancel_button_shape"/>
+            android:background="@color/fontcolor"/>
 
         <TextView
             android:layout_width="10dp"
-            android:layout_height="4dp" />
+            android:layout_height="4dp"
+            android:layout_weight="1.7"/>
         <Button
             android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"
             android:textColor="@color/white"
             android:visibility="gone"
             android:text="Cancel"
-            android:background="@drawable/add_cancel_button_shape"/>
+            android:background="@color/fontcolor"/>
 
     </LinearLayout>
 

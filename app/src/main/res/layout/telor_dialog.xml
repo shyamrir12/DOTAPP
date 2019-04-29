@@ -37,7 +37,8 @@
                     android:id="@+id/sNo"
                     android:inputType="text"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
-
+                    android:fontFamily="@font/fonts"
+                    android:textSize="15sp"
                     android:hint="Telor Name" />
 
             </android.support.design.widget.TextInputLayout>
@@ -61,7 +62,7 @@
                 android:layout_weight="1"
                 android:text="Add"
                 android:textColor="@color/white"
-                android:background="@drawable/add_cancel_button_shape" />
+                android:background="@color/fontcolor" />
 
             <TextView
                 android:layout_width="12dp"
@@ -74,7 +75,7 @@
                 android:layout_weight="1"
                 android:text="Cancel"
                 android:textColor="@color/white"
-                android:background="@drawable/add_cancel_button_shape" />
+                android:background="@color/fontcolor" />
         </LinearLayout>
 
 

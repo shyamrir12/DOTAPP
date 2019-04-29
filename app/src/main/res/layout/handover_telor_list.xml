@@ -10,11 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Handover Telor List"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp"
+        android:textColor="@color/fontcolor"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center_horizontal"
-        android:id="@+id/telorname" />
+        android:id="@+id/telorname"
+        android:fontFamily="@font/fonts" />
 
     <RelativeLayout
         android:id="@+id/relative_medium"
@@ -56,7 +57,7 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center_vertical"
             android:text="There is no Data Available"
-
+            android:fontFamily="@font/fonts"
             />
 
     </RelativeLayout>
@@ -69,7 +70,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="46dp"
         android:background="@drawable/ic_share_black_24dp"
-        android:tint="@color/colorAccent"
+        android:tint="@color/fontcolor"
         android:visibility="visible" />
 
     <ImageButton
@@ -82,7 +83,7 @@
         android:layout_marginStart="-46dp"
         android:layout_toEndOf="@+id/updateButton1"
         android:background="@drawable/ic_print_black_24dp"
-        android:tint="@color/colorAccent"
+        android:tint="@color/fontcolor"
         android:visibility="visible" />
 
 

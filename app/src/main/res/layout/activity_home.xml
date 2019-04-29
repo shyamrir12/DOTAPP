@@ -10,8 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colort">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/img"
@@ -19,7 +18,7 @@
             android:layout_height="550px"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/sanskriti_logo_img" />
+            android:src="@drawable/interiorr" />
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
@@ -50,8 +49,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation"
-
-
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="false"
         app:itemTextColor="@color/colorPrimaryDark"
         android:fitsSystemWindows="false"
         android:layoutMode="clipBounds"

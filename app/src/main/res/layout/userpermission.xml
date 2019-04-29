@@ -31,7 +31,8 @@
                 android:layout_weight="1"
                 android:text="Advance"
                 android:layout_margin="8dp"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:fontFamily="@font/fonts"/>
             <Button
                 android:id="@+id/advtoggBtn"
                 android:layout_width="match_parent"
@@ -39,7 +40,9 @@
                 android:text="Give"
                 android:textAllCaps="false"
                 android:layout_weight="1"
+                android:textColor="@color/white"
                 android:gravity="center"
+                android:fontFamily="@font/fonts"
                 android:background="@drawable/add_cancel_button_shape"/>
         </LinearLayout>
         <LinearLayout
@@ -59,7 +62,8 @@
                 android:layout_weight="1"
                 android:text="PlaceOrder"
                 android:layout_margin="8dp"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:fontFamily="@font/fonts"/>
             <Button
                 android:id="@+id/PlaceOrderLayertoggBtn"
                 android:layout_width="match_parent"
@@ -67,7 +71,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:text="Give"
+                android:fontFamily="@font/fonts"
                 android:background="@drawable/add_cancel_button_shape"/>
 
 
@@ -89,7 +95,8 @@
                 android:layout_weight="1"
                 android:layout_margin="8dp"
                 android:text="Hold"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:fontFamily="@font/fonts"/>
 
             <Button
                 android:id="@+id/HoldtoggBtn"
@@ -99,6 +106,8 @@
                 android:text="Give"
                 android:textAllCaps="false"
                 android:gravity="center"
+                android:textColor="@color/white"
+                android:fontFamily="@font/fonts"
                 android:background="@drawable/add_cancel_button_shape"/>
 
         </LinearLayout>
@@ -119,15 +128,18 @@
                 android:layout_weight="1"
                 android:text="MaterialReceive"
                 android:layout_margin="8dp"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:fontFamily="@font/fonts"/>
             <Button
                 android:id="@+id/MaterialReceiveLayertoggBtn"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_weight="1"
+                android:textColor="@color/white"
                 android:text="Give"
                 android:textAllCaps="false"
                 android:gravity="center"
+                android:fontFamily="@font/fonts"
                 android:background="@drawable/add_cancel_button_shape"/>
 
         </LinearLayout>
@@ -138,10 +150,8 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:padding="5dp"
-
             android:orientation="horizontal"
-            android:layout_below="@+id/MaterialReceiveLayer"
-           >
+            android:layout_below="@+id/MaterialReceiveLayer">
             <TextView
                 android:id="@+id/handoverUser"
                 android:layout_width="match_parent"
@@ -149,7 +159,8 @@
                 android:layout_weight="1"
                 android:layout_margin="8dp"
                 android:text="HandOver"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:fontFamily="@font/fonts"/>
 
             <Button
                 android:id="@+id/HandOverLayertoggBtn"
@@ -159,6 +170,8 @@
                 android:text="Give"
                 android:textAllCaps="false"
                 android:gravity="center"
+                android:fontFamily="@font/fonts"
+                android:textColor="@color/white"
                 android:background="@drawable/add_cancel_button_shape"/>
         </LinearLayout>
         <LinearLayout
@@ -178,6 +191,7 @@
                 android:layout_weight="1"
                 android:layout_margin="8dp"
                 android:text="Receive"
+                android:fontFamily="@font/fonts"
                 android:textSize="15sp"/>
             <Button
                 android:id="@+id/ReceivetoggBtn"
@@ -185,8 +199,10 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:text="Give"
+                android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:gravity="center"
+                android:fontFamily="@font/fonts"
                 android:background="@drawable/add_cancel_button_shape"/>
 
         </LinearLayout>
@@ -206,6 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Dispatch"
+                android:fontFamily="@font/fonts"
                 android:layout_margin="8dp"
                 android:textSize="15sp"/>
             <Button
@@ -214,6 +231,8 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:text="Give"
+                android:fontFamily="@font/fonts"
+                android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:gravity="center"
                 android:background="@drawable/add_cancel_button_shape"/>
@@ -235,6 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="OrderCreate"
+                android:fontFamily="@font/fonts"
                 android:layout_margin="8dp"
                 android:textSize="15sp"/>
             <Button
@@ -243,6 +263,8 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:text="Give"
+                android:fontFamily="@font/fonts"
+                android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:gravity="center"
                 android:background="@drawable/add_cancel_button_shape"/>
@@ -265,15 +287,18 @@
                 android:layout_weight="1"
                 android:text="Party"
                 android:layout_margin="8dp"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:fontFamily="@font/fonts"/>
             <Button
                 android:id="@+id/PartyLayertoggBtn"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_weight="1"
+                android:textColor="@color/white"
                 android:text="Give"
                 android:textAllCaps="false"
                 android:gravity="center"
+                android:fontFamily="@font/fonts"
                 android:background="@drawable/add_cancel_button_shape"/>
 
         </LinearLayout>
@@ -293,6 +318,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Search"
+                android:fontFamily="@font/fonts"
                 android:layout_margin="8dp"
                 android:textSize="15sp"/>
             <Button
@@ -301,6 +327,8 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:text="Give"
+                android:fontFamily="@font/fonts"
+                android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:gravity="center"
                 android:background="@drawable/add_cancel_button_shape"/>
@@ -322,6 +350,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Print"
+                android:fontFamily="@font/fonts"
                 android:layout_margin="8dp"
                 android:textSize="15sp"/>
             <Button
@@ -329,9 +358,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:text="Give"
+                android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:fontFamily="@font/fonts"
                 android:background="@drawable/add_cancel_button_shape"/>
 
         </LinearLayout>

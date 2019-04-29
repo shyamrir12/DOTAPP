@@ -75,7 +75,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void initView() {
-        getSupportActionBar().setTitle("Sign Up");
+       // getSupportActionBar().setTitle("Sign Up");
         userName = findViewById(R.id.customerName);
         passWord = findViewById(R.id.password);
         cnfrmPassWord = findViewById(R.id.confrmPassword);
@@ -188,6 +188,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
 
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
+                    progressDialog.dismiss();
                     json = response.body().string();
                 }
             } catch (Exception e) {

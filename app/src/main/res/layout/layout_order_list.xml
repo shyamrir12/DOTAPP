@@ -29,7 +29,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/fonts"
                     android:hint="Customer Name"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -37,7 +39,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/fonts"
                     android:hint="Mobile No."
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -45,8 +49,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/fonts"
                     android:hint="Order"
                     android:textColor="@color/fab2_color"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -54,9 +60,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/fonts"
                     android:hint="Status"
                     android:textColor="@color/fab2_color"
                     android:textColorLink="#000000"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -75,7 +83,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/fonts"
                     android:hint="Order Date"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -83,7 +93,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/fonts"
                     android:hint="Advance"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
 
@@ -92,8 +104,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/fonts"
                     android:hint="Room"
                     android:textColor="@color/fab2_color"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -124,20 +138,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="OP" />
+                        android:fontFamily="@font/fonts"
+                        android:text="OP"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/buttonOP"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-
                         android:layout_margin="10dp"
-                        android:background="@drawable/button_background"
+                        android:background="@drawable/circle_shape"
+                        android:fontFamily="@font/fonts"
                         android:text="OK"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-
-
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -152,19 +167,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MR" />
+                        android:fontFamily="@font/fonts"
+                        android:text="MR"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/buttonMR"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-
-                        android:text="OK"
-                        android:textColor="@color/white"
                         android:layout_margin="10dp"
-                        android:background="@drawable/button_background"
-
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                        android:background="@drawable/circle_shape"
+                        android:fontFamily="@font/fonts"
+                        android:text="OK"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -179,19 +196,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="RFT" />
+                        android:fontFamily="@font/fonts"
+                        android:text="RFT"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/buttonRFT"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-
-                        android:text="OK"
-                        android:textColor="@color/white"
                         android:layout_margin="10dp"
-                        android:background="@drawable/button_background"
-
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                        android:background="@drawable/circle_shape"
+                        android:fontFamily="@font/fonts"
+                        android:text="OK"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -206,19 +225,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="DISP" />
+                        android:fontFamily="@font/fonts"
+                        android:text="DISP"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/buttonDisp"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-
                         android:layout_margin="10dp"
-                        android:background="@drawable/button_background"
+                        android:background="@drawable/circle_shape"
+                        android:fontFamily="@font/fonts"
                         android:text="OK"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -233,19 +254,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="REJECT" />
+                        android:fontFamily="@font/fonts"
+                        android:text="REJECT"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/buttonReject"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-
-                        android:text="OK"
-                        android:textColor="@color/white"
                         android:layout_margin="10dp"
-                        android:background="@drawable/button_background"
-
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                        android:background="@drawable/circle_shape"
+                        android:fontFamily="@font/fonts"
+                        android:text="OK"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -263,21 +286,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Hand Over To" />
+                    android:fontFamily="@font/fonts"
+                    android:text="Hand Over To"
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/textTelorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Telor Name" />
+                    android:fontFamily="@font/fonts"
+                    android:text="Telor Name"
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/textReceivedBy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Received By" />
+                    android:fontFamily="@font/fonts"
+                    android:text="Received By"
+                    android:textSize="13sp" />
             </LinearLayout>
         </RelativeLayout>
 

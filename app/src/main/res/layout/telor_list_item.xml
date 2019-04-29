@@ -44,7 +44,7 @@
             android:layout_height="50dp"
             android:visibility="visible"
             android:layout_marginBottom="50dp"
-            android:background="@drawable/button_background_shape"
+            android:background="@drawable/circle_shape"
             android:src="@drawable/ic_add_white_24dp"
             android:layout_alignParentRight="true"
             android:layout_margin="5dp" />

@@ -13,18 +13,24 @@
         <EditText
             android:id="@+id/editCustomerName"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/fonts"
             android:hint="CustomerName"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/editMobile"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/fonts"
             android:hint="Mobile"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
 
     </LinearLayout>
@@ -37,10 +43,13 @@
         <EditText
             android:id="@+id/editAddress"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/fonts"
             android:hint="Address"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
 
     </LinearLayout>
@@ -53,18 +62,24 @@
         <EditText
             android:id="@+id/editInteriorName"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/fonts"
             android:hint="InteriorName"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/editInteriorMobile"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/fonts"
             android:hint="InteriorMobile"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
 
     </LinearLayout>
@@ -77,17 +92,30 @@
 
         <Button
             android:id="@+id/buttonAddOrder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:text="Add" />
+            android:background="@color/fontcolor"
+            android:fontFamily="@font/fonts"
+            android:text="Add"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.7" />
 
         <Button
             android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:background="@color/fontcolor"
+            android:fontFamily="@font/fonts"
+            android:text="Cancel"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
     </LinearLayout>
 

@@ -37,7 +37,8 @@
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:hint="Name" />
+                        android:hint="Name"
+                        android:fontFamily="@font/fonts"/>
 
                     <TextView
                         android:id="@+id/contact"
@@ -47,7 +48,8 @@
                         android:hint="Surname"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fonts"/>
 
                     <TextView
                         android:id="@+id/address"
@@ -57,7 +59,8 @@
                         android:hint="Number"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fonts"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -76,7 +79,8 @@
                         android:hint="Name"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fonts"/>
 
                     <TextView
                         android:id="@+id/interiorAddress"
@@ -86,7 +90,8 @@
                         android:hint="Surname"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fonts"/>
 
                     <TextView
                         android:id="@+id/interiorContact"
@@ -96,7 +101,8 @@
                         android:hint="Number"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fonts"/>
                 </LinearLayout>
 
             </RelativeLayout>

@@ -4,24 +4,24 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <!--<ProgressBar-->
+        <!--android:id="@+id/progressBar"-->
+        <!--style="?android:attr/progressBarStyleLarge"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_centerHorizontal="true" />-->
 
 
 
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="190dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/sanskriti_logo_img" />
+        android:src="@drawable/interiorr" />
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
@@ -36,10 +36,11 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imgLogo"
-        android:layout_width="550dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/progressbar" />
+        android:src="@drawable/loader_interior"
+        android:tint="@color/colorAccent"/>
 
 
 </RelativeLayout>

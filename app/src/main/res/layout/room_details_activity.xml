@@ -19,14 +19,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorAccent">
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:id="@+id/customerinfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
                 android:orientation="horizontal">
 
                 <TextView
@@ -38,7 +36,8 @@
                     android:gravity="center"
                     android:text="@string/receivedby"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/room_text_size" />
+                    android:textSize="14sp"
+                    android:fontFamily="@font/fonts"/>
 
                 <TextView
                     android:id="@+id/customer_mobile_no"
@@ -49,7 +48,8 @@
                     android:gravity="left"
                     android:text="Room Name"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/room_text_size" />
+                    android:textSize="@dimen/room_text_size"
+                    android:fontFamily="@font/fonts"/>
 
 
             </LinearLayout>
@@ -60,7 +60,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/customerinfo"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorAccent"
                 android:orientation="horizontal">
 
                 <TextView
@@ -72,7 +71,8 @@
                     android:gravity="center"
                     android:text="@string/receivedby"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/room_text_size" />
+                    android:textSize="@dimen/room_text_size"
+                    android:fontFamily="@font/fonts"/>
 
                 <TextView
                     android:id="@+id/room_name"
@@ -83,7 +83,8 @@
                     android:gravity="left"
                     android:text="Room Name"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/room_text_size" />
+                    android:textSize="@dimen/room_text_size"
+                    android:fontFamily="@font/fonts"/>
 
             </LinearLayout>
 
@@ -96,16 +97,19 @@
                 android:layout_below="@+id/customerinfo"
                 android:text="     All"
                 android:layout_gravity="center"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:fontFamily="@font/fonts"/>
 
             <Button
                 android:id="@+id/allOkButtton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignEnd="@+id/customerinfo2"
                 android:layout_below="@+id/customerinfo"
-                android:background="@drawable/button_background_shape"
-                android:text="Ok" />
+                android:background="@drawable/circle_shape"
+                android:text="Ok"
+                android:textColor="@color/white"
+                android:fontFamily="@font/fonts"/>
         </RelativeLayout>
     </RelativeLayout>
 
@@ -152,7 +156,8 @@
                     android:textSize="@dimen/room_text_size"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/fonts"/>
 
                 <TextView
                     android:id="@+id/roman"
@@ -163,7 +168,8 @@
                     android:textSize="@dimen/room_text_size"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/fonts"/>
 
                 <TextView
                     android:id="@+id/aPlat"
@@ -173,7 +179,8 @@
                     android:text="A Plat"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/fonts"/>
 
                 <TextView
                     android:id="@+id/total"
@@ -183,7 +190,8 @@
                     android:text="Total"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/fonts"/>
             </LinearLayout>
 
             <LinearLayout
@@ -203,7 +211,8 @@
                     android:text="elight"
                     android:textColor="@color/white"
                     android:textSize="@dimen/room_text_size"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/fonts"/>
 
                 <TextView
                     android:id="@+id/roman_value"
@@ -213,7 +222,8 @@
                     android:text="roman"
                     android:textColor="@color/white"
                     android:textSize="@dimen/room_text_size"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/fonts"/>
 
                 <TextView
                     android:id="@+id/aPlat_value"
@@ -223,7 +233,8 @@
                     android:text="a plot"
                     android:textColor="@color/white"
                     android:textSize="@dimen/room_text_size"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/fonts"/>
 
                 <TextView
                     android:id="@+id/total_value"
@@ -233,7 +244,8 @@
                     android:layout_gravity="center"
                     android:text="1223"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/room_text_size" />
+                    android:textSize="@dimen/room_text_size"
+                    android:fontFamily="@font/fonts"/>
             </LinearLayout>
 
 
@@ -247,7 +259,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="14dp"
-        android:background="@drawable/button_background_shape"
+        android:background="@drawable/circle_shape"
         android:src="@drawable/ic_add_white_24dp" />
 
 </RelativeLayout>
