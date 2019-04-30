@@ -8,8 +8,7 @@
         android:title="@string/title_customer"
         android:background="@drawable/circle_shape"
         android:tooltipText="@string/title_customer"
-        android:visible="true"
-        />
+        android:visible="true" />
 
     <item
         android:id="@+id/navigation_order"
