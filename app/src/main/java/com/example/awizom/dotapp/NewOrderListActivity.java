@@ -402,8 +402,8 @@ public class NewOrderListActivity extends AppCompatActivity implements View.OnCl
             if (result.isEmpty()) {
                 errorMsg.setVisibility(View.VISIBLE);
                 // progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "There is no data available" +
-                        "", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), "There is no data available" +
+               //         "", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<DataOrder>>() {

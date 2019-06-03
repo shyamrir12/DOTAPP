@@ -253,7 +253,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             progressDialog.setMessage("loading...");
             progressDialog.show();
             new GETLoadDataList().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token);
-
+            progressDialog.dismiss();
             //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
@@ -318,7 +318,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 if (result.isEmpty()) {
                     //progressDialog.dismiss();
                     mSwipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(getApplicationContext(), "Invalid reques", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Invalid reques", Toast.LENGTH_SHORT).show();
                 } else {
                     Gson gson = new Gson();
                     Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
@@ -397,6 +397,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
             //  progressDialog.show();
 
             new AfterCreateActivity.detailseGET().execute( orderid, SharedPrefManager.getInstance(this).getUser().access_token);
+            mSwipeRefreshLayout.setRefreshing(false);
         } catch (Exception e) {
             e.printStackTrace();
             mSwipeRefreshLayout.setRefreshing(false);
@@ -409,7 +410,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         protected String doInBackground(String... strings) {
-
+            mSwipeRefreshLayout.setRefreshing(false);
             //String roomName = strings[0];
             String orderID = strings[0];
             String accesstoken = strings[1];
@@ -442,7 +443,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
                 if (result.isEmpty()) {
                     //progressDialog.dismiss();
                     mSwipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
                 } else {
                     Gson gson = new Gson();
                     Type listType = new TypeToken<List<CatelogOrderDetailModel>>() {
@@ -597,7 +598,6 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
     public  void shareMessage(String message)
     {
-//
 //        Intent sendIntent = new Intent();
 //        sendIntent.setAction(Intent.ACTION_SEND);
 //        sendIntent.putExtra(Intent.EXTRA_TEXT, message );
@@ -609,6 +609,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         startActivity(Intent.createChooser(shareIntent, "SHARE"));
 
     }
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
@@ -625,7 +626,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private class GETLoadDataList extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-
+            progressDialog.dismiss();
             String accesstoken = params[0];
             String json = "";
             try {
@@ -653,7 +654,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 progressDialog.dismiss();
                 Gson gson = new Gson();
@@ -856,7 +857,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
                 startActivity(intent = new Intent(getApplicationContext(), CustomerListFrgment.class));
             } else {
                 Gson gson = new Gson();
@@ -996,7 +997,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         protected void onPostExecute(String result) {
 
             if (result.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
@@ -1026,6 +1027,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         try {
             mSwipeRefreshLayout.setRefreshing(true);
             new GETOrderList().execute(SharedPrefManager.getInstance(getApplicationContext()).getUser().access_token, orderId);
+            mSwipeRefreshLayout.setRefreshing(false);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -1037,7 +1039,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
     private class GETOrderList extends AsyncTask<String, Void, String> implements View.OnClickListener {
         @Override
         protected String doInBackground(String... params) {
-
+            mSwipeRefreshLayout.setRefreshing(false);
             String json = "";
             String accesstoken = params[0];
             String orderid = params[1];
@@ -1065,7 +1067,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
             try {
                 if (result.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
                 } else {
                     //System.out.println(result);
                     Gson gson = new Gson();
@@ -1161,7 +1163,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<CustomerModel>>() {
@@ -1207,7 +1209,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<CustomerModel>() {
@@ -1262,7 +1264,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-
+            progressDialog.dismiss();
             String customerid = params[0];
             String orderdate = params[1];
             String orderamount = params[2];
@@ -1303,7 +1305,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 //System.out.println("CONTENIDO:  " + result);
                 Gson gson = new Gson();
@@ -1416,7 +1418,7 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
 
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 //System.out.println("CONTENIDO:  " + result);
                 Gson gson = new Gson();

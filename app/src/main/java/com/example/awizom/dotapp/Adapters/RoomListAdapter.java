@@ -325,6 +325,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     private void placeOrderPost(String roomname) {
 
         try {
+            progressDialog.show();
             new RoomListAdapter.PostPlaceOrderList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,StatusName, roomname);
 
         } catch (Exception e) {
@@ -387,6 +388,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
 
     private void receiFromeTailorToListPost() {
         try {
+            progressDialog.show();
             new receivedFrometailorToListPost().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token, StatusName, roomName, editReceivedBy.getText().toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -397,7 +399,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     private class receivedFrometailorToListPost extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-
+            progressDialog.dismiss();
             // InputStream inputStream
             String accesstoken = params[0];
             String statusname = params[1];
@@ -450,6 +452,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
 
     private void handOverToListPost() {
         try {
+            progressDialog.show();
             new PostHandOverToList().execute(SharedPrefManager.getInstance(mCtx).getUser().access_token,StatusName,roomName,String.valueOf(handOvertoNameSpinner.getSelectedItem()), String.valueOf(tailorListNameSpinner.getSelectedItem()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -461,7 +464,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     private class PostHandOverToList extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-
+            progressDialog.dismiss();
             // InputStream inputStream
             String accesstoken = params[0];
             String statusname = params[1];

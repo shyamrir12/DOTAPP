@@ -251,7 +251,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
     private class statusCountGET extends AsyncTask<String, Void, String> implements View.OnClickListener {
         @Override
         protected String doInBackground(String... params) {
-
+            mSwipeRefreshLayout.setRefreshing(false);
             String json = "";
             String accesstoken = params[0];
 
@@ -282,7 +282,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
             try {
                 if (result.isEmpty()) {
 
-                    Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
                     mSwipeRefreshLayout.setRefreshing(false);
 
                 } else {
@@ -348,7 +348,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
 
-                Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             }else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<UserPermissionModel>() {

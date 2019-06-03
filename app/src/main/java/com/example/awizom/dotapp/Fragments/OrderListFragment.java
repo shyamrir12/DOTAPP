@@ -78,6 +78,7 @@ public class OrderListFragment extends Fragment {
     private class GetOrderDetails extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
+            progressDialog.dismiss();
             String accesstoken = params[0];
             String json = "";
             try {
