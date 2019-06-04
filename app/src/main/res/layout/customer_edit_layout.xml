@@ -53,13 +53,13 @@
                 android:fontFamily="@font/fonts"
                 android:inputType="number"
                 android:maxLength="10"
-                android:layout_above="@+id/password"
+                android:layout_above="@+id/cus_address"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:paddingLeft="14dp" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/cus_address"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
@@ -72,10 +72,10 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:paddingLeft="14dp"
-                android:layout_above="@+id/confrmPassword" />
+                android:layout_above="@+id/interior_name" />
 
             <EditText
-                android:id="@+id/confrmPassword"
+                android:id="@+id/interior_name"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
@@ -92,7 +92,7 @@
                 android:paddingLeft="14dp" />
 
             <EditText
-                android:id="@+id/interiormobile"
+                android:id="@+id/interior_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
@@ -102,7 +102,7 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/fonts"
-                android:layout_below="@+id/confrmPassword"
+                android:layout_below="@+id/interior_name"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:paddingLeft="14dp" />
 
@@ -116,7 +116,7 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:fontFamily="@font/fonts"
-                android:layout_below="@+id/interiormobile"
+                android:layout_below="@+id/interior_mobile"
                 android:layout_marginTop="40dp"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/add_cancel_button_shape" />

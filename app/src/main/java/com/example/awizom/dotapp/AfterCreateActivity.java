@@ -744,13 +744,13 @@ public class AfterCreateActivity extends AppCompatActivity implements View.OnCli
         b.show();
         cName = dialogView.findViewById(R.id.customerName);
         cContact = dialogView.findViewById(R.id.contact);
-        cAddress = dialogView.findViewById(R.id.password);
-        interioName = dialogView.findViewById(R.id.confrmPassword);
-        interioContact = dialogView.findViewById(R.id.interiormobile);
+        cAddress = dialogView.findViewById(R.id.cus_address);
+        interioName = dialogView.findViewById(R.id.interior_name);
+        interioContact = dialogView.findViewById(R.id.interior_mobile);
 
 
 
-        final Button buttonCreate = dialogView.findViewById(R.id.customerButton);
+        final Button buttonCreate = dialogView.findViewById(R.id.customer_add_button);
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

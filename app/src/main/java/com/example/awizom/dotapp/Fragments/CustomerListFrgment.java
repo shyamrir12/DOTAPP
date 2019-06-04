@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -47,8 +48,7 @@ public class CustomerListFrgment extends Fragment {
     }
 
     private void initView(View view) {
-
-//        ((CustomerListFrgment) getContext()).setActionBarTitle("Customer List Details");
+        ((AppCompatActivity) getContext()).getSupportActionBar().setTitle("Customer List");
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);

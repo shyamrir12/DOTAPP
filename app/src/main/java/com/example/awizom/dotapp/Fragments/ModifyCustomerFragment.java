@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -16,12 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.awizom.dotapp.AfterCreateActivity;
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.CustomerActivity;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.CustomerModel;
-import com.example.awizom.dotapp.Models.DataOrder;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
@@ -55,12 +54,12 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
     }
 
     private void initView(View view) {
-
+        ((AppCompatActivity) getContext()).getSupportActionBar().setTitle("Modify Customer");
         cName = view.findViewById(R.id.customerName);
         cContact = view.findViewById(R.id.contact);
-        cAddress = view.findViewById(R.id.password);
-        interioName = view.findViewById(R.id.confrmPassword);
-        interioContact = view.findViewById(R.id.interiormobile);
+        cAddress = view.findViewById(R.id.cus_address);
+        interioName = view.findViewById(R.id.interior_name);
+        interioContact = view.findViewById(R.id.interior_mobile);
         updateCustomer = view.findViewById(R.id.updateButton);
         updateCustomer.setOnClickListener(this);
         progressDialog = new ProgressDialog(getActivity());
@@ -99,7 +98,14 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
                     cName.setError("Customer Name is required!");
                     cContact.setError("Customer Contact is required!");
                 }else {
-                    customerUpdatePost();
+
+                    if(cContact.getText().toString().length() >= 10 || interioContact.getText().toString().length() >= 10){
+                        customerUpdatePost();
+                    }else {
+                        Toast.makeText(getActivity(), "Contact number must be 10 digit", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
                 break;
 

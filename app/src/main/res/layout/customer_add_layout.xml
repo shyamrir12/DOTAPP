@@ -33,11 +33,11 @@
                     android:layout_height="45dp"
                     android:layout_centerHorizontal="true"
                     android:hint="@string/customername"
-                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
+
                     android:textColor="@color/black"
                     android:fontFamily="@font/fonts"
                     android:textSize="15sp"
-                    android:inputType="text"
+                    android:inputType="textPersonName"
                     android:layout_above="@+id/contact"
                     android:layout_marginBottom="20dp"
                     android:paddingLeft="14dp"
@@ -54,20 +54,20 @@
                     android:textSize="15sp"
                     android:inputType="number"
                     android:maxLength="10"
-                    android:layout_above="@+id/password"
+                    android:layout_above="@+id/cus_address"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/signin_sinup_button_shape"
                     android:paddingLeft="14dp" />
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/cus_address"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="false"
                     android:hint="@string/address"
                     android:inputType="text"
-                    android:layout_above="@+id/confrmPassword"
+                    android:layout_above="@+id/interior_name"
                     android:textColor="@color/black"
                     android:fontFamily="@font/fonts"
                     android:textSize="15sp"
@@ -76,7 +76,7 @@
                     android:paddingLeft="14dp" />
 
                 <EditText
-                    android:id="@+id/confrmPassword"
+                    android:id="@+id/interior_name"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_centerHorizontal="true"
@@ -92,7 +92,7 @@
                     android:paddingLeft="14dp" />
 
                 <EditText
-                    android:id="@+id/interiormobile"
+                    android:id="@+id/interior_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_centerHorizontal="true"
@@ -102,12 +102,12 @@
                     android:textColor="@color/black"
                     android:fontFamily="@font/fonts"
                     android:textSize="15sp"
-                    android:layout_below="@+id/confrmPassword"
+                    android:layout_below="@+id/interior_name"
                     android:background="@drawable/signin_sinup_button_shape"
                     android:paddingLeft="14dp" />
 
                 <Button
-                    android:id="@+id/customerButton"
+                    android:id="@+id/customer_add_button"
                     android:layout_width="230dp"
                     android:layout_height="50dp"
                     android:text="@string/add"
@@ -116,7 +116,7 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/fonts"
                     android:textSize="15sp"
-                    android:layout_below="@+id/interiormobile"
+                    android:layout_below="@+id/interior_mobile"
                     android:layout_marginTop="40dp"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/add_cancel_button_shape" />

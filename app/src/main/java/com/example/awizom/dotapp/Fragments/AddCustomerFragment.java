@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,15 +41,16 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     }
 
     private void initView(View view) {
+        ((AppCompatActivity) getContext()).getSupportActionBar().setTitle("Add Customer");
         cName = view.findViewById(R.id.customerName);
         cContact = view.findViewById(R.id.contact);
-        cAddress = view.findViewById(R.id.password);
-        interioName = view.findViewById(R.id.confrmPassword);
-        interioContact = view.findViewById(R.id.interiormobile);
-
-        addCustomer = view.findViewById(R.id.customerButton);
+        cAddress = view.findViewById(R.id.cus_address);
+        interioName = view.findViewById(R.id.interior_name);
+        interioContact = view.findViewById(R.id.interior_mobile);
+        addCustomer = view.findViewById(R.id.customer_add_button);
         addCustomer.setOnClickListener(this);
         progressDialog = new ProgressDialog(getActivity());
+
 
 
     }
@@ -56,7 +58,7 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.customerButton:
+            case R.id.customer_add_button:
                 if ((cName.getText().toString().isEmpty()) || (cContact.getText().toString().isEmpty()) ) {
 /*|| (cAddress.getText().toString().isEmpty()) || (interioName.getText().toString().isEmpty())
                         || (interioContact.getText().toString().isEmpty())*/
@@ -64,7 +66,12 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
                     cContact.setError("Customer Contact is required!");
 
                 } else {
-                    customerAddPost();
+                    if(cContact.getText().toString().length() >= 10 || interioContact.getText().toString().length() >= 10){
+                        customerAddPost();
+                    }else {
+                        Toast.makeText(getActivity(), "Contact number must be 10 digit", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
                 break;
         }
@@ -118,7 +125,6 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
             String customername = params[0];
             String mobile = params[1];
             String address = params[2];
-
             String interiorname = params[3];
             String interiormobile = params[4];
             String accesstoken = params[5];
@@ -163,6 +169,8 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
                 Gson gson = new Gson();
                 final Result jsonbodyres = gson.fromJson(result, Result.class);
                 Toast.makeText(getActivity(), jsonbodyres.getMessage(), Toast.LENGTH_SHORT).show();
+
+
                 if (jsonbodyres.getStatus() == true) {
                     startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
                 }

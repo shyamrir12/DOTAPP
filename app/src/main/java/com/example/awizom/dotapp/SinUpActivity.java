@@ -17,9 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.awizom.dotapp.Config.AppConfig;
-import com.example.awizom.dotapp.Helper.SharedPrefManager;
-import com.example.awizom.dotapp.Models.Result;
-import com.example.awizom.dotapp.Models.Token;
 import com.example.awizom.dotapp.Models.UserRegister;
 import com.google.gson.Gson;
 
@@ -77,8 +74,8 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
     private void initView() {
        // getSupportActionBar().setTitle("Sign Up");
         userName = findViewById(R.id.customerName);
-        passWord = findViewById(R.id.password);
-        cnfrmPassWord = findViewById(R.id.confrmPassword);
+        passWord = findViewById(R.id.cus_address);
+        cnfrmPassWord = findViewById(R.id.interior_name);
         spinner = findViewById(R.id.spinnerUserRole);
         signupButton = findViewById(R.id.signupButton);
         signupButton.setOnClickListener(this);

@@ -143,7 +143,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             try {
                 if (result.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
                     SharedPrefManager.getInstance(getApplicationContext()).logout();
                     Intent login = new Intent(getApplicationContext(), SigninActivity.class);
                     startActivity(login);

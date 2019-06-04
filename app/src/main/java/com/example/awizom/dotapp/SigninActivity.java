@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -25,10 +24,6 @@ import com.example.awizom.dotapp.Models.Token;
 import com.example.awizom.dotapp.Models.UserLogin;
 import com.google.gson.Gson;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -85,7 +80,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 //        getSupportActionBar().setTitle("Sign In");
         progressDialog = new ProgressDialog(this);
         userName = findViewById(R.id.userId);
-        passWord = findViewById(R.id.password);
+        passWord = findViewById(R.id.cus_address);
         signinButton = findViewById(R.id.signinButton);
         signinButton.setOnClickListener(this);
         signupHere = findViewById(R.id.signupHere);

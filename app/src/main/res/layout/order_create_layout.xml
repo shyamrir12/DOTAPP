@@ -49,13 +49,13 @@
                 android:textSize="15sp"
                 android:fontFamily="@font/fonts"
                 android:textColor="@color/black"
-                android:layout_above="@+id/password"
+                android:layout_above="@+id/cus_address"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
                 android:padding="13dp" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/cus_address"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
@@ -71,7 +71,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/password"
+                android:layout_below="@+id/cus_address"
                 android:layout_marginTop="40dp"
                 android:layout_centerHorizontal="true">
 
@@ -85,7 +85,7 @@
                     android:fontFamily="@font/fonts"
                     android:textSize="18sp"
                     android:background="@drawable/add_cancel_button_shape"
-                    android:layout_below="@+id/confrmPassword" />
+                    android:layout_below="@+id/interior_name" />
 
             </LinearLayout>
 

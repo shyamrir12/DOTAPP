@@ -46,7 +46,7 @@
             android:fontFamily="@font/fonts"/>
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/cus_address"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_below="@+id/contact"
@@ -62,10 +62,10 @@
             android:fontFamily="@font/fonts"/>
 
         <EditText
-            android:id="@+id/confrmPassword"
+            android:id="@+id/interior_name"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_below="@+id/password"
+            android:layout_below="@+id/cus_address"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
@@ -79,10 +79,10 @@
             android:fontFamily="@font/fonts" />
 
         <EditText
-            android:id="@+id/interiormobile"
+            android:id="@+id/interior_mobile"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_below="@+id/confrmPassword"
+            android:layout_below="@+id/interior_name"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -97,10 +97,10 @@
             android:fontFamily="@font/fonts" />
 
         <Button
-            android:id="@+id/customerButton"
+            android:id="@+id/customer_add_button"
             android:layout_width="230dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/interiormobile"
+            android:layout_below="@+id/interior_mobile"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@drawable/add_cancel_button_shape"

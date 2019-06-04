@@ -35,7 +35,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
 
         oldpassword = findViewById(R.id.oldPass);
         newPassword = findViewById(R.id.newPass);
-        cnfrmPassword = findViewById(R.id.confrmPassword);
+        cnfrmPassword = findViewById(R.id.interior_name);
         changePasswordButton = findViewById(R.id.changePassBtn);
         changePasswordButton.setOnClickListener(this);
         progressDialog = new ProgressDialog(getApplicationContext());
