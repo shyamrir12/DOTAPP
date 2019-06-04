@@ -16,7 +16,22 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_centerHorizontal="true">
-
+            <EditText
+                android:id="@+id/cus_id"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/customercontact"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/fonts"
+                android:inputType="number"
+                android:maxLength="10"
+                android:layout_above="@+id/cus_address"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/signin_sinup_button_shape"
+                android:paddingLeft="14dp"
+                android:visibility="gone"/>
             <AutoCompleteTextView
                 android:id="@+id/customerName"
                 android:layout_width="match_parent"

@@ -34,7 +34,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class ModifyCustomerFragment extends Fragment implements View.OnClickListener {
-    private EditText cContact, cAddress, interioName, interioContact;
+    private EditText cContact, cAddress, interioName, interioContact,cId;
     private AutoCompleteTextView cName;
     private Button updateCustomer;
     private Intent intent;
@@ -61,6 +61,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
         interioName = view.findViewById(R.id.interior_name);
         interioContact = view.findViewById(R.id.interior_mobile);
         updateCustomer = view.findViewById(R.id.updateButton);
+        cId = view.findViewById(R.id.cus_id);
         updateCustomer.setOnClickListener(this);
         progressDialog = new ProgressDialog(getActivity());
 
@@ -173,7 +174,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
                 builder.addHeader("Accept", "application/json");
                 builder.addHeader("Authorization", "Bearer " + accesstoken);
                 FormBody.Builder parameters = new FormBody.Builder();
-                parameters.add("CustomerID", "0");
+                parameters.add("CustomerID", cId.getText().toString());
                 parameters.add("CustomerName", customername);
                 parameters.add("Address", address);
                 parameters.add("Mobile", mobile);
@@ -325,6 +326,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
                 dataOrderValue = new Gson().fromJson(result, listType);
                 if (dataOrderValue != null) {
                     cid = dataOrderValue.getCustomerID();
+                    cId.setText(String.valueOf(dataOrderValue.getCustomerID()));
                     cContact.setText(dataOrderValue.getMobile());
                     cAddress.setText(dataOrderValue.getAddress());
                     interioName.setText(dataOrderValue.getInteriorName());
