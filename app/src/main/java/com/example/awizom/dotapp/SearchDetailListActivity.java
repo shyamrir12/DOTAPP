@@ -33,6 +33,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class SearchDetailListActivity extends AppCompatActivity implements View.OnClickListener {
+
     private Intent intent;
     private ProgressDialog progressDialog;
     private List<DataOrder> searchList;
@@ -146,7 +147,7 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<CustomerModel>>() {
@@ -221,8 +222,7 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 mSwipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(getApplicationContext(), "There is no data available" +
-                        "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "There is no data available" + "", Toast.LENGTH_SHORT).show();
             } else {
                 mSwipeRefreshLayout.setRefreshing(false);
                 Gson gson = new Gson();
@@ -276,7 +276,7 @@ public class SearchDetailListActivity extends AppCompatActivity implements View.
             try {
 
                 if (result.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_SHORT).show();
                 } else {
                     Gson gson = new Gson();
                     Type listType = new TypeToken<DataOrder>() {

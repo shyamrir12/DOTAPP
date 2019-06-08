@@ -33,7 +33,6 @@
                     android:layout_height="45dp"
                     android:layout_centerHorizontal="true"
                     android:hint="@string/customername"
-
                     android:textColor="@color/black"
                     android:fontFamily="@font/fonts"
                     android:textSize="15sp"

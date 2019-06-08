@@ -221,8 +221,17 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         protected void onPostExecute(String result) {
             try {
                 if (result.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "This User Id is not registered", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
+                    AlertDialog alertDialog = new AlertDialog.Builder(SigninActivity.this).create();
+                    alertDialog.setMessage("Incorrect UserId and Password");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+
                 } else {
                     progressDialog.dismiss();
                     Gson gson = new Gson();
@@ -259,6 +268,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     } else {
                         Toast.makeText(getApplicationContext(), "Invalid user id or password", Toast.LENGTH_SHORT).show();
+
                     }
 
                 }

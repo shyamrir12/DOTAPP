@@ -63,11 +63,11 @@
                         android:textColor="@color/black"
                         android:text="User Create" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/sign_up" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/sign_up" />-->
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/blank"
@@ -85,13 +85,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -111,13 +111,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
                 <LinearLayout
 
@@ -135,12 +135,12 @@
                         android:text="login"
                         android:fontFamily="@font/fonts"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
 
-                        android:src="@mipmap/sign_in" />
+                        <!--android:src="@mipmap/sign_in" />-->
 
 
                 </LinearLayout>
@@ -162,13 +162,13 @@
                         android:visibility="gone"
                         android:fontFamily="@font/fonts"/>
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -188,13 +188,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
                 <LinearLayout
 
@@ -212,11 +212,11 @@
                         android:text="Home"
                         android:fontFamily="@font/fonts"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/home_image" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/home_image" />-->
 
 
                 </LinearLayout>
@@ -237,13 +237,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -263,13 +263,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
                 <LinearLayout
 
@@ -286,11 +286,11 @@
                         android:text="Tailor List"
                         android:fontFamily="@font/fonts"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/tailor_list" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/tailor_list" />-->
 
 
                 </LinearLayout>
@@ -311,13 +311,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -337,13 +337,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
                 <LinearLayout
 
@@ -360,11 +360,11 @@
                         android:text="Customer Detail"
                         android:fontFamily="@font/fonts"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/party_image" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/party_image" />-->
 
 
                 </LinearLayout>
@@ -385,13 +385,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -411,13 +411,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
                 <LinearLayout
 
@@ -434,11 +434,11 @@
                         android:text="Customer Add"
                         android:fontFamily="@font/fonts"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/customer_add" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/customer_add" />-->
 
 
                 </LinearLayout>
@@ -459,13 +459,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
 
 
@@ -486,13 +486,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
                 <LinearLayout
 
@@ -509,11 +509,11 @@
                         android:textColor="@color/black"
                         android:text="Customer list" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/customer_list" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/customer_list" />-->
 
 
                 </LinearLayout>
@@ -534,13 +534,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -560,13 +560,13 @@
                         android:text=" fgfgcgf  "
                         android:visibility="gone" />
 
-                    <ImageView
+                    <!--<ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_people_outline_black_24dp"
-                        android:visibility="gone" />
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_people_outline_black_24dp"-->
+                        <!--android:visibility="gone" />-->
                 </LinearLayout>
                 <LinearLayout
 
@@ -583,11 +583,11 @@
                         android:textColor="@color/black"
                         android:text="Order Details" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/order" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/order" />-->
 
 
                 </LinearLayout>
@@ -657,11 +657,11 @@
                         android:textColor="@color/black"
                         android:text="Create Order" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/create_order" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/create_order" />-->
 
 
                 </LinearLayout>
@@ -1102,11 +1102,11 @@
                         android:textColor="@color/black"
                         android:text="Print Detail" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/print_image" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/print_image" />-->
 
 
                 </LinearLayout>
@@ -1176,11 +1176,11 @@
                         android:textColor="@color/black"
                         android:text="Print Pdf" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/print_pdf" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/print_pdf" />-->
 
 
                 </LinearLayout>

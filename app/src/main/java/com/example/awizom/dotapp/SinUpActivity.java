@@ -15,14 +15,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.Models.UserRegister;
 import com.google.gson.Gson;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -139,7 +136,6 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-
     private void createUser() {
         String name = userName.getText().toString().trim();
         String pwd = passWord.getText().toString().trim();
@@ -209,6 +205,18 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                     UserRegister.RootObject jsonbody = gson.fromJson(result, UserRegister.RootObject.class);
                     if (jsonbody.isStatus() == true) {
                         Toast.makeText(getApplicationContext(), "User Is Not Active", Toast.LENGTH_SHORT).show();
+
+                        AlertDialog alertDialog = new AlertDialog.Builder(SinUpActivity.this).create();
+                        alertDialog.setTitle("Registration successful !!");
+                        alertDialog.setMessage("User is not active please contact your Admin");
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+
 //                        Token user = new Token();
 //                        us
 // er.userRole = jsonbody.Role;

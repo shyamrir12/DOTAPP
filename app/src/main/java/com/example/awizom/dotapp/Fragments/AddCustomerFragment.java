@@ -12,14 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.awizom.dotapp.Config.AppConfig;
 import com.example.awizom.dotapp.CustomerActivity;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
 import com.google.gson.Gson;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,6 +32,7 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.customer_add_layout, container, false);
         initView(view);
         return view;
@@ -41,6 +40,7 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     }
 
     private void initView(View view) {
+
         ((AppCompatActivity) getContext()).getSupportActionBar().setTitle("Add Customer");
         cName = view.findViewById(R.id.customerName);
         cContact = view.findViewById(R.id.contact);
@@ -50,8 +50,6 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
         addCustomer = view.findViewById(R.id.customer_add_button);
         addCustomer.setOnClickListener(this);
         progressDialog = new ProgressDialog(getActivity());
-
-
 
     }
 
@@ -66,7 +64,7 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
                     cContact.setError("Customer Contact is required!");
 
                 } else {
-                    if(cContact.getText().toString().length() >= 10 || interioContact.getText().toString().length() >= 10){
+                    if(cContact.getText().toString().length() >= 10 && interioContact.getText().toString().length() >= 10){
                         customerAddPost();
                     }else {
                         Toast.makeText(getActivity(), "Contact number must be 10 digit", Toast.LENGTH_SHORT).show();
