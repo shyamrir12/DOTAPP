@@ -230,7 +230,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
 //                            startActivity(intent = new Intent(SinUpActivity.this, HomeActivityUser.class));
 //                        }
                     } else {
-                        Toast.makeText(SinUpActivity.this, "Password must be of minimum 6 characters", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SinUpActivity.this, "All field will be must ", Toast.LENGTH_SHORT).show();
                     }
 
                 }
