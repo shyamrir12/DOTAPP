@@ -2,26 +2,15 @@ package com.example.awizom.dotapp.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.awizom.dotapp.CustomerActivity;
-import com.example.awizom.dotapp.Helper.SharedPrefManager;
-import com.example.awizom.dotapp.OrderBottomActivity;
 import com.example.awizom.dotapp.R;
-import com.example.awizom.dotapp.ReportActivity;
-import com.example.awizom.dotapp.SigninActivity;
-import com.example.awizom.dotapp.StatusActivity;
 
 public class BottomCustomerFragment extends Fragment implements View.OnClickListener {
 

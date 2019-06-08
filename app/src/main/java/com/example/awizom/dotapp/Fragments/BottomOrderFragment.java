@@ -348,7 +348,7 @@ public class BottomOrderFragment extends Fragment implements View.OnClickListene
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
 
-               // Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "Invalid request results is empty", Toast.LENGTH_SHORT).show();
             }else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<UserPermissionModel>() {

@@ -56,7 +56,7 @@ public class HomeActivityUser extends AppCompatActivity {
     List<UserModel> userItemList;
     String userId;
     Class fragmentClass;
-  String  permissionStatusName="";
+    String  permissionStatusName="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
