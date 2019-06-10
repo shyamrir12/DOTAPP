@@ -17,6 +17,7 @@ import com.example.awizom.dotapp.CustomerActivity;
 import com.example.awizom.dotapp.Helper.SharedPrefManager;
 import com.example.awizom.dotapp.Models.Result;
 import com.example.awizom.dotapp.R;
+import com.example.awizom.dotapp.SinUpActivity;
 import com.google.gson.Gson;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -62,6 +63,8 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
                         || (interioContact.getText().toString().isEmpty())*/
                     cName.setError("Customer Name is required!");
                     cContact.setError("Customer Contact is required!");
+                    Toast.makeText(getContext(), "All field will be must ", Toast.LENGTH_SHORT).show();
+
 
                 } else {
                     if(cContact.getText().toString().length() >= 10 && interioContact.getText().toString().length() >= 10){
@@ -171,6 +174,8 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
 
                 if (jsonbodyres.getStatus() == true) {
                     startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
+                }else {
+                    Toast.makeText(getContext(), "All field will be must ", Toast.LENGTH_SHORT).show();
                 }
 
             }

@@ -54,6 +54,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
     }
 
     private void initView(View view) {
+
         ((AppCompatActivity) getContext()).getSupportActionBar().setTitle("Modify Customer");
         cName = view.findViewById(R.id.customerName);
         cContact = view.findViewById(R.id.contact);
@@ -71,7 +72,6 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
         cName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -99,14 +99,11 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
                     cName.setError("Customer Name is required!");
                     cContact.setError("Customer Contact is required!");
                 }else {
-
                     if(cContact.getText().toString().length() >= 10 || interioContact.getText().toString().length() >= 10){
                         customerUpdatePost();
                     }else {
                         Toast.makeText(getActivity(), "Contact number must be 10 digit", Toast.LENGTH_SHORT).show();
                     }
-
-
                 }
                 break;
 
@@ -157,14 +154,12 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
         protected String doInBackground(String... params) {
 
             //     InputStream inputStream
-
             String customername = params[0];
             String address = params[1];
             String mobile = params[2];
             String interiorname = params[3];
             String interiormobile = params[4];
             String accesstoken = params[5];
-
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
@@ -198,7 +193,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
                 startActivity(intent = new Intent(getActivity(), CustomerActivity.class));
             } else {
                 Gson gson = new Gson();
@@ -255,7 +250,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<CustomerModel>>() {
@@ -281,7 +276,6 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
     private void getCustomerName(String cusname) {
 
         try {
-
             new getCustomer().execute(SharedPrefManager.getInstance(getContext()).getUser().access_token, cusname);
         } catch (Exception e) {
             e.printStackTrace();
@@ -318,7 +312,7 @@ public class ModifyCustomerFragment extends Fragment implements View.OnClickList
 
         protected void onPostExecute(String result) {
             if (result.isEmpty()) {
-                Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Invalid request", Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<CustomerModel>() {

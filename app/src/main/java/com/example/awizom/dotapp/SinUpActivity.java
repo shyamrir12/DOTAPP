@@ -218,8 +218,7 @@ public class SinUpActivity extends AppCompatActivity implements View.OnClickList
                         alertDialog.show();
 
 //                        Token user = new Token();
-//                        us
-// er.userRole = jsonbody.Role;
+//                        user.userRole = jsonbody.Role;
 //                        user.access_token = jsonbody.login.access_token;
 //                        user.userName = jsonbody.login.userName;
 //                        user.token_type = jsonbody.login.token_type;

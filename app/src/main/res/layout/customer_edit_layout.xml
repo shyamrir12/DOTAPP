@@ -12,42 +12,44 @@
             android:id="@+id/centre_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_centerHorizontal="true">
+            android:layout_marginTop="30dp">
+
             <EditText
                 android:id="@+id/cus_id"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_centerHorizontal="true"
-                android:hint="@string/customercontact"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/fonts"
-                android:inputType="number"
-                android:maxLength="10"
                 android:layout_above="@+id/cus_address"
+                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
+                android:fontFamily="@font/fonts"
+                android:hint="@string/customercontact"
+                android:inputType="number"
+                android:maxLength="10"
                 android:paddingLeft="14dp"
-                android:visibility="gone"/>
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
             <AutoCompleteTextView
                 android:id="@+id/customerName"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_centerHorizontal="true"
-                android:hint="@string/customername"
-                android:textSize="15sp"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:fontFamily="@font/fonts"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
-
                 android:layout_above="@+id/contact"
+                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
-                android:paddingLeft="14dp" />
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
+                android:fontFamily="@font/fonts"
+                android:hint="@string/customername"
+
+                android:inputType="text"
+                android:paddingLeft="14dp"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <ImageView
                 android:layout_width="30dp"
@@ -61,80 +63,80 @@
                 android:id="@+id/contact"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_centerHorizontal="true"
-                android:hint="@string/customercontact"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/fonts"
-                android:inputType="number"
-                android:maxLength="10"
                 android:layout_above="@+id/cus_address"
+                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
-                android:paddingLeft="14dp" />
+                android:fontFamily="@font/fonts"
+                android:hint="@string/customercontact"
+                android:inputType="number"
+                android:maxLength="10"
+                android:paddingLeft="14dp"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/cus_address"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_above="@+id/interior_name"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:hint="@string/address"
-                android:inputType="text"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/fonts"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
+                android:fontFamily="@font/fonts"
+                android:hint="@string/address"
+                android:inputType="text"
                 android:paddingLeft="14dp"
-                android:layout_above="@+id/interior_name" />
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/interior_name"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:hint="@string/name"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:fontFamily="@font/fonts"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
-
-                android:textSize="15sp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/signin_sinup_button_shape"
-                android:paddingLeft="14dp" />
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
+                android:fontFamily="@font/fonts"
+                android:hint="@string/name"
+
+                android:inputType="text"
+                android:paddingLeft="14dp"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/interior_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_below="@+id/interior_name"
                 android:layout_centerHorizontal="true"
+                android:background="@drawable/signin_sinup_button_shape"
+                android:fontFamily="@font/fonts"
                 android:hint="@string/interioMobile"
                 android:inputType="number"
                 android:maxLength="10"
-                android:textSize="15sp"
+                android:paddingLeft="14dp"
                 android:textColor="@color/black"
-                android:fontFamily="@font/fonts"
-                android:layout_below="@+id/interior_name"
-                android:background="@drawable/signin_sinup_button_shape"
-                android:paddingLeft="14dp" />
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/updateButton"
                 android:layout_width="230dp"
                 android:layout_height="50dp"
+                android:layout_below="@+id/interior_mobile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/add_cancel_button_shape"
+                android:fontFamily="@font/fonts"
                 android:text="@string/edit"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="18sp"
-                android:fontFamily="@font/fonts"
-                android:layout_below="@+id/interior_mobile"
-                android:layout_marginTop="40dp"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/add_cancel_button_shape" />
+                android:textStyle="bold" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
